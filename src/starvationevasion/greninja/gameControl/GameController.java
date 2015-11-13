@@ -4,6 +4,9 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
 
 /**
+ * Main communication hub of client application.  This will be the go-between
+ * class for the server message handlers, world state model, game state classes
+ * and gui.
  * @author Justin Thomas(jthomas105@unm.edu)
  */
 public class GameController

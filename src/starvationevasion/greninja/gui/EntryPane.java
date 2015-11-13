@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
+ * Entry pane where the player chooses game mode.
  * @author Justin Thomas(jthomas105@unm.edu)
  */
 public class EntryPane extends StackPane

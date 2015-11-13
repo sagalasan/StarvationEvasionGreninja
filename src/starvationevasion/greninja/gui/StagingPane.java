@@ -10,8 +10,8 @@ import javafx.scene.layout.HBox;
 import java.util.HashMap;
 
 /**
- * @author Justin Thomas(jthomas105@unm.edu)
  * Select region, wait for other players to join.
+ * @author Justin Thomas(jthomas105@unm.edu)
  */
 public class StagingPane extends HBox
 {

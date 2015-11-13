@@ -9,6 +9,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
+ * GUI hub class and main method of client application.
+ * All user input and output is routed through this class.
  * @author Justin Thomas jthomas105@unm.edu
  */
 public class GuiBase extends Application

@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
+ * Base pane for Policy Drafting Phase.
+ * TODO Change to stack pane.  Other gui elements will be layered on top.
  * @author Justin Thomas
  */
 public class PolicyPane extends VBox
