@@ -1,4 +1,4 @@
-package starvationevasion.greninja.gui;
+package starvationevasion.greninja.gui.basePane;
 
 import starvationevasion.common.EnumRegion;
 import javafx.event.ActionEvent;
@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import starvationevasion.greninja.gui.GuiBase;
 
 import java.util.HashMap;
 

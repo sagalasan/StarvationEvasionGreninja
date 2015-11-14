@@ -1,10 +1,11 @@
-package starvationevasion.greninja.gui;
+package starvationevasion.greninja.gui.basePane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import starvationevasion.greninja.gui.GuiBase;
 
 /**
  * Base pane for the gui during the policy voting phase.
