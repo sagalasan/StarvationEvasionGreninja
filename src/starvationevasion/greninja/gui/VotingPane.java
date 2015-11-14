@@ -19,9 +19,16 @@ public class VotingPane extends VBox
   public VotingPane(GuiBase base)
   {
     this.base = base;
+  }
+
+  /**
+   * Instantiate and add pane components
+   */
+  public void initPane()
+  {
     Button button = new Button();
     button.setText("Next State");
-    button.setOnAction(new ButtonControl(this.base, this));
+    button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("VotingPane, choose policies."));
     getChildren().add(button);
   }
@@ -33,12 +40,10 @@ public class VotingPane extends VBox
 
   private class ButtonControl implements EventHandler<ActionEvent>
   {
-    private GuiBase base;
     private VotingPane parentPane;
 
-    public ButtonControl(GuiBase gui, VotingPane parentPane)
+    public ButtonControl(VotingPane parentPane)
     {
-      this.base = gui;
       this.parentPane = parentPane;
     }
 

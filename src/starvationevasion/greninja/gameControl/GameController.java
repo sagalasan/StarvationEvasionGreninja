@@ -53,6 +53,7 @@ public class GameController
     playerRegion = region;
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
+    System.out.println("Start Policy Phase.");
     gui.swapToPolicyPane();//
   }
 }

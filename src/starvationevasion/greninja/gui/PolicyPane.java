@@ -18,9 +18,17 @@ public class PolicyPane extends VBox
   public PolicyPane(GuiBase base)
   {
     this.base = base;
+
+  }
+
+  /**
+   * Instantiate and add components.
+   */
+  public void initPane()
+  {
     Button button = new Button();
     button.setText("Next State");
-    button.setOnAction(new ButtonControl(this.base, this));
+    button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("Policy Pane, draft policies"));
     getChildren().add(button);
   }
@@ -30,14 +38,15 @@ public class PolicyPane extends VBox
     base.swapToVotingPane();
   }
 
+  /**
+   * Button listener.
+   */
   private class ButtonControl implements EventHandler<ActionEvent>
   {
-    private GuiBase base;
     private PolicyPane parentPane;
 
-    public ButtonControl(GuiBase gui, PolicyPane parentPane)
+    public ButtonControl(PolicyPane parentPane)
     {
-      this.base = gui;
       this.parentPane = parentPane;
     }
 

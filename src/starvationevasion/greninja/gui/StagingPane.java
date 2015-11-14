@@ -27,7 +27,7 @@ public class StagingPane extends HBox
   /**
    * Setup Staging Pane.
    */
-  public void initStagingPane()
+  public void initPane()
   {
     getChildren().add(new Label("Staging Pane, select a region."));
     ButtonControl buttonListener = new ButtonControl(this);

@@ -80,7 +80,7 @@ public class GuiBase extends Application
   {
     System.out.println("Entered Staging Pane");
     StagingPane staging = new StagingPane(this);
-    staging.initStagingPane();
+    staging.initPane();
     baseScene.setRoot(staging);
   }
 
@@ -92,7 +92,9 @@ public class GuiBase extends Application
     //initialize components
     mainStage.setTitle("Starvation Evasion");
     policyPane = new PolicyPane(this);
+    policyPane.initPane();
     votingPane = new VotingPane(this);
+    votingPane.initPane();
     baseScene = new Scene(votingPane, 300, 500);
     mainStage.setScene(baseScene);
     baseScene.setRoot(new EntryPane(this));
