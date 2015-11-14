@@ -12,7 +12,6 @@ import starvationevasion.greninja.util.PhaseTimer;
  */
 public class GameController
 {
-  private static final int DRAFTING_TIME_LIMIT = 5;
   private GuiBase gui;
   private EnumRegion playerRegion;
   private DraftingPhase draftingPhase;
@@ -69,9 +68,8 @@ public class GameController
    */
   public void startPolicyDraftingPhase()
   {
-    PhaseTimer draftingTimer = new PhaseTimer(DRAFTING_TIME_LIMIT);
     gui.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this, draftingTimer);
+    draftingPhase = new DraftingPhase(this);
   }
 
   /**

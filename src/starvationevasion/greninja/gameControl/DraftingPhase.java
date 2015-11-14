@@ -6,8 +6,10 @@ import starvationevasion.greninja.util.PhaseTimer;
 /**
  * Controls the policy drafting phase.
  */
-public class DraftingPhase
+public class DraftingPhase extends GamePhase
 {
+  private static final int DRAFTING_TIME_LIMIT = 5;
+
   //player may make to actions per turn, either drafting a policy or discarding.
   private int actionsTaken = 0;
   private boolean hasDiscarded;
@@ -18,9 +20,10 @@ public class DraftingPhase
    * Instantiate phase timer, assign reference to control,
    * @param control
    */
-  public DraftingPhase(GameController control, PhaseTimer phaseTimer)
+  public DraftingPhase(GameController control)
   {
-    this.phaseTimer = phaseTimer;
+    this.phaseTimer = new PhaseTimer(DRAFTING_TIME_LIMIT, this);
+    phaseTimer.start();
     this.control = control;
     hasDiscarded = false;
   }
@@ -113,4 +116,11 @@ public class DraftingPhase
     return cardSelected;
   }
 
+  /**
+   * Informs control that phase is over.
+   */
+  public void phaseOver()
+  {
+    control.endPolicyDraftingPhase();
+  }
 }

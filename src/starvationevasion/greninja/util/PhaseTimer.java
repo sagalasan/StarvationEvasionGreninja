@@ -1,25 +1,30 @@
 package starvationevasion.greninja.util;
 
+import starvationevasion.greninja.gameControl.GamePhase;
+
 /**
  * Timer to control game phases.
  */
-public class PhaseTimer
+public class PhaseTimer extends Thread
 {
   private static final long NANO_PER_SECOND = 1000000000;
   private static final int SECONDS_PER_MINUTE = 60;
 
   private long startTime;
-  private long nanoTimeLimit;
+  private long endTime;
+  private GamePhase phase;
 
   /**
    * Construct at beginning of phase.  Logs current system time and calculates
    * the time limit.
    * @param timeLimit       Time limit for phase in minutes.
    */
-  public PhaseTimer(int timeLimit)
+  public PhaseTimer(int timeLimit, GamePhase phase)
   {
     startTime = System.nanoTime();
-    nanoTimeLimit = (long)timeLimit * NANO_PER_SECOND * SECONDS_PER_MINUTE;
+    long nanoTimeLimit = (long)timeLimit * NANO_PER_SECOND * SECONDS_PER_MINUTE;
+    endTime = startTime + nanoTimeLimit;
+    this.phase = phase;
   }
 
   /**
@@ -29,13 +34,36 @@ public class PhaseTimer
    */
   public boolean phaseNotOver()
   {
-    if(System.nanoTime() <= (startTime + nanoTimeLimit))
+    if(System.nanoTime() <= (endTime))
     {
       return true;
     }
     else
     {
       return false;
+    }
+  }
+
+  /**
+   * Check if phase time limit is not reached every second.
+   */
+  public void run()
+  {
+    while(phaseNotOver())
+    {
+      try
+      {
+        sleep(1000);
+      }
+      catch(InterruptedException e)
+      {
+        System.out.println("Timer Interrupted.");
+        e.printStackTrace();
+      }
+    }
+    if(phase != null)
+    {
+      phase.phaseOver();
     }
   }
 }
