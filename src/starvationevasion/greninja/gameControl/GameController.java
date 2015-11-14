@@ -2,6 +2,7 @@ package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
+import starvationevasion.greninja.util.PhaseTimer;
 
 /**
  * Main communication hub of client application.  This will be the go-between
@@ -11,6 +12,7 @@ import starvationevasion.greninja.gui.GuiBase;
  */
 public class GameController
 {
+  private static final int DRAFTING_TIME_LIMIT = 5;
   private GuiBase gui;
   private EnumRegion playerRegion;
   //WorldModel
@@ -54,6 +56,20 @@ public class GameController
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
-    gui.swapToPolicyPane();//
+    startPolicyDraftingPhase();//
   }
+
+  public void startPolicyDraftingPhase()
+  {
+    PhaseTimer draftingTimer = new PhaseTimer(DRAFTING_TIME_LIMIT);
+    gui.swapToPolicyPane();
+    DraftingPhase currentPhase = new DraftingPhase(this, draftingTimer);
+    while(draftingTimer.phaseNotOver())
+    {
+      //do drafting phase stuff.
+    }
+    //inform server that drafting phase is over.
+  }
+
+
 }
