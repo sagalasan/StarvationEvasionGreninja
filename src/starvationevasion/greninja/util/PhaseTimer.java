@@ -1,7 +1,6 @@
 package starvationevasion.greninja.util;
 
 /**
- * @author Justin Thomas(jthomas105@unm.edu)
  * Timer to control game phases.
  */
 public class PhaseTimer

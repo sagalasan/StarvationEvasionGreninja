@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.util.PhaseTimer;
@@ -8,13 +9,13 @@ import starvationevasion.greninja.util.PhaseTimer;
  * Main communication hub of client application.  This will be the go-between
  * class for the server message handlers, world state model, game state classes
  * and gui.
- * @author Justin Thomas(jthomas105@unm.edu)
  */
 public class GameController
 {
   private static final int DRAFTING_TIME_LIMIT = 5;
   private GuiBase gui;
   private EnumRegion playerRegion;
+  private DraftingPhase draftingPhase;
   //WorldModel
   //GameStateTracker
 
@@ -59,17 +60,66 @@ public class GameController
     startPolicyDraftingPhase();//
   }
 
+  /*
+  ========================DRAFTING PHASE===============================
+  */
+
+  /**
+   * Instantiate new policyDrafting phase
+   */
   public void startPolicyDraftingPhase()
   {
     PhaseTimer draftingTimer = new PhaseTimer(DRAFTING_TIME_LIMIT);
     gui.swapToPolicyPane();
-    DraftingPhase currentPhase = new DraftingPhase(this, draftingTimer);
-    while(draftingTimer.phaseNotOver())
-    {
-      //do drafting phase stuff.
-    }
-    //inform server that drafting phase is over.
+    draftingPhase = new DraftingPhase(this, draftingTimer);
   }
 
+  /**
+   * Performs end drafting phase actions.
+   */
+  public void endPolicyDraftingPhase()
+  {
+    //add cards to hand.
+    //start voting phase.
+  }
 
+  /**
+   * When player discards a card on the gui, call this.
+   * @param cardIndex           index of card player selected.
+   */
+  public void discardOne(int cardIndex)
+  {
+    if(draftingPhase.discardOne(cardIndex))
+    {
+      //send success message to gui.
+      System.out.println("Discard Success.");
+    }
+    else
+    {
+      //send failure message to gui.
+      System.out.println("Discard failed.");
+    }
+  }
+
+  /**
+   * When gui's discard3 action is selected prompt user to select 3 cards.
+   */
+  public void discardThree()
+  {
+    //check if 3 cards in hand.
+    //prompt user to select 3 cards to discard
+    int[] cardsSelected = new int[3];
+    //gui.selectThree(cardsSelected)
+
+    if(draftingPhase.discardThree(cardsSelected))
+    {
+      //send success message to gui
+      System.out.println("Discard Success.");
+    }
+    else
+    {
+      //send failure message to gui
+      System.out.println("Discard failed.");
+    }
+  }
 }

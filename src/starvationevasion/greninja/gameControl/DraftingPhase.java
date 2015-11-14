@@ -1,9 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.util.PhaseTimer;
 
 /**
- * @author Justin Thomas(jthomas105@unm.edu)
  * Controls the policy drafting phase.
  */
 public class DraftingPhase
@@ -23,26 +23,33 @@ public class DraftingPhase
     this.phaseTimer = phaseTimer;
     this.control = control;
     hasDiscarded = false;
-    //this.player = player
   }
 
   /**
    * Discard 3 and draw 3 action.  Checks if turn is still on, and if card
    * selections are valid
-   * @param cardIndex1        Hand index of cards to be discarded
-   * @param cardIndex2                      "
-   * @param cardIndex3                      "
-   * @return                  true if discard was successful
+   * @param cardsSelected     Array of indices of cards selected.
+   * @return                  True if discard was successful.
    */
-  public boolean discardThree(int cardIndex1, int cardIndex2, int cardIndex3)
+  public boolean discardThree(int[] cardsSelected)
   {
-    boolean discardPerformed = false;
+    boolean discardPerformed = true;
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
       //check if card selections are valid for discard.
-      //if valid
+      for(int i = 0; i < 3; ++i)
+      {
+        if(selectCardFromHand(cardsSelected[i]) == null)
+        {
+          discardPerformed = false;
+        }
+      }
+      if(discardPerformed)
+      {
+        //if valid
         //remove cards from hand and add to discard.
         //discardPerformed = true
+      }
     }
     return discardPerformed;
   }
@@ -58,17 +65,20 @@ public class DraftingPhase
     if(!hasDiscarded && phaseTimer.phaseNotOver())
     {
       //check if card selection is valid discard
-      //if valid
+      if(selectCardFromHand(cardIndex) != null)
+      {
+        //if valid
         //remove card from hand and put in discard
         //discard performed = true
+      }
     }
     return discardPerformed;//
   }
 
   /**
    * Play a policy card, should inform game that card has been played.
-   * @param cardIndex
-   * @return
+   * @param cardIndex       index of card to get.
+   * @return                return success or failure.
    */
   public boolean draftPolicy(int cardIndex)
   {
@@ -76,10 +86,31 @@ public class DraftingPhase
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
       //check if valid card is played
-      //if valid
-        //remove card from hand and put in discard
-        //policy drafted = true
+      EnumPolicy cardSelected = selectCardFromHand(cardIndex);
+      if(cardSelected != null)
+      {
+        //if valid
+        //remove card from hand and put in discard.
+        //notify control -> server of policy drafted.
+        //notify control -> gui of updates to display.
+        policyDrafted = true;
+      }
     }
     return policyDrafted;
   }
+
+
+  /**
+   * Check if there is a card at hand index.
+   * @param index       card selected from gui.
+   * @return            Policy card returned, null if blank.
+   */
+  private EnumPolicy selectCardFromHand(int index)
+  {
+    EnumPolicy cardSelected = null;
+    //if hand at index != null
+    //cardSelected = hand at index
+    return cardSelected;
+  }
+
 }
