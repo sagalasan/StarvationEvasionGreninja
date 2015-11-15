@@ -1,9 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
-import starvationevasion.common.EnumPhase;
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
+import starvationevasion.greninja.clientCommon.EnumPhase;
+
 
 /**
  * Main communication hub of client application.  This will be the go-between
@@ -79,6 +79,7 @@ public class GameController
   }
 
   /*
+  =========end general phase methods============================================
   ******************************************************************************
   ============================DRAFTING PHASE====================================
   */

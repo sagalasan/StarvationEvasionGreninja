@@ -1,6 +1,6 @@
 package starvationevasion.greninja.gui;
 
-import starvationevasion.common.EnumPhase;
+import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.GameController;
 import javafx.application.Application;

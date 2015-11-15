@@ -1,4 +1,4 @@
-package starvationevasion.common;
+package starvationevasion.greninja.clientCommon;
 
 /**
  * Enum of phase names.

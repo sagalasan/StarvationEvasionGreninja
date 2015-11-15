@@ -1,6 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
-import starvationevasion.common.EnumPhase;
+import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.util.PhaseTimer;
 
