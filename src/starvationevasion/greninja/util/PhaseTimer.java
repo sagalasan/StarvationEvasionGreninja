@@ -77,7 +77,7 @@ public class PhaseTimer extends Thread
    * Return array with current time remaining.
    * @return        int array of size two representing minutes and seconds left.
    */
-  private int[] updateRemainingTime()
+  private String updateRemainingTime()
   {
     if(timeRemaining[1] <= 0)
     {
@@ -88,6 +88,23 @@ public class PhaseTimer extends Thread
     {
       timeRemaining[1]--;
     }
-    return timeRemaining;
+    return makeTimeString();
+  }
+
+  /**
+   * Convert timeRemaining into string.
+   * @return        string representation of time. "m:ss"
+   */
+  private String makeTimeString()
+  {
+    StringBuilder timeString = new StringBuilder();
+    timeString.append(timeRemaining[0]);
+    timeString.append(':');
+    if (timeRemaining[1] < 10)
+    {
+      timeString.append(0);
+    }
+    timeString.append(timeRemaining[1]);
+    return timeString.toString();
   }
 }

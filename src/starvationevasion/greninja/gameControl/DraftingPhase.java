@@ -128,8 +128,9 @@ public class DraftingPhase extends GamePhase
    * Call control to update gui time.
    * @param time        length 2 array of ints representing time remaining.
    */
-  public void updateViewTimer(int[] time)
+  public void updateViewTimer(String time)
   {
+
     //send new time to control -> gui.
     control.updateViewTimer(EnumPhase.DRAFTING, time);
   }

@@ -72,7 +72,7 @@ public class GameController
    * @param phase       phase that sent the update.
    * @param time        int array representing minutes and seconds.
    */
-  public void updateViewTimer(EnumPhase phase, int[] time)
+  public void updateViewTimer(EnumPhase phase, String time)
   {
     //gui->update timer
     gui.updateTimer(phase, time);
