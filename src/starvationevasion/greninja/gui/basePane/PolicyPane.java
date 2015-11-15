@@ -32,14 +32,13 @@ public class PolicyPane extends VBox
    */
   public void initPane()
   {
-    timer = new TimerPane("5:00");
-    timer.initPhaseTimer();
+    timer = new TimerPane();
+    timer.initPhaseTimer("5:00");
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("Policy Pane, draft policies"));
 
-    //TODO goes into timer pane
     getChildren().add(timer);
 
     getChildren().add(button);
@@ -52,17 +51,6 @@ public class PolicyPane extends VBox
   public void swapPane()
   {
     base.swapToVotingPane();
-  }
-
-  /**
-   * Change timer color to new color.
-   * @param minuteMark        color selected hinges on minutes left.
-   *                          at two minutes set color to orange.
-   *                          at one minute set to red.
-   */
-  public void updateColor(int minuteMark)
-  {
-
   }
 
   /**

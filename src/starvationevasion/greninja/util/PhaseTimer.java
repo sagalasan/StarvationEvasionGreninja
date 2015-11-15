@@ -4,7 +4,9 @@ import starvationevasion.greninja.gameControl.GamePhase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 
 /**
- * Timer to control game phases.
+ * Timer to control game phases.  Game Timer is based on system clock.  The
+ * javafx timers timers all appear to be tied to the framerate, which may cause
+ * time mismatches.
  */
 public class PhaseTimer extends Thread
 {

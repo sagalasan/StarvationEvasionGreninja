@@ -17,28 +17,31 @@ import javafx.util.Duration;
 public class TimerPane extends Pane
 {
 
-  private final Color timerGreen;
-  private Color timerDefaultColor;
+  private final Color timerGreen; //basic green color
+  private Color timerDefaultColor; //color that this timer will remain as
   private Label timeLabel;
   private String timeRemaining;
-  private Color timerColor;
+  private Color timerColor; //current color
 
-  public TimerPane(String initialTime)
+  /**
+   * Basic constructor that initializes default green color.
+   */
+  public TimerPane()
   {
     timerGreen = new Color(0.0, 0.9, 0.0, 1.0);
+  }
+
+  /**
+   * Start and add the timer visualization.
+   */
+  public void initPhaseTimer(String initialTime)
+  {
     timeRemaining = initialTime;
     timeLabel = new Label(timeRemaining);
     timerDefaultColor = timerGreen;
     timerColor = timerDefaultColor;
     timeLabel.setTextFill(timerGreen);
     getChildren().add(timeLabel);
-  }
-
-  /**
-   * Start and add the timer visualization.
-   */
-  public void initPhaseTimer()
-  {
     Timeline timerCountdown = new Timeline(new KeyFrame(Duration.seconds(0.5),
         new EventHandler<ActionEvent>()
         {
