@@ -1,25 +1,34 @@
 package starvationevasion.greninja.util;
 
+import starvationevasion.greninja.gameControl.GamePhase;
+
 /**
  * Timer to control game phases.
  */
-public class PhaseTimer
+public class PhaseTimer extends Thread
 {
   private static final long NANO_PER_SECOND = 1000000000;
   private static final int SECONDS_PER_MINUTE = 60;
 
   private long startTime;
-  private long nanoTimeLimit;
+  private long endTime;
+  private GamePhase phase;
+  private int[] timeRemaining;
 
   /**
    * Construct at beginning of phase.  Logs current system time and calculates
    * the time limit.
    * @param timeLimit       Time limit for phase in minutes.
    */
-  public PhaseTimer(int timeLimit)
+  public PhaseTimer(int timeLimit, GamePhase phase)
   {
     startTime = System.nanoTime();
-    nanoTimeLimit = (long)timeLimit * NANO_PER_SECOND * SECONDS_PER_MINUTE;
+    long nanoTimeLimit = (long)timeLimit * NANO_PER_SECOND * SECONDS_PER_MINUTE;
+    endTime = startTime + nanoTimeLimit;
+    this.phase = phase;
+    timeRemaining = new int[2];
+    timeRemaining[0] = timeLimit;
+    timeRemaining[1] = 0;
   }
 
   /**
@@ -29,7 +38,7 @@ public class PhaseTimer
    */
   public boolean phaseNotOver()
   {
-    if(System.nanoTime() <= (startTime + nanoTimeLimit))
+    if(System.nanoTime() <= (endTime))
     {
       return true;
     }
@@ -37,5 +46,65 @@ public class PhaseTimer
     {
       return false;
     }
+  }
+
+  /**
+   * Check if phase time limit is not reached every second.
+   */
+  @Override
+  public void run()
+  {
+    while(phaseNotOver() && phase != null)
+    {
+      try
+      {
+        sleep(1000);
+      }
+      catch(InterruptedException e)
+      {
+        System.out.println("Timer Interrupted.");
+        e.printStackTrace();
+      }
+      phase.updateViewTimer(updateRemainingTime());
+    }
+    if(phase != null)
+    {
+      phase.phaseOver();
+    }
+  }
+
+  /**
+   * Return array with current time remaining.
+   * @return        int array of size two representing minutes and seconds left.
+   */
+  private String updateRemainingTime()
+  {
+    if(timeRemaining[1] <= 0)
+    {
+      timeRemaining[1] = 59;
+      timeRemaining[0]--;
+    }
+    else
+    {
+      timeRemaining[1]--;
+    }
+    return makeTimeString();
+  }
+
+  /**
+   * Convert timeRemaining into string.
+   * @return        string representation of time. "m:ss"
+   */
+  private String makeTimeString()
+  {
+    StringBuilder timeString = new StringBuilder();
+    timeString.append(timeRemaining[0]);
+    timeString.append(':');
+    if (timeRemaining[1] < 10)
+    {
+      timeString.append(0);
+    }
+    timeString.append(timeRemaining[1]);
+    return timeString.toString();
   }
 }

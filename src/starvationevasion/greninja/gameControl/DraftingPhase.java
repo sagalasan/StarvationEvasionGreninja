@@ -1,13 +1,16 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.util.PhaseTimer;
 
 /**
  * Controls the policy drafting phase.
  */
-public class DraftingPhase
+public class DraftingPhase extends GamePhase
 {
+  private static final int DRAFTING_TIME_LIMIT = 5;
+
   //player may make to actions per turn, either drafting a policy or discarding.
   private int actionsTaken = 0;
   private boolean hasDiscarded;
@@ -18,9 +21,10 @@ public class DraftingPhase
    * Instantiate phase timer, assign reference to control,
    * @param control
    */
-  public DraftingPhase(GameController control, PhaseTimer phaseTimer)
+  public DraftingPhase(GameController control)
   {
-    this.phaseTimer = phaseTimer;
+    this.phaseTimer = new PhaseTimer(DRAFTING_TIME_LIMIT, this);
+    phaseTimer.start();
     this.control = control;
     hasDiscarded = false;
   }
@@ -69,7 +73,14 @@ public class DraftingPhase
       {
         //if valid
         //remove card from hand and put in discard
-        //discard performed = true
+        hasDiscarded = true;
+        discardPerformed = true;
+        System.out.println("Card discarded.");
+      }
+      else
+      {
+        //inform control -> gui that discard failed.
+        System.out.println("Discard failed.");
       }
     }
     return discardPerformed;//
@@ -113,4 +124,22 @@ public class DraftingPhase
     return cardSelected;
   }
 
+  /**
+   * Call control to update gui time.
+   * @param time        length 2 array of ints representing time remaining.
+   */
+  public void updateViewTimer(String time)
+  {
+
+    //send new time to control -> gui.
+    control.updateViewTimer(EnumPhase.DRAFTING, time);
+  }
+
+  /**
+   * Informs control that phase is over.
+   */
+  public void phaseOver()
+  {
+    control.endPolicyDraftingPhase();
+  }
 }

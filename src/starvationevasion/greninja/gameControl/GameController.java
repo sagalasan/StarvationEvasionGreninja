@@ -1,9 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
-import starvationevasion.greninja.util.PhaseTimer;
+import starvationevasion.greninja.clientCommon.EnumPhase;
+
 
 /**
  * Main communication hub of client application.  This will be the go-between
@@ -12,7 +12,6 @@ import starvationevasion.greninja.util.PhaseTimer;
  */
 public class GameController
 {
-  private static final int DRAFTING_TIME_LIMIT = 5;
   private GuiBase gui;
   private EnumRegion playerRegion;
   private DraftingPhase draftingPhase;
@@ -24,6 +23,9 @@ public class GameController
     this.gui = gui;
   }
 
+  /*
+  ============================Startup===========================================
+  */
   /**
    * Begin single player game.
    * Instantiate local server.
@@ -59,8 +61,26 @@ public class GameController
     System.out.println("Start Policy Phase.");
     startPolicyDraftingPhase();//
   }
+  /*
+  ============================end startup=======================================
+  ******************************************************************************
+  ===========================GENERAL PHASE METHODS==============================
+  */
+
+  /**
+   * Pass timer update to gui.
+   * @param phase       phase that sent the update.
+   * @param time        int array representing minutes and seconds.
+   */
+  public void updateViewTimer(EnumPhase phase, String time)
+  {
+    //gui->update timer
+    gui.updateTimer(phase, time);
+  }
 
   /*
+  =========end general phase methods============================================
+  ******************************************************************************
   ============================DRAFTING PHASE====================================
   */
 
@@ -69,9 +89,8 @@ public class GameController
    */
   public void startPolicyDraftingPhase()
   {
-    PhaseTimer draftingTimer = new PhaseTimer(DRAFTING_TIME_LIMIT);
     gui.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this, draftingTimer);
+    draftingPhase = new DraftingPhase(this);
   }
 
   /**
@@ -81,6 +100,9 @@ public class GameController
   {
     //add cards to hand.
     //start voting phase.
+    //TODO put in startPolicyVotingPhase()
+    gui.swapToVotingPane();
+    draftingPhase = null;
   }
 
   /**
@@ -127,4 +149,14 @@ public class GameController
   ******************************************************************************
   ==============================VOTING PHASE====================================
   */
+
+  public void startVotingPhase()
+  {
+    gui.swapToVotingPane();
+    //do stuff
+  }
+
+  /*
+  ===========voting phase end===================================================
+   */
 }

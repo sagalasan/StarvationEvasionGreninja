@@ -1,5 +1,8 @@
 package starvationevasion.greninja.gui;
 
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
+import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.GameController;
 import javafx.application.Application;
@@ -14,6 +17,7 @@ import starvationevasion.greninja.gui.basePane.*;
  * All user input and output is routed through this class.
  * @author Justin Thomas jthomas105@unm.edu
  */
+
 public class GuiBase extends Application
 {
   private PolicyPane policyPane;
@@ -21,6 +25,10 @@ public class GuiBase extends Application
   private Stage mainStage;
   private Scene baseScene;
   private GameController control;
+
+  /*
+  ===========================TO CONTROL=========================================
+   */
 
   /**
    * Starts a single player game.
@@ -85,6 +93,39 @@ public class GuiBase extends Application
     baseScene.setRoot(staging);
   }
 
+  /*
+  ==============end to control==================================================
+  ******************************************************************************
+  ====================FROM CONTROL==============================================
+   */
+
+  /**
+   * Update timer on appropriate pane
+   * @param phase         Enum of current phase
+   * @param time          int array of length two representing minutes and seconds
+   *                      remaining.
+   */
+  public void updateTimer(EnumPhase phase, String time)
+  {
+    //update appropriate timer.
+    switch(phase)
+    {
+      case DRAFTING:
+        //update drafting phase timer.
+        policyPane.updateTimer(time);
+        break;
+      case VOTING:
+        //update voting phase timer.
+        break;
+      default:
+        System.out.println("No timer to update");
+    }
+  }
+
+  /*
+  ============end from control==================================================
+   */
+
   /**
    * Initialize GUI components.
    */
@@ -121,5 +162,15 @@ public class GuiBase extends Application
     mainStage = primaryStage;
     setupGui();
     control = new GameController(this);
+  }
+
+  /**
+   * Override stop method to keep
+   */
+  @Override
+  public void stop()
+  {
+    Platform.exit();
+    System.exit(0);
   }
 }
