@@ -1,6 +1,7 @@
 package starvationevasion.greninja.util;
 
 import starvationevasion.greninja.gameControl.GamePhase;
+import starvationevasion.greninja.gui.componentPane.TimerPane;
 
 /**
  * Timer to control game phases.
@@ -13,6 +14,7 @@ public class PhaseTimer extends Thread
   private long startTime;
   private long endTime;
   private GamePhase phase;
+  private TimerPane timerVisualization;
   private int[] timeRemaining;
 
   /**
@@ -20,7 +22,7 @@ public class PhaseTimer extends Thread
    * the time limit.
    * @param timeLimit       Time limit for phase in minutes.
    */
-  public PhaseTimer(int timeLimit, GamePhase phase)
+  public PhaseTimer(int timeLimit, GamePhase phase, TimerPane visibleTimer)
   {
     startTime = System.nanoTime();
     long nanoTimeLimit = (long)timeLimit * NANO_PER_SECOND * SECONDS_PER_MINUTE;
@@ -29,6 +31,7 @@ public class PhaseTimer extends Thread
     timeRemaining = new int[2];
     timeRemaining[0] = timeLimit;
     timeRemaining[1] = 0;
+    timerVisualization = visibleTimer;
   }
 
   /**
@@ -65,7 +68,7 @@ public class PhaseTimer extends Thread
         System.out.println("Timer Interrupted.");
         e.printStackTrace();
       }
-      phase.updateViewTimer(updateRemainingTime());
+      timerVisualization.updateTimeRemaining(updateRemainingTime());
     }
     if(phase != null)
     {
@@ -83,6 +86,10 @@ public class PhaseTimer extends Thread
     {
       timeRemaining[1] = 59;
       timeRemaining[0]--;
+      if(timeRemaining[0] < 2)
+      {
+        timerVisualization.setTimerColor(timeRemaining[0]);
+      }
     }
     else
     {

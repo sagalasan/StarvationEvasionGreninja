@@ -1,7 +1,7 @@
 package starvationevasion.greninja.gameControl;
 
-import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumPolicy;
+import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.util.PhaseTimer;
 
 /**
@@ -21,9 +21,9 @@ public class DraftingPhase extends GamePhase
    * Instantiate phase timer, assign reference to control,
    * @param control
    */
-  public DraftingPhase(GameController control)
+  public DraftingPhase(GameController control, TimerPane visibleTimer)
   {
-    this.phaseTimer = new PhaseTimer(DRAFTING_TIME_LIMIT, this);
+    this.phaseTimer = new PhaseTimer(DRAFTING_TIME_LIMIT, this, visibleTimer);
     phaseTimer.start();
     this.control = control;
     hasDiscarded = false;
@@ -110,6 +110,13 @@ public class DraftingPhase extends GamePhase
     return policyDrafted;
   }
 
+  /**
+   * Informs control that phase is over.
+   */
+  public void phaseOver()
+  {
+    control.endPolicyDraftingPhase();
+  }
 
   /**
    * Check if there is a card at hand index.
@@ -122,24 +129,5 @@ public class DraftingPhase extends GamePhase
     //if hand at index != null
     //cardSelected = hand at index
     return cardSelected;
-  }
-
-  /**
-   * Call control to update gui time.
-   * @param time        length 2 array of ints representing time remaining.
-   */
-  public void updateViewTimer(String time)
-  {
-
-    //send new time to control -> gui.
-    control.updateViewTimer(EnumPhase.DRAFTING, time);
-  }
-
-  /**
-   * Informs control that phase is over.
-   */
-  public void phaseOver()
-  {
-    control.endPolicyDraftingPhase();
   }
 }

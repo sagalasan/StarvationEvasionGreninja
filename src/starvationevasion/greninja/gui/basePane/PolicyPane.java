@@ -7,8 +7,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+import javafx.scene.paint.Color;
 import starvationevasion.greninja.gui.GuiBase;
+import starvationevasion.greninja.gui.componentPane.TimerPane;
 
 /**
  * Base pane for Policy Drafting Phase.
@@ -19,13 +20,11 @@ public class PolicyPane extends VBox
 {
 
   private GuiBase base;
-  private Label testTime;
-  private String timeRemaining;
+  private TimerPane timer;
 
   public PolicyPane(GuiBase base)
   {
     this.base = base;
-    timeRemaining = "5:00";
   }
 
   /**
@@ -33,43 +32,46 @@ public class PolicyPane extends VBox
    */
   public void initPane()
   {
-    //TODO put into a timer pane.
-    testTime = new Label("5:00");
-    Timeline timerCountdown = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>()
-    {
-      @Override
-      public void handle(ActionEvent event)
-      {
-        testTime.setText(timeRemaining);
-      }
-    }));
-    timerCountdown.setCycleCount(Timeline.INDEFINITE);
-    timerCountdown.play();
-    //TODO endtodo
-
+    timer = new TimerPane("5:00");
+    timer.initPhaseTimer();
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("Policy Pane, draft policies"));
 
     //TODO goes into timer pane
-    getChildren().add(testTime);
+    getChildren().add(timer);
 
     getChildren().add(button);
   }
 
+  /**
+   * Swap to voting pane
+   * TODO will not need
+   */
   public void swapPane()
   {
     base.swapToVotingPane();
   }
 
   /**
-   * Update timer.
-   * @param time        String representing time remaining "m:ss"
+   * Change timer color to new color.
+   * @param minuteMark        color selected hinges on minutes left.
+   *                          at two minutes set color to orange.
+   *                          at one minute set to red.
    */
-  public void updateTimer(String time)
+  public void updateColor(int minuteMark)
   {
-    timeRemaining = time;
+
+  }
+
+  /**
+   * Get the timer pane.
+   * @return        reference to timerPane.
+   */
+  public TimerPane getTimerPane()
+  {
+    return timer;
   }
 
   /**

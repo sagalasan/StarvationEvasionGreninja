@@ -67,17 +67,6 @@ public class GameController
   ===========================GENERAL PHASE METHODS==============================
   */
 
-  /**
-   * Pass timer update to gui.
-   * @param phase       phase that sent the update.
-   * @param time        int array representing minutes and seconds.
-   */
-  public void updateViewTimer(EnumPhase phase, String time)
-  {
-    //gui->update timer
-    gui.updateTimer(phase, time);
-  }
-
   /*
   =========end general phase methods============================================
   ******************************************************************************
@@ -90,7 +79,7 @@ public class GameController
   public void startPolicyDraftingPhase()
   {
     gui.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this);
+    draftingPhase = new DraftingPhase(this, gui.getTimerPane(EnumPhase.DRAFTING));
   }
 
   /**
@@ -143,6 +132,15 @@ public class GameController
       //send failure message to gui
       System.out.println("Discard failed.");
     }
+  }
+
+  /**
+   * Pass message to change color.
+   * @param time            Phase time remaining in minutes.
+   */
+  public void timerColorChange(int time)
+  {
+    //gui.timerColorChange(time);
   }
   /*
   ==================drafting phase end==========================================

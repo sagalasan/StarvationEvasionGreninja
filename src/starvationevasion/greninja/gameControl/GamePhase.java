@@ -7,5 +7,4 @@ package starvationevasion.greninja.gameControl;
 public abstract class GamePhase
 {
   public abstract void phaseOver();
-  public abstract void updateViewTimer(String time);
 }

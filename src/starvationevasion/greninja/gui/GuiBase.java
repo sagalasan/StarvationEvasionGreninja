@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.greninja.gui.basePane.*;
+import starvationevasion.greninja.gui.componentPane.TimerPane;
 
 /**
  * GUI hub class and main method of client application.
@@ -100,26 +101,28 @@ public class GuiBase extends Application
    */
 
   /**
-   * Update timer on appropriate pane
-   * @param phase         Enum of current phase
-   * @param time          int array of length two representing minutes and seconds
-   *                      remaining.
+   * Get timer pane of phase
+   * @param phase       phase pane to get timer from.
+   * @return
    */
-  public void updateTimer(EnumPhase phase, String time)
+  public TimerPane getTimerPane(EnumPhase phase)
   {
     //update appropriate timer.
+    TimerPane timer;
     switch(phase)
     {
       case DRAFTING:
         //update drafting phase timer.
-        policyPane.updateTimer(time);
+        timer = policyPane.getTimerPane();
         break;
       case VOTING:
         //update voting phase timer.
+        timer = null;
         break;
       default:
-        System.out.println("No timer to update");
+        timer = null;
     }
+    return timer;
   }
 
   /*
