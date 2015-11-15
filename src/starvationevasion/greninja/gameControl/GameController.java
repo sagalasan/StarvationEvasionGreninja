@@ -102,6 +102,7 @@ public class GameController
     //start voting phase.
     //TODO put in startPolicyVotingPhase()
     gui.swapToVotingPane();
+    draftingPhase = null;
   }
 
   /**
