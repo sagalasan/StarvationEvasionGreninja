@@ -13,6 +13,7 @@ public class PhaseTimer extends Thread
   private long startTime;
   private long endTime;
   private GamePhase phase;
+  private int[] timeRemaining;
 
   /**
    * Construct at beginning of phase.  Logs current system time and calculates
@@ -25,6 +26,9 @@ public class PhaseTimer extends Thread
     long nanoTimeLimit = (long)timeLimit * NANO_PER_SECOND * SECONDS_PER_MINUTE;
     endTime = startTime + nanoTimeLimit;
     this.phase = phase;
+    timeRemaining = new int[2];
+    timeRemaining[0] = timeLimit;
+    timeRemaining[1] = 0;
   }
 
   /**
@@ -47,9 +51,10 @@ public class PhaseTimer extends Thread
   /**
    * Check if phase time limit is not reached every second.
    */
+  @Override
   public void run()
   {
-    while(phaseNotOver())
+    while(phaseNotOver() && phase != null)
     {
       try
       {
@@ -60,10 +65,29 @@ public class PhaseTimer extends Thread
         System.out.println("Timer Interrupted.");
         e.printStackTrace();
       }
+      phase.updateViewTimer(updateRemainingTime());
     }
     if(phase != null)
     {
       phase.phaseOver();
     }
+  }
+
+  /**
+   * Return array with current time remaining.
+   * @return        int array of size two representing minutes and seconds left.
+   */
+  private int[] updateRemainingTime()
+  {
+    if(timeRemaining[1] <= 0)
+    {
+      timeRemaining[1] = 59;
+      timeRemaining[0]--;
+    }
+    else
+    {
+      timeRemaining[1]--;
+    }
+    return timeRemaining;
   }
 }

@@ -1,9 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPhase;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
-import starvationevasion.greninja.util.PhaseTimer;
 
 /**
  * Main communication hub of client application.  This will be the go-between
@@ -23,6 +23,9 @@ public class GameController
     this.gui = gui;
   }
 
+  /*
+  ============================Startup===========================================
+  */
   /**
    * Begin single player game.
    * Instantiate local server.
@@ -58,8 +61,25 @@ public class GameController
     System.out.println("Start Policy Phase.");
     startPolicyDraftingPhase();//
   }
+  /*
+  ============================end startup=======================================
+  ******************************************************************************
+  ===========================GENERAL PHASE METHODS==============================
+  */
+
+  /**
+   * Pass timer update to gui.
+   * @param phase       phase that sent the update.
+   * @param time        int array representing minutes and seconds.
+   */
+  public void updateViewTimer(EnumPhase phase, int[] time)
+  {
+    //gui->update timer
+    gui.updateTimer(phase, time);
+  }
 
   /*
+  ******************************************************************************
   ============================DRAFTING PHASE====================================
   */
 
@@ -79,6 +99,8 @@ public class GameController
   {
     //add cards to hand.
     //start voting phase.
+    //TODO put in startPolicyVotingPhase()
+    gui.swapToVotingPane();
   }
 
   /**
@@ -125,4 +147,14 @@ public class GameController
   ******************************************************************************
   ==============================VOTING PHASE====================================
   */
+
+  public void startVotingPhase()
+  {
+    gui.swapToVotingPane();
+    //do stuff
+  }
+
+  /*
+  ===========voting phase end===================================================
+   */
 }

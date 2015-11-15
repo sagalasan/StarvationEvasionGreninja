@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPhase;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.util.PhaseTimer;
 
@@ -72,7 +73,14 @@ public class DraftingPhase extends GamePhase
       {
         //if valid
         //remove card from hand and put in discard
-        //discard performed = true
+        hasDiscarded = true;
+        discardPerformed = true;
+        System.out.println("Card discarded.");
+      }
+      else
+      {
+        //inform control -> gui that discard failed.
+        System.out.println("Discard failed.");
       }
     }
     return discardPerformed;//
@@ -114,6 +122,16 @@ public class DraftingPhase extends GamePhase
     //if hand at index != null
     //cardSelected = hand at index
     return cardSelected;
+  }
+
+  /**
+   * Call control to update gui time.
+   * @param time        length 2 array of ints representing time remaining.
+   */
+  public void updateViewTimer(int[] time)
+  {
+    //send new time to control -> gui.
+    control.updateViewTimer(EnumPhase.DRAFTING, time);
   }
 
   /**

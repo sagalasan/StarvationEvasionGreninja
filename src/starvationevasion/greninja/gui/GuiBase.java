@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gui;
 
+import starvationevasion.common.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.GameController;
 import javafx.application.Application;
@@ -21,6 +22,10 @@ public class GuiBase extends Application
   private Stage mainStage;
   private Scene baseScene;
   private GameController control;
+
+  /*
+  ===========================TO CONTROL=========================================
+   */
 
   /**
    * Starts a single player game.
@@ -84,6 +89,39 @@ public class GuiBase extends Application
     staging.initPane();
     baseScene.setRoot(staging);
   }
+
+  /*
+  ==============end to control==================================================
+  ******************************************************************************
+  ====================FROM CONTROL==============================================
+   */
+
+  /**
+   * Update timer on appropriate pane
+   * @param phase         Enum of current phase
+   * @param time          int array of length two representing minutes and seconds
+   *                      remaining.
+   */
+  public void updateTimer(EnumPhase phase, int[] time)
+  {
+    //update appropriate timer.
+    switch(phase)
+    {
+      case DRAFTING:
+        //update drafting phase timer.
+        System.out.println(time[0] + " : " + time[1]);
+        break;
+      case VOTING:
+        //update voting phase timer.
+        break;
+      default:
+        System.out.println("No timer to update");
+    }
+  }
+
+  /*
+  ============end from control==================================================
+   */
 
   /**
    * Initialize GUI components.
