@@ -18,6 +18,19 @@ public class GameController
   //WorldModel
   //GameStateTracker
 
+  /**
+   * Constructor for ai game.
+   * TODO wait to see what server does for ais
+   */
+  public GameController()
+  {
+    //start AI game
+  }
+
+  /**
+   * Starter for human player game.
+   * @param gui       gui to use.
+   */
   public GameController(GuiBase gui)
   {
     this.gui = gui;
@@ -33,7 +46,16 @@ public class GameController
   public void startSinglePlayerGame()
   {
     System.out.println("Start single player game.");
+    //for remaining slots, start AiGame (on new thread?).
     gui.swapToStagingPane();
+  }
+
+  /**
+   * Start game for an ai player.
+   */
+  public void startAiGame()
+  {
+    //Start a game for ai player.
   }
 
   /**
