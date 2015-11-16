@@ -15,6 +15,7 @@ public class GameController
   private GuiBase gui;
   private EnumRegion playerRegion;
   private DraftingPhase draftingPhase;
+  private VotingPhase votingPhase;
   //WorldModel
   //GameStateTracker
 
@@ -109,10 +110,9 @@ public class GameController
    */
   public void endPolicyDraftingPhase()
   {
-    //add cards to hand.
     //start voting phase.
     //TODO put in startPolicyVotingPhase()
-    gui.swapToVotingPane();
+    startPolicyVotingPhase();
     draftingPhase = null;
   }
 
@@ -156,24 +156,30 @@ public class GameController
     }
   }
 
-  /**
-   * Pass message to change color.
-   * @param time            Phase time remaining in minutes.
-   */
-  public void timerColorChange(int time)
-  {
-    //gui.timerColorChange(time);
-  }
   /*
   ==================drafting phase end==========================================
   ******************************************************************************
   ==============================VOTING PHASE====================================
   */
 
-  public void startVotingPhase()
+  /**
+   * Start new voting phase.
+   */
+  public void startPolicyVotingPhase()
   {
     gui.swapToVotingPane();
+    votingPhase = new VotingPhase(this, gui.getTimerPane(EnumPhase.VOTING));
     //do stuff
+  }
+
+  /**
+   * end voting phase.
+   */
+  public void endPolicyVotingPhase()
+  {
+    //add cards to hand.
+    startPolicyDraftingPhase();
+    votingPhase = null;
   }
 
   /*
