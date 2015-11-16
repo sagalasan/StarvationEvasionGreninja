@@ -5,16 +5,18 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
+import starvationevasion.greninja.clientCommon.GuiStyles;
 
 /**
  * Pane that shows the time remaining in the current phase.  This is not
  * guaranteed to match actual phase time.  Only to be used as a visual
  * representation for the player.
  */
-public class TimerPane extends Pane
+public class TimerPane extends StackPane
 {
 
   private final Color timerGreen; //basic green color
@@ -41,6 +43,8 @@ public class TimerPane extends Pane
     timerDefaultColor = timerGreen;
     timerColor = timerDefaultColor;
     timeLabel.setTextFill(timerGreen);
+    timeLabel.setFont(new Font(16));
+    timeLabel.setStyle(GuiStyles.paddedGray());
     getChildren().add(timeLabel);
     Timeline timerCountdown = new Timeline(new KeyFrame(Duration.seconds(0.5),
         new EventHandler<ActionEvent>()
