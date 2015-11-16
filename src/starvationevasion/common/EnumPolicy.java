@@ -1,6 +1,8 @@
 package starvationevasion.common;
 
-
+/**
+ * Policy Cards game text, draft affects, votes required and model effects.
+ */
 public enum EnumPolicy
 {
   /**
@@ -35,7 +37,7 @@ public enum EnumPolicy
 
   /**
    * Game Text: Each participating region spends X million dollars to
-   * purchase their own region’s commodity food for relief of world hunger.<br><br>
+   * purchase their own regions commodity food for relief of world hunger.<br><br>
    *
    * Draft Affects: When drafting this policy, player
    * selects an amount X to be paid by EACH player who approves the policy. <br><br>
@@ -44,9 +46,12 @@ public enum EnumPolicy
    * Eligible Regions: All U.S.<br><br>
    *
    * Model Effects: Commodity food is distributed to relief world hunger
-   * in the most efficient manor discovered by the simulator where
-   * efficiency calculation is based on the type of commodity, each
-   * country's nutritional need and each country's import penalty function. <br><br>
+   * in the most efficient manor discovered by the sim where
+   * efficiency calculation is based on the type of commodity
+   * available in each participating region, each
+   * country's nutritional need and each country's import penalty function.
+   * Note: depending on yields, different regions may contribute different
+   *    mixes of commodities.<br><br>
    *
    * 10% bonus to effectiveness of total dollars spent per participating region.<br><br>
    *
@@ -58,7 +63,7 @@ public enum EnumPolicy
   International_Food_Releif_Program(
     "International Food Releif Program",
     "Each participating region spends X million dollars to purchase " +
-        "their own region’s commodity food for relief of world hunger."
+        "their own regions commodity food for relief of world hunger."
   )
     { public int votesRequired() {return 1;}
       public boolean voteWaitForAll() {return true;}
@@ -67,13 +72,13 @@ public enum EnumPolicy
 
   /**
    * Game Text: From now through the start of the next turn, X% of money
-   * spent by farmers in player’s region for improved irrigation efficiency is tax deductible.<br><br>
+   * spent by farmers in players region for improved irrigation efficiency is tax deductible.<br><br>
    *
    * Draft Affects: When drafting this policy, player selects a percentage X [1% through 100%].<br><br>
    *
    * Votes Required: Automatic<br>
    *
-   * Model Effects: The simulator estimates the number and location of farms within
+   * Model Effects: The sim estimates the number and location of farms within
    * the region and the amount spent by those farms on improved irrigation. The
    * model will need a current distribution of irrigation efficiency levels, the
    * four control points of an ease-in-out cubic Bezier function giving efficiency
@@ -85,14 +90,14 @@ public enum EnumPolicy
    * efficiency also reduces pesticides, fertilizer, and turbidity levels in
    * outflowing rivers.<br><br>
    *
-   * X% of the money that the simulator estimates is spent for improved irrigation
-   * is deducted from the region’s tax revenue at the start of the next turn.
+   * X% of the money that the sim estimates is spent for improved irrigation
+   * is deducted from the regions tax revenue at the start of the next turn.
    */
 
   Efficient_Irrigation_Incentive(
     "Efficient Irrigation Incentive",
     "From now through the start of the next turn, X% of money spent by farmers " +
-      "in player’s region for improved irrigation efficiency is tax deductible."
+      "in players region for improved irrigation efficiency is tax deductible."
   )
     { public int votesRequired() {return 0;}
       public boolean voteWaitForAll() {return false;}
@@ -102,7 +107,7 @@ public enum EnumPolicy
 
   /**
    * Game Text: The US sends 7X million dollars in foreign aid for
-   * capital development of farming infrastructure. <br><br>
+   * capital development of farming infrastructure of target world region. <br><br>
    *
    * Draft Affects: When drafting this policy, player selects target world
    * region and X million dollars.<br><br>
@@ -112,7 +117,7 @@ public enum EnumPolicy
    *
    * Model Effects: model needs four control points of each ease-in-out cubic Bezier
    * function giving investment verses food trade penalty function reduction. This one
-   * time spending permanently reduces the region’s penalty function.
+   * time spending permanently reduces the regions penalty function.
    * If approved, each US region must pay X million.
    <br><br>
    */
@@ -120,7 +125,7 @@ public enum EnumPolicy
   Foreign_Aid_for_Farm_Infrastructure(
     "Foreign Aid for Farm Infrastructure",
     "The US sends 7X million dollars in foreign aid for capital development " +
-      "of farming infrastructure. "
+      "of farming infrastructure of target world region."
   )
     { public int votesRequired() {return 4;}
       public boolean voteWaitForAll() {return false;}
@@ -128,14 +133,16 @@ public enum EnumPolicy
 
 
   /**
-   * Game Text: If you can correctly answer the hidden research question,
-   * target player’s hand and the top seven cards of target player’s deck are
-   * revealed to you. You may target yourself to see the top seven cards on
-   * your deck. During the voting phase, other players will see that you have
-   * played this card, but none but you will know its target.<br><br>
+   * Game Text: You get to covertly examine target player's hand
+   * and the top two cards of that player's deck. You may target yourself.
+   * During the voting phase, other players will see that you have
+   * played this card, but not know its target. Bonus: If you can
+   * correctly answer a hidden research question, you examine the top seven
+   * cards of the target player's deck.
+   * <br><br>
    *
-   * Draft Affects: When drafting this policy, player must correctly answer a
-   * random, but topical, trivia question.<br><br>
+   * Draft Affects: When drafting this policy, if the player correctly answers a
+   * random, but topical, trivia question, then X=7, otherwise X=2.<br><br>
    *
    * Votes Required: Automatic<br><br>
    *
@@ -146,11 +153,12 @@ public enum EnumPolicy
 
   Covert_Intelligence(
     "Covert Intelligence",
-    "If you can correctly answer the hidden research question, " +
-      "target player’s hand and the top seven cards of target player’s " +
-      "deck are revealed to you. You may target yourself to see the top seven "+
-      "cards on your deck. During the voting phase, other players will see that "+
-      "you have played this card, but none but you will know its target."
+    "You get to covertly examine target player's hand and the top two cards " +
+      "of that player's deck. You may target yourself. " +
+      "During the voting phase, other players will see that you have " +
+      "played this card, but not know its target. Bonus: If you can " +
+      "correctly answer a hidden research question, you examine the top seven " +
+      "cards of the target player's deck."
   )
     { public int votesRequired() {return 0;}
       public boolean voteWaitForAll() {return false;}
@@ -167,7 +175,7 @@ public enum EnumPolicy
    *
    * Votes Required: Automatic<br><br>
    *
-   * Model Effects: The simulator estimates the number and location of farms
+   * Model Effects: The sim estimates the number and location of farms
    * within the region and the amount spent by those farms on improved irrigation.
    * The model will need a current amount of pesticides and fertilizers in use
    * per square km, the current percentage that goes into rivers, and, the four
@@ -192,7 +200,7 @@ public enum EnumPolicy
   /**
    * Game Text: You spend X million dollars on an advertising campaign within
    * your region promoting public awareness of the United States Department of
-   * Agriculture’s MyPlate nutrition guide.<br><br>
+   * Agricultures MyPlate nutrition guide.<br><br>
    *
    * Draft Affects: When drafting this policy, player selects X million dollars.<br><br>
    *
@@ -208,7 +216,7 @@ public enum EnumPolicy
   MyPlate_Promotion_Campaign(
     "MyPlate Promotion Campaign",
     "You spend X million dollars on an advertising campaign within your region promoting " +
-      "public awareness of the United States Department of Agriculture’s MyPlate nutrition guide."
+      "public awareness of the United States Department of Agricultures MyPlate nutrition guide."
   )
     { public int votesRequired() {return 0;}
       public boolean voteWaitForAll() {return false;}
@@ -255,7 +263,7 @@ public enum EnumPolicy
    */
 
   Fertilizer_Subsidy(
-    "Fertilizer Subsidy",
+    "Fertilizer or Feed Subsidy",
     "This policy offers a subsidy of X% rebate to farmers in your region purchasing " +
       "commercial fertilizer for target crop or feed supplements for target live stock."
   )
@@ -276,7 +284,7 @@ public enum EnumPolicy
    *
    * Model Effects:  model needs four control points of each ease-in-out cubic Bezier
    * function giving investment verses food trade penalty function reduction. This one
-   * time spending permanently reduces the region’s penalty function.<br><br>
+   * time spending permanently reduces the regions penalty function.<br><br>
    * If approved, each US region must pay X million.
    */
 
@@ -313,4 +321,7 @@ public enum EnumPolicy
    * the required number of votes have been reached.
    */
   public abstract boolean voteWaitForAll();
+
+
+  public static final int SIZE = values().length;
 }
