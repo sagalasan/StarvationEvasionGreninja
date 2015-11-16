@@ -1,13 +1,10 @@
 package starvationevasion.greninja.gui.basePane;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 
