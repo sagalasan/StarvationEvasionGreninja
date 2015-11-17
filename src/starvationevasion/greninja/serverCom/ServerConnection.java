@@ -90,8 +90,6 @@ public class ServerConnection
     try
     {
       socket.close();
-      serverReader.interrupt();
-      serverWriter.interrupt();
     }
     catch (IOException ioe)
     {

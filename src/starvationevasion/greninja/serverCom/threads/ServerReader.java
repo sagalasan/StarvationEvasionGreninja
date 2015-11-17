@@ -24,15 +24,18 @@ public class ServerReader extends Thread
   {
     while(true)
     {
+      String message;
       try
       {
-        String message = reader.readLine();
+        message = reader.readLine();
+        System.out.println(message);
       }
       catch (IOException ioe)
       {
         ioe.printStackTrace();
         break;
       }
+
     }
   }
 }
