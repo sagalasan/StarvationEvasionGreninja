@@ -1,7 +1,10 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO: perhaps we should make a player interface?
 
@@ -11,12 +14,16 @@ import starvationevasion.common.PolicyCard;
 public class Player
 {
   EnumRegion region;
-  PolicyCard[] cards; // Cards the player is currently holding
-  PolicyCard[] voteRequiredPolicies;
+  List<EnumPolicy> cards, discardPile, voteRequiredPolicies;
   int votingPolicyCount = 0;
 
-  public Player(EnumRegion region, PolicyCard[] cards)
+  Player() {}
+
+  Player(EnumRegion region, List<EnumPolicy> cards)
   {
+    discardPile = new ArrayList<EnumPolicy>();
+    voteRequiredPolicies = new ArrayList<EnumPolicy>();
+
     this.region = region;
     this.cards = cards;
   }
@@ -43,7 +50,7 @@ public class Player
    * Get the player's current hand
    * @return
    */
-  public PolicyCard[] getPlayerHand()
+  public List<EnumPolicy> getPlayerHand()
   {
     return this.cards;
   }
@@ -52,9 +59,32 @@ public class Player
    * Set the current player's hand
    * @param hand
    */
-  public void setPlayerHand(PolicyCard[] hand)
+  public void setPlayerHand(List<EnumPolicy> hand)
   {
      this.cards = hand;
+  }
+
+  /**
+   * Add a card to the player's hand.
+   * @param card
+   */
+  public void addCard(EnumPolicy card)
+  {
+    if (cards.size() < 7)
+    {
+      cards.add(card);
+    }
+    else System.err.println("Hand is already full");
+  }
+
+  /**
+   * Removes a card from the player's hand and puts it in the discard pile.
+   * @param index
+   */
+  public void discardCard(int index)
+  {
+    EnumPolicy discarded = cards.remove(index);
+    discardPile.add(discarded);
   }
 
   /**
@@ -62,17 +92,27 @@ public class Player
    * @param index
    * @return
    */
-  public PolicyCard getCard(int index)
+  public EnumPolicy getCard(int index)
   {
-    return this.cards[index];
+    return cards.get(index);
   }
 
-  // TODO: I'm not entirely sure if we want to handle the voting and drafting in this class
+  /**
+   * Returns the card at the head of the given card list.
+   * @param cardPile
+   * @return
+   */
+  public EnumPolicy firstCard(List<EnumPolicy> cardPile)
+  {
+    return cardPile.get(0);
+  }
+
+  // TODO: I'm not entirely sure if we want to/how we will handle the voting and drafting in this class
   /**
    * Gets all the policies drafted by other players that need a vote.
    * @return
    */
-  public PolicyCard[] getDraftedPolicies(PolicyCard[] draftedPolicies)
+  public List<EnumPolicy> getDraftedPolicies(List<EnumPolicy> draftedPolicies)
   {
     voteRequiredPolicies = draftedPolicies;
     return voteRequiredPolicies;
@@ -83,9 +123,9 @@ public class Player
    * @param index
    * @return
    */
-  public PolicyCard vote(int index)
+  public EnumPolicy vote(int index)
   {
-    return voteRequiredPolicies[index];
+    return voteRequiredPolicies.get(index);
   }
 
   /**
@@ -94,10 +134,9 @@ public class Player
    */
   public void draft(int index)
   {
-    PolicyCard selectedCard = getCard(index);
+    EnumPolicy selectedCard = getCard(index);
+    // TODO: add this to a policy pile?
   }
-
-  public void discardCards() {}
 
   // TODO: communication with other players
 }
