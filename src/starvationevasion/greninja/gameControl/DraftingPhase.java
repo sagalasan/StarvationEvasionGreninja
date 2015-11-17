@@ -4,6 +4,9 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.util.PhaseTimer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Controls the policy drafting phase.
  */
@@ -16,13 +19,16 @@ public class DraftingPhase extends GamePhase
   private boolean hasDiscarded;
   private GameController control;
   private PhaseTimer phaseTimer;
+  private Player player;
 
   /**
    * Instantiate phase timer, assign reference to control,
    * @param control
    */
-  public DraftingPhase(GameController control, TimerPane visibleTimer)
+  public DraftingPhase(GameController control, TimerPane visibleTimer,
+                       Player player)
   {
+    this.player = player;
     this.phaseTimer = new PhaseTimer(DRAFTING_TIME_LIMIT, this, visibleTimer);
     phaseTimer.start();
     this.control = control;
@@ -30,8 +36,8 @@ public class DraftingPhase extends GamePhase
   }
 
   /**
-   * Discard 3 and draw 3 action.  Checks if turn is still on, and if card
-   * selections are valid
+   * Discard 3 and draw 3 action.  Checks if turn is still on, and if player
+   * is allowed to perform this action.
    * @param cardsSelected     Array of indices of cards selected.
    * @return                  True if discard was successful.
    */
@@ -40,20 +46,8 @@ public class DraftingPhase extends GamePhase
     boolean discardPerformed = true;
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
-      //check if card selections are valid for discard.
-      for(int i = 0; i < 3; ++i)
-      {
-        if(selectCardFromHand(cardsSelected[i]) == null)
-        {
-          discardPerformed = false;
-        }
-      }
-      if(discardPerformed)
-      {
-        //if valid
-        //remove cards from hand and add to discard.
-        //discardPerformed = true
-      }
+      discardPerformed = player.discardThree(cardsSelected);
+      actionsTaken++;
     }
     return discardPerformed;
   }
@@ -68,20 +62,7 @@ public class DraftingPhase extends GamePhase
     boolean discardPerformed = false;
     if(!hasDiscarded && phaseTimer.phaseNotOver())
     {
-      //check if card selection is valid discard
-      if(selectCardFromHand(cardIndex) != null)
-      {
-        //if valid
-        //remove card from hand and put in discard
-        hasDiscarded = true;
-        discardPerformed = true;
-        System.out.println("Card discarded.");
-      }
-      else
-      {
-        //inform control -> gui that discard failed.
-        System.out.println("Discard failed.");
-      }
+      discardPerformed = player.discardCard(cardIndex);
     }
     return discardPerformed;//
   }

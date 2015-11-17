@@ -1,8 +1,12 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,6 +20,7 @@ public class GameController
   private EnumRegion playerRegion;
   private DraftingPhase draftingPhase;
   private VotingPhase votingPhase;
+  private Player player;
   //WorldModel
   //GameStateTracker
 
@@ -40,6 +45,7 @@ public class GameController
   /*
   ============================Startup===========================================
   */
+
   /**
    * Begin single player game.
    * Instantiate local server.
@@ -82,7 +88,37 @@ public class GameController
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
-    startPolicyDraftingPhase();//
+    beginGame();
+  }
+
+  /**
+   * Once initial phases are over, setup rest of game and start policy drafting
+   * phase.
+   */
+  public void beginGame()
+  {
+    //create initial hand
+    ArrayList<EnumPolicy> initialHand = new ArrayList<>();
+    fillHand(initialHand);
+    //instantiate player
+    player = new Player(playerRegion, initialHand);
+    //start policy drafting phase.
+    startPolicyDraftingPhase();
+  }
+
+  /**
+   * Deals cards to player hand from deck up to the max hand size.  Initially
+   * called with the hand itself.  Should be called with player.getHand() during
+   * the game.
+   * @param hand        The player's hand of enum policies.
+   */
+  public void fillHand(List<EnumPolicy> hand)
+  {
+    //TODO make correct hand when we know how the deck will work.
+    while(hand.size() < 7)
+    {
+      hand.add(EnumPolicy.International_Food_Releif_Program);
+    }
   }
   /*
   ============================end startup=======================================
@@ -102,7 +138,8 @@ public class GameController
   public void startPolicyDraftingPhase()
   {
     gui.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this, gui.getTimerPane(EnumPhase.DRAFTING));
+    draftingPhase = new DraftingPhase(this, gui.getTimerPane(EnumPhase.DRAFTING),
+                                      player);
   }
 
   /**

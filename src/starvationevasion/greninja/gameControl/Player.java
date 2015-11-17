@@ -66,25 +66,66 @@ public class Player
 
   /**
    * Add a card to the player's hand.
-   * @param card
+   * @param card    EnumPolicy to add to hand.
+   * @return        true if addCard succeeded.
    */
-  public void addCard(EnumPolicy card)
+  public boolean addCard(EnumPolicy card)
   {
     if (cards.size() < 7)
     {
       cards.add(card);
+      return true;
     }
-    else System.err.println("Hand is already full");
+    else
+    {
+      return false;
+    }
   }
 
   /**
    * Removes a card from the player's hand and puts it in the discard pile.
-   * @param index
+   * @param index   index of card selected.
+   * @return        true if successful, false if no card to discard.
    */
-  public void discardCard(int index)
+  public boolean discardCard(int index)
   {
-    EnumPolicy discarded = cards.remove(index);
-    discardPile.add(discarded);
+    if(index < cards.size())
+    {
+      EnumPolicy discarded = cards.remove(index);
+      discardPile.add(discarded);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Discard three cards.  Get the cards at the specified index then
+   * remove from hand and put into discard pile.
+   * @param indices       3 indexes
+   */
+  public boolean discardThree(int[] indices)
+  {
+    if(cards.size() >= 3)
+    {
+      EnumPolicy[] cardsToDiscard = new EnumPolicy[3];
+      for (int i = 0; i < 3; ++i)
+      {
+        cardsToDiscard[i] = getCard(indices[i]);
+      }
+      for(int i = 0; i < 3; ++i)
+      {
+        discardPile.add(cardsToDiscard[i]);
+        cards.remove(cardsToDiscard[i]);
+      }
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   /**
