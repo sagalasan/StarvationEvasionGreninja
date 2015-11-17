@@ -1,6 +1,7 @@
 package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.EnumPolicy;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.util.PhaseTimer;
 
@@ -9,7 +10,6 @@ import starvationevasion.greninja.util.PhaseTimer;
  */
 public class DraftingPhase extends GamePhase
 {
-  private static final int DRAFTING_TIME_LIMIT = 5;
 
   //player may make two actions per turn, either drafting a policy or discarding.
   private int actionsTaken = 0;
@@ -26,7 +26,8 @@ public class DraftingPhase extends GamePhase
                        Player player)
   {
     this.player = player;
-    this.phaseTimer = new PhaseTimer(DRAFTING_TIME_LIMIT, this, visibleTimer);
+    this.phaseTimer = new PhaseTimer(ClientConstant.DRAFTING_TIME_LIMIT,
+                                      this, visibleTimer);
     phaseTimer.start();
     this.control = control;
     hasDiscarded = false;

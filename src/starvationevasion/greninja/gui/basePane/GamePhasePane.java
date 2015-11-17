@@ -1,6 +1,7 @@
 package starvationevasion.greninja.gui.basePane;
 
 import javafx.scene.layout.VBox;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 
@@ -24,7 +25,7 @@ public class GamePhasePane extends VBox
   public void initPane()
   {
     timer = new TimerPane();
-    timer.initPhaseTimer("5:00");
+    timer.initPhaseTimer(ClientConstant.TIME_LIMIT_STRING);
   }
 
   /**
