@@ -13,40 +13,38 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
  * TODO change to stack pane, other components will be layered on top.
  * @author Justin Thomas (jthomas105@unm.edu)
  */
-public class VotingPane extends VBox
+public class VotingPane extends GamePhasePane
 {
 
   private GuiBase base;
-  private TimerPane timer;
 
   public VotingPane(GuiBase base)
   {
+    super(base);
     this.base = base;
   }
 
   /**
    * Instantiate and add pane components
    */
+  @Override
   public void initPane()
   {
-    timer = new TimerPane();
-    timer.initPhaseTimer("5:00");
+    super.initPane();
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("VotingPane, choose policies."));
-    getChildren().add(timer);
+    getChildren().add(getTimerPane());
     getChildren().add(button);
   }
 
+  /**
+   * TODO will not need.
+   */
   public void endPhase()
   {
     base.endPolicyVotingPhase();
-  }
-
-  public TimerPane getTimerPane()
-  {
-    return timer;
   }
 
   private class ButtonControl implements EventHandler<ActionEvent>
