@@ -4,6 +4,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
+import starvationevasion.greninja.model.Player;
 
 import java.util.ArrayList;
 

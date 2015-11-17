@@ -1,4 +1,4 @@
-package starvationevasion.greninja.gameControl;
+package starvationevasion.greninja.model;
 
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
@@ -19,7 +19,7 @@ public class Player
 
   Player() {}
 
-  Player(EnumRegion region, List<EnumPolicy> cards)
+  public Player(EnumRegion region, List<EnumPolicy> cards)
   {
     discardPile = new ArrayList<EnumPolicy>();
     voteRequiredPolicies = new ArrayList<EnumPolicy>();

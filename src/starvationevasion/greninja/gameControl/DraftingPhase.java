@@ -3,6 +3,7 @@ package starvationevasion.greninja.gameControl;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
+import starvationevasion.greninja.model.Player;
 import starvationevasion.greninja.util.PhaseTimer;
 
 /**
