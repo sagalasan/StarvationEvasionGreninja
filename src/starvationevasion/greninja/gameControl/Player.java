@@ -135,7 +135,14 @@ public class Player
    */
   public EnumPolicy getCard(int index)
   {
-    return cards.get(index);
+    if(index < cards.size())
+    {
+      return cards.get(index);
+    }
+    else
+    {
+      return null;
+    }
   }
 
   /**

@@ -10,7 +10,6 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
 
 /**
  * Base pane for the gui during the policy voting phase.
- * TODO change to stack pane, other components will be layered on top.
  * @author Justin Thomas (jthomas105@unm.edu)
  */
 public class VotingPane extends GamePhasePane

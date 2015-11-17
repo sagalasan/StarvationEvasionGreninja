@@ -154,6 +154,12 @@ public class GuiBase extends Application
     votingPane.initPane();
     baseScene = new Scene(votingPane, 300, 500);
     mainStage.setScene(baseScene);
+    //==========================================================================
+    //this is where the style sheet gets added so that the .css will apply its design to
+    //the nodes
+    baseScene.getStylesheets().add
+        (this.getClass().getResource("styleSheetForGui.css").toExternalForm());
+    //=============================================================================
     baseScene.setRoot(new EntryPane(this));
     mainStage.show();
 

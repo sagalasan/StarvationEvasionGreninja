@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.util.PhaseTimer;
 
@@ -8,7 +9,6 @@ import starvationevasion.greninja.util.PhaseTimer;
  */
 public class VotingPhase extends GamePhase
 {
-  private static final int VOTING_TIME_LIMIT = 5;
   private PhaseTimer phaseTimer;
   private GameController control;
 
@@ -19,7 +19,8 @@ public class VotingPhase extends GamePhase
    */
   public VotingPhase(GameController control, TimerPane visibleTimer)
   {
-    this.phaseTimer = new PhaseTimer(VOTING_TIME_LIMIT, this, visibleTimer);
+    this.phaseTimer = new PhaseTimer(ClientConstant.VOTING_TIME_LIMIT, this,
+                                    visibleTimer);
     phaseTimer.start();
     this.control = control;
   }
