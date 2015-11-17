@@ -18,7 +18,7 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
  * All user input and output is routed through this class.
  * @author Justin Thomas jthomas105@unm.edu
  */
-
+//TODO put whole gui on timeline.
 public class GuiBase extends Application
 {
   private PolicyPane policyPane;
@@ -70,6 +70,7 @@ public class GuiBase extends Application
   public void swapToVotingPane()
   {
     System.out.println("Now in Voting.");
+    votingPane.getTimerPane().resetTimer();
     baseScene.setRoot(votingPane);
   }
 
@@ -79,6 +80,7 @@ public class GuiBase extends Application
   public void swapToPolicyPane()
   {
     System.out.println("Now in Policy Drafting.");
+    policyPane.getTimerPane().resetTimer();
     baseScene.setRoot(policyPane);
   }
 
@@ -92,6 +94,16 @@ public class GuiBase extends Application
     StagingPane staging = new StagingPane(this);
     staging.initPane();
     baseScene.setRoot(staging);
+  }
+
+  public void endPolicyDraftingPhase()
+  {
+    control.endPolicyDraftingPhase();
+  }
+
+  public void endPolicyVotingPhase()
+  {
+    control.endPolicyVotingPhase();
   }
 
   /*

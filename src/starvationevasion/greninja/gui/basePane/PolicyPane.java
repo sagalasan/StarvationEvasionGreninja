@@ -45,9 +45,9 @@ public class PolicyPane extends VBox
    * Swap to voting pane
    * TODO will not need
    */
-  public void swapPane()
+  public void endPhase()
   {
-    base.swapToVotingPane();
+    base.endPolicyDraftingPhase();
   }
 
   /**
@@ -74,7 +74,7 @@ public class PolicyPane extends VBox
     @Override
     public void handle (ActionEvent e)
     {
-      parentPane.swapPane();
+      parentPane.endPhase();
     }
   }
 }

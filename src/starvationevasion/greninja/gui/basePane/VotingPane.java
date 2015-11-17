@@ -39,9 +39,9 @@ public class VotingPane extends VBox
     getChildren().add(button);
   }
 
-  public void swapPane()
+  public void endPhase()
   {
-    base.swapToPolicyPane();
+    base.endPolicyVotingPhase();
   }
 
   public TimerPane getTimerPane()
@@ -61,7 +61,7 @@ public class VotingPane extends VBox
     @Override
     public void handle (ActionEvent e)
     {
-      parentPane.swapPane();
+      parentPane.endPhase();
     }
   }
 }

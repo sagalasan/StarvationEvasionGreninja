@@ -18,11 +18,10 @@ import starvationevasion.greninja.clientCommon.GuiStyles;
  */
 public class TimerPane extends StackPane
 {
-
   private final Color timerGreen; //basic green color
   private Color timerDefaultColor; //color that this timer will remain as
   private Label timeLabel;
-  private String timeRemaining;
+  private String timeRemaining, phaseLength;
   private Color timerColor; //current color
 
   /**
@@ -38,7 +37,8 @@ public class TimerPane extends StackPane
    */
   public void initPhaseTimer(String initialTime)
   {
-    timeRemaining = initialTime;
+    phaseLength = initialTime;
+    timeRemaining = new String(initialTime);
     timeLabel = new Label(timeRemaining);
     timerDefaultColor = timerGreen;
     timerColor = timerDefaultColor;
@@ -46,7 +46,7 @@ public class TimerPane extends StackPane
     timeLabel.setFont(new Font(16));
     timeLabel.setStyle(GuiStyles.paddedGray());
     getChildren().add(timeLabel);
-    Timeline timerCountdown = new Timeline(new KeyFrame(Duration.seconds(0.5),
+    Timeline timerCountdown = new Timeline(new KeyFrame(Duration.seconds(0.25),
         new EventHandler<ActionEvent>()
         {
           @Override
@@ -58,6 +58,11 @@ public class TimerPane extends StackPane
         }));
     timerCountdown.setCycleCount(Timeline.INDEFINITE);
     timerCountdown.play();
+  }
+
+  public void resetTimer()
+  {
+    timeRemaining = new String(phaseLength);
   }
 
   /**
