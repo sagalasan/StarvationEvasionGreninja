@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import starvationevasion.greninja.gui.GuiBase;
+import starvationevasion.greninja.gui.componentPane.TimerPane;
 
 /**
  * Base pane for the gui during the policy voting phase.
@@ -15,7 +16,8 @@ import starvationevasion.greninja.gui.GuiBase;
 public class VotingPane extends VBox
 {
 
-  GuiBase base;
+  private GuiBase base;
+  private TimerPane timer;
 
   public VotingPane(GuiBase base)
   {
@@ -27,16 +29,24 @@ public class VotingPane extends VBox
    */
   public void initPane()
   {
+    timer = new TimerPane();
+    timer.initPhaseTimer("5:00");
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("VotingPane, choose policies."));
+    getChildren().add(timer);
     getChildren().add(button);
   }
 
   public void swapPane()
   {
     base.swapToPolicyPane();
+  }
+
+  public TimerPane getTimerPane()
+  {
+    return timer;
   }
 
   private class ButtonControl implements EventHandler<ActionEvent>

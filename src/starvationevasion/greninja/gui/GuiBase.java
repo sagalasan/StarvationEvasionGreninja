@@ -117,7 +117,7 @@ public class GuiBase extends Application
         break;
       case VOTING:
         //update voting phase timer.
-        timer = null;
+        timer = votingPane.getTimerPane();
         break;
       default:
         timer = null;
