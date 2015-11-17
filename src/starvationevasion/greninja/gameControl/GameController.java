@@ -163,7 +163,6 @@ public class GameController
   public void endPolicyDraftingPhase()
   {
     //start voting phase.
-    //TODO put in startPolicyVotingPhase()
     startPolicyVotingPhase();
     draftingPhase = null;
   }
