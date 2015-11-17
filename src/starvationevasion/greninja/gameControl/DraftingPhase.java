@@ -4,9 +4,6 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.util.PhaseTimer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Controls the policy drafting phase.
  */
@@ -14,7 +11,7 @@ public class DraftingPhase extends GamePhase
 {
   private static final int DRAFTING_TIME_LIMIT = 5;
 
-  //player may make to actions per turn, either drafting a policy or discarding.
+  //player may make two actions per turn, either drafting a policy or discarding.
   private int actionsTaken = 0;
   private boolean hasDiscarded;
   private GameController control;
@@ -47,7 +44,10 @@ public class DraftingPhase extends GamePhase
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
       discardPerformed = player.discardThree(cardsSelected);
-      actionsTaken++;
+      if(discardPerformed)
+      {
+        actionTaken();
+      }
     }
     return discardPerformed;
   }
@@ -70,25 +70,25 @@ public class DraftingPhase extends GamePhase
   /**
    * Play a policy card, should inform game that card has been played.
    * @param cardIndex       index of card to get.
-   * @return                return success or failure.
+   * @return                return card to be drafted.
    */
-  public boolean draftPolicy(int cardIndex)
+  public EnumPolicy draftPolicy(int cardIndex)
   {
-    boolean policyDrafted = false;
+    EnumPolicy cardSelected = null;
+    //if can take action.
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
       //check if valid card is played
-      EnumPolicy cardSelected = selectCardFromHand(cardIndex);
+      cardSelected = selectCardFromHand(cardIndex);
       if(cardSelected != null)
       {
         //if valid
+        actionTaken();
         //remove card from hand and put in discard.
-        //notify control -> server of policy drafted.
-        //notify control -> gui of updates to display.
-        policyDrafted = true;
+        player.discardCard(cardIndex);
       }
     }
-    return policyDrafted;
+    return cardSelected;
   }
 
   /**
@@ -99,6 +99,16 @@ public class DraftingPhase extends GamePhase
     control.endPolicyDraftingPhase();
   }
 
+  private void actionTaken()
+  {
+    //increment actions taken.
+    actionsTaken++;
+    //inform server if two actions have been taken.
+    if(actionsTaken >= 2)
+    {
+      System.out.println("All actions taken.");
+    }
+  }
   /**
    * Check if there is a card at hand index.
    * @param index       card selected from gui.
@@ -106,9 +116,7 @@ public class DraftingPhase extends GamePhase
    */
   private EnumPolicy selectCardFromHand(int index)
   {
-    EnumPolicy cardSelected = null;
-    //if hand at index != null
-    //cardSelected = hand at index
+    EnumPolicy cardSelected = player.getCard(index);
     return cardSelected;
   }
 }

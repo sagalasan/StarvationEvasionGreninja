@@ -6,7 +6,6 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -21,6 +20,8 @@ public class GameController
   private DraftingPhase draftingPhase;
   private VotingPhase votingPhase;
   private Player player;
+  private ArrayList<EnumPolicy> cardsForVote;
+  private ArrayList<EnumPolicy> cardsToPlay;
   //WorldModel
   //GameStateTracker
 
@@ -40,6 +41,8 @@ public class GameController
   public GameController(GuiBase gui)
   {
     this.gui = gui;
+    cardsForVote = new ArrayList<>();
+    cardsToPlay = new ArrayList<>();
   }
 
   /*
@@ -99,32 +102,44 @@ public class GameController
   {
     //create initial hand
     ArrayList<EnumPolicy> initialHand = new ArrayList<>();
-    fillHand(initialHand);
     //instantiate player
     player = new Player(playerRegion, initialHand);
+    fillHand();
     //start policy drafting phase.
     startPolicyDraftingPhase();
   }
-
-  /**
-   * Deals cards to player hand from deck up to the max hand size.  Initially
-   * called with the hand itself.  Should be called with player.getHand() during
-   * the game.
-   * @param hand        The player's hand of enum policies.
-   */
-  public void fillHand(List<EnumPolicy> hand)
-  {
-    //TODO make correct hand when we know how the deck will work.
-    while(hand.size() < 7)
-    {
-      hand.add(EnumPolicy.International_Food_Releif_Program);
-    }
-  }
-  /*
+ /*
   ============================end startup=======================================
   ******************************************************************************
   ===========================GENERAL PHASE METHODS==============================
   */
+
+  /*===================DECK MANAGEMENT==========================================
+   * TODO put in player?
+   */
+  /**
+   * Deals cards to player hand from deck up to the max hand size.  Initially
+   * called with the hand itself.  Should be called with player.getHand() during
+   * the game.
+   */
+  public void fillHand()
+  {
+    while(player.addCard(drawCard()))
+    {
+      System.out.println("Added card");
+    }
+  }
+
+  /**
+   * Draw a card from deck and add to hand.
+   * TODO fix when we've figured out how deck will work.
+   * @return        Card drawn.
+   */
+  public EnumPolicy drawCard()
+  {
+    return EnumPolicy.International_Food_Releif_Program;
+  }
+  //=================end deck management========================================
 
   /*
   =========end general phase methods============================================
@@ -151,6 +166,33 @@ public class GameController
     //TODO put in startPolicyVotingPhase()
     startPolicyVotingPhase();
     draftingPhase = null;
+  }
+
+  /**
+   * Draft a policy.  Called from gui.  Drafting phase attempts to get card
+   * and this method adds it to the appropriate policy pending list.
+   * @param cardIndex       index of card to draft.
+   */
+  public void draftPolicy(int cardIndex)
+  {
+    EnumPolicy cardDrafted = draftingPhase.draftPolicy(cardIndex);
+    if(cardDrafted != null)
+    {
+      //if card needs voting goes into cardsForVote, else goes to cardsToPlay
+      if(cardDrafted.votesRequired() == 0)
+      {
+        cardsToPlay.add(cardDrafted);
+      }
+      else
+      {
+        cardsForVote.add(cardDrafted);
+      }
+    }
+    else
+    {
+      //inform gui that drafting action failed.
+      System.out.println("Policy Draft Failed.");
+    }
   }
 
   /**
