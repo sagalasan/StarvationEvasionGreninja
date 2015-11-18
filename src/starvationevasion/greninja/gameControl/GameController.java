@@ -1,10 +1,13 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.model.Player;
+import starvationevasion.greninja.model.State;
 
 import java.util.ArrayList;
 
@@ -18,11 +21,11 @@ public class GameController
 {
   private GuiBase gui;
   private EnumRegion playerRegion;
+  private State playerRegionInfo;
   private DraftingPhase draftingPhase;
   private VotingPhase votingPhase;
   private Player player;
-  private ArrayList<EnumPolicy> cardsForVote;
-  private ArrayList<EnumPolicy> cardsToPlay;
+  private ArrayList<PolicyCard> cardsForVote;
   //WorldModel
   //GameStateTracker
 
@@ -43,7 +46,6 @@ public class GameController
   {
     this.gui = gui;
     cardsForVote = new ArrayList<>();
-    cardsToPlay = new ArrayList<>();
   }
 
   /*
@@ -99,12 +101,13 @@ public class GameController
    * Once initial phases are over, setup rest of game and start policy drafting
    * phase.
    */
-  public void beginGame()
+  private void beginGame()
   {
     //create initial hand
     ArrayList<EnumPolicy> initialHand = new ArrayList<>();
     //instantiate player
     player = new Player(playerRegion, initialHand);
+    playerRegionInfo = new State(playerRegion);
     fillHand();
     //start policy drafting phase.
     startPolicyDraftingPhase();
@@ -115,9 +118,58 @@ public class GameController
   ===========================GENERAL PHASE METHODS==============================
   */
 
-  /*===================DECK MANAGEMENT==========================================
-   * TODO put in player?
+  /**
+   * When gui visualization pane is clicked, ask the visualization for the
+   * detailed vis.
+   * @return        nothing yet
    */
+  public void getVisualization()
+  {
+    //return visualization to gui
+  }
+
+  /**
+   * When region is clicked on the interactive map, eturn region details for
+   * clicked region.
+   * @param regionClicked       enum of region clicked.
+   * @return                    nothing yet.
+   */
+  public void getRegionDetails(EnumRegion regionClicked)
+  {
+    //return region details
+  }
+
+  /**
+   * When chat message is sent from player, inform server that message was sent.
+   * @param messageSent
+   */
+  public void sendChatMessage(String messageSent)
+  {
+    //send message to server.
+  }
+
+  /**
+   * When message is received from server, send to gui
+   * @param messageReceived
+   */
+  public void receiveChatMessage(String messageReceived)
+  {
+    //send message to gui.
+  }
+
+  /**
+   * Send commodity info to gui.
+   * @param commodity
+   */
+  public void getCommodityInfo(EnumFood commodity)
+  {
+    //send commodity info to gui.
+  }
+
+
+  /*
+  *===================DECK MANAGEMENT==========================================
+  */
   /**
    * Deals cards to player hand from deck up to the max hand size.  Initially
    * called with the hand itself.  Should be called with player.getHand() during
@@ -149,17 +201,19 @@ public class GameController
   */
 
   /**
-   * Instantiate new policyDrafting phase
+   * Instantiate new policyDrafting phase.  Inform gui that it's policy drafting
+   * time.
    */
   public void startPolicyDraftingPhase()
   {
+    //get HDI's, Populations, Money from server.
     gui.swapToPolicyPane();
     draftingPhase = new DraftingPhase(this, gui.getTimerPane(EnumPhase.DRAFTING),
                                       player);
   }
 
   /**
-   * Performs end drafting phase actions.
+   * Performs end drafting phase actions, and swaps to policy voting phase.
    */
   public void endPolicyDraftingPhase()
   {
@@ -181,11 +235,12 @@ public class GameController
       //if card needs voting goes into cardsForVote, else goes to cardsToPlay
       if(cardDrafted.votesRequired() == 0)
       {
-        cardsToPlay.add(cardDrafted);
+        //inform server that card was played;
       }
       else
       {
-        cardsForVote.add(cardDrafted);
+        //inform server that card was played;
+        cardsForVote.add(new PolicyCard(playerRegion, cardDrafted));
       }
     }
     else
@@ -203,6 +258,7 @@ public class GameController
   {
     if(draftingPhase.discardOne(cardIndex))
     {
+      //inform server of discard
       //send success message to gui.
       System.out.println("Discard Success.");
     }
@@ -225,6 +281,7 @@ public class GameController
 
     if(draftingPhase.discardThree(cardsSelected))
     {
+      //inform server of discards
       //send success message to gui
       System.out.println("Discard Success.");
     }
@@ -247,19 +304,47 @@ public class GameController
   public void startPolicyVotingPhase()
   {
     gui.swapToVotingPane();
+    getCardsForVote();
     votingPhase = new VotingPhase(this, gui.getTimerPane(EnumPhase.VOTING));
     //do stuff
   }
+
+  /**
+   * Cast a vote.  Called from the gui, informs server of card and vote cast
+   * for it.
+   * @param vote        true if "yes" vote, false if "no" vote.
+   */
+  public void voteCast(boolean vote)
+  {
+    if(vote)
+    {
+      //inform server that vote yes.
+    }
+    else
+    {
+      //inform server of no vote.
+    }
+  }
+
 
   /**
    * end voting phase.
    */
   public void endPolicyVotingPhase()
   {
-    //add cards to hand.
+    fillHand();
     startPolicyDraftingPhase();
     votingPhase = null;
   }
+
+  private void getCardsForVote()
+  {
+    //get the cards up for vote from the server.
+    //for each card for vote
+      //add to cardsForVote
+    //inform gui of cards by region.
+  }
+
 
   /*
   ===========voting phase end===================================================

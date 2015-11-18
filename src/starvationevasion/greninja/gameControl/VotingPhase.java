@@ -25,6 +25,9 @@ public class VotingPhase extends GamePhase
     this.control = control;
   }
 
+  /**
+   * End phase cleanup.
+   */
   public void phaseOver()
   {
     control.endPolicyVotingPhase();
