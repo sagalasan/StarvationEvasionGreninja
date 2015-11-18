@@ -167,6 +167,16 @@ public class GameController
     //send commodity info to gui.
   }
 
+  /**
+   * Get card info for display.  Called when player clicks a card.
+   * @param index       index of card clicked.
+   * @return            EnumPolicy for corresponding card.
+   */
+  public EnumPolicy getCardInfo(int index)
+  {
+    return player.getCard(index);
+  }
+
 
   /*
   *===================DECK MANAGEMENT==========================================
