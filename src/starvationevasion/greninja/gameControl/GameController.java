@@ -108,6 +108,7 @@ public class GameController
     //instantiate player
     player = new Player(playerRegion, initialHand);
     playerRegionInfo = new State(playerRegion);
+    gui.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     fillHand();
     //start policy drafting phase.
     startPolicyDraftingPhase();

@@ -12,6 +12,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
+import starvationevasion.greninja.model.State;
 
 /**
  * GUI hub class and main method of client application.
@@ -23,6 +24,8 @@ public class GuiBase extends Application
 {
   private PolicyPane policyPane;
   private VotingPane votingPane;
+  private EnumRegion playerRegion, viewedRegion;
+  private State playerRegionInfo, viewedRegionInfo; //references to region observed
   private Stage mainStage;
   private Scene baseScene;
   private GameController control;
@@ -135,6 +138,27 @@ public class GuiBase extends Application
         timer = null;
     }
     return timer;
+  }
+
+  /**
+   * Set reference to player region info.  To be called once when game starts.
+   * @param state       State object of player region.
+   */
+  public void initPlayerRegionInfo(State state, EnumRegion pRegion)
+  {
+    playerRegion = pRegion;
+    playerRegionInfo = state;
+    setViewedRegionInfo(state);
+  }
+
+  /**
+   * Set reference to viewed region info
+   * @param state       State object of region currently selected on interactive
+   *                    map.
+   */
+  public void setViewedRegionInfo(State state)
+  {
+    viewedRegionInfo = state;
   }
 
   /*
