@@ -163,7 +163,17 @@ public class GuiBase extends Application
 
   /*
   ============end from control==================================================
+   ****************************************************************************
+   * ====================GUI MANAGEMENT========================================
    */
+
+  /**
+   * Handles timer events.  Called from GuiTimer.handle.
+   */
+  public void timerTick()
+  {
+    //do timer stuff.
+  }
 
   /**
    * Initialize GUI components.
