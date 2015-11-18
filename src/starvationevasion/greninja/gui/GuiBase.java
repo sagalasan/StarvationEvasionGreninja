@@ -29,6 +29,7 @@ public class GuiBase extends Application
   private Stage mainStage;
   private Scene baseScene;
   private GameController control;
+  private GuiTimer guiTimer;
 
   /*
   ===========================TO CONTROL=========================================
@@ -204,6 +205,7 @@ public class GuiBase extends Application
     mainStage.setY(bounds.getMinY());
     mainStage.setWidth(bounds.getWidth());
     mainStage.setHeight(bounds.getHeight());
+    guiTimer = new GuiTimer(this);
   }
 
   public static void main(String[] args)
