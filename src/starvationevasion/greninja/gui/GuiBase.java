@@ -75,7 +75,9 @@ public class GuiBase extends Application
   public void swapToVotingPane()
   {
     System.out.println("Now in Voting.");
-    votingPane.getTimerPane().resetTimer();
+    //votingPane.getTimerPane().resetTimer();
+    votingPane = new VotingPane(this);
+    votingPane.initPane();
     activePane = votingPane;
     baseScene.setRoot(votingPane);
   }
@@ -86,7 +88,9 @@ public class GuiBase extends Application
   public void swapToPolicyPane()
   {
     System.out.println("Now in Policy Drafting.");
-    policyPane.getTimerPane().resetTimer();
+    //policyPane.getTimerPane().resetTimer();
+    policyPane = new PolicyPane(this);
+    policyPane.initPane();
     activePane = policyPane;
     baseScene.setRoot(policyPane);
   }
