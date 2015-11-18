@@ -24,6 +24,7 @@ public class GuiBase extends Application
 {
   private PolicyPane policyPane;
   private VotingPane votingPane;
+  private GamePhasePane activePane;
   private EnumRegion playerRegion, viewedRegion;
   private State playerRegionInfo, viewedRegionInfo; //references to region observed
   private Stage mainStage;
@@ -75,6 +76,7 @@ public class GuiBase extends Application
   {
     System.out.println("Now in Voting.");
     votingPane.getTimerPane().resetTimer();
+    activePane = votingPane;
     baseScene.setRoot(votingPane);
   }
 
@@ -85,6 +87,7 @@ public class GuiBase extends Application
   {
     System.out.println("Now in Policy Drafting.");
     policyPane.getTimerPane().resetTimer();
+    activePane = policyPane;
     baseScene.setRoot(policyPane);
   }
 
@@ -174,6 +177,10 @@ public class GuiBase extends Application
   public void timerTick()
   {
     //do timer stuff.
+    if(activePane != null)
+    {
+      activePane.getTimerPane().updateTimeText();
+    }
   }
 
   /**
@@ -206,6 +213,7 @@ public class GuiBase extends Application
     mainStage.setWidth(bounds.getWidth());
     mainStage.setHeight(bounds.getHeight());
     guiTimer = new GuiTimer(this);
+    guiTimer.start();
   }
 
   public static void main(String[] args)

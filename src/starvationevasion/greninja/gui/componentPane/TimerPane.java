@@ -46,23 +46,17 @@ public class TimerPane extends StackPane
     timeLabel.setFont(new Font(16));
     timeLabel.setStyle(GuiStyles.paddedGray());
     getChildren().add(timeLabel);
-    Timeline timerCountdown = new Timeline(new KeyFrame(Duration.seconds(0.25),
-        new EventHandler<ActionEvent>()
-        {
-          @Override
-          public void handle(ActionEvent event)
-          {
-            timeLabel.setText(timeRemaining);
-            timeLabel.setTextFill(timerColor);
-          }
-        }));
-    timerCountdown.setCycleCount(Timeline.INDEFINITE);
-    timerCountdown.play();
   }
 
   public void resetTimer()
   {
     timeRemaining = new String(phaseLength);
+  }
+
+  public void updateTimeText()
+  {
+    timeLabel.setText(timeRemaining);
+    timeLabel.setTextFill(timerColor);
   }
 
   /**
