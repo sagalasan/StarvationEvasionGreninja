@@ -1,17 +1,58 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import starvationevasion.common.EnumRegion;
+
+import java.util.HashMap;
 
 /**
  * Region polygons for click detection on interactive map.  Will make it so that
  * they can be formatted as a whole map, or displayed individually.
- * also will experament with svg
+ * also will experament with svg.
+ * TODO Make clickable.
+ * TODO setup highlight/glow method for selected.
+ * TODO setup with image?
+ * TODO make smaller?
  */
 public class RegionPaths
 {
-  public static Polygon California, Mountain, NorthPlains, SouthPlains,
+  private HashMap<EnumRegion, Polygon> usRegions;
+  private Polygon California, Mountain, NorthPlains, SouthPlains,
                         Heartland, Crescent, SouthEast;
   public RegionPaths()
+  {
+    buildRegionPolygons();
+    usRegions = new HashMap<>();
+    populateHashMap();
+    //setTransparent();
+  }
+
+  public Polygon getRegionPolygonByName(EnumRegion region)
+  {
+    return usRegions.get(region);
+  }
+
+  /**
+   * Get group map of regions.
+   * @return        Group of region polygons.
+   */
+  public Group getUSRegionMap()
+  {
+    Group g = new Group();
+    for(Polygon polygon : usRegions.values())
+    {
+      g.getChildren().add(polygon);
+    }
+    return g;
+  }
+
+  /**
+   * Instantiate region polygons.
+   * TODO make non visible.
+   */
+  private void buildRegionPolygons()
   {
     California = new Polygon();
     California.getPoints().addAll(new Double[]{8.00,100.00, 46.00,111.00, 46.00,111.00,
@@ -85,5 +126,30 @@ public class RegionPaths
         371.00,285.00, 386.00,211.00, 386.00,211.00,
         386.00,211.00, 403.00,193.00, 403.00,193.00,
         403.00,193.00, 425.00,193.00, 425.00,193.00});
+  }
+
+  /**
+   * Populate hashmap of EnumRegions to region polygons.
+   */
+  private void populateHashMap()
+  {
+    usRegions.put(EnumRegion.CALIFORNIA, California);
+    usRegions.put(EnumRegion.MOUNTAIN, Mountain);
+    usRegions.put(EnumRegion.NORTHERN_PLAINS, NorthPlains);
+    usRegions.put(EnumRegion.SOUTHERN_PLAINS, SouthPlains);
+    usRegions.put(EnumRegion.HEARTLAND, Heartland);
+    usRegions.put(EnumRegion.SOUTHEAST, SouthEast);
+    usRegions.put(EnumRegion.NORTHERN_CRESCENT, Crescent);
+  }
+
+  /**
+   * Set fill to transparent.
+   */
+  private void setTransparent()
+  {
+    for(Polygon polygon : usRegions.values())
+    {
+      polygon.setFill(Color.TRANSPARENT);
+    }
   }
 }

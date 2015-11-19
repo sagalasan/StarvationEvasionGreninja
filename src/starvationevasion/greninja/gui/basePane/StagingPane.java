@@ -50,11 +50,9 @@ public class StagingPane extends VBox
       regionButtons.put(b, region);
     }
     getChildren().add(buttons);
-    Group map = new Group();
+    Group map;
     RegionPaths pathTest = new RegionPaths();
-    map.getChildren().addAll(new Polygon[]{RegionPaths.California, RegionPaths.Mountain,
-        RegionPaths.NorthPlains, RegionPaths.SouthPlains, RegionPaths.Heartland,
-        RegionPaths.SouthEast, RegionPaths.Crescent});
+    map = pathTest.getUSRegionMap();
     getChildren().add(map);
 
   }
