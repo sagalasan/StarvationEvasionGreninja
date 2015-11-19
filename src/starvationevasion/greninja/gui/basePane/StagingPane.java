@@ -52,7 +52,7 @@ public class StagingPane extends VBox
     getChildren().add(buttons);
     Group map;
     RegionPaths pathTest = new RegionPaths();
-    //pathTest.scaleMap();
+    pathTest.scaleMap(0.75);
     map = pathTest.getUSRegionMap();
     getChildren().add(map);
 

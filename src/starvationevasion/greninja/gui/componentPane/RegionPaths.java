@@ -180,14 +180,29 @@ public class RegionPaths
         */
   }
 
-  public void scaleMap()
+  /**
+   * Scale map by specified amount
+   * @param scale       double to scale by.
+   */
+  public void scaleMap(double scale)
   {
-    for(SVGPath path : usRegions.values())
-    {
-      path.setScaleX(0.5);
-      path.setScaleY(0.5);
-      path.setScaleZ(0.5);
-    }
+      regionGroup.setScaleX(scale);
+      regionGroup.setScaleY(scale);
+      regionGroup.setScaleZ(scale);
+  }
+
+  /**
+   * Scale individual region
+   * @param region          EnumRegion to scale.
+   * @param scale           double to scale by.
+   */
+  public void scaleRegion(EnumRegion region, double scale)
+  {
+    SVGPath regionPath;
+    regionPath = usRegions.get(region);
+    regionPath.setScaleX(scale);
+    regionPath.setScaleY(scale);
+    regionPath.setScaleZ(scale);
   }
 
   /**
