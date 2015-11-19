@@ -8,10 +8,11 @@ import starvationevasion.common.EnumRegion;
 import java.util.HashMap;
 
 /**
- * Region polygons for click detection on interactive map.  Will make it so that
- * they can be formatted as a whole map, or displayed individually.
- * also will experament with svg.
- * TODO Make clickable.
+ * Region polygons for click detection on interactive map.  The polygons can be
+ * taken as a Group laid out as a map of the US, or called individually via
+ * the EnumRegion name.
+ * also will experiment with svg.
+ * TODO Make click listener.
  * TODO setup highlight/glow method for selected.
  * TODO setup with image?
  * TODO make smaller?
@@ -50,7 +51,6 @@ public class RegionPaths
 
   /**
    * Instantiate region polygons.
-   * TODO make non visible.
    */
   private void buildRegionPolygons()
   {
