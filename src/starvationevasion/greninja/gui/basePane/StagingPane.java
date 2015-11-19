@@ -1,5 +1,8 @@
 package starvationevasion.greninja.gui.basePane;
 
+import javafx.scene.Group;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
 import starvationevasion.common.EnumRegion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,14 +10,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import starvationevasion.greninja.gui.GuiBase;
+import starvationevasion.greninja.gui.componentPane.RegionPaths;
 
 import java.util.HashMap;
 
 /**
  * Select region, wait for other players to join.
+ * TODO Just testing right now, finalize.
  * @author Justin Thomas(jthomas105@unm.edu)
  */
-public class StagingPane extends HBox
+public class StagingPane extends VBox
 {
   private GuiBase base;
   HashMap<Button, EnumRegion> regionButtons;
@@ -30,6 +35,7 @@ public class StagingPane extends HBox
    */
   public void initPane()
   {
+    HBox buttons = new HBox();
     getChildren().add(new Label("Staging Pane, select a region."));
     ButtonControl buttonListener = new ButtonControl(this);
     regionButtons = new HashMap<>();
@@ -40,9 +46,17 @@ public class StagingPane extends HBox
       region = EnumRegion.values()[i];
       b = new Button(region.toString());
       b.setOnAction(buttonListener);
-      getChildren().add(b);
+      buttons.getChildren().add(b);
       regionButtons.put(b, region);
     }
+    getChildren().add(buttons);
+    Group map = new Group();
+    RegionPaths pathTest = new RegionPaths();
+    map.getChildren().addAll(new Polygon[]{RegionPaths.California, RegionPaths.Mountain,
+        RegionPaths.NorthPlains, RegionPaths.SouthPlains, RegionPaths.Heartland,
+        RegionPaths.SouthEast, RegionPaths.Crescent});
+    getChildren().add(map);
+
   }
 
   /**
