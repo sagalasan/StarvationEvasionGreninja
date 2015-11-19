@@ -9,15 +9,15 @@ import java.util.List;
 /**
  * Class that represents a generic player (human player and AI player).
  */
-public class Player implements PlayerInterface
+public class HumanPlayer implements PlayerInterface
 {
   EnumRegion region;
   List<EnumPolicy> cards, discardPile, voteRequiredPolicies;
   int votingPolicyCount = 0;
 
-  public Player() {}
+  public HumanPlayer() {}
 
-  public Player(EnumRegion region, List<EnumPolicy> cards)
+  public HumanPlayer(EnumRegion region, List<EnumPolicy> cards)
   {
     discardPile = new ArrayList<EnumPolicy>();
     voteRequiredPolicies = new ArrayList<EnumPolicy>();
@@ -26,31 +26,31 @@ public class Player implements PlayerInterface
     this.cards = cards;
   }
 
-
+  @Override
   public EnumRegion getPlayerRegion()
   {
     return this.region;
   }
 
-
+  @Override
   public void setPlayerRegion(EnumRegion region)
   {
     this.region = region;
   }
 
-
+  @Override
   public List<EnumPolicy> getPlayerHand()
   {
     return this.cards;
   }
 
-
+  @Override
   public void setPlayerHand(List<EnumPolicy> hand)
   {
      this.cards = hand;
   }
 
-
+  @Override
   public boolean addCard(EnumPolicy card)
   {
     if (cards.size() < 7)
@@ -64,7 +64,7 @@ public class Player implements PlayerInterface
     }
   }
 
-
+  @Override
   public boolean discardCard(int index)
   {
     if(index < cards.size())
@@ -79,7 +79,7 @@ public class Player implements PlayerInterface
     }
   }
 
-
+  @Override
   public boolean discardThree(int[] indices)
   {
     if(cards.size() >= 3)
@@ -102,7 +102,7 @@ public class Player implements PlayerInterface
     }
   }
 
-
+  @Override
   public EnumPolicy getCard(int index)
   {
     if(index < cards.size())
@@ -115,7 +115,7 @@ public class Player implements PlayerInterface
     }
   }
 
-
+  @Override
   public EnumPolicy firstCard(List<EnumPolicy> cardPile)
   {
     return cardPile.get(0);
@@ -133,12 +133,14 @@ public class Player implements PlayerInterface
   }
 
 
+  @Override
   public EnumPolicy vote(int index)
   {
     return voteRequiredPolicies.get(index);
   }
 
 
+  @Override
   public void draft(int index)
   {
     EnumPolicy selectedCard = getCard(index);
