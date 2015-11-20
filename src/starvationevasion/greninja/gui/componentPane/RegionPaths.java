@@ -28,7 +28,7 @@ public class RegionPaths
     buildRegionPolygons();
     usRegions = new HashMap<>();
     populateHashMap();
-    //setTransparent();
+    setTransparent();
   }
 
   public SVGPath getRegionPolygonByName(EnumRegion region)
@@ -153,6 +153,7 @@ public class RegionPaths
     for(SVGPath polygon : usRegions.values())
     {
       polygon.setFill(Color.TRANSPARENT);
+      polygon.setStroke(Color.GREEN);
     }
   }
 }

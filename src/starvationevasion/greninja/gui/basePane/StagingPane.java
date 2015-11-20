@@ -1,8 +1,7 @@
 package starvationevasion.greninja.gui.basePane;
 
-import javafx.scene.Group;
+
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Polygon;
 import starvationevasion.common.EnumRegion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import starvationevasion.greninja.gui.GuiBase;
-import starvationevasion.greninja.gui.componentPane.RegionPaths;
+import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
 
 import java.util.HashMap;
 
@@ -50,12 +49,7 @@ public class StagingPane extends VBox
       regionButtons.put(b, region);
     }
     getChildren().add(buttons);
-    Group map;
-    RegionPaths pathTest = new RegionPaths();
-    pathTest.scaleMap(0.75);
-    map = pathTest.getUSRegionMap();
-    getChildren().add(map);
-
+    getChildren().add(new InteractiveMapPane());
   }
 
   /**
