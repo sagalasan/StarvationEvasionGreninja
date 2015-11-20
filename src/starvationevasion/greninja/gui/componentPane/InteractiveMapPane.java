@@ -12,6 +12,9 @@ import javafx.scene.layout.StackPane;
  */
 public class InteractiveMapPane extends StackPane
 {
+
+  Group map;
+
   public InteractiveMapPane()
   {
     buildUSMap();
@@ -22,7 +25,6 @@ public class InteractiveMapPane extends StackPane
    */
   private void buildUSMap()
   {
-    Group map; //create group for region svgs
     RegionPaths pathTest = new RegionPaths();
     map = pathTest.getUSRegionMap(); //get svgs in map format
     //load bitmap
