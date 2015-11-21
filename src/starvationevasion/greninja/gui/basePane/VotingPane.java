@@ -26,10 +26,10 @@ public class VotingPane extends GamePhasePane
   /**
    * Instantiate and add pane components
    */
-  @Override
+
   public void initPane()
   {
-    super.initPane();
+    super.initTimerPane();
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
@@ -37,12 +37,26 @@ public class VotingPane extends GamePhasePane
     getChildren().add(getTimerPane());
     getChildren().add(button);
   }
+  //removes the old timer, makes a new one, and adds it to the children
+  private void resetTimer()
+  {
+    //getChildren().remove(getTimerPane());
+
+    int timerIndex = getChildren().indexOf(getTimerPane());
+    super.initTimerPane();
+    getChildren().set(timerIndex, getTimerPane());
+
+
+    //getChildren().add(getTimerPane());
+
+  }
 
   /**
    * TODO will not need.
    */
   public void endPhase()
   {
+    resetTimer();
     base.endPolicyVotingPhase();
   }
 

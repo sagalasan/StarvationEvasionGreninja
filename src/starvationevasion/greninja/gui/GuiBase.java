@@ -23,8 +23,9 @@ import starvationevasion.greninja.model.State;
 //TODO put whole gui on timeline.
 public class GuiBase extends Application
 {
-  private PolicyPane policyPane;
-  private VotingPane votingPane;
+  private PolicyPane policyPane = new PolicyPane(this);
+  private VotingPane votingPane = new VotingPane(this);
+
   private GamePhasePane activePane;
   private EnumRegion playerRegion, viewedRegion;
   private State playerRegionInfo, viewedRegionInfo; //references to region observed
@@ -33,6 +34,11 @@ public class GuiBase extends Application
   private GameController control;
   private GuiTimer guiTimer;
 
+  public void initializePanes()
+  {
+    votingPane.initPane();
+    policyPane.initPane();
+  }
   /*
   ===========================TO CONTROL=========================================
    */
@@ -76,9 +82,10 @@ public class GuiBase extends Application
   public void swapToVotingPane()
   {
     System.out.println("Now in Voting.");
-    votingPane.getTimerPane().resetTimer();
+    //votingPane.getTimerPane().resetTimer();
     //votingPane = new VotingPane(this);
     //votingPane.initPane();
+
     activePane = votingPane;
     baseScene.setRoot(votingPane);
   }
@@ -89,7 +96,7 @@ public class GuiBase extends Application
   public void swapToPolicyPane()
   {
     System.out.println("Now in Policy Drafting.");
-    policyPane.getTimerPane().resetTimer();
+    //policyPane.getTimerPane().resetTimer();
     //policyPane = new PolicyPane(this);
     //policyPane.initPane();
     activePane = policyPane;
@@ -105,6 +112,7 @@ public class GuiBase extends Application
     System.out.println("Entered Staging Pane");
     StagingPane staging = new StagingPane(this);
     staging.initPane();
+    //initializePanes();
     baseScene.setRoot(staging);
   }
 
@@ -195,10 +203,12 @@ public class GuiBase extends Application
   {
     //initialize components
     mainStage.setTitle("Starvation Evasion");
-    policyPane = new PolicyPane(this);
-    policyPane.initPane();
-    votingPane = new VotingPane(this);
-    votingPane.initPane();
+
+    initializePanes();
+    //policyPane = new PolicyPane(this);
+    //policyPane.initPane();
+    //votingPane = new VotingPane(this);
+    //votingPane.initPane();
     StackPane loading = new StackPane();
     loading.getChildren().add(new Label("Loading."));
     baseScene = new Scene(loading, 300, 500);

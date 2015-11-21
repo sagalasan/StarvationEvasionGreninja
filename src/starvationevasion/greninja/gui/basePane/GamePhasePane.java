@@ -17,12 +17,13 @@ public class GamePhasePane extends VBox
   public GamePhasePane(GuiBase base)
   {
     this.base = base;
+
   }
 
   /**
    * Makes the timer and other components common to the two game phases.
    */
-  public void initPane()
+  public void initTimerPane()
   {
     timer = new TimerPane();
     timer.initPhaseTimer(ClientConstant.TIME_LIMIT_STRING);
