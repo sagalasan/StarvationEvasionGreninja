@@ -8,7 +8,6 @@ import javafx.scene.layout.StackPane;
 /**
  * Interactive map pane builds and maintains an interactive map.
  * TODO sort out what needs to be saved.
- * TODO remove green lines after click box testing.
  */
 public class InteractiveMapPane extends StackPane
 {

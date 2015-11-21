@@ -2,7 +2,6 @@ package starvationevasion.greninja.gui.componentPane;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
@@ -15,10 +14,7 @@ import java.util.HashMap;
  * taken as a Group laid out as a map of the US, or called individually via
  * the EnumRegion name.
  * also will experiment with svg.
- * TODO Make click listener.
  * TODO setup highlight/glow method for selected.
- * TODO setup with image?
- * TODO make smaller?
  */
 public class RegionPaths
 {

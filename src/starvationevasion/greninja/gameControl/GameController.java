@@ -9,6 +9,7 @@ import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.model.HumanPlayer;
 import starvationevasion.greninja.model.State;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -46,6 +47,26 @@ public class GameController
   {
     this.gui = gui;
     cardsForVote = new ArrayList<>();
+  }
+
+  /**
+   * Messages from server come in to this method.  Identifies message and sends
+   * to the appropriate data structure or takes appropriate action
+   * @param message       Serializable object.
+   */
+  public void handleMessageIn(Serializable message)
+  {
+    //identify message type.
+    //send to appropriate location.
+  }
+
+  /**
+   * Send a message to the message queue
+   * @param message       Serializable object.
+   */
+  public void sendMessageOut(Serializable message)
+  {
+    //send message to message queue;
   }
 
   /*
