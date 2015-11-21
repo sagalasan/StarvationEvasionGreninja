@@ -34,7 +34,7 @@ public class RegionPaths
     setTransparent();
   }
 
-  public SVGPath getRegionPolygonByName(EnumRegion region)
+  public RegionSVG getRegionPolygonByName(EnumRegion region)
   {
     return usRegions.get(region);
   }
@@ -171,11 +171,29 @@ public class RegionPaths
     EnumRegion name;
     Color color;
 
+    /**
+     * Get color of this region.
+     * @return        Color of this region for stroke highlighting.
+     */
     public Color getColor()
     {
       return color;
     }
 
+    /**
+     * Get EnumRegion of this region.
+     * @return        EnumRegion belonging to this shape.
+     */
+    public EnumRegion getName()
+    {
+      return name;
+    }
+
+    /**
+     * Constructor, adds mouse listeners.
+     * @param name        EnumRegion name of the region.
+     * @param color       Color, color to highlight region in.
+     */
     public RegionSVG(EnumRegion name, Color color)
     {
       this.name = name;
@@ -196,7 +214,7 @@ public class RegionPaths
       {
         public void handle(MouseEvent me)
         {
-          System.out.println("Mouse pressed");
+          System.out.println("Clicked: " + getName());
         }
       });
     }
