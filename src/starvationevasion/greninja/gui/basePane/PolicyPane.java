@@ -19,8 +19,7 @@ public class PolicyPane extends GamePhasePane
 {
 
   private GuiBase base;
-  //private CardController ash;
-
+  private CardController ash;
   public PolicyPane(GuiBase base)
   {
     super(base);
@@ -40,11 +39,11 @@ public class PolicyPane extends GamePhasePane
     button.setOnAction(new ButtonControl(this));
     getChildren().add(new Label("Policy Pane, draft policies"));
 
-    //Image image = new Image("file:assets/greninjaAssets/usMap.png");
-    //ash = new CardController(image, 50, 50, "ash");
+    Image image = new Image("file:assets/greninjaAssets/usMap.png");
+    ash = new CardController(image, 50, 50, "ash");
 
     getChildren().add(getTimerPane());
-    //getChildren().add(ash.getCard());
+    getChildren().add(ash);
 
     getChildren().add(button);
   }
