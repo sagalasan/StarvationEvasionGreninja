@@ -1,7 +1,8 @@
 package starvationevasion.greninja.gui;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.GameController;
@@ -194,11 +195,13 @@ public class GuiBase extends Application
   {
     //initialize components
     mainStage.setTitle("Starvation Evasion");
-    policyPane = new PolicyPane(this);
-    policyPane.initPane();
-    votingPane = new VotingPane(this);
-    votingPane.initPane();
-    baseScene = new Scene(votingPane, 300, 500);
+    //policyPane = new PolicyPane(this);
+    //policyPane.initPane();
+    //votingPane = new VotingPane(this);
+    //votingPane.initPane();
+    StackPane loading = new StackPane();
+    loading.getChildren().add(new Label("Loading."));
+    baseScene = new Scene(loading, 300, 500);
     mainStage.setScene(baseScene);
     //==========================================================================
     //this is where the style sheet gets added so that the .css will apply its design to

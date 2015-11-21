@@ -70,7 +70,11 @@ public class PhaseTimer extends Thread
         System.out.println("Timer Interrupted.");
         e.printStackTrace();
       }
-      timerVisualization.updateTimeRemaining(updateRemainingTime());
+      updateRemainingTime();
+      if(timerVisualization != null)//if not ai game.
+      {
+        timerVisualization.updateTimeRemaining(makeTimeString());
+      }
     }
     if(phase != null)
     {
@@ -82,22 +86,18 @@ public class PhaseTimer extends Thread
    * Return array with current time remaining.
    * @return        int array of size two representing minutes and seconds left.
    */
-  private String updateRemainingTime()
+  private void updateRemainingTime()
   {
     if(timeRemaining[1] <= 0)
     {
       timeRemaining[1] = 59;
       timeRemaining[0]--;
-      if(timeRemaining[0] < 2)
-      {
-        timerVisualization.setTimerColor(timeRemaining[0]);
-      }
+
     }
     else
     {
       timeRemaining[1]--;
     }
-    return makeTimeString();
   }
 
   /**
@@ -106,9 +106,14 @@ public class PhaseTimer extends Thread
    */
   private String makeTimeString()
   {
+    if(timeRemaining[0] < 2)//check and update color.
+    {
+      timerVisualization.setTimerColor(timeRemaining[0]);
+    }
     StringBuilder timeString = new StringBuilder();
     timeString.append(timeRemaining[0]);
     timeString.append(':');
+
     if (timeRemaining[1] < 10)
     {
       timeString.append(0);
