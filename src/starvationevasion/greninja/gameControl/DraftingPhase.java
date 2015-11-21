@@ -93,6 +93,11 @@ public class DraftingPhase extends GamePhase
     return cardSelected;
   }
 
+  public void stopTimer()
+  {
+    phaseTimer.setPhaseActive(false);
+  }
+
   /**
    * Informs control that phase is over.
    */

@@ -250,8 +250,9 @@ public class GameController
   public void endPolicyDraftingPhase()
   {
     //start voting phase.
+    draftingPhase.stopTimer();
     startPolicyVotingPhase();
-    draftingPhase = null;
+    //draftingPhase = null;
   }
 
   /**
@@ -365,8 +366,9 @@ public class GameController
   public void endPolicyVotingPhase()
   {
     fillHand();
+    votingPhase.stopTimer();
     startPolicyDraftingPhase();
-    votingPhase = null;
+    //votingPhase = null;
   }
 
   private void getCardsForVote()

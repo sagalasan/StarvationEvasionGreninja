@@ -18,6 +18,7 @@ public class PhaseTimer extends Thread
   private GamePhase phase;
   private TimerPane timerVisualization;
   private int[] timeRemaining;
+  private boolean phaseActive;
 
   /**
    * Construct at beginning of phase.  Logs current system time and calculates
@@ -34,6 +35,12 @@ public class PhaseTimer extends Thread
     timeRemaining[0] = timeLimit;
     timeRemaining[1] = 0;
     timerVisualization = visibleTimer;
+    phaseActive = true;
+  }
+
+  public void setPhaseActive(boolean b)
+  {
+    phaseActive = b;
   }
 
   /**
@@ -59,7 +66,7 @@ public class PhaseTimer extends Thread
   @Override
   public void run()
   {
-    while(phaseNotOver() && phase != null)
+    while(phaseNotOver() && phase != null && phaseActive)
     {
       try
       {
@@ -76,7 +83,7 @@ public class PhaseTimer extends Thread
         timerVisualization.updateTimeRemaining(makeTimeString());
       }
     }
-    if(phase != null)
+    if(phase != null && phaseActive)
     {
       phase.phaseOver();
     }

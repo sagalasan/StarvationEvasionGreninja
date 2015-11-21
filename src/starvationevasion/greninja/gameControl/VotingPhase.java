@@ -25,6 +25,11 @@ public class VotingPhase extends GamePhase
     this.control = control;
   }
 
+  public void stopTimer()
+  {
+    phaseTimer.setPhaseActive(false);
+  }
+
   /**
    * End phase cleanup.
    */

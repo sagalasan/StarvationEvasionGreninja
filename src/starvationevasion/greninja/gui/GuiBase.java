@@ -76,9 +76,9 @@ public class GuiBase extends Application
   public void swapToVotingPane()
   {
     System.out.println("Now in Voting.");
-    //votingPane.getTimerPane().resetTimer();
-    votingPane = new VotingPane(this);
-    votingPane.initPane();
+    votingPane.getTimerPane().resetTimer();
+    //votingPane = new VotingPane(this);
+    //votingPane.initPane();
     activePane = votingPane;
     baseScene.setRoot(votingPane);
   }
@@ -89,9 +89,9 @@ public class GuiBase extends Application
   public void swapToPolicyPane()
   {
     System.out.println("Now in Policy Drafting.");
-    //policyPane.getTimerPane().resetTimer();
-    policyPane = new PolicyPane(this);
-    policyPane.initPane();
+    policyPane.getTimerPane().resetTimer();
+    //policyPane = new PolicyPane(this);
+    //policyPane.initPane();
     activePane = policyPane;
     baseScene.setRoot(policyPane);
   }
@@ -195,10 +195,10 @@ public class GuiBase extends Application
   {
     //initialize components
     mainStage.setTitle("Starvation Evasion");
-    //policyPane = new PolicyPane(this);
-    //policyPane.initPane();
-    //votingPane = new VotingPane(this);
-    //votingPane.initPane();
+    policyPane = new PolicyPane(this);
+    policyPane.initPane();
+    votingPane = new VotingPane(this);
+    votingPane.initPane();
     StackPane loading = new StackPane();
     loading.getChildren().add(new Label("Loading."));
     baseScene = new Scene(loading, 300, 500);
