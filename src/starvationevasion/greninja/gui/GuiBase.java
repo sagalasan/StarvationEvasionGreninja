@@ -236,7 +236,14 @@ public class GuiBase extends Application
 
   public static void main(String[] args)
   {
-    launch(args);
+    if(args.length != 0 && args[0].equals("ai"))
+    {
+      System.out.println("Javafx intercepted.");
+    }
+    else
+    {
+      launch(args);
+    }
   }
 
   @Override
