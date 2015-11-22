@@ -7,7 +7,10 @@ import javafx.scene.layout.StackPane;
 import starvationevasion.greninja.gui.MapHolder;
 
 /**
- * Interactive map pane builds and maintains an interactive map.
+ * Interactive map pane builds and maintains an interactive map.  Panes that use
+ * an interactive map should implement the MapHolder interface.  After the
+ * map is added, the containing pane should set itself as the holder by calling
+ * the setContainingPane(MapHolder holder) method.
  * TODO sort out what needs to be saved.
  */
 public class InteractiveMapPane extends StackPane

@@ -3,7 +3,9 @@ package starvationevasion.greninja.gui;
 import starvationevasion.common.EnumRegion;
 
 /**
- * Interface for panes that hold an interactive map.
+ * Interface for panes that hold an InteractiveMapPane.  Panes that hold an
+ * InteractiveMapPane should implement this interface and register themselves
+ * with the InteractiveMapPane via the setContainingPane(MapHolder holder) method.
  */
 public interface MapHolder
 {

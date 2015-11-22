@@ -14,8 +14,6 @@ import java.util.HashMap;
  * Region polygons for click detection on interactive map.  The polygons can be
  * taken as a Group laid out as a map of the US, or called individually via
  * the EnumRegion name.
- * also will experiment with svg.
- * TODO setup highlight/glow method for selected.
  */
 public class RegionPaths
 {
@@ -34,7 +32,8 @@ public class RegionPaths
   }
 
   /**
-   * Set the containing pane for this set of region paths.
+   * Set the containing pane for this set of region paths.  This is called
+   * from InteractiveMapPane class.
    * @param holder        Pane that implements MapHolder.
    */
   public void setContainingPane(MapHolder holder)
@@ -186,7 +185,7 @@ public class RegionPaths
 
   /**
    * Private RegionSVG adds some functionality to SVG class.  Contains an
-   * EnumRegion "name" and a color.
+   * EnumRegion "name" and a color, as well as mouse listeners.
    */
   private class RegionSVG extends SVGPath
   {
