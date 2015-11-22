@@ -3,6 +3,7 @@ package starvationevasion.greninja.gui;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.GameController;
@@ -14,6 +15,8 @@ import javafx.stage.Stage;
 import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.State;
+
+import java.util.List;
 
 /**
  * GUI hub class and main method of client application.
@@ -252,6 +255,10 @@ public class GuiBase extends Application
     mainStage = primaryStage;
     setupGui();
     control = new GameController(this);
+  }
+  public List<EnumPolicy> getPlayerHand()
+  {
+    return control.getPlayerHand();
   }
 
   /**

@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gui.basePane;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
