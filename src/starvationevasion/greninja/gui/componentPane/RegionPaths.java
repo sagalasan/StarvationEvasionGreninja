@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.gui.MapHolder;
 
 import java.util.HashMap;
 
@@ -22,6 +23,8 @@ public class RegionPaths
   private Group regionGroup;
   private RegionSVG California, Mountain, NorthPlains, SouthPlains,
                         Heartland, Crescent, SouthEast;
+  private MapHolder holder;
+
   public RegionPaths()
   {
     buildRegionPolygons();
@@ -30,6 +33,20 @@ public class RegionPaths
     setTransparent();
   }
 
+  /**
+   * Set the containing pane for this set of region paths.
+   * @param holder        Pane that implements MapHolder.
+   */
+  public void setContainingPane(MapHolder holder)
+  {
+    this.holder = holder;
+  }
+
+  /**
+   * Get individual region path.
+   * @param region        EnumRegion of path to get.
+   * @return              Return region SVG.
+   */
   public RegionSVG getRegionPolygonByName(EnumRegion region)
   {
     return usRegions.get(region);
@@ -130,6 +147,15 @@ public class RegionPaths
   }
 
   /**
+   * Pass on region clicked to containing pane.
+   * @param region        enumregion that was clicked.
+   */
+  public void regionClicked(EnumRegion region)
+  {
+    holder.regionClicked(region);
+  }
+
+  /**
    * Populate hashmap of EnumRegions to region polygons.
    */
   private void populateHashMap()
@@ -194,6 +220,7 @@ public class RegionPaths
     {
       this.name = name;
       this.color = color;
+
       setOnMouseEntered(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent me) {
           setStroke(getColor());
@@ -210,7 +237,7 @@ public class RegionPaths
       {
         public void handle(MouseEvent me)
         {
-          System.out.println("Clicked: " + getName());
+          regionClicked(getName());
         }
       });
     }

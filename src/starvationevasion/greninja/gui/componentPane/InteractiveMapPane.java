@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import starvationevasion.greninja.gui.MapHolder;
 
 /**
  * Interactive map pane builds and maintains an interactive map.
@@ -13,10 +14,16 @@ public class InteractiveMapPane extends StackPane
 {
 
   Group map;
+  RegionPaths paths;
 
   public InteractiveMapPane()
   {
     buildUSMap();
+  }
+
+  public void setContainingPane(MapHolder holder)
+  {
+    paths.setContainingPane(holder);
   }
 
   /**
@@ -24,8 +31,8 @@ public class InteractiveMapPane extends StackPane
    */
   private void buildUSMap()
   {
-    RegionPaths pathTest = new RegionPaths();
-    map = pathTest.getUSRegionMap(); //get svgs in map format
+    paths = new RegionPaths();
+    map = paths.getUSRegionMap(); //get svgs in map format
     //load bitmap
     Image img = new Image("file:assets/greninjaAssets/usMap.png");
     ImageView imgView = new ImageView();
@@ -33,7 +40,7 @@ public class InteractiveMapPane extends StackPane
     imgView.setFitWidth(400);
     imgView.setPreserveRatio(true); //resize for niceness
     //scale svgs to bitmap size
-    pathTest.scaleMap(imgView.getFitWidth()/map.getBoundsInParent().getWidth());
+    paths.scaleMap(imgView.getFitWidth()/map.getBoundsInParent().getWidth());
     getChildren().add(imgView);//add to pane.
     getChildren().add(map);
   }
