@@ -48,13 +48,15 @@ public class PolicyPane extends GamePhasePane
 
 
     rootForThisPane.setLeft(new Label("Policy Pane, draft policies"));
-
+    getChildren().add(rootForThisPane);
     //make a player card hand class
     getChildren().add(getTimerPane());
     getChildren().add(button);
-    getChildren().add(rootForThisPane);
 
 
+
+
+    //comment this out if you want to get rid of the player hand gui part.
     playerHandGui = new PlayerHandGui(base);
     getChildren().add(playerHandGui);
 
