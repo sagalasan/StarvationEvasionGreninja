@@ -1,6 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
-import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.HumanPlayer;
@@ -74,9 +74,9 @@ public class DraftingPhase extends GamePhase
    * @param cardIndex       index of card to get.
    * @return                return card to be drafted.
    */
-  public EnumPolicy draftPolicy(int cardIndex)
+  public PolicyCard draftPolicy(int cardIndex)
   {
-    EnumPolicy cardSelected = null;
+    PolicyCard cardSelected = null;
     //if can take action.
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
@@ -121,9 +121,9 @@ public class DraftingPhase extends GamePhase
    * @param index       card selected from gui.
    * @return            Policy card returned, null if blank.
    */
-  private EnumPolicy selectCardFromHand(int index)
+  private PolicyCard selectCardFromHand(int index)
   {
-    EnumPolicy cardSelected = humanPlayer.getCard(index);
+    PolicyCard cardSelected = humanPlayer.getCard(index);
     return cardSelected;
   }
 }

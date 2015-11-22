@@ -1,7 +1,7 @@
 package starvationevasion.greninja.model;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 
 import java.util.List;
 
@@ -27,20 +27,20 @@ public interface PlayerInterface
    * Set the current player's hand
    * @param hand
    */
-  void setPlayerHand(List<EnumPolicy> hand);
+  void setPlayerHand(List<PolicyCard> hand);
 
   /**
    * Get the player's current hand
    * @return
    */
-  List<EnumPolicy> getPlayerHand();
+  List<PolicyCard> getPlayerHand();
 
   /**
    * Add a card to the player's hand.
    * @param card    EnumPolicy to add to hand.
    * @return        true if addCard succeeded.
    */
-  boolean addCard(EnumPolicy card);
+  boolean addCard(PolicyCard card);
 
   /**
    * Removes a card from the player's hand and puts it in the discard pile.
@@ -61,21 +61,21 @@ public interface PlayerInterface
    * @param index
    * @return
    */
-  EnumPolicy getCard(int index);
+  PolicyCard getCard(int index);
 
   /**
    * Returns the card at the head of the given card list.
    * @param cardPile
    * @return
    */
-  EnumPolicy firstCard(List<EnumPolicy> cardPile);
+  PolicyCard firstCard(List<PolicyCard> cardPile);
 
   /**
    * The card in the drafted policies from all 7 regions that the player decided to vote for.
    * @param index
    * @return
    */
-  EnumPolicy vote(int index);
+  PolicyCard vote(int index);
 
   /**
    * The player-selected card during the drafting phase.

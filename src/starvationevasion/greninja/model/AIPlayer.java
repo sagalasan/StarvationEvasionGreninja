@@ -1,7 +1,7 @@
 package starvationevasion.greninja.model;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 
 import java.util.List;
 
@@ -23,19 +23,19 @@ public class AIPlayer implements PlayerInterface
   }
 
   @Override
-  public void setPlayerHand(List<EnumPolicy> hand)
+  public void setPlayerHand(List<PolicyCard> hand)
   {
 
   }
 
   @Override
-  public List<EnumPolicy> getPlayerHand()
+  public List<PolicyCard> getPlayerHand()
   {
     return null;
   }
 
   @Override
-  public boolean addCard(EnumPolicy card)
+  public boolean addCard(PolicyCard card)
   {
     return false;
   }
@@ -53,19 +53,19 @@ public class AIPlayer implements PlayerInterface
   }
 
   @Override
-  public EnumPolicy getCard(int index)
+  public PolicyCard getCard(int index)
   {
     return null;
   }
 
   @Override
-  public EnumPolicy firstCard(List<EnumPolicy> cardPile)
+  public PolicyCard firstCard(List<PolicyCard> cardPile)
   {
     return null;
   }
 
   @Override
-  public EnumPolicy vote(int index)
+  public PolicyCard vote(int index)
   {
     return null;
   }

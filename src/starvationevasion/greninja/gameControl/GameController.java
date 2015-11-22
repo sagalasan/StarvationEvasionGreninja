@@ -1,7 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.EnumFood;
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
@@ -126,12 +125,12 @@ public class GameController
   private void beginGame()
   {
     //create initial hand
-    ArrayList<EnumPolicy> initialHand = new ArrayList<>();
+    ArrayList<PolicyCard> initialHand = new ArrayList<>();
     //instantiate player
     humanPlayer = new HumanPlayer(playerRegion, initialHand);
     playerRegionInfo = new State(playerRegion);
     gui.initPlayerRegionInfo(playerRegionInfo, playerRegion);
-    fillHand();
+    //fillHand();
     //start policy drafting phase.
     startPolicyDraftingPhase();
   }
@@ -194,7 +193,7 @@ public class GameController
    * @param index       index of card clicked.
    * @return            EnumPolicy for corresponding card.
    */
-  public EnumPolicy getCardInfo(int index)
+  public PolicyCard getCardInfo(int index)
   {
     return humanPlayer.getCard(index);
   }
@@ -203,7 +202,7 @@ public class GameController
    * Get the player hand list.
    * @return        List of cards in player hand.
    */
-  public List<EnumPolicy> getPlayerHand()
+  public List<PolicyCard> getPlayerHand()
   {
     return humanPlayer.getPlayerHand();
   }
@@ -212,28 +211,23 @@ public class GameController
   /*
   *===================DECK MANAGEMENT==========================================
   */
-  /**
-   * Deals cards to player hand from deck up to the max hand size.  Initially
-   * called with the hand itself.  Should be called with player.getHand() during
-   * the game.
-   */
+  /*
   public void fillHand()
   {
-    while(humanPlayer.addCard(drawCard()))
+    while(humanPlayer.addCard()
     {
       System.out.println("Added card");
     }
   }
+  */
 
-  /**
-   * Draw a card from deck and add to hand.
-   * TODO fix when we've figured out how deck will work.
-   * @return        Card drawn.
-   */
-  public EnumPolicy drawCard()
+  /*
+
+  public PolicyCard drawCard()
   {
-    return EnumPolicy.International_Food_Releif_Program;
+    return PolicyCard.International_Food_Releif_Program;
   }
+  */
   //=================end deck management========================================
 
   /*
@@ -272,7 +266,7 @@ public class GameController
    */
   public void draftPolicy(int cardIndex)
   {
-    EnumPolicy cardDrafted = draftingPhase.draftPolicy(cardIndex);
+    PolicyCard cardDrafted = draftingPhase.draftPolicy(cardIndex);
     if(cardDrafted != null)
     {
       //if card needs voting goes into cardsForVote, else goes to cardsToPlay
@@ -283,7 +277,7 @@ public class GameController
       else
       {
         //inform server that card was played;
-        cardsForVote.add(new PolicyCard(playerRegion, cardDrafted));
+        //cardsForVote.add(new PolicyCard(playerRegion, cardDrafted));
       }
     }
     else
@@ -375,7 +369,7 @@ public class GameController
    */
   public void endPolicyVotingPhase()
   {
-    fillHand();
+    //fillHand();
     votingPhase.stopTimer();
     startPolicyDraftingPhase();
     //votingPhase = null;

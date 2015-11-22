@@ -1,7 +1,7 @@
 package starvationevasion.greninja.model;
 
-import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +12,15 @@ import java.util.List;
 public class HumanPlayer implements PlayerInterface
 {
   EnumRegion region;
-  List<EnumPolicy> cards, discardPile, voteRequiredPolicies;
+  List<PolicyCard> cards, discardPile, voteRequiredPolicies;
   int votingPolicyCount = 0;
 
   public HumanPlayer() {}
 
-  public HumanPlayer(EnumRegion region, List<EnumPolicy> cards)
+  public HumanPlayer(EnumRegion region, List<PolicyCard> cards)
   {
-    discardPile = new ArrayList<EnumPolicy>();
-    voteRequiredPolicies = new ArrayList<EnumPolicy>();
+    discardPile = new ArrayList<PolicyCard>();
+    voteRequiredPolicies = new ArrayList<PolicyCard>();
 
     this.region = region;
     this.cards = cards;
@@ -39,19 +39,19 @@ public class HumanPlayer implements PlayerInterface
   }
 
   @Override
-  public List<EnumPolicy> getPlayerHand()
+  public List<PolicyCard> getPlayerHand()
   {
     return this.cards;
   }
 
   @Override
-  public void setPlayerHand(List<EnumPolicy> hand)
+  public void setPlayerHand(List<PolicyCard> hand)
   {
      this.cards = hand;
   }
 
   @Override
-  public boolean addCard(EnumPolicy card)
+  public boolean addCard(PolicyCard card)
   {
     if (cards.size() < 7)
     {
@@ -69,7 +69,7 @@ public class HumanPlayer implements PlayerInterface
   {
     if(index < cards.size())
     {
-      EnumPolicy discarded = cards.remove(index);
+      PolicyCard discarded = cards.remove(index);
       discardPile.add(discarded);
       return true;
     }
@@ -84,7 +84,7 @@ public class HumanPlayer implements PlayerInterface
   {
     if(cards.size() >= 3)
     {
-      EnumPolicy[] cardsToDiscard = new EnumPolicy[3];
+      PolicyCard[] cardsToDiscard = new PolicyCard[3];
       for (int i = 0; i < 3; ++i)
       {
         cardsToDiscard[i] = getCard(indices[i]);
@@ -103,7 +103,7 @@ public class HumanPlayer implements PlayerInterface
   }
 
   @Override
-  public EnumPolicy getCard(int index)
+  public PolicyCard getCard(int index)
   {
     if(index < cards.size())
     {
@@ -116,7 +116,7 @@ public class HumanPlayer implements PlayerInterface
   }
 
   @Override
-  public EnumPolicy firstCard(List<EnumPolicy> cardPile)
+  public PolicyCard firstCard(List<PolicyCard> cardPile)
   {
     return cardPile.get(0);
   }
@@ -126,7 +126,7 @@ public class HumanPlayer implements PlayerInterface
    * Gets all the policies drafted by other players that need a vote.
    * @return
    */
-  public List<EnumPolicy> getDraftedPolicies(List<EnumPolicy> draftedPolicies)
+  public List<PolicyCard> getDraftedPolicies(List<PolicyCard> draftedPolicies)
   {
     voteRequiredPolicies = draftedPolicies;
     return voteRequiredPolicies;
@@ -134,7 +134,7 @@ public class HumanPlayer implements PlayerInterface
 
 
   @Override
-  public EnumPolicy vote(int index)
+  public PolicyCard vote(int index)
   {
     return voteRequiredPolicies.get(index);
   }
@@ -143,7 +143,7 @@ public class HumanPlayer implements PlayerInterface
   @Override
   public void draft(int index)
   {
-    EnumPolicy selectedCard = getCard(index);
+    PolicyCard selectedCard = getCard(index);
     // TODO: add this to a policy pile?
   }
 
