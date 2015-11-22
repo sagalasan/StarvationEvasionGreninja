@@ -1,6 +1,7 @@
 package starvationevasion.greninja.gui.basePane;
 
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import javafx.scene.control.Label;
@@ -8,6 +9,8 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.GuiTimerSubscriber;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
+
+import javax.smartcardio.Card;
 
 /**
  * Select region, wait for other players to join.
@@ -20,6 +23,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
   private String selectedRegion;
   private Label regionSelectedLabel;
 
+  //private CardController card;
 
   public StagingPane(GuiBase gui)
   {
@@ -37,6 +41,11 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     getChildren().add(regionSelectedLabel);
     InteractiveMapPane map = new InteractiveMapPane();
     map.setContainingPane(this);
+
+   // Image image = new Image("file:assets/greninjaAssets/usMap.png");
+    //card = new CardController(image, 50, 50, "ash");
+
+    //getChildren().add(card);
     getChildren().add(map);
   }
 

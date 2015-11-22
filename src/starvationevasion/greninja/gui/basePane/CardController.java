@@ -22,6 +22,8 @@ public class CardController extends StackPane {
   private String cardId;
   private ImageView card;
   private double x, y;
+  private double mouseX, mouseY;
+
   public CardController(Image image, double x, double y, String cardId)
   {
     card = new ImageView(image);
@@ -36,17 +38,33 @@ public class CardController extends StackPane {
     card.setLayoutX(x);
     card.setLayoutY(y);
     getChildren().add(card);
+    setId("cardController");
 
 
-    card.setOnMouseDragged(new EventHandler<MouseEvent>() {
+    /**
+      card.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent mouseEvent) {
-
-        card.setLayoutX(mouseEvent.getSceneX() - getX());
-        card.setLayoutY(mouseEvent.getSceneY() - getY());
+        mouseX = mouseEvent.getX();
+        mouseY = mouseEvent.getY();
+        System.out.println("mousex is "+mouseX);
+        System.out.println("mousey is "+mouseY);
       }
     });
+**/
+/**
+ * //could possibly use to allow players to reorder the cards seen
+    card.setOnMouseDragged(new EventHandler<MouseEvent>() {
 
+      @Override
+      public void handle(MouseEvent mouseEvent)
+      {
+        card.setLayoutX(mouseEvent.getSceneX()- mouseX);
+
+        card.setLayoutY(mouseEvent.getSceneY() - mouseY);
+      }
+    });
+**/
     card.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -58,6 +76,14 @@ public class CardController extends StackPane {
   }
 
 
+  public void setX(double x)
+  {
+    this.x = x;
+  }
+  public void setY(double y)
+  {
+    this.y = y;
+  }
   public double getX()
   {
     return x;
