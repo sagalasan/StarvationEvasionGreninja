@@ -26,7 +26,7 @@ public class GuiBase extends Application
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
 
-  private GamePhasePane activePane;
+  private GuiTimerSubscriber paneToRefresh;
   private EnumRegion playerRegion, viewedRegion;
   private State playerRegionInfo, viewedRegionInfo; //references to region observed
   private Stage mainStage;
@@ -86,7 +86,7 @@ public class GuiBase extends Application
     //votingPane = new VotingPane(this);
     //votingPane.initPane();
 
-    activePane = votingPane;
+    paneToRefresh = votingPane;
     baseScene.setRoot(votingPane);
   }
 
@@ -99,7 +99,7 @@ public class GuiBase extends Application
     //policyPane.getTimerPane().resetTimer();
     //policyPane = new PolicyPane(this);
     //policyPane.initPane();
-    activePane = policyPane;
+    paneToRefresh = policyPane;
     baseScene.setRoot(policyPane);
   }
 
@@ -114,6 +114,7 @@ public class GuiBase extends Application
     staging.initPane();
     //initializePanes();
     baseScene.setRoot(staging);
+    paneToRefresh = staging;
   }
 
   public void endPolicyDraftingPhase()
@@ -190,9 +191,9 @@ public class GuiBase extends Application
   public void timerTick()
   {
     //do timer stuff.
-    if(activePane != null)
+    if(paneToRefresh != null)
     {
-      activePane.getTimerPane().updateTimeText();
+      paneToRefresh.timerTick();
     }
   }
 

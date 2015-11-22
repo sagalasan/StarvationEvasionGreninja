@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import javafx.scene.control.Label;
 import starvationevasion.greninja.gui.GuiBase;
+import starvationevasion.greninja.gui.GuiTimerSubscriber;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
 
@@ -13,7 +14,7 @@ import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
  * TODO Just testing right now, finalize.
  * @author Justin Thomas(jthomas105@unm.edu)
  */
-public class StagingPane extends VBox implements MapHolder
+public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
 {
   private GuiBase base;
   private String selectedRegion;
@@ -31,7 +32,7 @@ public class StagingPane extends VBox implements MapHolder
   public void initPane()
   {
     getChildren().add(new Label("Staging Pane, select a region."));
-    selectedRegion = " ";
+    selectedRegion = "None.";
     regionSelectedLabel = new Label(selectedRegion);
     getChildren().add(regionSelectedLabel);
     InteractiveMapPane map = new InteractiveMapPane();
@@ -64,6 +65,14 @@ public class StagingPane extends VBox implements MapHolder
    */
   public void regionExited(EnumRegion region)
   {
-    selectedRegion = " ";
+    selectedRegion = "None.";
+  }
+
+  /**
+   * Implements GuiTimerSubscriber.  Update text on region label.
+   */
+  public void timerTick()
+  {
+    regionSelectedLabel.setText(selectedRegion);
   }
 }

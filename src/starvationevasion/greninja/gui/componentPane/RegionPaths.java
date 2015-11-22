@@ -155,6 +155,24 @@ public class RegionPaths
   }
 
   /**
+   * Pass on region entered to containing pane.
+   * @param region        EnumRegion that was entered.
+   */
+  public void regionEntered(EnumRegion region)
+  {
+    holder.regionEntered(region);
+  }
+
+  /**
+   * Pass on region exited to containing pane.
+   * @param region      EnumRegion that was exited.
+   */
+  public void regionExited(EnumRegion region)
+  {
+    holder.regionExited(region);
+  }
+
+  /**
    * Populate hashmap of EnumRegions to region polygons.
    */
   private void populateHashMap()
@@ -222,12 +240,14 @@ public class RegionPaths
 
       setOnMouseEntered(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent me) {
+          regionEntered(getName());
           setStroke(getColor());
         }
       });
 
       setOnMouseExited(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent me) {
+          regionExited(getName());
           setStroke(Color.TRANSPARENT);
         }
       });

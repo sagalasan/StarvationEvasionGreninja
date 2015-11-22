@@ -53,7 +53,7 @@ public class TimerPane extends StackPane
     timeRemaining = new String(phaseLength);
   }
 
-  public void updateTimeText()
+  public void updateTimeLabel()
   {
     timeLabel.setText(timeRemaining);
     timeLabel.setTextFill(timerColor);
