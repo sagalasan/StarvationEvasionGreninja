@@ -11,6 +11,7 @@ import starvationevasion.greninja.model.State;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -112,6 +113,7 @@ public class GameController
   public void regionSelected(EnumRegion region)
   {
     playerRegion = region;
+    humanPlayer.setPlayerRegion(region);
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
@@ -196,6 +198,15 @@ public class GameController
   public EnumPolicy getCardInfo(int index)
   {
     return humanPlayer.getCard(index);
+  }
+
+  /**
+   * Get the player hand list.
+   * @return        List of cards in player hand.
+   */
+  public List<EnumPolicy> getPlayerHand()
+  {
+    return humanPlayer.getPlayerHand();
   }
 
 
