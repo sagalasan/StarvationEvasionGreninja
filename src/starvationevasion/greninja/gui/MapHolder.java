@@ -14,4 +14,16 @@ public interface MapHolder
    * @param region        region on interactive map that was clicked.
    */
   public void regionClicked(EnumRegion region);
+
+  /**
+   * Method to use when the map's mouse listener gets a mouse entered event.
+   * @param region        EnumRegion entered.
+   */
+  public void regionEntered(EnumRegion region);
+
+  /**
+   * Method to use when the map's mouse listener gets a mouse exited event.
+   * @param region      EnumRegion exited.
+   */
+  public void regionExited(EnumRegion region);
 }

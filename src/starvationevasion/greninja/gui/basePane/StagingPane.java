@@ -3,13 +3,10 @@ package starvationevasion.greninja.gui.basePane;
 
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
-
-import java.util.HashMap;
 
 /**
  * Select region, wait for other players to join.
@@ -19,7 +16,8 @@ import java.util.HashMap;
 public class StagingPane extends VBox implements MapHolder
 {
   private GuiBase base;
-  HashMap<Button, EnumRegion> regionButtons;
+  private String selectedRegion;
+  private Label regionSelectedLabel;
 
 
   public StagingPane(GuiBase gui)
@@ -33,7 +31,9 @@ public class StagingPane extends VBox implements MapHolder
   public void initPane()
   {
     getChildren().add(new Label("Staging Pane, select a region."));
-
+    selectedRegion = " ";
+    regionSelectedLabel = new Label(selectedRegion);
+    getChildren().add(regionSelectedLabel);
     InteractiveMapPane map = new InteractiveMapPane();
     map.setContainingPane(this);
     getChildren().add(map);
@@ -46,5 +46,24 @@ public class StagingPane extends VBox implements MapHolder
   public void regionClicked(EnumRegion region)
   {
     base.regionSelected(region);
+  }
+
+  /**
+   * When mouse enters a region on the interactive map, update the region selected
+   * string.
+   * @param region        EnumRegion entered.
+   */
+  public void regionEntered(EnumRegion region)
+  {
+    selectedRegion = region.toString();
+  }
+
+  /**
+   * When mouse exits region, clear region selected string.
+   * @param region        region exited.  Not used.
+   */
+  public void regionExited(EnumRegion region)
+  {
+    selectedRegion = " ";
   }
 }
