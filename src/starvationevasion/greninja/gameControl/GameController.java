@@ -113,7 +113,6 @@ public class GameController
   public void regionSelected(EnumRegion region)
   {
     playerRegion = region;
-    humanPlayer.setPlayerRegion(region);
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
