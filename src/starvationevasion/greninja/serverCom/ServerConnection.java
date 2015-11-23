@@ -131,10 +131,10 @@ public class ServerConnection
     boolean b = serverConnection.startConnection("localhost");
     System.out.println(b);
 
-    System.out.println("Sleeping for 1000");
+    System.out.println("Sleeping for 2000");
     try
     {
-      Thread.sleep(10000);
+      Thread.sleep(2000);
     } catch (InterruptedException e)
     {
       e.printStackTrace();

@@ -34,19 +34,20 @@ public class TestServerWorker extends Thread
   @Override
   public void run()
   {
-    Object o = new Object();
-    try
+    while(true)
     {
-      o = objectInputStream.readObject();
+      Object o = new Object();
+      try
+      {
+        o = objectInputStream.readObject();
+      } catch (IOException ioe)
+      {
+        ioe.printStackTrace();
+      } catch (ClassNotFoundException cnfe)
+      {
+        cnfe.printStackTrace();
+      }
+      System.out.println(o.getClass().getName());
     }
-    catch (IOException ioe)
-    {
-      ioe.printStackTrace();
-    }
-    catch (ClassNotFoundException cnfe)
-    {
-      cnfe.printStackTrace();
-    }
-    System.out.println(o.getClass().getName());
   }
 }
