@@ -26,28 +26,23 @@ public class VotingPane extends GamePhasePane
   /**
    * Instantiate and add pane components
    */
-
+  private VBox vBoxPane;
   public void initPane()
   {
     super.initTimerPane();
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
-    getChildren().add(new Label("VotingPane, choose policies."));
-    getChildren().add(getTimerPane());
-    getChildren().add(button);
-  }
-  //removes the old timer, makes a new one, and adds it to the children
-  private void resetTimer()
-  {
-    //getChildren().remove(getTimerPane());
 
-    int timerIndex = getChildren().indexOf(getTimerPane());
-    super.initTimerPane();
-    getChildren().set(timerIndex, getTimerPane());
+    setTop(new Label("VotingPane, choose policies."));
+    vBoxPane = new VBox();
+    vBoxPane.getChildren().add(getTimerPane());
+    vBoxPane.getChildren().add(button);
+    setCenter(vBoxPane);
 
-
+    //getChildren().add(new Label("VotingPane, choose policies."));
     //getChildren().add(getTimerPane());
+    //getChildren().add(button);
 
   }
 
@@ -56,7 +51,7 @@ public class VotingPane extends GamePhasePane
    */
   public void endPhase()
   {
-    resetTimer();
+    resetTimer(vBoxPane);
     base.endPolicyVotingPhase();
   }
 

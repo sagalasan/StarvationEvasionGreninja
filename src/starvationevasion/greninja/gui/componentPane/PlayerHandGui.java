@@ -3,7 +3,7 @@ package starvationevasion.greninja.gui.componentPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import starvationevasion.common.EnumPolicy;
+//import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.basePane.CardImage;
 

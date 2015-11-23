@@ -33,49 +33,45 @@ public class PolicyPane extends GamePhasePane
   /**
    * Instantiate and add components.
    */
-
+  VBox vBoxPane;
   public void initPane()
   {
     super.initTimerPane();
-    BorderPane rootForThisPane = new BorderPane();
+    //BorderPane rootForThisPane = new BorderPane();
 
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
 
     //getChildren().add(new Label("Policy Pane, draft policies"));
+    vBoxPane = new VBox();
+    vBoxPane.getChildren().addAll(getTimerPane(), button);
 
-
-
-    rootForThisPane.setLeft(new Label("Policy Pane, draft policies"));
-    getChildren().add(rootForThisPane);
+    setTop(new Label("Policy Pane, draft policies"));
+    //setTop(button);
+    //rootForThisPane.setLeft(new Label("Policy Pane, draft policies"));
+    //getChildren().add(rootForThisPane);
     //make a player card hand class
-    getChildren().add(getTimerPane());
-    getChildren().add(button);
+    setCenter(vBoxPane);
+   // getChildren().add(getTimerPane());
+   // getChildren().add(button);
 
 
 
 
     //comment this out if you want to get rid of the player hand gui part.
     playerHandGui = new PlayerHandGui(base);
-    getChildren().add(playerHandGui);
+    setBottom(playerHandGui);
 
   }
-  //makes a new timer and replaces the old one
-  private void resetTimer()
-  {
-    int timerIndex = getChildren().indexOf(getTimerPane());
-    super.initTimerPane();
-    getChildren().set(timerIndex, getTimerPane());
 
-  }
   /**
    * Swap to voting pane
    * TODO will not need
    */
   public void endPhase()
   {
-    resetTimer();
+    resetTimer(vBoxPane);
     base.endPolicyDraftingPhase();
   }
   /**

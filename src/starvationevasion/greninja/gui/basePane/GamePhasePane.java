@@ -11,7 +11,7 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
  * Parent pane for policy pane and voting pane.  Contains common methods.
  * TODO change to stack pane, other components will be layered on top.
  */
-public class GamePhasePane extends VBox implements GuiTimerSubscriber
+public class GamePhasePane extends BorderPane implements GuiTimerSubscriber
 {
   private TimerPane timer;
   private GuiBase base;
@@ -38,6 +38,18 @@ public class GamePhasePane extends VBox implements GuiTimerSubscriber
     timer.updateTimeLabel();
   }
 
+  public void resetTimer(VBox vBoxPane)
+  {
+    //getChildren().remove(getTimerPane());
+
+    int timerIndex = vBoxPane.getChildren().indexOf(getTimerPane());
+    initTimerPane();
+    vBoxPane.getChildren().set(timerIndex, getTimerPane());
+
+
+    //getChildren().add(getTimerPane());
+
+  }
   /**
    * Get the timer pane.
    * @return        reference to timerPane.

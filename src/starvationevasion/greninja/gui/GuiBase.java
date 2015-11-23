@@ -3,7 +3,8 @@ package starvationevasion.greninja.gui;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import starvationevasion.common.EnumPolicy;
+//import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.GameController;
@@ -256,7 +257,7 @@ public class GuiBase extends Application
     setupGui();
     control = new GameController(this);
   }
-  public List<EnumPolicy> getPlayerHand()
+  public List<PolicyCard> getPlayerHand()
   {
     return control.getPlayerHand();
   }
