@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Jalen on 11/21/2015.
  */
-public class PlayerHandGui extends BorderPane
+public class PlayerHandGui extends HBox
 {
   //gather what cards to draw, place them next to each other
   private CardImage[] playerCards;
@@ -23,7 +23,7 @@ public class PlayerHandGui extends BorderPane
     int MAX_CARDS_IN_PLAYER_HAND = 7;
     playerCards = new CardImage[MAX_CARDS_IN_PLAYER_HAND];
 
-    HBox cardHand = new HBox();
+    //HBox cardHand = new HBox();
     int j = 0;
     Image image = new Image("file:assets/CardImages/magikarp.png");
 
@@ -41,13 +41,14 @@ public class PlayerHandGui extends BorderPane
 
       playerCards[i] = new CardImage(image, 0,0);
       //adds to cardHand
-      cardHand.getChildren().add(playerCards[i]);
+      getChildren().add(playerCards[i]);
     }
     //Image image = new Image("file:assets/CardImages/magikarp.png");
     //make n cards, place them at bottom of pane, side by side
     //have them adjust according to their position
     //todo possibly make the base gui a BorderLayout instead of reg pane
-    setBottom(cardHand);
+    //setBottom(cardHand);
+
   }
 
   /**
