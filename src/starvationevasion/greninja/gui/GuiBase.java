@@ -3,10 +3,10 @@ package starvationevasion.greninja.gui;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-//import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.gameControl.ControlListener;
 import starvationevasion.greninja.gameControl.GameController;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -24,8 +24,7 @@ import java.util.List;
  * All user input and output is routed through this class.
  * @author Justin Thomas jthomas105@unm.edu
  */
-//TODO put whole gui on timeline.
-public class GuiBase extends Application
+public class GuiBase extends Application implements ControlListener
 {
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
@@ -83,6 +82,7 @@ public class GuiBase extends Application
   /**
    * Change to voting pane.
    */
+  @Override
   public void swapToVotingPane()
   {
     System.out.println("Now in Voting.");
@@ -97,6 +97,7 @@ public class GuiBase extends Application
   /**
    * Change to policy drafting pane.
    */
+  @Override
   public void swapToPolicyPane()
   {
     System.out.println("Now in Policy Drafting.");
@@ -111,6 +112,7 @@ public class GuiBase extends Application
    * Switch to staging pane.  Player chooses region and can see other players
    * choosing regions.
    */
+  @Override
   public void swapToStagingPane()
   {
     System.out.println("Entered Staging Pane");

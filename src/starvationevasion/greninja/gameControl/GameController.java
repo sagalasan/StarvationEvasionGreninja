@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class GameController
 {
-  private GuiBase gui;
+  private ControlListener view;
   private EnumRegion playerRegion;
   private State playerRegionInfo;
   private DraftingPhase draftingPhase;
@@ -42,11 +42,11 @@ public class GameController
 
   /**
    * Starter for human player game.
-   * @param gui       gui to use.
+   * @param view       gui to use.
    */
-  public GameController(GuiBase gui)
+  public GameController(GuiBase view)
   {
-    this.gui = gui;
+    this.view = view;
     cardsForVote = new ArrayList<>();
   }
 
@@ -82,7 +82,7 @@ public class GameController
   {
     System.out.println("Start single player game.");
     //for remaining slots, start AiGame (on new thread?).
-    gui.swapToStagingPane();
+    view.swapToStagingPane();
   }
 
   /**
@@ -103,7 +103,7 @@ public class GameController
     System.out.println("Start multiplayer game.");
     System.out.println("Prompt user for Server Name");
     System.out.println("Try To Connect");
-    gui.swapToStagingPane();
+    view.swapToStagingPane();
   }
 
   /**
@@ -130,7 +130,7 @@ public class GameController
     //instantiate player
     player = new HumanPlayer(playerRegion, initialHand);
     playerRegionInfo = new State(playerRegion);
-    gui.initPlayerRegionInfo(playerRegionInfo, playerRegion);
+    view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     //fillHand();
     //start policy drafting phase.
     startPolicyDraftingPhase();
@@ -244,8 +244,8 @@ public class GameController
   public void startPolicyDraftingPhase()
   {
     //get HDI's, Populations, Money from server.
-    gui.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this, gui.getTimerPane(EnumPhase.DRAFTING),
+    view.swapToPolicyPane();
+    draftingPhase = new DraftingPhase(this, view.getTimerPane(EnumPhase.DRAFTING),
         player);
   }
 
@@ -341,9 +341,9 @@ public class GameController
    */
   public void startPolicyVotingPhase()
   {
-    gui.swapToVotingPane();
+    view.swapToVotingPane();
     getCardsForVote();
-    votingPhase = new VotingPhase(this, gui.getTimerPane(EnumPhase.VOTING));
+    votingPhase = new VotingPhase(this, view.getTimerPane(EnumPhase.VOTING));
     //do stuff
   }
 
