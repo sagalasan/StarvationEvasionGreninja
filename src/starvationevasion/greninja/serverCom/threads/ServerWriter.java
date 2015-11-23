@@ -85,7 +85,7 @@ public class ServerWriter extends Thread
 
   private String getClassName(Object o)
   {
-    String name = o.getClass().getName();
+    String name = o.getClass().getSimpleName();
     return name;
   }
 }

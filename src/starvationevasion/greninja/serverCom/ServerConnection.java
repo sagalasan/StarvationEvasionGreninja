@@ -115,13 +115,13 @@ public class ServerConnection
 
   public static boolean checkIfValidClass(String name)
   {
-    if(name.equals(AvailableRegions.class.getName())) return true;
-    else if(name.equals(BeginGame.class.getName())) return true;
-    else if(name.equals(Hello.class.getName())) return true;
-    else if(name.equals(Login.class.getName())) return true;
-    else if(name.equals(LoginResponse.class.getName())) return true;
-    else if(name.equals(RegionChoice.class.getName())) return true;
-    else if(name.equals(Response.class.getName())) return true;
+    if(name.equals(AvailableRegions.class.getSimpleName())) return true;
+    else if(name.equals(BeginGame.class.getSimpleName())) return true;
+    else if(name.equals(Hello.class.getSimpleName())) return true;
+    else if(name.equals(Login.class.getSimpleName())) return true;
+    else if(name.equals(LoginResponse.class.getSimpleName())) return true;
+    else if(name.equals(RegionChoice.class.getSimpleName())) return true;
+    else if(name.equals(Response.class.getSimpleName())) return true;
     else return false;
   }
 
