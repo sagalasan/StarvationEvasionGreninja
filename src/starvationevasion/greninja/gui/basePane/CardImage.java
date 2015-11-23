@@ -31,13 +31,7 @@ public class CardImage extends ImageView {
     //super(image);
     this.x = x;
     this.y = y;
-    //this.cardId = cardId;
-    //card = new ImageView(new Image(getClass().getResourceAsStream(filePath)));
 
-    //card.setScaleY(.12);
-    //card.setLayoutX(x);
-    //card.setLayoutY(y);
-    //getChildren().add(card);
     setId("cardController");
 
 

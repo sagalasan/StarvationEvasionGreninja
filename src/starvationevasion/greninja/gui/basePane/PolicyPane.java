@@ -37,31 +37,23 @@ public class PolicyPane extends GamePhasePane
   public void initPane()
   {
     super.initTimerPane();
-    //BorderPane rootForThisPane = new BorderPane();
 
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
+    BorderPane mainBorderPane = new BorderPane();
 
-    //getChildren().add(new Label("Policy Pane, draft policies"));
     vBoxPane = new VBox();
     vBoxPane.getChildren().addAll(getTimerPane(), button);
 
-    setTop(new Label("Policy Pane, draft policies"));
-    //setTop(button);
-    //rootForThisPane.setLeft(new Label("Policy Pane, draft policies"));
-    //getChildren().add(rootForThisPane);
+    mainBorderPane.setTop(new Label("Policy Pane, draft policies"));
     //make a player card hand class
-    setCenter(vBoxPane);
-   // getChildren().add(getTimerPane());
-   // getChildren().add(button);
-
-
-
+    mainBorderPane.setCenter(vBoxPane);
 
     //comment this out if you want to get rid of the player hand gui part.
     playerHandGui = new PlayerHandGui(base);
-    setBottom(playerHandGui);
+    mainBorderPane.setBottom(playerHandGui);
+    getChildren().add(mainBorderPane);
 
   }
 
