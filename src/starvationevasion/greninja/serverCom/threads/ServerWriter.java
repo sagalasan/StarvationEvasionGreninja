@@ -4,7 +4,6 @@ import starvationevasion.greninja.serverCom.ServerConnection;
 
 import java.io.PrintWriter;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by sagalasan on 11/14/15.
@@ -14,20 +13,18 @@ public class ServerWriter extends Thread
   private ServerConnection serverConnection;
   private PrintWriter writer;
 
-  private boolean needsToRun = false;
-
-  private LinkedList<String> messageQueue;
+  private LinkedList<Object> messageQueue;
 
   public ServerWriter(ServerConnection serverConnection, PrintWriter writer)
   {
     this.serverConnection = serverConnection;
     this.writer = writer;
-    messageQueue = new LinkedList<String>();
+    messageQueue = new LinkedList<>();
   }
 
-  public synchronized void addMessageToQueue(String msg)
+  public synchronized void addMessageToQueue(Object o)
   {
-    messageQueue.add(msg);
+    messageQueue.add(o);
     notify();
   }
 
@@ -43,7 +40,7 @@ public class ServerWriter extends Thread
 
   private synchronized void sendNextMessage()
   {
-    System.out.println(messageQueue.removeFirst());
+
   }
 
   private synchronized void guardedWrite()
@@ -58,6 +55,20 @@ public class ServerWriter extends Thread
       {
         ie.printStackTrace();
       }
+    }
+  }
+
+  private String getClassName(Object o)
+  {
+    String name = o.getClass().getEnclosingClass().getName();
+    if(name != null)
+    {
+      return name;
+    }
+    else
+    {
+      name = o.getClass().getName();
+      return name;
     }
   }
 }
