@@ -29,5 +29,4 @@ public class ServerState
   {
     state = ServerStateEnum.IDLE;
   }
-
 }
