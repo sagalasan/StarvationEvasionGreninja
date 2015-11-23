@@ -2,6 +2,9 @@ package starvationevasion.greninja.serverCom.threads;
 
 import starvationevasion.greninja.serverCom.ServerConnection;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 
@@ -12,6 +15,9 @@ public class ServerWriter extends Thread
 {
   private ServerConnection serverConnection;
   private PrintWriter writer;
+
+  private FileOutputStream fileOutputStream;
+  private ObjectOutputStream objectOutputStream;
 
   private LinkedList<Object> messageQueue;
 
@@ -34,17 +40,31 @@ public class ServerWriter extends Thread
     while(true)
     {
       guardedWrite();
-      sendNextMessage();
+      try
+      {
+        sendNextMessage();
+      }
+      catch (IOException ioe)
+      {
+        System.out.println("Message failed to send");
+        ioe.printStackTrace();
+      }
     }
   }
 
-  private synchronized void sendNextMessage()
+  private synchronized void sendNextMessage() throws IOException
   {
     Object o = messageQueue.removeFirst();
     String name = getClassName(o);
     if(ServerConnection.checkIfValidClass(name))
     {
-
+      fileOutputStream = new FileOutputStream(name + ".ser");
+      objectOutputStream = new ObjectOutputStream(fileOutputStream);
+      objectOutputStream.writeObject(o);
+    }
+    else
+    {
+      throw new IllegalArgumentException(name + ": This is not a starvationevasion.common.messages class");
     }
   }
 
