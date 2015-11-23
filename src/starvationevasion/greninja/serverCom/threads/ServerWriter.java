@@ -66,7 +66,7 @@ public class ServerWriter extends Thread
     Object o = messageQueue.removeFirst();
     String name = getClassName(o);
     if(ServerConnection.checkIfValidClass(name))
-    {;
+    {
       objectOutputStream.writeObject(o);
     }
     else
