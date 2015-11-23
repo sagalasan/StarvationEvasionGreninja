@@ -6,6 +6,7 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.model.HumanPlayer;
+import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 
 import java.io.Serializable;
@@ -25,7 +26,7 @@ public class GameController
   private State playerRegionInfo;
   private DraftingPhase draftingPhase;
   private VotingPhase votingPhase;
-  private HumanPlayer humanPlayer;
+  private PlayerInterface player;
   private ArrayList<PolicyCard> cardsForVote;
   //WorldModel
   //GameStateTracker
@@ -127,7 +128,7 @@ public class GameController
     //create initial hand
     ArrayList<PolicyCard> initialHand = new ArrayList<>();
     //instantiate player
-    humanPlayer = new HumanPlayer(playerRegion, initialHand);
+    player = new HumanPlayer(playerRegion, initialHand);
     playerRegionInfo = new State(playerRegion);
     gui.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     //fillHand();
@@ -195,7 +196,7 @@ public class GameController
    */
   public PolicyCard getCardInfo(int index)
   {
-    return humanPlayer.getCard(index);
+    return player.getCard(index);
   }
 
   /**
@@ -204,7 +205,7 @@ public class GameController
    */
   public List<PolicyCard> getPlayerHand()
   {
-    return humanPlayer.getPlayerHand();
+    return player.getPlayerHand();
   }
 
 
@@ -245,7 +246,7 @@ public class GameController
     //get HDI's, Populations, Money from server.
     gui.swapToPolicyPane();
     draftingPhase = new DraftingPhase(this, gui.getTimerPane(EnumPhase.DRAFTING),
-        humanPlayer);
+        player);
   }
 
   /**

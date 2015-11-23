@@ -4,6 +4,7 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.HumanPlayer;
+import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.util.PhaseTimer;
 
 /**
@@ -17,16 +18,16 @@ public class DraftingPhase extends GamePhase
   private boolean hasDiscarded;
   private GameController control;
   private PhaseTimer phaseTimer;
-  private HumanPlayer humanPlayer;
+  private PlayerInterface player;
 
   /**
    * Instantiate phase timer, assign reference to control,
    * @param control
    */
   public DraftingPhase(GameController control, TimerPane visibleTimer,
-                       HumanPlayer humanPlayer)
+                       PlayerInterface player)
   {
-    this.humanPlayer = humanPlayer;
+    this.player = player;
     this.phaseTimer = new PhaseTimer(ClientConstant.DRAFTING_TIME_LIMIT,
                                       this, visibleTimer);
     phaseTimer.start();
@@ -45,7 +46,7 @@ public class DraftingPhase extends GamePhase
     boolean discardPerformed = true;
     if(actionsTaken < 2 && phaseTimer.phaseNotOver())
     {
-      discardPerformed = humanPlayer.discardThree(cardsSelected);
+      discardPerformed = player.discardThree(cardsSelected);
       if(discardPerformed)
       {
         actionTaken();
@@ -64,7 +65,7 @@ public class DraftingPhase extends GamePhase
     boolean discardPerformed = false;
     if(!hasDiscarded && phaseTimer.phaseNotOver())
     {
-      discardPerformed = humanPlayer.discardCard(cardIndex);
+      discardPerformed = player.discardCard(cardIndex);
     }
     return discardPerformed;//
   }
@@ -87,7 +88,7 @@ public class DraftingPhase extends GamePhase
         //if valid
         actionTaken();
         //remove card from hand and put in discard.
-        humanPlayer.discardCard(cardIndex);
+        player.discardCard(cardIndex);
       }
     }
     return cardSelected;
@@ -123,7 +124,7 @@ public class DraftingPhase extends GamePhase
    */
   private PolicyCard selectCardFromHand(int index)
   {
-    PolicyCard cardSelected = humanPlayer.getCard(index);
+    PolicyCard cardSelected = player.getCard(index);
     return cardSelected;
   }
 }
