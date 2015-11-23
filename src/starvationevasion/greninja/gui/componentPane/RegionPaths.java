@@ -22,6 +22,7 @@ public class RegionPaths
   private RegionSVG California, Mountain, NorthPlains, SouthPlains,
                         Heartland, Crescent, SouthEast;
   private MapHolder holder;
+  private RegionSVG selectedRegion;
 
   public RegionPaths()
   {
@@ -73,6 +74,24 @@ public class RegionPaths
       g.getChildren().add(polygon);
     }
     return g;//
+  }
+
+  /**
+   * Get the currently selected region path.
+   * @return        RegionSVG on interactive map that is currently selected.
+   */
+  public RegionSVG getSelectedRegionPath()
+  {
+    return selectedRegion;
+  }
+
+  /**
+   * Set selectedRegion to specified RegionSVG
+   * @param selected        Region that has been selected.
+   */
+  public void setSelectedRegionPath(RegionSVG selected)
+  {
+    selectedRegion = selected;
   }
 
   /**
@@ -207,16 +226,81 @@ public class RegionPaths
    */
   private class RegionSVG extends SVGPath
   {
-    EnumRegion name;
-    Color color;
+    private EnumRegion name;
+    private Color color, selectedColor, unavailableColor;
+    private boolean isAvailable, isSelected;
+
 
     /**
-     * Get color of this region.
-     * @return        Color of this region for stroke highlighting.
+     * Constructor, adds mouse listeners.
+     * @param name        EnumRegion name of the region.
+     * @param color       Color, color to highlight region in.
      */
-    public Color getColor()
+    public RegionSVG(EnumRegion name, Color color)
     {
-      return color;
+      this.name = name;
+      this.color = color;
+      selectedColor = new Color(color.getRed(), color.getGreen(), color.getBlue(),
+                                0.5);
+      unavailableColor = new Color(0.5, 0.5, 0.5, 0.5);
+      isAvailable = true;
+
+      setOnMouseEntered(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent me) {
+          mouseEnteredRegion();
+        }
+      });
+
+      setOnMouseExited(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent me) {
+          mouseExitedRegion();
+        }
+      });
+
+      setOnMousePressed(new EventHandler<MouseEvent>()
+      {
+        public void handle(MouseEvent me)
+        {
+          mousePressedInRegion();
+        }
+      });
+    }
+
+
+    /**
+     * Get available for selection status.
+     * @return        true if region is available for selection.
+     */
+    public boolean isAvailable()
+    {
+      return isAvailable;
+    }
+
+    /**
+     * Set available status for region.
+     * @param status        true if region is available, false otherwise.
+     */
+    public void setAvailable(boolean status)
+    {
+      isAvailable = status;
+    }
+
+    /**
+     * Is this region currently selected?
+     * @return      true if this is the currently selected region.
+     */
+    public boolean isSelected()
+    {
+      return isSelected;
+    }
+
+    /**
+     * Set state of isSelected
+     * @param status        true if this region is selected, fals otherwise.
+     */
+    public void setSelected(boolean status)
+    {
+      isSelected = status;
     }
 
     /**
@@ -229,36 +313,78 @@ public class RegionPaths
     }
 
     /**
-     * Constructor, adds mouse listeners.
-     * @param name        EnumRegion name of the region.
-     * @param color       Color, color to highlight region in.
+     * Things to do when mouse enters a region.
      */
-    public RegionSVG(EnumRegion name, Color color)
+    private void mouseEnteredRegion()
     {
-      this.name = name;
-      this.color = color;
-
-      setOnMouseEntered(new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent me) {
-          regionEntered(getName());
-          setStroke(getColor());
-        }
-      });
-
-      setOnMouseExited(new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent me) {
-          regionExited(getName());
-          setStroke(Color.TRANSPARENT);
-        }
-      });
-
-      setOnMousePressed(new EventHandler<MouseEvent>()
+      if(isAvailable())
       {
-        public void handle(MouseEvent me)
-        {
-          regionClicked(getName());
-        }
-      });
+        regionEntered(getName());
+        setStroke(getColor());
+      }
     }
+
+    /**
+     * Things to do when mouse exits the region.
+     */
+    private void mouseExitedRegion()
+    {
+      regionExited(getName());
+      if(!isSelected())
+      {
+        setStroke(Color.TRANSPARENT);
+      }
+    }
+
+    /**
+     * Things to do when mouse is pressed.
+     */
+    private void mousePressedInRegion()
+    {
+      RegionSVG currentlySelected = getSelectedRegionPath();
+      if(currentlySelected != null && currentlySelected.isAvailable())
+      {
+        currentlySelected.setFill(Color.TRANSPARENT);
+        currentlySelected.setStroke(Color.TRANSPARENT);
+        currentlySelected.setSelected(false);
+      }
+      if(isAvailable())
+      {
+        //currentlySelected.setFill(Color.TRANSPARENT);
+        setFill(getSelectedFill());
+        setStroke(getColor());
+        setSelected(true);
+        setSelectedRegionPath(this);
+      }
+      regionClicked(getName());
+    }
+
+    /**
+     * Get color of this region.
+     * @return        Color of this region for stroke highlighting.
+     */
+    private Color getColor()
+    {
+      return color;
+    }
+
+    /**
+     * Get the color of the fill when map is selected.
+     * @return        Transparent version of the regions color.
+     */
+    private Color getSelectedFill()
+    {
+      return selectedColor;
+    }
+
+    /**
+     * Get a translucent gray color to fill unavailable regions.
+     * @return        Translucent gray color.
+     */
+    private Color getUnavailableFill()
+    {
+      return unavailableColor;
+    }
+
   }
 }
