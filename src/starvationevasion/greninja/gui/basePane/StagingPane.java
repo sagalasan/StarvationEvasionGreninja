@@ -25,6 +25,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
 
   //private CardController card;
 
+
   public StagingPane(GuiBase gui)
   {
     base = gui;
@@ -56,6 +57,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
   public void regionClicked(EnumRegion region)
   {
     base.regionSelected(region);
+
   }
 
   /**
