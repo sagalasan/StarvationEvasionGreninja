@@ -32,6 +32,7 @@
     -fx-scale-x: 2;
     -fx-scale-y: 2;
     -fx-translate-y: -50;
+
 }
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);

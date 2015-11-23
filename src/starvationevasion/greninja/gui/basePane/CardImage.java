@@ -4,6 +4,7 @@ package starvationevasion.greninja.gui.basePane;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
@@ -33,7 +34,17 @@ public class CardImage extends ImageView {
     this.y = y;
 
     setId("card-image");
-
+    //isHover()
+    setOnMouseMoved(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        if(isHover())
+        {
+          //how the card moves to the front
+          toFront();
+        }
+      }
+    });
 
     /**
       card.setOnMouseClicked(new EventHandler<MouseEvent>() {
