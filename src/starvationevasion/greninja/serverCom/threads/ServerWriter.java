@@ -21,10 +21,18 @@ public class ServerWriter extends Thread
 
   private LinkedList<Object> messageQueue;
 
-  public ServerWriter(ServerConnection serverConnection, PrintWriter writer)
+  public ServerWriter(ServerConnection serverConnection)
   {
     this.serverConnection = serverConnection;
-    this.writer = writer;
+    try
+    {
+      this.objectOutputStream = new ObjectOutputStream(serverConnection.getSocket().getOutputStream());
+    }
+    catch (IOException ioe)
+    {
+      System.out.println("Could not create ObjectOutputStream");
+      ioe.printStackTrace();
+    }
     messageQueue = new LinkedList<>();
   }
 
@@ -40,6 +48,7 @@ public class ServerWriter extends Thread
     while(true)
     {
       guardedWrite();
+
       try
       {
         sendNextMessage();
@@ -58,8 +67,6 @@ public class ServerWriter extends Thread
     String name = getClassName(o);
     if(ServerConnection.checkIfValidClass(name))
     {
-      fileOutputStream = new FileOutputStream(name + ".ser");
-      objectOutputStream = new ObjectOutputStream(fileOutputStream);
       objectOutputStream.writeObject(o);
     }
     else

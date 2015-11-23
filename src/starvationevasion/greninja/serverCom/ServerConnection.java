@@ -77,7 +77,7 @@ public class ServerConnection
     }
 
     serverReader = new ServerReader(this, reader);
-    serverWriter = new ServerWriter(this, writer);
+    serverWriter = new ServerWriter(this);
 
     serverReader.start();
     serverWriter.start();
@@ -99,6 +99,11 @@ public class ServerConnection
     }
 
     isConnectionValid = false;
+  }
+
+  public Socket getSocket()
+  {
+    return socket;
   }
 
   public static boolean checkIfValidClass(String name)
