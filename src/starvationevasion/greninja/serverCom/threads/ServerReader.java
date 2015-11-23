@@ -4,6 +4,7 @@ import starvationevasion.greninja.serverCom.ServerConnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 /**
  * Created by sagalasan on 11/14/15.
@@ -11,12 +12,12 @@ import java.io.IOException;
 public class ServerReader extends Thread
 {
   private ServerConnection serverConnection;
-  private BufferedReader reader;
+  private ObjectInputStream objectInputStream;
 
-  public ServerReader(ServerConnection serverConnection, BufferedReader reader)
+  public ServerReader(ServerConnection serverConnection, ObjectInputStream objectInputStream)
   {
     this.serverConnection = serverConnection;
-    this.reader = reader;
+    this.objectInputStream = objectInputStream;
   }
 
   @Override
@@ -24,16 +25,20 @@ public class ServerReader extends Thread
   {
     while(true)
     {
-      String message;
+      Object message;
       try
       {
-        message = reader.readLine();
+        message = objectInputStream.readObject();
         System.out.println(message);
       }
       catch (IOException ioe)
       {
         ioe.printStackTrace();
         break;
+      }
+      catch (ClassNotFoundException cnfe)
+      {
+        cnfe.printStackTrace();
       }
 
     }

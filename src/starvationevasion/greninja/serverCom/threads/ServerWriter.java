@@ -21,18 +21,10 @@ public class ServerWriter extends Thread
 
   private LinkedList<Object> messageQueue;
 
-  public ServerWriter(ServerConnection serverConnection)
+  public ServerWriter(ServerConnection serverConnection, ObjectOutputStream objectOutputStream)
   {
     this.serverConnection = serverConnection;
-    try
-    {
-      this.objectOutputStream = new ObjectOutputStream(serverConnection.getSocket().getOutputStream());
-    }
-    catch (IOException ioe)
-    {
-      System.out.println("Could not create ObjectOutputStream");
-      ioe.printStackTrace();
-    }
+    this.objectOutputStream = objectOutputStream;
     messageQueue = new LinkedList<>();
   }
 

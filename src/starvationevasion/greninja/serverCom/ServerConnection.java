@@ -23,8 +23,8 @@ public class ServerConnection
   private boolean isConnectionValid = false;
 
   private Socket socket;
-  private BufferedReader reader;
-  private PrintWriter writer;
+  private ObjectInputStream objectInputStream;
+  private ObjectOutputStream objectOutputStream;
 
   private ServerReader serverReader;
   private ServerWriter serverWriter;
@@ -67,8 +67,8 @@ public class ServerConnection
     try
     {
       socket = new Socket(hostName, port);
-      reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      writer = new PrintWriter(socket.getOutputStream());
+      objectInputStream = new ObjectInputStream(socket.getInputStream());
+      objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
     }
     catch (IOException ioe)
     {
@@ -76,8 +76,8 @@ public class ServerConnection
       return false;
     }
 
-    serverReader = new ServerReader(this, reader);
-    serverWriter = new ServerWriter(this);
+    serverReader = new ServerReader(this, objectInputStream);
+    serverWriter = new ServerWriter(this, objectOutputStream);
 
     serverReader.start();
     serverWriter.start();
