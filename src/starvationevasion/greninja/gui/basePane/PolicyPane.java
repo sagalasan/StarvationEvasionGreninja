@@ -15,10 +15,7 @@ import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
-import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
-import starvationevasion.greninja.gui.componentPane.PlayerHandGui;
-import starvationevasion.greninja.gui.componentPane.ToolBarWithIcons;
-import starvationevasion.greninja.gui.componentPane.WithdrawAndDiscardPile;
+import starvationevasion.greninja.gui.componentPane.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +30,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
   private GuiBase base;
   private PlayerHandGui playerHandGui;
   private VBox leftPane;
+
 
   public PolicyPane(GuiBase base)
   {
@@ -62,8 +60,13 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     //leftPane holds the timer, action buttons, and drafted policys
     //===============================================================
     leftPane = new VBox();
-    leftPane.getChildren().addAll(getTimerPane(), button);
+    DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane();
+    //todo will have to fix position in leftPane
+    draftedCards.setAlignment(Pos.BOTTOM_CENTER);
+    leftPane.getChildren().addAll(getTimerPane(), button, new Label("visualization"),
+        new ImageView(new Image ("file:assets/greninjaAssets/VisSample.png")), new Label("Drafted Cards"),draftedCards);
     mainBorderPane.setLeft(leftPane);
+
 
     //===============================================================
     //Makes an interactive map and assigns this policy pane as its
@@ -81,10 +84,12 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     playerHandGui.setAlignment(Pos.CENTER);
     WithdrawAndDiscardPile withdrawAndDiscardPile = new WithdrawAndDiscardPile();
     withdrawAndDiscardPile.setAlignment(Pos.BOTTOM_LEFT);
+
     StackPane bottomPane = new StackPane();
     ToolBarWithIcons toolbar = new ToolBarWithIcons();
+
     bottomPane.getChildren().addAll(withdrawAndDiscardPile, playerHandGui);
-    playerAndToolbarVBox.getChildren().addAll(bottomPane, toolbar);
+    playerAndToolbarVBox.getChildren().addAll(bottomPane, new Label("ToolBar"), toolbar);
     mainBorderPane.setBottom(playerAndToolbarVBox);
 
 

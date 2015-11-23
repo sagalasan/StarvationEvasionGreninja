@@ -1,6 +1,7 @@
 package starvationevasion.greninja.gui.componentPane;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -27,6 +28,8 @@ public class WithdrawAndDiscardPile extends VBox
         event.consume();
       }
     });
+
+
     //from the list of piles, make piles depending on how many cards are in deck?
     //get withdraw/discard pile info from gui
     Image image = new Image("file:assets/CardImages/magikarp.png");
@@ -35,7 +38,7 @@ public class WithdrawAndDiscardPile extends VBox
 
     discardPile.setRotate(90);
     deck.setRotate(90);
-    getChildren().addAll(discardPile, deck);
+    getChildren().addAll(new Label("Discard Pile"),discardPile, new Label("Player Deck"), deck);
 
   }
 
