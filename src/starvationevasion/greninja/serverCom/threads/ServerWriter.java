@@ -40,7 +40,12 @@ public class ServerWriter extends Thread
 
   private synchronized void sendNextMessage()
   {
+    Object o = messageQueue.removeFirst();
+    String name = getClassName(o);
+    if(ServerConnection.checkIfValidClass(name))
+    {
 
+    }
   }
 
   private synchronized void guardedWrite()

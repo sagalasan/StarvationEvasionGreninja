@@ -1,8 +1,10 @@
 package starvationevasion.greninja.serverCom;
 
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.gameControl.GameController;
 import starvationevasion.greninja.serverCom.threads.ServerReader;
 import starvationevasion.greninja.serverCom.threads.ServerWriter;
+import starvationevasion.common.messages.*;
 
 import java.io.*;
 import java.net.*;
@@ -97,6 +99,18 @@ public class ServerConnection
     }
 
     isConnectionValid = false;
+  }
+
+  public static boolean checkIfValidClass(String name)
+  {
+    if(name.equals(AvailableRegions.class.getName())) return true;
+    else if(name.equals(BeginGame.class.getName())) return true;
+    else if(name.equals(Hello.class.getName())) return true;
+    else if(name.equals(Login.class.getName())) return true;
+    else if(name.equals(LoginResponse.class.getName())) return true;
+    else if(name.equals(RegionChoice.class.getName())) return true;
+    else if(name.equals(Response.class.getName())) return true;
+    else return false;
   }
 
   public static void main(String[] args)
