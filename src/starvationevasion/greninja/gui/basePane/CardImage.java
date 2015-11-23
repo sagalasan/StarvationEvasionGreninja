@@ -32,7 +32,7 @@ public class CardImage extends ImageView {
     this.x = x;
     this.y = y;
 
-    setId("cardController");
+    setId("card-image");
 
 
     /**

@@ -33,6 +33,12 @@ public class PlayerHandGui extends HBox
     //  System.out.println(j++);
     //}
 
+    //todo make a discard/deck pile
+    //need to be able to look through discard pile
+
+    //first make a placebo card pile
+    //second make a deck image
+
     /**
      * this for loop is a place holder till the player hand returns something
      */
@@ -46,7 +52,6 @@ public class PlayerHandGui extends HBox
     //Image image = new Image("file:assets/CardImages/magikarp.png");
     //make n cards, place them at bottom of pane, side by side
     //have them adjust according to their position
-    //todo possibly make the base gui a BorderLayout instead of reg pane
     //setBottom(cardHand);
 
   }

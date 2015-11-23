@@ -8,9 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.componentPane.PlayerHandGui;
+import starvationevasion.greninja.gui.componentPane.WithdrawAndDiscardPile;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,10 +54,21 @@ public class PolicyPane extends GamePhasePane
     //make a player card hand class
     mainBorderPane.setCenter(vBoxPane);
 
+    StackPane bottomPane = new StackPane();
+
+    WithdrawAndDiscardPile withdrawAndDiscardPile = new WithdrawAndDiscardPile();
+    withdrawAndDiscardPile.setAlignment(Pos.BOTTOM_LEFT);
+
+   // mainBorderPane.setBottom(withdrawAndDiscardPile);
+
     //comment this out if you want to get rid of the player hand gui part.
+    //make a discard/withdraw pile hand gui area
     playerHandGui = new PlayerHandGui(base);
     playerHandGui.setAlignment(Pos.CENTER);
-    mainBorderPane.setBottom(playerHandGui);
+
+    bottomPane.getChildren().addAll(withdrawAndDiscardPile, playerHandGui);
+
+    mainBorderPane.setBottom(bottomPane);
     getChildren().add(mainBorderPane);
 
   }
