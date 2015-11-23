@@ -4,6 +4,7 @@ import starvationevasion.greninja.serverCom.threads.ServerWriter;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -13,12 +14,15 @@ public class TestServerWorker extends Thread
 {
   private Socket client;
   private ObjectInputStream objectInputStream;
+  private ObjectOutputStream objectOutputStream;
 
   public TestServerWorker(Socket client)
   {
     this.client = client;
     try
     {
+      objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+      objectOutputStream.flush();
       objectInputStream = new ObjectInputStream(client.getInputStream());
     }
     catch (IOException ioe)

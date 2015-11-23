@@ -40,6 +40,7 @@ public class TestServer
         System.out.println("Connected");
         TestServerWorker worker = new TestServerWorker(client);
         workers.add(worker);
+        worker.start();
       }
       catch (IOException ioe)
       {

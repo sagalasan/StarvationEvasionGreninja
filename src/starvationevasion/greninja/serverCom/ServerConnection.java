@@ -8,6 +8,7 @@ import starvationevasion.common.messages.*;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 /**
  * Created by sagalasan on 11/14/15.
@@ -67,8 +68,9 @@ public class ServerConnection
     try
     {
       socket = new Socket(hostName, port);
-      objectInputStream = new ObjectInputStream(socket.getInputStream());
       objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+      objectOutputStream.flush();
+      objectInputStream = new ObjectInputStream(socket.getInputStream());
     }
     catch (IOException ioe)
     {
@@ -106,6 +108,11 @@ public class ServerConnection
     return socket;
   }
 
+  public void sendMessage(Object o)
+  {
+    serverWriter.addMessageToQueue(o);
+  }
+
   public static boolean checkIfValidClass(String name)
   {
     if(name.equals(AvailableRegions.class.getName())) return true;
@@ -123,6 +130,23 @@ public class ServerConnection
     ServerConnection serverConnection = new ServerConnection(null);
     boolean b = serverConnection.startConnection("localhost");
     System.out.println(b);
+
+    System.out.println("Sleeping for 1000");
+    try
+    {
+      Thread.sleep(10000);
+    } catch (InterruptedException e)
+    {
+      e.printStackTrace();
+    }
+
+    System.out.println("Sending messages");
+
+    ArrayList<Hello> hellos = new ArrayList<>();
+    for(int i = 0; i < 5; i++)
+    {
+      serverConnection.sendMessage(new Hello("hello", "43"));
+    }
   }
 
 }
