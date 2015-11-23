@@ -20,18 +20,13 @@ import javax.smartcardio.Card;
 public class CardImage extends ImageView {
 
 
-  private String cardId;
   //private ImageView card;
-  private double x, y;
-  private double mouseX, mouseY;
 
-  public CardImage(Image image, double x, double y)
+  public CardImage(Image image)
   {
     super(image);
     //card = new ImageView(image);
     //super(image);
-    this.x = x;
-    this.y = y;
 
     setId("card-image");
     //isHover()
@@ -46,30 +41,6 @@ public class CardImage extends ImageView {
       }
     });
 
-    /**
-      card.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent mouseEvent) {
-        mouseX = mouseEvent.getX();
-        mouseY = mouseEvent.getY();
-        System.out.println("mousex is "+mouseX);
-        System.out.println("mousey is "+mouseY);
-      }
-    });
-**/
-/**
- * //could possibly use to allow players to reorder the cards seen
-    card.setOnMouseDragged(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent mouseEvent)
-      {
-        card.setLayoutX(mouseEvent.getSceneX()- mouseX);
-
-        card.setLayoutY(mouseEvent.getSceneY() - mouseY);
-      }
-    });
-**/
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
