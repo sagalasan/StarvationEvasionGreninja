@@ -34,6 +34,11 @@
     -fx-translate-y: -50;
 
 }
+#state-image:hover
+{
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
+    -fx-effect: innershadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
+}
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
