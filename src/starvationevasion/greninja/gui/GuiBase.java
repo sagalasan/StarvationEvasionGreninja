@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.ControlListener;
@@ -28,6 +29,7 @@ public class GuiBase extends Application implements ControlListener
 {
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
+  private StagingPane stagingPane;
 
   private GuiTimerSubscriber paneToRefresh;
   private EnumRegion playerRegion, viewedRegion;
@@ -116,11 +118,11 @@ public class GuiBase extends Application implements ControlListener
   public void swapToStagingPane()
   {
     System.out.println("Entered Staging Pane");
-    StagingPane staging = new StagingPane(this);
-    staging.initPane();
+    stagingPane = new StagingPane(this);
+    stagingPane.initPane();
     //initializePanes();
-    baseScene.setRoot(staging);
-    paneToRefresh = staging;
+    baseScene.setRoot(stagingPane);
+    paneToRefresh = stagingPane;
   }
 
   public void endPolicyDraftingPhase()
@@ -139,6 +141,15 @@ public class GuiBase extends Application implements ControlListener
   ====================FROM CONTROL==============================================
    */
 
+  /**
+   * Recieve available regions from control and pass on to Staging pane.
+   * @param availableRegions        AvailableRegions method.
+   */
+  @Override
+  public void updateAvailableRegions(AvailableRegions availableRegions)
+  {
+    stagingPane.setAvailableRegions(availableRegions);
+  }
   /**
    * Get timer pane of phase
    * @param phase       phase pane to get timer from.

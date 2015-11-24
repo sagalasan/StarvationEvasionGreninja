@@ -3,6 +3,7 @@ package starvationevasion.greninja.gameControl;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.model.HumanPlayer;
@@ -58,6 +59,10 @@ public class GameController
   public void handleMessageIn(Serializable message)
   {
     //identify message type.
+    if(message instanceof AvailableRegions)
+    {
+      //view.updateAvailableRegions((AvailableRegions) message);
+    }
     //send to appropriate location.
   }
 

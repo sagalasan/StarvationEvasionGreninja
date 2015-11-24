@@ -1,6 +1,7 @@
 package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.State;
@@ -12,6 +13,7 @@ import starvationevasion.greninja.model.State;
 public class AIView implements ControlListener
 {
   private GameController control;
+  private AvailableRegions availableRegions;
 
   public AIView(GameController control)
   {
@@ -66,5 +68,15 @@ public class AIView implements ControlListener
   public void swapToVotingPane()
   {
     System.out.println("I'm a robot and I'm voting on policies!");
+  }
+
+  /**
+   * Update availableRegions message.
+   * @param availableRegions        AvailableRegions method.
+   */
+  @Override
+  public void updateAvailableRegions(AvailableRegions availableRegions)
+  {
+    this.availableRegions = availableRegions;
   }
 }
