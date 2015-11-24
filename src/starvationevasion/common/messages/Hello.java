@@ -1,10 +1,12 @@
 package starvationevasion.common.messages;
 
+import java.io.Serializable;
+
 /**
  * Shea Polansky
  * "Hello" message sent to the client by the server on connection
  */
-public class Hello
+public class Hello implements Serializable
 {
   /**
    * Nonce used for a login hash salt.
