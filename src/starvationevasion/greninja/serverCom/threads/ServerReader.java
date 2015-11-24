@@ -28,6 +28,7 @@ public class ServerReader extends Thread
       try
       {
         message = objectInputStream.readObject();
+        serverConnection.receiveMessage(message);
         System.out.println(message);
       }
       catch (IOException ioe)

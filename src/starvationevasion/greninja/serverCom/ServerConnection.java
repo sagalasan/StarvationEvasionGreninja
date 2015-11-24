@@ -113,6 +113,11 @@ public class ServerConnection
     serverWriter.addMessageToQueue(o);
   }
 
+  public void receiveMessage(Object o)
+  {
+    gameController.handleMessageIn((Serializable) o);
+  }
+
   public static boolean checkIfValidClass(String name)
   {
     if(name.equals(AvailableRegions.class.getSimpleName())) return true;
