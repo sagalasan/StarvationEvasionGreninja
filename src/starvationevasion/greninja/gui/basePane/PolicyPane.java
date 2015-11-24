@@ -67,6 +67,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     draftedCards.setAlignment(Pos.BOTTOM_CENTER);
     leftPane.getChildren().addAll(getTimerPane(), button, new Label("visualization"),
         new ImageView(new Image ("file:assets/greninjaAssets/VisSample.png")), new Label("Drafted Cards"),draftedCards);
+
     mainBorderPane.setLeft(leftPane);
 
     //todo make a right pane and populate with graphs.  Try and implement the regional stats info
@@ -74,12 +75,24 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     rightPane.getChildren().add(new Label("Regional Statistics"));
     mainBorderPane.setRight(rightPane);
 
+
     //===============================================================
     //Makes an interactive map and assigns this policy pane as its
     //containing pane
     //===============================================================
-    InteractiveMapPane map = new InteractiveMapPane();
-    map.setContainingPane(this);
+    //InteractiveMapPane map = new InteractiveMapPane();
+    //map.setContainingPane(this);
+    //mainBorderPane.setCenter(map);
+
+    /**
+     * comment this map if you want to use the iteractive map pane map
+     * and uncomment the top comments
+     */
+
+    //===============================================================
+    //Makes an interactive map
+    //===============================================================
+    ClickableMap map = new ClickableMap();
     mainBorderPane.setCenter(map);
 
     //===============================================================
