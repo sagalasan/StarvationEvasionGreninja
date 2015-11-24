@@ -15,201 +15,211 @@ public class State
 
   public static final int FOOD_NUMBER = 12;
 
+
+  private static final int TOTAL_TURN_NUMBER = 70;
+  private int turnNumber = 0;
+
   private EnumRegion region;
 
-  private double population;
-  private double averageAge;
-  private double undernourishedPopulation;
-  private double severelyMalnourishedPopulation;
-  private double birthRate;//Total number of live births per 1000 of a population in a year.
-  private double netMigrationRate;//immigration - emigration per 1,000 population.
-  private double mortalityRate;//Units of deaths per 1,000 individuals per year.
-  private double lifeExpectancy;
-  private double GMOPercentage;
-  private double OrganicPercentage;
-  private double ConventionalFarmingPercentage;
+  private double[] population = new double[TOTAL_TURN_NUMBER];
+  private double[] averageAge = new double[TOTAL_TURN_NUMBER];
+  private double[] undernourishedPopulation = new double[TOTAL_TURN_NUMBER];
+  private double[] severelyMalnourishedPopulation = new double[TOTAL_TURN_NUMBER];
+  private double[] birthRate = new double[TOTAL_TURN_NUMBER];//Total number of live births per 1000 of a population in a year.
+  private double[] netMigrationRate = new double[TOTAL_TURN_NUMBER];//immigration - emigration per 1,000 population.
+  private double[] mortalityRate = new double[TOTAL_TURN_NUMBER];//Units of deaths per 1,000 individuals per year.
+  private double[] lifeExpectancy = new double[TOTAL_TURN_NUMBER];
+  private double[] GMOPercentage = new double[TOTAL_TURN_NUMBER];
+  private double[] OrganicPercentage = new double[TOTAL_TURN_NUMBER];
+  private double[] ConventionalFarmingPercentage = new double[TOTAL_TURN_NUMBER];
 
-  private double[] foodIncome = new double[FOOD_NUMBER];
-  private double[] foodCost = new double[FOOD_NUMBER];
-  private double[] foodArea = new double[FOOD_NUMBER];
-  private double[] foodWeight = new double[FOOD_NUMBER];// In metric tons.
-  private double[] foodImport = new double[FOOD_NUMBER];
-  private double[] foodExport = new double[FOOD_NUMBER];
+  private double[][] foodIncome = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
+  private double[][] foodCost = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
+  private double[][] foodArea = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
+  private double[][] foodWeight = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];// In metric tons.
+  private double[][] foodImport = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
+  private double[][] foodExport = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
 
   public State(EnumRegion region)
   {
     this.region = region;
   }
 
+
+  public void update()
+  {
+    turnNumber++;
+    //TODO: set data of all attributes for this turn. This could be done when we could get interpreted data from server
+  }
+
   public void setPopulation(double population)
   {
-    this.population = population;
+    this.population[turnNumber] = population;
   }
 
   public void setAverageAge(double averageAge)
   {
-    this.averageAge = averageAge;
+    this.averageAge[turnNumber] = averageAge;
   }
 
   public void setUndernourishedPopulation(double undernourishedPopulation)
   {
-    this.undernourishedPopulation = undernourishedPopulation;
+    this.undernourishedPopulation[turnNumber] = undernourishedPopulation;
   }
 
   public void setSeverelyMalnourishedPopulation(double severelyMalnourishedPopulation)
   {
-    this.severelyMalnourishedPopulation = severelyMalnourishedPopulation;
+    this.severelyMalnourishedPopulation[turnNumber] = severelyMalnourishedPopulation;
   }
 
   public void setBirthRate(double birthRate)
   {
-    this.birthRate = birthRate;
+    this.birthRate[turnNumber] = birthRate;
   }
 
   public void setNetMigrationRate(double netMigrationRate)
   {
-    this.netMigrationRate = netMigrationRate;
+    this.netMigrationRate[turnNumber] = netMigrationRate;
   }
 
   public void setMortalityRate(double mortalityRate)
   {
-    this.mortalityRate = mortalityRate;
+    this.mortalityRate[turnNumber] = mortalityRate;
   }
 
   public void setLifeExpectancy(double lifeExpectancy)
   {
-    this.lifeExpectancy = lifeExpectancy;
+    this.lifeExpectancy[turnNumber] = lifeExpectancy;
   }
 
   public void setOrganicPercentage(double organicPercentage)
   {
-    OrganicPercentage = organicPercentage;
+    OrganicPercentage[turnNumber] = organicPercentage;
   }
 
   public void setGMOPercentage(double GMOPercentage)
   {
-    this.GMOPercentage = GMOPercentage;
+    this.GMOPercentage[turnNumber] = GMOPercentage;
   }
 
   public void setConventionalFarmingPercentage(double conventionalFarmingPercentage)
   {
-    ConventionalFarmingPercentage = conventionalFarmingPercentage;
+    ConventionalFarmingPercentage[turnNumber] = conventionalFarmingPercentage;
   }
 
-  public double getPopulation()
+  public double getPopulation(int turnNumber)
   {
-
-    return population;
+    return population[turnNumber];
   }
 
-  public double getAverageAge()
+  public double getAverageAge(int turnNumber)
   {
-    return averageAge;
+    return averageAge[turnNumber];
   }
 
-  public double getUndernourishedPopulation()
+  public double getUndernourishedPopulation(int turnNumber)
   {
-    return undernourishedPopulation;
+    return undernourishedPopulation[turnNumber];
   }
 
-  public double getSeverelyMalnourishedPopulation()
+  public double getSeverelyMalnourishedPopulation(int turnNumber)
   {
-    return severelyMalnourishedPopulation;
+    return severelyMalnourishedPopulation[turnNumber];
   }
 
-  public double getBirthRate()
+  public double getBirthRate(int turnNumber)
   {
-    return birthRate;
+    return birthRate[turnNumber];
   }
 
-  public double getNetMigrationRate()
+  public double getNetMigrationRate(int turnNumber)
   {
-    return netMigrationRate;
+    return netMigrationRate[turnNumber];
   }
 
-  public double getMortalityRate()
+  public double getMortalityRate(int turnNumber)
   {
-    return mortalityRate;
+    return mortalityRate[turnNumber];
   }
 
-  public double getLifeExpectancy()
+  public double getLifeExpectancy(int turnNumber)
   {
-    return lifeExpectancy;
+    return lifeExpectancy[turnNumber];
   }
 
-  public double getGMOPercentage()
+  public double getGMOPercentage(int turnNumber)
   {
-    return GMOPercentage;
+    return GMOPercentage[turnNumber];
   }
 
-  public double getOrganicPercentage()
+  public double getOrganicPercentage(int turnNumber)
   {
-    return OrganicPercentage;
+    return OrganicPercentage[turnNumber];
   }
 
-  public double getConventionalFarmingPercentage()
+  public double getConventionalFarmingPercentage(int turnNumber)
   {
-    return ConventionalFarmingPercentage;
+    return ConventionalFarmingPercentage[turnNumber];
   }
 
-  public double getFoodIncome(EnumFood foodType)
+  public double getFoodIncome(EnumFood foodType, int turnNumber)
   {
-    return foodIncome[foodType.ordinal()];
+    return foodIncome[turnNumber][foodType.ordinal()];
   }
 
-  public void setFoodIncome(EnumFood foodType, double income)
+  public void setFoodIncome(EnumFood foodType, double income, int turnNumber)
   {
-    foodIncome[foodType.ordinal()] = income;
+    foodIncome[turnNumber][foodType.ordinal()] = income;
   }
 
-  public double getFoodCost(EnumFood foodType)
+  public double getFoodCost(EnumFood foodType, int turnNumber)
   {
-    return foodCost[foodType.ordinal()];
+    return foodCost[turnNumber][foodType.ordinal()];
   }
 
-  public void setFoodCost(EnumFood foodType, double cost)
+  public void setFoodCost(EnumFood foodType, double cost, int turnNumber)
   {
-    foodCost[foodType.ordinal()] = cost;
+    foodCost[turnNumber][foodType.ordinal()] = cost;
   }
 
-  public double getFoodWeight(EnumFood foodType)
+  public double getFoodWeight(EnumFood foodType, int turnNumber)
   {
-    return foodWeight[foodType.ordinal()];
+    return foodWeight[turnNumber][foodType.ordinal()];
   }
 
-  public void setFoodWeight(EnumFood foodType, double weight)
+  public void setFoodWeight(EnumFood foodType, double weight, int turnNumber)
   {
-    foodWeight[foodType.ordinal()] = weight;
+    foodWeight[turnNumber][foodType.ordinal()] = weight;
   }
 
-  public double getFoodArea(EnumFood foodType)
+  public double getFoodArea(EnumFood foodType, int turnNumber)
   {
-    return foodArea[foodType.ordinal()];
+    return foodArea[turnNumber][foodType.ordinal()];
   }
 
-  public void setFoodArea(EnumFood foodType, double area)
+  public void setFoodArea(EnumFood foodType, double area, int turnNumber)
   {
-    foodArea[foodType.ordinal()] = area;
+    foodArea[turnNumber][foodType.ordinal()] = area;
   }
 
-  public double getFoodImport(EnumFood foodType)
+  public double getFoodImport(EnumFood foodType, int turnNumber)
   {
-    return foodImport[foodType.ordinal()];
+    return foodImport[turnNumber][foodType.ordinal()];
   }
 
-  public void setFoodImport(EnumFood foodType, double importValue )
+  public void setFoodImport(EnumFood foodType, double importValue, int turnNumber)
   {
-    foodImport[foodType.ordinal()] = importValue;
+    foodImport[turnNumber][foodType.ordinal()] = importValue;
   }
 
-  public double getFoodExport(EnumFood foodType)
+  public double getFoodExport(EnumFood foodType, int turnNumber)
   {
-    return foodExport[foodType.ordinal()];
+    return foodExport[turnNumber][foodType.ordinal()];
   }
 
-  public void setFoodExport(EnumFood foodType, double exportValue)
+  public void setFoodExport(EnumFood foodType, double exportValue, int turnNumber)
   {
-    foodExport[foodType.ordinal()] = exportValue;
+    foodExport[turnNumber][foodType.ordinal()] = exportValue;
   }
 
 }
