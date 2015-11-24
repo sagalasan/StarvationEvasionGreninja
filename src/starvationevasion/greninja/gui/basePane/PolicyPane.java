@@ -30,6 +30,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
   private GuiBase base;
   private PlayerHandGui playerHandGui;
   private VBox leftPane;
+  private VBox rightPane;
 
 
   public PolicyPane(GuiBase base)
@@ -67,6 +68,10 @@ public class PolicyPane extends GamePhasePane implements MapHolder
         new ImageView(new Image ("file:assets/greninjaAssets/VisSample.png")), new Label("Drafted Cards"),draftedCards);
     mainBorderPane.setLeft(leftPane);
 
+    //todo make a right pane and populate with graphs.  Try and implement the regional stats info
+    rightPane = new VBox();
+    rightPane.getChildren().add(new Label("Regional Statistics"));
+    mainBorderPane.setRight(rightPane);
 
     //===============================================================
     //Makes an interactive map and assigns this policy pane as its

@@ -43,10 +43,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     InteractiveMapPane map = new InteractiveMapPane();
     map.setContainingPane(this);
 
-   // Image image = new Image("file:assets/greninjaAssets/usMap.png");
-    //card = new CardController(image, 50, 50, "ash");
 
-    //getChildren().add(card);
     getChildren().add(map);
   }
 
