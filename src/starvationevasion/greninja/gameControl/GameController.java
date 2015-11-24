@@ -3,12 +3,13 @@ package starvationevasion.greninja.gameControl;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.*;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.model.HumanPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
+import starvationevasion.greninja.serverCom.ServerConnection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class GameController
   private VotingPhase votingPhase;
   private PlayerInterface player;
   private ArrayList<PolicyCard> cardsForVote;
+  private ServerConnection serverLine;
   //WorldModel
   //GameStateTracker
 
@@ -63,6 +65,14 @@ public class GameController
     {
       //view.updateAvailableRegions((AvailableRegions) message);
     }
+    else if(message instanceof BeginGame)
+    {
+      beginGame();
+    }
+    else if(message instanceof LoginResponse)
+    {
+      handleLoginResponse((LoginResponse)message);
+    }
     //send to appropriate location.
   }
 
@@ -73,6 +83,31 @@ public class GameController
   public void sendMessageOut(Serializable message)
   {
     //send message to message queue;
+  }
+
+  private void handleLoginResponse(LoginResponse response)
+  {
+    LoginResponse.ResponseType type = response.responseType;
+    switch(type)
+    {
+      case ACCESS_DENIED:
+        //bad password.  Inform user, do again.
+        break;
+      case ASSIGNED_REGION:
+        EnumRegion region = response.assignedRegion;
+        //assign this region.
+        break;
+      case REJOIN:
+        //??
+        break;
+      case CHOOSE_REGION:
+        //go to staging like normal.
+        view.swapToStagingPane();
+        break;
+      default:
+        break;
+    }
+
   }
 
   /*
@@ -87,6 +122,9 @@ public class GameController
   {
     System.out.println("Start single player game.");
     //for remaining slots, start AiGame (on new thread?).
+    serverLine = new ServerConnection(this);
+    //serverLine.startConnection("localhost");
+    //TODO server will swap to staging pane.
     view.swapToStagingPane();
   }
 
@@ -106,8 +144,11 @@ public class GameController
     //validate and attempt to connect to server.
     //if invalid go back.
     System.out.println("Start multiplayer game.");
-    System.out.println("Prompt user for Server Name");
+    serverLine = new ServerConnection(this);
+    //serverLine.startConnection(serverName);
+    //serverLine.sendMessage(name, password);
     System.out.println("Try To Connect");
+    //TODO server will swap to staging pane.
     view.swapToStagingPane();
   }
 
@@ -121,6 +162,8 @@ public class GameController
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
+    //serverLine.sendMessage(new RegionChoice(region));
+    //TODO will be called from server's begin game message.
     beginGame();
   }
 
