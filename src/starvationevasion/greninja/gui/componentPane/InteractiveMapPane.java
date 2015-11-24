@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.gui.MapHolder;
 
 /**
@@ -27,6 +28,11 @@ public class InteractiveMapPane extends StackPane
   public void setContainingPane(MapHolder holder)
   {
     paths.setContainingPane(holder);
+  }
+
+  public void updateAvailableRegions(AvailableRegions availableMessage)
+  {
+
   }
 
   /**

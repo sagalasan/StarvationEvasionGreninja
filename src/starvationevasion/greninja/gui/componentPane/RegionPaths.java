@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.MapHolder;
 
 import java.util.HashMap;
@@ -242,7 +243,7 @@ public class RegionPaths
       this.color = color;
       selectedColor = new Color(color.getRed(), color.getGreen(), color.getBlue(),
                                 0.5);
-      unavailableColor = new Color(0.5, 0.5, 0.5, 0.5);
+      unavailableColor = ClientConstant.GRAYOUT;
       isAvailable = true;
 
       setOnMouseEntered(new EventHandler<MouseEvent>() {

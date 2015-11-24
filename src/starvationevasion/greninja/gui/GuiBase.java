@@ -104,7 +104,7 @@ public class GuiBase extends Application implements ControlListener
     //policyPane.getTimerPane().resetTimer();
     //policyPane = new PolicyPane(this);
     //policyPane.initPane();
-    paneToRefresh = policyPane;
+    initPlayerRegionInfo(playerRegionInfo, playerRegion);
     baseScene.setRoot(policyPane);
   }
 
@@ -173,6 +173,7 @@ public class GuiBase extends Application implements ControlListener
     playerRegion = pRegion;
     playerRegionInfo = state;
     setViewedRegionInfo(state);
+    viewedRegion = playerRegion;
   }
 
   /**

@@ -5,12 +5,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import javafx.scene.control.Label;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.GuiTimerSubscriber;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
 
 import javax.smartcardio.Card;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Select region, wait for other players to join.
@@ -22,13 +25,15 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
   private GuiBase base;
   private String selectedRegion;
   private Label regionSelectedLabel;
-
+  private InteractiveMapPane map;
+  private AvailableRegions availableRegions;
   //private CardController card;
 
 
   public StagingPane(GuiBase gui)
   {
     base = gui;
+    availableRegions = null;
   }
 
   /**
@@ -40,7 +45,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     selectedRegion = "None.";
     regionSelectedLabel = new Label(selectedRegion);
     getChildren().add(regionSelectedLabel);
-    InteractiveMapPane map = new InteractiveMapPane();
+    map = new InteractiveMapPane();
     map.setContainingPane(this);
 
    // Image image = new Image("file:assets/greninjaAssets/usMap.png");
@@ -79,11 +84,19 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     selectedRegion = "None.";
   }
 
+  public void setAvailableRegions(AvailableRegions availableRegions)
+  {
+    this.availableRegions = availableRegions;
+  }
   /**
    * Implements GuiTimerSubscriber.  Update text on region label.
    */
   public void timerTick()
   {
     regionSelectedLabel.setText(selectedRegion);
+    if(availableRegions != null)
+    {
+      map.updateAvailableRegions(availableRegions);
+    }
   }
 }

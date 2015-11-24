@@ -1,6 +1,5 @@
 package starvationevasion.greninja.gui.basePane;
 
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.greninja.clientCommon.ClientConstant;
@@ -28,7 +27,7 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
   public void initTimerPane()
   {
     timer = new TimerPane();
-    timer.initPhaseTimer(ClientConstant.TIME_LIMIT_STRING);
+    timer.initPhaseTimer(ClientConstant.POLICY_TIME_LIMIT);
   }
 
   /**
