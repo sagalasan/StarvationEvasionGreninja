@@ -33,6 +33,9 @@ public class PlayerHandGui extends HBox
     //  System.out.println(j++);
     //}
 
+
+
+
     /**
      * this for loop is a place holder till the player hand returns something
      */

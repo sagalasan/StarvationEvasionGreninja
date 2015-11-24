@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
@@ -46,7 +47,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
 
   public void initPane()
   {
-    super.initTimerPane();
+    super.initTimerPane(ClientConstant.POLICY_TIME_LIMIT);
 
     Button button = new Button();
     button.setText("Next State");
@@ -108,7 +109,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
    */
   public void endPhase()
   {
-    resetTimer(leftPane);
+    resetTimer(leftPane, ClientConstant.POLICY_TIME_LIMIT);
     base.endPolicyDraftingPhase();
   }
   /**

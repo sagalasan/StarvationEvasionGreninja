@@ -35,6 +35,7 @@ public class CardImage extends ImageView {
       public void handle(MouseEvent mouseEvent) {
         if(isHover())
         {
+          //todo fix the way it moves to front
           //how the card moves to the front
           toFront();
         }

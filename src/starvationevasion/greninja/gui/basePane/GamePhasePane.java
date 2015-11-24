@@ -24,10 +24,10 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
   /**
    * Makes the timer and other components common to the two game phases.
    */
-  public void initTimerPane()
+  public void initTimerPane(String timeOnTimer)
   {
     timer = new TimerPane();
-    timer.initPhaseTimer(ClientConstant.POLICY_TIME_LIMIT);
+    timer.initPhaseTimer(timeOnTimer);
   }
 
   /**
@@ -38,12 +38,12 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
     timer.updateTimeLabel();
   }
 
-  public void resetTimer(VBox vBoxPane)
+  public void resetTimer(VBox vBoxPane, String timerOnTimer)
   {
     //getChildren().remove(getTimerPane());
 
     int timerIndex = vBoxPane.getChildren().indexOf(getTimerPane());
-    initTimerPane();
+    initTimerPane(timerOnTimer);
     vBoxPane.getChildren().set(timerIndex, getTimerPane());
 
 

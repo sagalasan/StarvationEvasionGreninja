@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 
@@ -30,7 +31,7 @@ public class VotingPane extends GamePhasePane
   private VBox vBoxPane;
   public void initPane()
   {
-    super.initTimerPane();
+    super.initTimerPane(ClientConstant.VOTING_TIME_PANE);
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
@@ -53,7 +54,7 @@ public class VotingPane extends GamePhasePane
    */
   public void endPhase()
   {
-    resetTimer(vBoxPane);
+    resetTimer(vBoxPane, ClientConstant.VOTING_TIME_PANE);
     base.endPolicyVotingPhase();
   }
 
