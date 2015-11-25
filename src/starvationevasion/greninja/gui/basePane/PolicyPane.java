@@ -73,8 +73,10 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     //todo make a right pane and populate with graphs.  Try and implement the regional stats info
     rightPane = new VBox();
     rightPane.getChildren().add(new Label("Regional Statistics"));
+    ChartCreator chartCreator = new ChartCreator();
+    rightPane.getChildren().add(chartCreator.getChart("Population"));
+    rightPane.getChildren().add(chartCreator.getChart("HDI"));
     mainBorderPane.setRight(rightPane);
-
 
     //===============================================================
     //Makes an interactive map and assigns this policy pane as its

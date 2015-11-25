@@ -4,6 +4,8 @@ package starvationevasion.greninja.model;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 
+import java.util.Random;
+
 /**
  * @author Zhu Li
  *
@@ -12,13 +14,11 @@ import starvationevasion.common.EnumRegion;
 public class State
 {
 
-
   public static final int FOOD_NUMBER = 12;
 
-
-  private static final int TOTAL_TURN_NUMBER = 70;
+  private static final int TOTAL_TURN_NUMBER = 5;
   private int turnNumber = 0;
-
+  private int startTurn;//TODO: This will be the index of data in the starting year.
   private EnumRegion region;
 
   private double[] population = new double[TOTAL_TURN_NUMBER];
@@ -40,6 +40,7 @@ public class State
   private double[][] foodImport = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
   private double[][] foodExport = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
 
+  private double[] HDI = new double[TOTAL_TURN_NUMBER];
   public State(EnumRegion region)
   {
     this.region = region;
@@ -50,6 +51,27 @@ public class State
   {
     turnNumber++;
     //TODO: set data of all attributes for this turn. This could be done when we could get interpreted data from server
+  }
+
+  public void initializeDataForTest()
+  {
+    Random random = new Random();
+    for(int i = 0; i < 5; i++)
+    {
+      population[i] = 10 + i * random.nextGaussian();
+      HDI[i] = 0.8 + random.nextGaussian() * i / 10;
+    }
+  }
+
+
+  public void setHDI(double HDI)
+  {
+    this.HDI[turnNumber] = HDI;
+  }
+
+  public double getHDI(int turnNumber)
+  {
+    return HDI[turnNumber];
   }
 
   public void setPopulation(double population)
