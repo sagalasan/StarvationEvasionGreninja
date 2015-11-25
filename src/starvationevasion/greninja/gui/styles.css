@@ -1,0 +1,70 @@
+.root
+{
+  -fx-background-color: #333333;
+}
+
+.label
+{
+  -fx-font-size: 14pt;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-text-fill: white;
+}
+
+.button
+{
+  -fx-padding: 5 22 5 22;
+  -fx-border-color: white;
+  -fx-border-width: 1;
+  -fx-background-radius: 0;
+  -fx-background-radius: 0;
+  -fx-background-color: #333333;
+  -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  -fx-font-size: 12pt;
+  -fx-text-fill: white;
+  -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover
+{
+  -fx-background-color: #474747;
+}
+
+.button:pressed
+{
+  -fx-background-color: #5b5b5b;
+}
+
+#title
+{
+  -fx-font-size: 16pt;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-text-fill: white;
+}
+
+#mainPane
+{
+  -fx-background-color: #6c8299;
+}
+
+#leftLayout, #rightLayout, #topLayout, #bottomLayout
+{
+  -fx-background-color: #333333;
+}
+
+#card-image:hover
+{
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+    -fx-translate-y: -50;
+}
+
+#state-image:hover
+{
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
+    -fx-effect: innershadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
+}
+
+#divider
+{
+  -fx-background-color: #474747;
+}

@@ -27,6 +27,9 @@ import java.util.List;
  */
 public class GuiBase extends Application implements ControlListener
 {
+  // ERIN'S ADDED VARIABLES (to be deleted later)
+  private TestPolicyPane testPolicyPane = new TestPolicyPane(this);
+
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
   private StagingPane stagingPane;
@@ -43,6 +46,10 @@ public class GuiBase extends Application implements ControlListener
   {
     votingPane.initPane();
     policyPane.initPane();
+
+    // TODO: get rid of this test later
+    testPolicyPane.initPane();
+
   }
   /*
   ===========================TO CONTROL=========================================
@@ -107,7 +114,10 @@ public class GuiBase extends Application implements ControlListener
     //policyPane = new PolicyPane(this);
     //policyPane.initPane();
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
-    baseScene.setRoot(policyPane);
+
+    // TODO: get rid of test pane later
+//    baseScene.setRoot(policyPane);
+    baseScene.setRoot(testPolicyPane);
   }
 
   /**
@@ -235,8 +245,12 @@ public class GuiBase extends Application implements ControlListener
     //==========================================================================
     //this is where the style sheet gets added so that the .css will apply its design to
     //the nodes
+
+    // TODO: get rid of the testing statement later
+//    baseScene.getStylesheets().add
+//        (this.getClass().getResource("styleSheetForGui.css").toExternalForm());
     baseScene.getStylesheets().add
-        (this.getClass().getResource("styleSheetForGui.css").toExternalForm());
+        (this.getClass().getResource("styles.css").toExternalForm());
     //=============================================================================
     baseScene.setRoot(new EntryPane(this));
     mainStage.show();
