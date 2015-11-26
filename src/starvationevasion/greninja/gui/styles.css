@@ -60,8 +60,8 @@
 
 #state-image:hover
 {
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
-    -fx-effect: innershadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
+    /*-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 3,1,0,0 );
+    -fx-effect: innershadow( gaussian , rgba(255,255,255,0.5) , 2,1,0,0 );*/
 }
 
 #divider
