@@ -26,7 +26,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
   private GuiBase base;
   private String selectedRegion;
   private Label regionSelectedLabel;
-  private InteractiveMapPane map;
+  private ClickableMap map;
   private AvailableRegions availableRegions;
   //private CardController card;
 
@@ -46,13 +46,9 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     selectedRegion = "None.";
     regionSelectedLabel = new Label(selectedRegion);
 
-    //ClickableMap map = new ClickableMap();
-
-
     getChildren().add(regionSelectedLabel);
-    map = new InteractiveMapPane();
+    map = new ClickableMap();
     map.setContainingPane(this);
-
 
     getChildren().add(map);
   }
@@ -64,7 +60,6 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
   public void regionClicked(EnumRegion region)
   {
     base.regionSelected(region);
-
   }
 
   /**
@@ -98,7 +93,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     regionSelectedLabel.setText(selectedRegion);
     if(availableRegions != null)
     {
-      map.updateAvailableRegions(availableRegions);
+      //map.updateAvailableRegions(availableRegions);
     }
   }
 }

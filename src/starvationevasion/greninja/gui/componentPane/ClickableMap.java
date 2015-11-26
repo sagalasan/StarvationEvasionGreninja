@@ -3,6 +3,8 @@ package starvationevasion.greninja.gui.componentPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.gui.MapHolder;
 
 /**
  * Created by Jalen on 11/23/2015.
@@ -11,34 +13,35 @@ public class ClickableMap extends StackPane
 {
   private static final int NUMBER_OF_REGIONS = 7;
   private StateImage[] stateArray;
+  private MapHolder containingPane;
 
   private StateImage california =
       new StateImage(new Image("file:assets/greninjaAssets/california.png"),
-          new Image("file:assets/greninjaAssets/californiaTitle.png"), "California",this);
+          new Image("file:assets/greninjaAssets/californiaTitle.png"), EnumRegion.CALIFORNIA,this);
 
   private StateImage southernPlainsAndDeltaStates =
       new StateImage(new Image("file:assets/greninjaAssets/southernPlainsAndDeltaStates.png"),
-          new Image("file:assets/greninjaAssets/southernPlainsAndDeltaStatesTitle.png"), "Southern Plains and Delta States",this);
+          new Image("file:assets/greninjaAssets/southernPlainsAndDeltaStatesTitle.png"), EnumRegion.SOUTHERN_PLAINS,this);
 
   private StateImage pacificNorthWestAndMountainStates =
       new StateImage(new Image("file:assets/greninjaAssets/pacificNorthwestAndMountainStates.png"),
           new Image("file:assets/greninjaAssets/pacificNorthwestAndMountainStatesTitle.png"),
-          "Pacific Northwest and Mountain States",this);
+          EnumRegion.MOUNTAIN,this);
 
   private StateImage heartLand = new StateImage(new Image("file:assets/greninjaAssets/heartLand.png"),
-      new Image("file:assets/greninjaAssets/heartLandTitle.png"), "HeartLand",this);
+      new Image("file:assets/greninjaAssets/heartLandTitle.png"), EnumRegion.HEARTLAND,this);
 
   private StateImage northernCrescent = new StateImage(new Image("file:assets/greninjaAssets/northernCrescent.png"),
       new Image("file:assets/greninjaAssets/northernCrescentTitle.png"),
-      "Northern Crescent",this);
+      EnumRegion.NORTHERN_CRESCENT,this);
 
   private StateImage northernPlains = new StateImage(new Image("file:assets/greninjaAssets/northernPlains.png"),
       new Image("file:assets/greninjaAssets/northernPlainsTitle.png"),
-      "Northern Plains",this);
+      EnumRegion.NORTHERN_PLAINS,this);
 
   private StateImage southeast = new StateImage(new Image("file:assets/greninjaAssets/southeast.png"),
       new Image("file:assets/greninjaAssets/southeastTitle.png"),
-      "The Southeast",this);
+      EnumRegion.SOUTHEAST,this);
 
 
 
@@ -59,6 +62,16 @@ public class ClickableMap extends StackPane
   }
 
   /**
+   * Set a reference to the pane that contains the map so that actions can be
+   * performed when things happen.
+   * @param container       Pane that implements MapHolder.
+   */
+  public void setContainingPane(MapHolder container)
+  {
+    containingPane = container;
+  }
+
+  /**
    *
    * @param state the state to be chosen in the gui
    *              all other states are deselected and become no longer highlighted
@@ -67,6 +80,7 @@ public class ClickableMap extends StackPane
   public void chooseState(StateImage state)
   {
     state.toFront();
+    containingPane.regionClicked(state.getName());
     for (StateImage stateimage: stateArray)
     {
       if (!state.equals(stateimage))

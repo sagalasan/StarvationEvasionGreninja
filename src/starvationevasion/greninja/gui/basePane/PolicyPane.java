@@ -32,6 +32,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
   private PlayerHandGui playerHandGui;
   private VBox leftPane;
   private VBox rightPane;
+  private ClickableMap map;
 
 
   public PolicyPane(GuiBase base)
@@ -94,7 +95,8 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     //===============================================================
     //Makes an interactive map
     //===============================================================
-    ClickableMap map = new ClickableMap();
+    map = new ClickableMap();
+    map.setContainingPane(this);
     mainBorderPane.setCenter(map);
 
     //===============================================================

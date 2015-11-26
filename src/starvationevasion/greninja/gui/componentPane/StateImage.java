@@ -15,11 +15,11 @@ import java.util.Map;
 public class StateImage extends ImageView {
 
 
-  private String regionName;
+  private EnumRegion regionName;
   private boolean chosen = false;
   private Image stateImage;
   private Image stateWithTextImage;
-  public StateImage(final Image image, final Image titleImage, final String regionName, final ClickableMap map)
+  public StateImage(final Image image, final Image titleImage, final EnumRegion regionName, final ClickableMap map)
   {
     super(image);
     this.regionName = regionName;
@@ -86,6 +86,14 @@ public class StateImage extends ImageView {
     setImage(stateWithTextImage);
   }
 
+  /**
+   * Get the enum region belonging to this state.
+   * @return        EnumRegion belonging to this state.
+   */
+  public EnumRegion getName()
+  {
+    return regionName;
+  }
 
 
 

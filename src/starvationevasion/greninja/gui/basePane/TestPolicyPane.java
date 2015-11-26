@@ -138,6 +138,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   private void buildCenter()
   {
     ClickableMap map = new ClickableMap();
+    map.setContainingPane(this);
     mainPane.setCenter(map);
   }
 
@@ -195,9 +196,6 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     }
   }
 
-
-  //////////// Unused interface methods ////////////
-
   /**
    * When interactive map is clicked, set region selected to that region.
    * @param region        region on interactive map that was clicked.
@@ -206,7 +204,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   {
     System.out.println("selected Region is "+region.toString());
   }
-
+//////////// Unused interface methods ////////////
   /**
    * When mouse enters a region on the interactive map, update the region selected
    * string.
