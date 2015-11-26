@@ -66,6 +66,7 @@ public class ClickableMap extends StackPane
    */
   public void chooseState(StateImage state)
   {
+    state.toFront();
     for (StateImage stateimage: stateArray)
     {
       if (!state.equals(stateimage))
