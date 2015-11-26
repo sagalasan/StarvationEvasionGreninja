@@ -16,7 +16,9 @@ public class StateImage extends ImageView {
 
 
   private String regionName;
-  public StateImage(Image image, final String regionName) {
+
+  public StateImage(final Image image, final Image titleImage, final String regionName)
+  {
     super(image);
     this.regionName = regionName;
     //card = new ImageView(image);
@@ -24,6 +26,7 @@ public class StateImage extends ImageView {
     setFitHeight(350);
     setFitWidth(500);
     setId("state-image");
+    //this.titleImage = titleImage;
 
 
 
@@ -34,8 +37,20 @@ public class StateImage extends ImageView {
       @Override
       public void handle(MouseEvent event) {
         System.out.println("this is the region of " + regionName);
-
         event.consume();
+      }
+    });
+    setOnMouseEntered(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        toFront();
+        setImage(titleImage);
+      }
+    });
+    setOnMouseExited(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        setImage(image);
       }
     });
   }
