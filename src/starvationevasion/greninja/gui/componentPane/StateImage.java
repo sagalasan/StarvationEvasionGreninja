@@ -16,44 +16,77 @@ public class StateImage extends ImageView {
 
 
   private String regionName;
-
-  public StateImage(final Image image, final Image titleImage, final String regionName)
+  private boolean chosen = false;
+  private Image stateImage;
+  private Image stateWithTextImage;
+  public StateImage(final Image image, final Image titleImage, final String regionName, final ClickableMap map)
   {
     super(image);
     this.regionName = regionName;
-    //card = new ImageView(image);
-    //super(image);
     setFitHeight(350);
     setFitWidth(500);
     setId("state-image");
-    //this.titleImage = titleImage;
-
+    stateImage = image;
+    stateWithTextImage = titleImage;
 
 
     /**
      * performs actions based on mouse clicked on the image
      */
+
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
         System.out.println("this is the region of " + regionName);
+        map.chooseState(getThis());
+        chosen = true;
+        showStateName();
         event.consume();
       }
     });
     setOnMouseEntered(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent mouseEvent) {
-        toFront();
-        setImage(titleImage);
+        showStateName();
       }
     });
     setOnMouseExited(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent mouseEvent) {
-        setImage(image);
+        if (!chosen)
+        {
+          deselect();
+        }
+
       }
     });
   }
+
+  private StateImage getThis()
+  {
+    return this;
+  }
+
+  /**
+   * deselects the clicked on image in the gui by setting
+   * its picture to the original state image and setting chosen to false
+   */
+  public void deselect()
+  {
+    chosen = false;
+    setImage(stateImage);
+  }
+
+  /**
+   * shows the state image with state name on the text
+   */
+  public void showStateName()
+  {
+    toFront();
+    setImage(stateWithTextImage);
+  }
+
+
 
 
 }
