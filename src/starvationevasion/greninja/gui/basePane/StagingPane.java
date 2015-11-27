@@ -10,7 +10,6 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.GuiTimerSubscriber;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.ClickableMap;
-import starvationevasion.greninja.gui.componentPane.InteractiveMapPane;
 
 import javax.smartcardio.Card;
 import java.util.Map;

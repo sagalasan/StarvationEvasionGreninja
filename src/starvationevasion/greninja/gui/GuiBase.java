@@ -110,9 +110,6 @@ public class GuiBase extends Application implements ControlListener
   public void swapToPolicyPane()
   {
     System.out.println("Now in Policy Drafting.");
-    //policyPane.getTimerPane().resetTimer();
-    //policyPane = new PolicyPane(this);
-    //policyPane.initPane();
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
 
     // TODO: get rid of test pane later
