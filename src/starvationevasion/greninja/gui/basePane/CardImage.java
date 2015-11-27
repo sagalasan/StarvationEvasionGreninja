@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import starvationevasion.greninja.gui.componentPane.PlayerHandGui;
 
 import javax.smartcardio.Card;
 
@@ -17,31 +18,30 @@ import javax.smartcardio.Card;
 /**
  * Created by Jalen on 11/19/2015.
  */
-public class CardImage extends ImageView {
+public class CardImage extends StackPane{
 
 
   //private ImageView card;
 
   public CardImage(Image image)
   {
-    super(image);
+
+    ImageView card = new ImageView(image);
+    //super(image);
     //card = new ImageView(image);
     //super(image);
 
     setId("card-image");
     //isHover()
-    setOnMouseMoved(new EventHandler<MouseEvent>() {
+
+
+
+    setOnMouseEntered(new EventHandler<MouseEvent>() {
       @Override
-      public void handle(MouseEvent mouseEvent) {
-        //if(isHover())
-        //{
-          //todo fix the way it moves to front
-          //how the card moves to the front
-          toFront();
-       // }
+      public void handle(MouseEvent event) {
+        card.toFront();
       }
     });
-
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -49,8 +49,10 @@ public class CardImage extends ImageView {
         event.consume();
       }
     });
+    getChildren().add(card);
   }
 
+  /**
   public double getWidth()
   {
     return getBoundsInParent().getWidth();
@@ -59,6 +61,7 @@ public class CardImage extends ImageView {
   {
     return getBoundsInParent().getHeight();
   }
+   **/
 
 
 

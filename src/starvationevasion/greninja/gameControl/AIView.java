@@ -4,6 +4,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
+import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 
 /**
@@ -12,6 +13,7 @@ import starvationevasion.greninja.model.State;
  */
 public class AIView implements ControlListener
 {
+
   private GameController control;
   private AvailableRegions availableRegions;
 
@@ -75,7 +77,7 @@ public class AIView implements ControlListener
    * @param availableRegions        AvailableRegions method.
    */
   @Override
-  public void updateAvailableRegions(AvailableRegions availableRegions)
+  public void updateAvailableRegions(AvailableRegions availableRegions, PlayerInterface playerInterface)
   {
     this.availableRegions = availableRegions;
   }
