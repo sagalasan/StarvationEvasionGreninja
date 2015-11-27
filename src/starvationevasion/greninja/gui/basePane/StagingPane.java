@@ -10,6 +10,7 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.GuiTimerSubscriber;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.ClickableMap;
+import starvationevasion.greninja.model.PlayerInterface;
 
 import javax.smartcardio.Card;
 import java.util.Map;
@@ -80,7 +81,7 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
     selectedRegion = "None.";
   }
 
-  public void setAvailableRegions(AvailableRegions availableRegions)
+  public void setAvailableRegions(AvailableRegions availableRegions, PlayerInterface player)
   {
     this.availableRegions = availableRegions;
   }

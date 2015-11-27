@@ -10,6 +10,15 @@ import java.util.List;
  */
 public interface PlayerInterface
 {
+
+  /**
+   * Set the player's name from login
+   * @param name
+   */
+  void setPlayerName(String name);
+
+  String getPlayerName();
+
   /**
    * Set the player's region.
    * @param region
