@@ -183,6 +183,16 @@ public class GameController
     //start policy drafting phase.
     startPolicyDraftingPhase();
   }
+
+  /**
+   * Send login info to the message queue in the form of a Login message.
+   * @param name          name entered by user
+   * @param password      password entered by user.
+   */
+  public void sendLoginInfo(String name, String password)
+  {
+    sendMessageOut(new Login(name, "SaltySaltSalt?", password));
+  }
  /*
   ============================end startup=======================================
   ******************************************************************************

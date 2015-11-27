@@ -15,6 +15,7 @@ public class DraftingPhase extends GamePhase
 
   //player may make two actions per turn, either drafting a policy or discarding.
   private int actionsTaken = 0;
+  private boolean hasPlayedVoteCard;
   private boolean hasDiscarded;
   private GameController control;
   private PhaseTimer phaseTimer;
@@ -33,6 +34,7 @@ public class DraftingPhase extends GamePhase
     phaseTimer.start();
     this.control = control;
     hasDiscarded = false;
+    hasPlayedVoteCard = false;
   }
 
   /**
@@ -85,10 +87,13 @@ public class DraftingPhase extends GamePhase
       cardSelected = selectCardFromHand(cardIndex);
       if(cardSelected != null)
       {
-        //if valid
-        actionTaken();
-        //remove card from hand and put in discard.
-        player.discardCard(cardIndex);
+        if(validateCard(cardSelected))
+        {
+          //if valid
+          actionTaken();
+          //remove card from hand and put in discard.
+          player.discardCard(cardIndex);
+        }
       }
     }
     return cardSelected;
@@ -117,6 +122,7 @@ public class DraftingPhase extends GamePhase
       System.out.println("All actions taken.");
     }
   }
+
   /**
    * Check if there is a card at hand index.
    * @param index       card selected from gui.
@@ -126,5 +132,28 @@ public class DraftingPhase extends GamePhase
   {
     PolicyCard cardSelected = player.getCard(index);
     return cardSelected;
+  }
+
+  /**
+   * Check to see if the selected card is a vote card.  Check to see if the card
+   * can be played.  If it can be played, set hasPlayedVoteCard to true.
+   * @param cardSelected        Card player selected to play.
+   * @return          true if player can play the selected card.
+   */
+  private boolean validateCard(PolicyCard cardSelected)
+  {
+    boolean isValid = true;
+    if(cardSelected.votesRequired() > 0)
+    {
+      if (hasPlayedVoteCard)
+      {
+        isValid = false;
+      }
+      else
+      {
+        hasPlayedVoteCard = true;
+      }
+    }
+    return isValid;
   }
 }
