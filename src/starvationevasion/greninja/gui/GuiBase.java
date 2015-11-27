@@ -16,6 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
+import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 
 import java.util.List;
@@ -153,9 +154,9 @@ public class GuiBase extends Application implements ControlListener
    * @param availableRegions        AvailableRegions method.
    */
   @Override
-  public void updateAvailableRegions(AvailableRegions availableRegions)
+  public void updateAvailableRegions(AvailableRegions availableRegions, PlayerInterface player)
   {
-    stagingPane.setAvailableRegions(availableRegions);
+    stagingPane.setAvailableRegions(availableRegions, player);
   }
   /**
    * Get timer pane of phase

@@ -6,6 +6,7 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.*;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
+import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.HumanPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
@@ -41,6 +42,10 @@ public class GameController
   public GameController()
   {
     //start AI game
+    view = new AIView(this);
+    serverLine = new ServerConnection(this);
+    player = new AIPlayer();
+    player.setPlayerName("AI");
   }
 
   /**
@@ -63,17 +68,17 @@ public class GameController
     //identify message type.
     if(message instanceof AvailableRegions)
     {
-      //view.updateAvailableRegions((AvailableRegions) message);
+      view.updateAvailableRegions((AvailableRegions) message, player);
     }
     else if(message instanceof BeginGame)
     {
-      beginGame();
+      BeginGame msg = (BeginGame) message;
+      beginGame(msg);
     }
     else if(message instanceof LoginResponse)
     {
       handleLoginResponse((LoginResponse)message);
     }
-    //send to appropriate location.
   }
 
   /**
@@ -85,6 +90,10 @@ public class GameController
     //send message to message queue;
   }
 
+  /**
+   * If message is LoginResponse perform appropriate action
+   * @param response        LoginResponse from server
+   */
   private void handleLoginResponse(LoginResponse response)
   {
     LoginResponse.ResponseType type = response.responseType;
@@ -95,7 +104,10 @@ public class GameController
         break;
       case ASSIGNED_REGION:
         EnumRegion region = response.assignedRegion;
+        playerRegion = region;
+        player.setPlayerRegion(region);
         //assign this region.
+        //skip staging pane?
         break;
       case REJOIN:
         //??
@@ -124,6 +136,9 @@ public class GameController
     //for remaining slots, start AiGame (on new thread?).
     serverLine = new ServerConnection(this);
     //serverLine.startConnection("localhost");
+    player = new HumanPlayer();
+    player.setPlayerName("Player");
+    //login
     //TODO server will swap to staging pane.
     view.swapToStagingPane();
   }
@@ -141,6 +156,7 @@ public class GameController
    */
   public void startMultiPlayerGame(String serverName)
   {
+    player = new HumanPlayer();
     //validate and attempt to connect to server.
     //if invalid go back.
     System.out.println("Start multiplayer game.");
@@ -148,17 +164,19 @@ public class GameController
     //serverLine.startConnection(serverName);
     //serverLine.sendMessage(name, password);
     System.out.println("Try To Connect");
+    //if connection successful get login information. and send to server.
     //TODO server will swap to staging pane.
     view.swapToStagingPane();
   }
 
   /**
-   * Perform region select actions.
+   * Perform region select actions.  Sets player region and informs server.
    * @param region        region player chose.
    */
   public void regionSelected(EnumRegion region)
   {
     playerRegion = region;
+    player.setPlayerRegion(region);
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
@@ -176,12 +194,30 @@ public class GameController
     //create initial hand
     ArrayList<PolicyCard> initialHand = new ArrayList<>();
     //instantiate player
-    player = new HumanPlayer(playerRegion, initialHand);
     playerRegionInfo = new State(playerRegion);
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     //fillHand();
     //start policy drafting phase.
     startPolicyDraftingPhase();
+  }
+
+  /**
+   * Begin game.  Finalize player region with method from server and pass to
+   * default begin game message.
+   * @param msg
+   */
+  private void beginGame(BeginGame msg)
+  {
+    //confirm player region.
+    for(EnumRegion region : msg.finalRegionChoices.keySet())
+    {
+      if(msg.finalRegionChoices.get(region).equals(player.getPlayerName()))
+      {
+        player.setPlayerRegion(region);
+        playerRegion = region;
+      }
+    }
+    beginGame();
   }
 
   /**
@@ -191,6 +227,7 @@ public class GameController
    */
   public void sendLoginInfo(String name, String password)
   {
+    player.setPlayerName(name);
     sendMessageOut(new Login(name, "SaltySaltSalt?", password));
   }
  /*
@@ -265,29 +302,6 @@ public class GameController
   {
     return player.getPlayerHand();
   }
-
-
-  /*
-  *===================DECK MANAGEMENT==========================================
-  */
-  /*
-  public void fillHand()
-  {
-    while(humanPlayer.addCard()
-    {
-      System.out.println("Added card");
-    }
-  }
-  */
-
-  /*
-
-  public PolicyCard drawCard()
-  {
-    return PolicyCard.International_Food_Releif_Program;
-  }
-  */
-  //=================end deck management========================================
 
   /*
   =========end general phase methods============================================

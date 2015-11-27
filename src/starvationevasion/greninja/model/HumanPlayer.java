@@ -13,6 +13,8 @@ public class HumanPlayer implements PlayerInterface
 {
   EnumRegion region;
   List<PolicyCard> cards, discardPile, voteRequiredPolicies;
+  private String playerName;
+
   int votingPolicyCount = 0;
 
   public HumanPlayer() {}
@@ -24,6 +26,27 @@ public class HumanPlayer implements PlayerInterface
 
     this.region = region;
     this.cards = cards;
+  }
+
+
+  /**
+   * Set the string name of the player.
+   * @param name        String name of player.
+   */
+  @Override
+  public void setPlayerName(String name)
+  {
+    this.playerName = name;
+  }
+
+  /**
+   * Get the string name of the player.
+   * @return        String name of player.
+   */
+  @Override
+  public String getPlayerName()
+  {
+    return playerName;
   }
 
   @Override
