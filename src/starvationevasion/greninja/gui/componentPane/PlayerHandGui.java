@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -20,6 +21,7 @@ public class PlayerHandGui extends HBox
   public PlayerHandGui(GuiBase base)//prob will take an argument of the cards it receives
   {
     this.base = base;
+    setAlignment(Pos.CENTER);
     int MAX_CARDS_IN_PLAYER_HAND = 7;
     playerCards = new CardImage[MAX_CARDS_IN_PLAYER_HAND];
 

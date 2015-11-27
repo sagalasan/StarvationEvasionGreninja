@@ -63,7 +63,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    Label timer = new Label("Timer"); // TODO: placeholder
+//    Label timer = new Label("Timer"); // TODO: placeholder
+    TimerPane timer = getTimerPane();
 
     VBox titleBox = new VBox();
     titleBox.setPadding(new Insets(15, 0, 0, 0));
@@ -155,17 +156,20 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
     TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile();
-    drawDiscardPile.setPadding(new Insets(0, 10, 10, 10));
-    drawDiscardPile.setAlignment(Pos.TOP_CENTER);
     drawDiscardPile.setSpacing(5);
+    drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
+    drawDiscardPile.setAlignment(Pos.TOP_CENTER);
 
     VBox cardBox = new VBox(5);
     cardBox.setPadding(new Insets(10, 10, 10, 10));
     cardBox.setAlignment(Pos.TOP_CENTER);
-    playerHandGui.setAlignment(Pos.CENTER);
-    cardBox.getChildren().add(playerHandGui);
+    Label cardLabel = new Label("Your Cards");
+//    playerHandGui.setAlignment(Pos.CENTER);
+//    playerHandGui.setPadding(new Insets(10, 10, 10, 10));
+    cardBox.getChildren().addAll(cardLabel, playerHandGui);
 
     VBox toolBarBox = new VBox();
+    toolBarBox.setAlignment(Pos.TOP_CENTER);
     toolBarBox.getChildren().add(new Label("Toolbar as grid of icons here?"));
 
     bottomPane.setTop(divider);
@@ -177,7 +181,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   public void endPhase()
   {
-    // TODO: reset timer
+    
     base.endPolicyDraftingPhase();
   }
 
