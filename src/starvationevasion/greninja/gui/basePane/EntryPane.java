@@ -67,7 +67,7 @@ public class EntryPane extends StackPane
     {
       System.out.println("Pressed Multiplayer");
       //createServerSelectDialog();
-      base.beginMultiPlayer();
+      base.multiPlayerSelected();
     }
     else if(source == quit)
     {

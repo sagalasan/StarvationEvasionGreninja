@@ -80,6 +80,11 @@ public class GuiBase extends Application implements ControlListener
     control.startMultiPlayerGame("ServerName");
   }
 
+  public void multiPlayerSelected()
+  {
+    control.multiPlayerSelected();
+  }
+
   /**
    * Exit game function
    */

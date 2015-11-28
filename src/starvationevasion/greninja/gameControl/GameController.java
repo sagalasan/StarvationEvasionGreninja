@@ -171,6 +171,11 @@ public class GameController
     guiView.loginForm();
   }
 
+  public void multiPlayerSelected()
+  {
+    guiView.serverConnectForm();
+  }
+
   /**
    * Perform region select actions.  Sets player region and informs server.
    * @param region        region player chose.
