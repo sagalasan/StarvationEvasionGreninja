@@ -186,6 +186,11 @@ public class GuiBase extends Application implements ControlListener
     entryPane.showLoginDialog();
   }
 
+  public void serverConnectForm()
+  {
+    entryPane.createServerSelectDialog();
+  }
+
   /**
    * Ten second countdown to game start.  Called when control recieves ready to
    * begin message.

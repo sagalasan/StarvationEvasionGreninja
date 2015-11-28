@@ -169,7 +169,6 @@ public class GameController
     System.out.println("Try To Connect");
     //TODO login form will be displayed when confirmation message is sent.
     guiView.loginForm();
-
   }
 
   /**

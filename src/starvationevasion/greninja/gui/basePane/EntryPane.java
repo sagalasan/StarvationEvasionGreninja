@@ -66,7 +66,8 @@ public class EntryPane extends StackPane
     else if(source == multiplayer)
     {
       System.out.println("Pressed Multiplayer");
-      createServerSelectDialog();
+      //createServerSelectDialog();
+      base.beginMultiPlayer();
     }
     else if(source == quit)
     {
@@ -136,7 +137,7 @@ public class EntryPane extends StackPane
    * Creates and shows the server select dialog.
    * TODO get server name and port and send to base.  Needs a reworking.
    */
-  private void createServerSelectDialog()
+  public void createServerSelectDialog()
   {
     StackPane dialog  = new StackPane();
     GridPane serverBox = new GridPane();
