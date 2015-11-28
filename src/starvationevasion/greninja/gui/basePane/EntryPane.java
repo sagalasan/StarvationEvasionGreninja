@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import starvationevasion.common.messages.Login;
 import starvationevasion.greninja.gui.GuiBase;
 
 import javax.smartcardio.Card;
@@ -76,6 +77,52 @@ public class EntryPane extends StackPane
     }
   }
 
+
+  /**
+   * Show the login dialog and collect login info.  Send as a login message
+   * back to control.
+   */
+  public void showLoginDialog()
+  {
+    StackPane dialog = new StackPane();
+    VBox loginBox = new VBox();
+    Rectangle rect = new Rectangle(500, 500, Color.GRAY);
+    Button ok = new Button("OK");
+    ok.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e)
+      {
+        System.out.println("OK");
+        //TODO get name and password from user.
+        base.loginInfoSent("Name", "Password");
+        //close dialog
+        getChildren().remove(dialog);
+      }
+    });
+    Button cancel = new Button("Cancel");
+    cancel.setOnAction(new EventHandler<ActionEvent>(){
+      @Override
+      public void handle(ActionEvent e)
+      {
+        System.out.println("Cancelled");
+        //close dialog
+        getChildren().remove(dialog);
+      }
+    });
+    loginBox.getChildren().addAll(new Label("Please enter your name and password."),
+                                  new Label("Name:"), new Label("Password:"),
+                                  ok, cancel);
+    loginBox.setAlignment(Pos.CENTER);
+    loginBox.setSpacing(4);
+    dialog.getChildren().add(rect);
+    dialog.getChildren().add(loginBox);
+    getChildren().add(dialog);
+  }
+
+  /**
+   * Creates and shows the server select dialog.
+   * TODO get server name and port and send to base.  Needs a reworking.
+   */
   private void createServerSelectDialog()
   {
     Rectangle rect = new Rectangle(500, 300);

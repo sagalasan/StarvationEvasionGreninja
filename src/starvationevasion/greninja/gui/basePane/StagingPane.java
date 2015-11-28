@@ -2,6 +2,7 @@ package starvationevasion.greninja.gui.basePane;
 
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import javafx.scene.control.Label;
@@ -21,9 +22,10 @@ import java.util.Set;
  * TODO Just testing right now, finalize.
  * @author Justin Thomas(jthomas105@unm.edu)
  */
-public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
+public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscriber
 {
   private GuiBase base;
+  private VBox basePane;
   private String selectedRegion;
   private Label regionSelectedLabel;
   private ClickableMap map;
@@ -42,15 +44,17 @@ public class StagingPane extends VBox implements MapHolder, GuiTimerSubscriber
    */
   public void initPane()
   {
-    getChildren().add(new Label("Staging Pane, select a region."));
+    basePane = new VBox();
+    getChildren().add(basePane);
+    basePane.getChildren().add(new Label("Staging Pane, select a region."));
     selectedRegion = "None.";
     regionSelectedLabel = new Label(selectedRegion);
 
-    getChildren().add(regionSelectedLabel);
+    basePane.getChildren().add(regionSelectedLabel);
     map = new ClickableMap();
     map.setContainingPane(this);
 
-    getChildren().add(map);
+    basePane.getChildren().add(map);
   }
 
   /**

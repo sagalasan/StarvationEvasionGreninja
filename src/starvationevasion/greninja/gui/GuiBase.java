@@ -1,10 +1,13 @@
 package starvationevasion.greninja.gui;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.Login;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.ControlListener;
@@ -31,6 +34,7 @@ public class GuiBase extends Application implements ControlListener
   // ERIN'S ADDED VARIABLES (to be deleted later)
   private TestPolicyPane testPolicyPane = new TestPolicyPane(this);
 
+  private EntryPane entryPane = new EntryPane(this);
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
   private StagingPane stagingPane;
@@ -66,6 +70,7 @@ public class GuiBase extends Application implements ControlListener
 
   /**
    * Start a multiplayer game.
+   * TODO get server name from entrypane
    */
   public void beginMultiPlayer()
   {
@@ -78,6 +83,14 @@ public class GuiBase extends Application implements ControlListener
   public void exitGame()
   {
     System.out.println("Disconnect from server and Quit.");
+  }
+
+  /**
+   * Tells control that player has entered login info.
+   */
+  public void loginInfoSent(String name, String password)
+  {
+    control.sendLoginInfo(name, password);//
   }
 
   /**
@@ -150,15 +163,20 @@ public class GuiBase extends Application implements ControlListener
    */
 
   /**
-   * Display login form and collect login info.
+   * Display login form and collect login info.  When multiplayer game is
+   * selected, control calls this method and passes in a size 2 string array.
+   * This method collects a username and password from the user and puts it into
+   * the array.
    */
-  public void loginForm(String[] loginInfo)
+  public void loginForm()
   {
     //display login info.
+    entryPane.showLoginDialog();
   }
 
   /**
-   * Ten second countdown to game start.
+   * Ten second countdown to game start.  Called when control recieves ready to
+   * begin message.
    */
   public void countdownToStart()
   {
@@ -263,7 +281,7 @@ public class GuiBase extends Application implements ControlListener
     baseScene.getStylesheets().add
         (this.getClass().getResource("styles.css").toExternalForm());
     //=============================================================================
-    baseScene.setRoot(new EntryPane(this));
+    baseScene.setRoot(entryPane);
     mainStage.show();
 
     //maximize screen

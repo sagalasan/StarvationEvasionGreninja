@@ -25,6 +25,7 @@ import java.util.List;
 public class GameController
 {
   private ControlListener view;
+  private GuiBase guiView;
   private EnumRegion playerRegion;
   private State playerRegionInfo;
   private DraftingPhase draftingPhase;
@@ -133,6 +134,7 @@ public class GameController
   public void startSinglePlayerGame()
   {
     System.out.println("Start single player game.");
+    guiView = (GuiBase)view; //set reference to view as a gui.
     //for remaining slots, start AiGame (on new thread?).
     serverLine = new ServerConnection(this);
     //serverLine.startConnection("localhost");
@@ -157,6 +159,7 @@ public class GameController
   public void startMultiPlayerGame(String serverName)
   {
     player = new HumanPlayer();
+    guiView = (GuiBase)view;//set reference to view as a GUI
     //validate and attempt to connect to server.
     //if invalid go back.
     System.out.println("Start multiplayer game.");
@@ -164,9 +167,9 @@ public class GameController
     //serverLine.startConnection(serverName);
     //serverLine.sendMessage(name, password);
     System.out.println("Try To Connect");
-    //if connection successful get login information. and send to server.
-    //TODO server will swap to staging pane.
-    view.swapToStagingPane();
+    //TODO login form will be displayed when confirmation message is sent.
+    guiView.loginForm();
+
   }
 
   /**
@@ -229,6 +232,8 @@ public class GameController
   {
     player.setPlayerName(name);
     sendMessageOut(new Login(name, "SaltySaltSalt?", password));
+    //TODO will be called upon recieving a login success message from server.
+    view.swapToStagingPane();
   }
  /*
   ============================end startup=======================================
