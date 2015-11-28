@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import starvationevasion.common.EnumRegion;
@@ -22,7 +24,15 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 {
   private GuiBase base;
   private PlayerHandGui playerHandGui;
-  BorderPane mainPane = new BorderPane();
+  private ToolbarPane toolbar;
+  private BorderPane mainPane = new BorderPane();
+
+  // TODO: make this not hard-coded later
+  private EnumRegion playerRegion = EnumRegion.HEARTLAND;
+  private int year = 2015;
+  private double HDI = 200.0;
+  private int regionPopulation = 1;
+  private int worldPopulation = 2;
 
   public TestPolicyPane(GuiBase base)
   {
@@ -36,16 +46,16 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   public void initPane()
   {
     super.initTimerPane(ClientConstant.POLICY_TIME_LIMIT);
-    mainPane.setId("mainPane");
+    mainPane.setId("mainPolicyPane");
     playerHandGui = new PlayerHandGui(base);
-    playerHandGui.setAlignment(Pos.CENTER);
+    toolbar = new ToolbarPane(base);
+//    playerHandGui.setAlignment(Pos.CENTER);
     buildTop();
     buildLeft();
     buildRight();
     buildBottom();
     buildCenter();
     getChildren().add(mainPane);
-
   }
 
   /*
@@ -55,7 +65,6 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   {
     BorderPane topPane = new BorderPane();
     topPane.setId("topLayout");
-//    topPane.setPadding(new Insets(10, 15, 10, 15));
 
     // Draw divider
     Label divider = new Label();
@@ -64,15 +73,17 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-//    Label timer = new Label("Timer"); // TODO: placeholder
     TimerPane timer = getTimerPane();
 
-    VBox titleBox = new VBox();
-    titleBox.setPadding(new Insets(15, 0, 0, 0));
-    titleBox.setAlignment(Pos.BOTTOM_CENTER);
+    VBox titleBox = new VBox(5);
+//    titleBox.setPadding(new Insets(15, 0, 0, 0));
+    titleBox.setAlignment(Pos.TOP_CENTER);
     Label title = new Label("Policy Phase: Draft Policies");
     title.setId("title");
     titleBox.getChildren().add(title);
+
+//    HBox popInfo = populationInfo();
+//    titleBox.getChildren().add(popInfo);
 
     VBox buttonBox = new VBox();
     buttonBox.setAlignment(Pos.CENTER);
@@ -161,7 +172,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
     drawDiscardPile.setAlignment(Pos.TOP_CENTER);
 
-    VBox cardBox = new VBox(5);
+    VBox cardBox = new VBox(10);
     cardBox.setPadding(new Insets(10, 10, 10, 10));
     cardBox.setAlignment(Pos.TOP_CENTER);
     Label cardLabel = new Label("Your Cards");
@@ -169,15 +180,27 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 //    playerHandGui.setPadding(new Insets(10, 10, 10, 10));
     cardBox.getChildren().addAll(cardLabel, playerHandGui);
 
-    VBox toolBarBox = new VBox();
+    VBox toolBarBox = new VBox(3);
+    toolBarBox.setPadding(new Insets(10, 10, 10, 10));
     toolBarBox.setAlignment(Pos.TOP_CENTER);
-    toolBarBox.getChildren().add(new Label("Toolbar as grid of icons here?"));
+    Label productLabel = new Label("Product Types");
+    toolBarBox.getChildren().addAll(productLabel, toolbar);
 
     bottomPane.setTop(divider);
     bottomPane.setLeft(drawDiscardPile);
     bottomPane.setCenter(cardBox);
     bottomPane.setRight(toolBarBox);
     mainPane.setBottom(bottomPane);
+  }
+
+  private HBox populationInfo()
+  {
+    HBox populationBox = new HBox(5);
+    populationBox.setAlignment(Pos.TOP_CENTER);
+    Label worldPop = new Label("World Pop: " + worldPopulation);
+    Label regionPop = new Label("Region Pop: " + regionPopulation);
+    populationBox.getChildren().addAll(regionPop, worldPop);
+    return populationBox;
   }
 
   public void endPhase()

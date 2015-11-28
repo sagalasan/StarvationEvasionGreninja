@@ -4,6 +4,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
+import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 

@@ -12,13 +12,10 @@ import starvationevasion.greninja.gui.componentPane.PlayerHandGui;
 import javax.smartcardio.Card;
 
 /**
- * Created by Jalen on 11/18/2015.
- */
-
-/**
  * Created by Jalen on 11/19/2015.
  */
-public class CardImage extends StackPane{
+public class CardImage extends StackPane
+{
 
 
   //private ImageView card;

@@ -76,7 +76,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     VBox titleBox = new VBox();
     titleBox.setPadding(new Insets(15, 0, 0, 0));
     titleBox.setAlignment(Pos.BOTTOM_CENTER);
-    Label title = new Label("Policy Phase: Draft Policies");
+    Label title = new Label("Voting Phase: Vote On Policies");
     title.setId("title");
     titleBox.getChildren().add(title);
 

@@ -41,12 +41,7 @@
   -fx-text-fill: white;
 }
 
-#mainPane
-{
-  -fx-background-color: #6c8299;
-
-}
-#mainPaneVoting
+#mainPolicyPane, #mainPaneVoting
 {
   -fx-background-color: #444444;
 }
@@ -60,8 +55,6 @@
     -fx-scale-x: 1.5;
     -fx-scale-y: 1.5;
     -fx-translate-y: -50;
-
-
 }
 
 #state-image:hover

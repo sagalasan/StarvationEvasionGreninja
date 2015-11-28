@@ -26,13 +26,13 @@ public class TestWithdrawAndDiscardPile extends HBox
     //get withdraw/discard pile info from gui
     Image image = new Image("file:assets/CardImages/magikarp.png");
 
-    VBox discardBox = new VBox(5);
+    VBox discardBox = new VBox(10);
     discardBox.setAlignment(Pos.TOP_CENTER);
     Label discardLabel = new Label("Discard");
     CardImage discardPile = new CardImage(image);
     discardBox.getChildren().addAll(discardLabel, discardPile);
 
-    VBox deckBox = new VBox(5);
+    VBox deckBox = new VBox(10);
     deckBox.setAlignment(Pos.TOP_CENTER);
     Label deckLabel = new Label("Deck");
     CardImage deck = new CardImage(image);

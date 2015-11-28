@@ -18,6 +18,7 @@ public class PlayerHandGui extends HBox
   //gather what cards to draw, place them next to each other
   private CardImage[] playerCards;
   private GuiBase base;
+
   public PlayerHandGui(GuiBase base)//prob will take an argument of the cards it receives
   {
     this.base = base;
