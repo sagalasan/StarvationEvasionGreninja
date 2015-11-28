@@ -33,6 +33,8 @@ public class GuiBase extends Application implements ControlListener
 {
   // ERIN'S ADDED VARIABLES (to be deleted later)
   private TestPolicyPane testPolicyPane = new TestPolicyPane(this);
+  private TestVotingPane testVotingPane = new TestVotingPane(this);
+
 
   private EntryPane entryPane = new EntryPane(this);
   private PolicyPane policyPane = new PolicyPane(this);
@@ -54,6 +56,7 @@ public class GuiBase extends Application implements ControlListener
 
     // TODO: get rid of this test later
     testPolicyPane.initPane();
+    testVotingPane.initPane();
 
   }
   /*
@@ -114,7 +117,8 @@ public class GuiBase extends Application implements ControlListener
     //votingPane.initPane();
 
     paneToRefresh = votingPane;
-    baseScene.setRoot(votingPane);
+    //baseScene.setRoot(votingPane);
+    baseScene.setRoot(testVotingPane);
   }
 
   /**
@@ -144,6 +148,7 @@ public class GuiBase extends Application implements ControlListener
     //initializePanes();
     baseScene.setRoot(stagingPane);
     paneToRefresh = stagingPane;
+
   }
 
   public void endPolicyDraftingPhase()

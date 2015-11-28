@@ -44,8 +44,12 @@
 #mainPane
 {
   -fx-background-color: #6c8299;
-}
 
+}
+#mainPaneVoting
+{
+  -fx-background-color: #444444;
+}
 #leftLayout, #rightLayout, #topLayout, #bottomLayout
 {
   -fx-background-color: #333333;

@@ -1,49 +1,52 @@
 package starvationevasion.greninja.gui.componentPane;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.MapHolder;
 
 /**
- * Created by Jalen on 11/23/2015.
+ * Created by Jalen on 11/27/2015.
  */
-public class ClickableMap extends StackPane implements MapImages
+
+/**
+ * Pretty much the same as the clickable map except with different images made for the map
+ */
+public class VotingView extends StackPane implements MapImages
 {
+
   private static final int NUMBER_OF_REGIONS = 7;
   private StateImage[] stateArray;
   private MapHolder containingPane;
 
   private StateImage california =
-      new StateImage(CALIFORNIA_IMAGE, CALIFORNIA_TITLE_IMAGE, EnumRegion.CALIFORNIA,this);
+      new StateImage(CALIFORNIA_IMAGE_VOTING, CALIFORNIA_TITLE_IMAGE_VOTING,
+          EnumRegion.CALIFORNIA,this, true);
 
   private StateImage southernPlainsAndDeltaStates =
-      new StateImage(SOUTHERN_PLAINS_AND_DELTA_STATES_IMAGE,
-          SOUTHERN_PLAINS_AND_DELTA_STATES_TITLE_IMAGE, EnumRegion.SOUTHERN_PLAINS,this);
+      new StateImage(SOUTHERN_PLAINS_AND_DELTA_STATES_IMAGE_VOTING,
+          SOUTHERN_PLAINS_AND_DELTA_STATES_TITLE_IMAGE_VOTING, EnumRegion.SOUTHERN_PLAINS,this, true);
 
   private StateImage pacificNorthWestAndMountainStates =
-      new StateImage(PACIFIC_NORTHWEST_AND_MOUTAIN_STATES_IMAGE,
-          PACIFIC_NORTHWEST_AND_MOUNTAIN_STATES_TITLE_IMAGE,
-          EnumRegion.MOUNTAIN,this);
+      new StateImage(PACIFIC_NORTHWEST_AND_MOUTAIN_STATES_IMAGE_VOTING,
+          PACIFIC_NORTHWEST_AND_MOUNTAIN_STATES_TITLE_IMAGE_VOTING,
+          EnumRegion.MOUNTAIN,this, true);
 
-  private StateImage heartLand = new StateImage(HEARTLAND_IMAGE, HEARTLAND_TITLE_IMAGE,
-      EnumRegion.HEARTLAND,this);
+  private StateImage heartLand = new StateImage(HEARTLAND_IMAGE_VOTING, HEARTLAND_TITLE_IMAGE_VOTING,
+      EnumRegion.HEARTLAND,this, true);
 
-  private StateImage northernCrescent = new StateImage(NORTHERN_CRESCENT_IMAGE,
-      NORTHERN_CRESCENT_TITLE_IMAGE,
-      EnumRegion.NORTHERN_CRESCENT,this);
+  private StateImage northernCrescent = new StateImage(NORTHERN_CRESCENT_IMAGE_VOTING,
+      NORTHERN_CRESCENT_TITLE_IMAGE_VOTING,
+      EnumRegion.NORTHERN_CRESCENT,this, true);
 
-  private StateImage northernPlains = new StateImage(NORTHERN_PLAINS_IMAGE,
-      NORTHERN_PLAINS_TITLE_IMAGE,
-      EnumRegion.NORTHERN_PLAINS,this);
+  private StateImage northernPlains = new StateImage(NORTHERN_PLAINS_IMAGE_VOTING,
+      NORTHERN_PLAINS_TITLE_IMAGE_VOTING,
+      EnumRegion.NORTHERN_PLAINS,this, true);
 
-  private StateImage southeast = new StateImage(SOUTHEAST_IMAGE,
-      SOUTHEAST_TITLE_IMAGE, EnumRegion.SOUTHEAST,this);
+  private StateImage southeast = new StateImage(SOUTHEAST_IMAGE_VOTING,
+      SOUTHEAST_TITLE_IMAGE_VOTING, EnumRegion.SOUTHEAST,this, true);
 
-
-
-  public ClickableMap()
+  public VotingView()
   {
     stateArray = new StateImage[NUMBER_OF_REGIONS];
     getChildren().addAll(california, pacificNorthWestAndMountainStates, southeast,
@@ -57,8 +60,9 @@ public class ClickableMap extends StackPane implements MapImages
     stateArray[5] = northernCrescent;
     stateArray[6] = northernPlains;
 
-  }
 
+
+  }
   /**
    * Set a reference to the pane that contains the map so that actions can be
    * performed when things happen.

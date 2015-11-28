@@ -61,7 +61,91 @@ public class StateImage extends ImageView {
       }
     });
   }
+  public StateImage(final Image image, final Image titleImage, final EnumRegion regionName, final VotingView votingView)
+  {
+    super(image);
+    this.regionName = regionName;
+    setFitHeight(350);
+    setFitWidth(500);
+    setId("state-image");
+    stateImage = image;
+    stateWithTextImage = titleImage;
 
+
+    /**
+     * performs actions based on mouse clicked on the image
+     */
+
+    addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        System.out.println("this is the region of " + regionName);
+        votingView.chooseState(getThis());
+        chosen = true;
+        showStateName();
+        event.consume();
+      }
+    });
+    setOnMouseEntered(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        showStateName();
+      }
+    });
+    setOnMouseExited(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        if (!chosen)
+        {
+          deselect();
+        }
+
+      }
+    });
+  }
+  public StateImage(final Image image, final Image titleImage, final EnumRegion regionName,
+                    final VotingView votingView, boolean StateImage)
+  {
+    super(image);
+    this.regionName = regionName;
+    setFitHeight(350);
+    setFitWidth(900);
+    setId("state-image");
+    stateImage = image;
+    stateWithTextImage = titleImage;
+
+
+    /**
+     * performs actions based on mouse clicked on the image
+     */
+
+    addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        System.out.println("this is the region of " + regionName);
+        votingView.chooseState(getThis());
+        chosen = true;
+        showStateName();
+        event.consume();
+      }
+    });
+    setOnMouseEntered(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        showStateName();
+      }
+    });
+    setOnMouseExited(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        if (!chosen)
+        {
+          deselect();
+        }
+
+      }
+    });
+  }
   private StateImage getThis()
   {
     return this;

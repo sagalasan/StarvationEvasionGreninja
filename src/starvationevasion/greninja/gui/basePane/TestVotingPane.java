@@ -17,14 +17,20 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
 
-//display numbers besides state names
-public class TestPolicyPane extends GamePhasePane implements MapHolder
+/**
+ * Created by Jalen on 11/27/2015.
+ */
+
+/**
+ * makes a voting pane.
+ */
+public class TestVotingPane extends GamePhasePane implements MapHolder
 {
   private GuiBase base;
   private PlayerHandGui playerHandGui;
   BorderPane mainPane = new BorderPane();
 
-  public TestPolicyPane(GuiBase base)
+  public TestVotingPane(GuiBase base)
   {
     super(base);
     this.base = base;
@@ -35,10 +41,10 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
    */
   public void initPane()
   {
-    super.initTimerPane(ClientConstant.POLICY_TIME_LIMIT);
-    mainPane.setId("mainPane");
-    playerHandGui = new PlayerHandGui(base);
-    playerHandGui.setAlignment(Pos.CENTER);
+    super.initTimerPane(ClientConstant.VOTING_TIME_PANE);
+    mainPane.setId("mainPaneVoting");
+    //playerHandGui = new PlayerHandGui(base);
+    //playerHandGui.setAlignment(Pos.CENTER);
     buildTop();
     buildLeft();
     buildRight();
@@ -92,25 +98,25 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
    */
   private void buildLeft()
   {
-    BorderPane leftPane = new BorderPane();
-    leftPane.setId("leftLayout");
-    DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane();
-    draftedCards.setAlignment(Pos.BOTTOM_CENTER);
-    draftedCards.setSpacing(5);
+    //BorderPane leftPane = new BorderPane();
+    //leftPane.setId("leftLayout");
+    //DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane();
+    //draftedCards.setAlignment(Pos.BOTTOM_CENTER);
+    //draftedCards.setSpacing(5);
 
-    VBox visBox = new VBox(5);
-    visBox.setAlignment(Pos.CENTER);
-    ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
-    visBox.getChildren().add(visImg);
+    //VBox visBox = new VBox(5);
+    //visBox.setAlignment(Pos.CENTER);
+    //ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
+    //visBox.getChildren().add(visImg);
 
-    VBox draftedCardsBox = new VBox(5);
-    draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
-    draftedCardsBox.getChildren().addAll(new Label("Drafted Policies"), draftedCards);
+    //VBox draftedCardsBox = new VBox(5);
+    //draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
+    //draftedCardsBox.getChildren().addAll(new Label("Drafted Policies"), draftedCards);
 
-    leftPane.setCenter(visBox);
-    leftPane.setBottom(draftedCardsBox);
-    leftPane.setPrefWidth(300);
-    mainPane.setLeft(leftPane);
+    //leftPane.setCenter(visBox);
+    //leftPane.setBottom(draftedCardsBox);
+    //leftPane.setPrefWidth(300);
+    //mainPane.setLeft(leftPane);
   }
 
   /*
@@ -138,9 +144,13 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
    */
   private void buildCenter()
   {
-    ClickableMap map = new ClickableMap();
+    VotingView map = new VotingView();
     map.setContainingPane(this);
     mainPane.setCenter(map);
+    //todo build a policy voting mockup
+   // ClickableMap map = new ClickableMap();
+   // map.setContainingPane(this);
+   // mainPane.setCenter(map);
   }
 
   private void buildBottom()
@@ -155,41 +165,41 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile();
-    drawDiscardPile.setSpacing(5);
-    drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
-    drawDiscardPile.setAlignment(Pos.TOP_CENTER);
+    //TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile();
+    //drawDiscardPile.setSpacing(5);
+    //drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
+    //drawDiscardPile.setAlignment(Pos.TOP_CENTER);
 
-    VBox cardBox = new VBox(5);
-    cardBox.setPadding(new Insets(10, 10, 10, 10));
-    cardBox.setAlignment(Pos.TOP_CENTER);
-    Label cardLabel = new Label("Your Cards");
+    //VBox cardBox = new VBox(5);
+    //cardBox.setPadding(new Insets(10, 10, 10, 10));
+    //cardBox.setAlignment(Pos.TOP_CENTER);
+    //Label cardLabel = new Label("Your Cards");
 //    playerHandGui.setAlignment(Pos.CENTER);
 //    playerHandGui.setPadding(new Insets(10, 10, 10, 10));
-    cardBox.getChildren().addAll(cardLabel, playerHandGui);
+    //cardBox.getChildren().addAll(cardLabel, playerHandGui);
 
-    VBox toolBarBox = new VBox();
-    toolBarBox.setAlignment(Pos.TOP_CENTER);
-    toolBarBox.getChildren().add(new Label("Toolbar as grid of icons here?"));
+    //VBox toolBarBox = new VBox();
+    //toolBarBox.setAlignment(Pos.TOP_CENTER);
+    //toolBarBox.getChildren().add(new Label("Toolbar as grid of icons here?"));
 
-    bottomPane.setTop(divider);
-    bottomPane.setLeft(drawDiscardPile);
-    bottomPane.setCenter(cardBox);
-    bottomPane.setRight(toolBarBox);
+    //bottomPane.setTop(divider);
+    //bottomPane.setLeft(drawDiscardPile);
+    //bottomPane.setCenter(cardBox);
+    //bottomPane.setRight(toolBarBox);
     mainPane.setBottom(bottomPane);
   }
 
   public void endPhase()
   {
 
-    base.endPolicyDraftingPhase();
+    base.endPolicyVotingPhase();
   }
 
   private class ButtonControl implements EventHandler<ActionEvent>
   {
-    private TestPolicyPane parentPane;
+    private TestVotingPane parentPane;
 
-    public ButtonControl(TestPolicyPane parentPane)
+    public ButtonControl(TestVotingPane parentPane)
     {
       this.parentPane = parentPane;
     }
