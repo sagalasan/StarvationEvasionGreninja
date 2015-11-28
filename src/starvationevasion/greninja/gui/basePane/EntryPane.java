@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -139,7 +136,49 @@ public class EntryPane extends StackPane
    */
   private void createServerSelectDialog()
   {
-    Rectangle rect = new Rectangle(500, 300);
+    StackPane dialog  = new StackPane();
+    GridPane serverBox = new GridPane();
+    Rectangle rect    = new Rectangle(500, 500, Color.GRAY);
+
+    Button connectButton = new Button("Connect");
+    Button cancelButton  = new Button("Cancel");
+
+    TextField nameField = new TextField();
+    TextField portField = new TextField();
+    nameField.setMaxWidth(Double.MAX_VALUE);
+    portField.setMaxWidth(Double.MAX_VALUE);
+
+    connectButton.setOnAction(new EventHandler<ActionEvent>()
+    {
+      @Override
+      public void handle(ActionEvent event)
+      {
+        String serverName = nameField.getText();
+        String portName   = portField.getText();
+        System.out.println("connectButton pressed");
+        System.out.println("Sending connect message with:");
+        System.out.println("\tHostname: " + serverName);
+        System.out.println("\tport: " + portName);
+      }
+    });
+
+
+    serverBox.setAlignment(Pos.CENTER);
+    serverBox.setHgap(4);
+    serverBox.setVgap(4);
+    serverBox.setPadding(new Insets(25, 25, 25, 25));
+    serverBox.add(new Label("Please enter Server hostname and port."), 0, 0, 2, 1);
+    serverBox.add(new Label("Hostname: "), 0, 1);
+    serverBox.add(nameField, 1, 1);
+    serverBox.add(new Label("Port: "), 0, 2);
+    serverBox.add(portField, 1, 2);
+    serverBox.add(connectButton, 0, 3);
+    serverBox.add(cancelButton, 1, 3);
+    dialog.getChildren().add(rect);
+    dialog.getChildren().add(serverBox);
+    getChildren().add(dialog);
+
+    /*Rectangle rect = new Rectangle(500, 500);
     rect.setFill(Color.GRAY);
     VBox serverSelectDialog = new VBox();
     serverSelected = new Button("OK");
@@ -150,6 +189,7 @@ public class EntryPane extends StackPane
     serverSelectDialog.setAlignment(Pos.CENTER);
 
     getChildren().addAll(rect, serverSelectDialog);
+    */
   }
 
   private class ButtonControl implements EventHandler<ActionEvent>
