@@ -11,6 +11,8 @@ import java.util.List;
 public class AIPlayer implements PlayerInterface
 {
   private String playerName;
+  EnumRegion region;
+  List<PolicyCard> cards, discardPile, voteRequiredPolicies;
 
   /**
    * Set the string name of the player.
@@ -35,61 +37,90 @@ public class AIPlayer implements PlayerInterface
   @Override
   public void setPlayerRegion(EnumRegion region)
   {
-
+    this.region = region;
   }
 
   @Override
   public EnumRegion getPlayerRegion()
   {
-    return null;
+    return region;
   }
 
   @Override
-  public void setPlayerHand(List<PolicyCard> hand)
+  public void setPlayerHand(List<PolicyCard> cards)
   {
-
+    this.cards = cards;
   }
 
   @Override
   public List<PolicyCard> getPlayerHand()
   {
-    return null;
+    return cards;
   }
 
   @Override
   public boolean addCard(PolicyCard card)
   {
-    return false;
+    if (cards.size() < 7)
+    {
+      cards.add(card);
+      return true;
+    }
+    else return false;
   }
 
   @Override
   public boolean discardCard(int index)
   {
-    return false;
+    if (index < cards.size())
+    {
+      PolicyCard discarded = cards.remove(index);
+      discardPile.add(discarded);
+      return true;
+    }
+    else return false;
   }
 
   @Override
   public boolean discardThree(int[] indices)
   {
-    return false;
+    if (cards.size() >= 3)
+    {
+      PolicyCard[] cardsToDiscard = new PolicyCard[3];
+      for (int i = 0; i < 3; ++i)
+      {
+        cardsToDiscard[i] = getCard(indices[i]);
+      }
+      for (int i = 0; i < 3; ++i)
+      {
+        discardPile.add(cardsToDiscard[i]);
+        cards.remove(cardsToDiscard[i]);
+      }
+      return true;
+    }
+    else return false;
   }
 
   @Override
   public PolicyCard getCard(int index)
   {
-    return null;
+    if (index < cards.size())
+    {
+      return cards.get(index);
+    }
+    else return null;
   }
 
   @Override
   public PolicyCard firstCard(List<PolicyCard> cardPile)
   {
-    return null;
+    return cardPile.get(0);
   }
 
   @Override
   public PolicyCard vote(int index)
   {
-    return null;
+    return voteRequiredPolicies.get(index);
   }
 
   @Override

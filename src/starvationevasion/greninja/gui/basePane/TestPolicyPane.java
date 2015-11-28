@@ -181,7 +181,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   public void endPhase()
   {
-    
+
     base.endPolicyDraftingPhase();
   }
 

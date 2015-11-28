@@ -52,7 +52,7 @@ public class HumanPlayer implements PlayerInterface
   @Override
   public EnumRegion getPlayerRegion()
   {
-    return this.region;
+    return region;
   }
 
   @Override
@@ -64,13 +64,13 @@ public class HumanPlayer implements PlayerInterface
   @Override
   public List<PolicyCard> getPlayerHand()
   {
-    return this.cards;
+    return cards;
   }
 
   @Override
-  public void setPlayerHand(List<PolicyCard> hand)
+  public void setPlayerHand(List<PolicyCard> cards)
   {
-     this.cards = hand;
+     this.cards = cards;
   }
 
   @Override
