@@ -150,6 +150,22 @@ public class GuiBase extends Application implements ControlListener
    */
 
   /**
+   * Display login form and collect login info.
+   */
+  public void loginForm(String[] loginInfo)
+  {
+    //display login info.
+  }
+
+  /**
+   * Ten second countdown to game start.
+   */
+  public void countdownToStart()
+  {
+    //countdown to game start
+  }
+
+  /**
    * Recieve available regions from control and pass on to Staging pane.
    * @param availableRegions        AvailableRegions method.
    */
@@ -232,10 +248,7 @@ public class GuiBase extends Application implements ControlListener
     mainStage.setTitle("Starvation Evasion");
 
     initializePanes();
-    //policyPane = new PolicyPane(this);
-    //policyPane.initPane();
-    //votingPane = new VotingPane(this);
-    //votingPane.initPane();
+
     StackPane loading = new StackPane();
     loading.getChildren().add(new Label("Loading."));
     baseScene = new Scene(loading, 300, 500);
