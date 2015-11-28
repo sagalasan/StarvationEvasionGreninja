@@ -51,7 +51,7 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     regionSelectedLabel = new Label(selectedRegion);
 
     basePane.getChildren().add(regionSelectedLabel);
-    map = new ClickableMap();
+    map = new ClickableMap("policy");
     map.setContainingPane(this);
 
     basePane.getChildren().add(map);

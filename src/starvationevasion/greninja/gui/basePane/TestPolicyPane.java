@@ -139,7 +139,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
    */
   private void buildCenter()
   {
-    ClickableMap map = new ClickableMap();
+    ClickableMap map = new ClickableMap("policy");
     map.setContainingPane(this);
     mainPane.setCenter(map);
   }

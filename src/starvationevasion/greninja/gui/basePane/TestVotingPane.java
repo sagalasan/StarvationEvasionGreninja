@@ -145,7 +145,8 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
    */
   private void buildCenter()
   {
-    VotingView map = new VotingView();
+    //true for policyPane, false for VotingPane
+    ClickableMap map = new ClickableMap("voting");
     map.setContainingPane(this);
     mainPane.setCenter(map);
     //todo build a policy voting mockup

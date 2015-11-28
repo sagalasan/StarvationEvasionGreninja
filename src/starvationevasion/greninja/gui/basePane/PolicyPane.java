@@ -95,7 +95,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     //===============================================================
     //Makes an interactive map
     //===============================================================
-    map = new ClickableMap();
+    map = new ClickableMap("policy");
     map.setContainingPane(this);
     mainBorderPane.setCenter(map);
 
