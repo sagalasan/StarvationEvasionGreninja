@@ -76,7 +76,7 @@ public class EntryPane extends StackPane
     else if(source == serverSelected)
     {
       System.out.println("Server selected, validate please.");
-      base.beginMultiPlayer();
+      //base.beginMultiPlayer();
     }
   }
 
@@ -161,7 +161,6 @@ public class EntryPane extends StackPane
         System.out.println("Sending connect message with:");
         System.out.println("\tHostname: " + serverName);
         System.out.println("\tport: " + portName);
-
       }
     });
 
