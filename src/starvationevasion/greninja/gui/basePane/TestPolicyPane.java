@@ -45,6 +45,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     buildBottom();
     buildCenter();
     getChildren().add(mainPane);
+
   }
 
   /*

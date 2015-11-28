@@ -48,6 +48,7 @@ public class StateImage extends ImageView {
       @Override
       public void handle(MouseEvent mouseEvent) {
         showStateName();
+
       }
     });
     setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -56,6 +57,7 @@ public class StateImage extends ImageView {
         if (!chosen)
         {
           deselect();
+          mouseEvent.consume();
         }
 
       }

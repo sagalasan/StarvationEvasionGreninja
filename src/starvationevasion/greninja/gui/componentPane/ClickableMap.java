@@ -14,41 +14,47 @@ public class ClickableMap extends StackPane implements MapImages
   private static final int NUMBER_OF_REGIONS = 7;
   private StateImage[] stateArray;
   private MapHolder containingPane;
+  private StateImage california, southernPlainsAndDeltaStates,
+      southeast, pacificNorthWestAndMountainStates,
+      heartLand, northernCrescent, northernPlains;
+  public void initImages()
+  {
+     california =
+        new StateImage(CALIFORNIA_IMAGE, CALIFORNIA_TITLE_IMAGE, EnumRegion.CALIFORNIA,this);
 
-  private StateImage california =
-      new StateImage(CALIFORNIA_IMAGE, CALIFORNIA_TITLE_IMAGE, EnumRegion.CALIFORNIA,this);
+     southernPlainsAndDeltaStates =
+        new StateImage(SOUTHERN_PLAINS_AND_DELTA_STATES_IMAGE,
+            SOUTHERN_PLAINS_AND_DELTA_STATES_TITLE_IMAGE, EnumRegion.SOUTHERN_PLAINS,this);
 
-  private StateImage southernPlainsAndDeltaStates =
-      new StateImage(SOUTHERN_PLAINS_AND_DELTA_STATES_IMAGE,
-          SOUTHERN_PLAINS_AND_DELTA_STATES_TITLE_IMAGE, EnumRegion.SOUTHERN_PLAINS,this);
+     pacificNorthWestAndMountainStates =
+        new StateImage(PACIFIC_NORTHWEST_AND_MOUTAIN_STATES_IMAGE,
+            PACIFIC_NORTHWEST_AND_MOUNTAIN_STATES_TITLE_IMAGE,
+            EnumRegion.MOUNTAIN,this);
 
-  private StateImage pacificNorthWestAndMountainStates =
-      new StateImage(PACIFIC_NORTHWEST_AND_MOUTAIN_STATES_IMAGE,
-          PACIFIC_NORTHWEST_AND_MOUNTAIN_STATES_TITLE_IMAGE,
-          EnumRegion.MOUNTAIN,this);
+     heartLand = new StateImage(HEARTLAND_IMAGE, HEARTLAND_TITLE_IMAGE,
+        EnumRegion.HEARTLAND,this);
 
-  private StateImage heartLand = new StateImage(HEARTLAND_IMAGE, HEARTLAND_TITLE_IMAGE,
-      EnumRegion.HEARTLAND,this);
+     northernCrescent = new StateImage(NORTHERN_CRESCENT_IMAGE,
+        NORTHERN_CRESCENT_TITLE_IMAGE,
+        EnumRegion.NORTHERN_CRESCENT,this);
 
-  private StateImage northernCrescent = new StateImage(NORTHERN_CRESCENT_IMAGE,
-      NORTHERN_CRESCENT_TITLE_IMAGE,
-      EnumRegion.NORTHERN_CRESCENT,this);
+     northernPlains = new StateImage(NORTHERN_PLAINS_IMAGE,
+        NORTHERN_PLAINS_TITLE_IMAGE,
+        EnumRegion.NORTHERN_PLAINS,this);
 
-  private StateImage northernPlains = new StateImage(NORTHERN_PLAINS_IMAGE,
-      NORTHERN_PLAINS_TITLE_IMAGE,
-      EnumRegion.NORTHERN_PLAINS,this);
-
-  private StateImage southeast = new StateImage(SOUTHEAST_IMAGE,
-      SOUTHEAST_TITLE_IMAGE, EnumRegion.SOUTHEAST,this);
+     southeast = new StateImage(SOUTHEAST_IMAGE,
+        SOUTHEAST_TITLE_IMAGE, EnumRegion.SOUTHEAST,this);
 
 
+
+
+  }
 
   public ClickableMap()
   {
-    stateArray = new StateImage[NUMBER_OF_REGIONS];
-    getChildren().addAll(california, pacificNorthWestAndMountainStates, southeast,
-        southernPlainsAndDeltaStates, heartLand, northernCrescent, northernPlains);
 
+    initImages();
+    stateArray = new StateImage[NUMBER_OF_REGIONS];
     stateArray[0] = california;
     stateArray[1] = pacificNorthWestAndMountainStates;
     stateArray[2] = southeast;
@@ -56,9 +62,27 @@ public class ClickableMap extends StackPane implements MapImages
     stateArray[4] = heartLand;
     stateArray[5] = northernCrescent;
     stateArray[6] = northernPlains;
+    getChildren().addAll(california, pacificNorthWestAndMountainStates, southeast,
+        southernPlainsAndDeltaStates, heartLand, northernCrescent, northernPlains);
+
+
 
   }
+/**
+ * tried to set images to null.  I dont believe this worked
+  public void setMapToNull()
+  {
+    california = null; southernPlainsAndDeltaStates = null;
+        southeast = null; pacificNorthWestAndMountainStates = null;
+        heartLand = null; northernCrescent = null; northernPlains = null;
 
+    for (StateImage state : stateArray)
+    {
+      state = null;
+    }
+
+  }
+ **/
   /**
    * Set a reference to the pane that contains the map so that actions can be
    * performed when things happen.

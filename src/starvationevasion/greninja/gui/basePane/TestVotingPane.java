@@ -51,6 +51,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     buildBottom();
     buildCenter();
     getChildren().add(mainPane);
+
   }
 
   /*
