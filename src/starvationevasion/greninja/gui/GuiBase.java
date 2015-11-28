@@ -37,6 +37,7 @@ public class GuiBase extends Application implements ControlListener
 
 
   private EntryPane entryPane = new EntryPane(this);
+  private ServerConnectionPane serverConnectionPane = new ServerConnectionPane(this);
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
   private StagingPane stagingPane;
