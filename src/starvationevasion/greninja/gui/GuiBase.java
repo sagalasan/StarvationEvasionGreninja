@@ -96,6 +96,11 @@ public class GuiBase extends Application implements ControlListener
     control.sendLoginInfo(name, password);//
   }
 
+  public void attemptToConnectServer(String hostname, int port)
+  {
+    control.attemptConnection(hostname, port);
+  }
+
   /**
    * Region selected method, takes a region arg.
    */

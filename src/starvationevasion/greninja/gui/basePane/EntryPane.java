@@ -162,6 +162,8 @@ public class EntryPane extends StackPane
         System.out.println("Sending connect message with:");
         System.out.println("\tHostname: " + serverName);
         System.out.println("\tport: " + portName);
+        int port = Integer.parseInt(portName);
+        base.attemptToConnectServer(serverName, port);
       }
     });
 

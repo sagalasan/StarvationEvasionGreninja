@@ -222,6 +222,11 @@ public class GameController
     beginGame();
   }
 
+  public void attemptConnection(String hostname, int port)
+  {
+    serverLine.startConnection(hostname, port);
+  }
+
   /**
    * Send login info to the message queue in the form of a Login message.
    * @param name          name entered by user
