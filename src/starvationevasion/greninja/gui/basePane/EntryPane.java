@@ -30,6 +30,8 @@ public class EntryPane extends StackPane
   private GuiBase base;
   private VBox basePane;
 
+  private boolean helloMessageReceived = false;
+
 
   public EntryPane(GuiBase gui)
   {
@@ -159,6 +161,20 @@ public class EntryPane extends StackPane
         System.out.println("Sending connect message with:");
         System.out.println("\tHostname: " + serverName);
         System.out.println("\tport: " + portName);
+
+        // Blocking while waiting for connection to be established
+        while(!helloMessageReceived)
+        {
+          try
+          {
+            wait();
+          }
+          catch (InterruptedException ie)
+          {
+            ie.printStackTrace();
+          }
+        }
+
       }
     });
 
