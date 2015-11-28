@@ -13,6 +13,7 @@ import starvationevasion.greninja.model.State;
  */
 public class AIView implements ControlListener
 {
+
   private GameController control;
   private AvailableRegions availableRegions;
 
@@ -41,12 +42,6 @@ public class AIView implements ControlListener
   public void initPlayerRegionInfo(State state, EnumRegion pRegion)
   {
     //Do Stuff
-  }
-
-  @Override
-  public void updateAvailableRegions(AvailableRegions availableRegions, PlayerInterface player)
-  {
-    //
   }
 
   /**
@@ -81,8 +76,8 @@ public class AIView implements ControlListener
    * Update availableRegions message.
    * @param availableRegions        AvailableRegions method.
    */
-
-  public void updateAvailableRegions(AvailableRegions availableRegions)
+  @Override
+  public void updateAvailableRegions(AvailableRegions availableRegions, PlayerInterface playerInterface)
   {
     this.availableRegions = availableRegions;
   }
