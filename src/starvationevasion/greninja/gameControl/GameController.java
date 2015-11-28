@@ -163,7 +163,7 @@ public class GameController
     //validate and attempt to connect to server.
     //if invalid go back.
     System.out.println("Start multiplayer game.");
-    serverLine = new ServerConnection(this);
+    //serverLine = new ServerConnection(this);
     //serverLine.startConnection(serverName);
     //serverLine.sendMessage(name, password);
     System.out.println("Try To Connect");
@@ -173,6 +173,7 @@ public class GameController
 
   public void multiPlayerSelected()
   {
+    serverLine = new ServerConnection(this);
     guiView.serverConnectForm();
   }
 
