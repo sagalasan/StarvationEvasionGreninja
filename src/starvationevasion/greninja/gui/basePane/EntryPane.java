@@ -3,9 +3,13 @@ package starvationevasion.greninja.gui.basePane;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -85,16 +89,20 @@ public class EntryPane extends StackPane
   public void showLoginDialog()
   {
     StackPane dialog = new StackPane();
-    VBox loginBox = new VBox();
+    GridPane loginBox = new GridPane();
     Rectangle rect = new Rectangle(500, 500, Color.GRAY);
     Button ok = new Button("OK");
+    TextField nameField = new TextField();
+    nameField.setMaxWidth(Double.MAX_VALUE);
+    PasswordField passwordField = new PasswordField();
+    passwordField.setMaxWidth(Double.MAX_VALUE);
     ok.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e)
       {
         System.out.println("OK");
         //TODO get name and password from user.
-        base.loginInfoSent("Name", "Password");
+        base.loginInfoSent(nameField.getText(), passwordField.getText());
         //close dialog
         getChildren().remove(dialog);
       }
@@ -109,11 +117,17 @@ public class EntryPane extends StackPane
         getChildren().remove(dialog);
       }
     });
-    loginBox.getChildren().addAll(new Label("Please enter your name and password."),
-                                  new Label("Name:"), new Label("Password:"),
-                                  ok, cancel);
     loginBox.setAlignment(Pos.CENTER);
-    loginBox.setSpacing(4);
+    loginBox.setHgap(4);
+    loginBox.setVgap(4);
+    loginBox.setPadding(new Insets(25, 25, 25, 25));
+    loginBox.add(new Label("Please enter your name and password."), 0, 0, 2, 1);
+    loginBox.add(new Label("Name: "), 0, 1);
+    loginBox.add(nameField, 1, 1);
+    loginBox.add(new Label("Password: "), 0, 2);
+    loginBox.add(passwordField, 1, 2);
+    loginBox.add(ok, 0, 3);
+    loginBox.add(cancel, 1, 3);
     dialog.getChildren().add(rect);
     dialog.getChildren().add(loginBox);
     getChildren().add(dialog);
