@@ -74,11 +74,6 @@ public class EntryPane extends StackPane
       System.out.println("Pressed Quit");
       base.exitGame();
     }
-    else if(source == serverSelected)
-    {
-      System.out.println("Server selected, validate please.");
-      //base.beginMultiPlayer();
-    }
   }
 
 
