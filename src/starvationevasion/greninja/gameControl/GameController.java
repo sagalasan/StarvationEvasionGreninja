@@ -181,7 +181,14 @@ public class GameController
     guiView = (GuiBase)view;
     player = new HumanPlayer();
     serverLine = new ServerConnection(this);
-    guiView.serverConnectForm();
+    //guiView.serverConnectForm();
+    guiView.swapToServerConnectionPane();
+  }
+
+  public void serverConnectionPaneCancelled()
+  {
+    guiView = (GuiBase) view;
+    guiView.swapToEntryPane();
   }
 
   /**

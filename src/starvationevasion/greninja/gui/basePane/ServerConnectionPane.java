@@ -38,8 +38,8 @@ public class ServerConnectionPane extends StackPane
     serverBox = new GridPane();
     Rectangle rect    = new Rectangle(500, 500, Color.GRAY);
 
-    Button connectButton = new Button("Connect");
-    Button cancelButton  = new Button("Cancel");
+    connectButton = new Button("Connect");
+    cancelButton  = new Button("Cancel");
 
     TextField nameField = new TextField();
     TextField portField = new TextField();
@@ -47,7 +47,7 @@ public class ServerConnectionPane extends StackPane
     portField.setMaxWidth(Double.MAX_VALUE);
 
     connectButton.setOnAction(buttonListener);
-
+    cancelButton.setOnAction(buttonListener);
 
     serverBox.setAlignment(Pos.CENTER);
     serverBox.setHgap(4);
@@ -66,7 +66,17 @@ public class ServerConnectionPane extends StackPane
 
   public void buttonPressed(ActionEvent event)
   {
+    Button source = (Button) event.getSource();
+    System.out.println("Button pressed");
+    if(source == connectButton)
+    {
 
+    }
+    else if(source == cancelButton)
+    {
+      System.out.println("Cancel pressed");
+      guiBase.serverConnectionPaneCancelled();
+    }
   }
 
   private class ButtonListener implements EventHandler<ActionEvent>

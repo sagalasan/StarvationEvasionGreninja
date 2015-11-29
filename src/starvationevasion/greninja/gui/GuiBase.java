@@ -116,10 +116,21 @@ public class GuiBase extends Application implements ControlListener
     control.regionSelected(region);
   }
 
+  public void swapToEntryPane()
+  {
+    System.out.println("Swapping to EntryPane");
+    baseScene.setRoot(entryPane);
+  }
+
   public void swapToServerConnectionPane()
   {
     System.out.println("Swapping to ServerConnectionPane");
     baseScene.setRoot(serverConnectionPane);
+  }
+
+  public void serverConnectionPaneCancelled()
+  {
+    control.serverConnectionPaneCancelled();
   }
 
   /**
