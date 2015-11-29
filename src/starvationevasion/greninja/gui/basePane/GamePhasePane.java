@@ -38,17 +38,33 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
     timer.updateTimeLabel();
   }
 
-  public void resetTimer(VBox vBoxPane, int minutes, int seconds)
+  /**
+   * Start the timer.
+   */
+  public void startTimer()
   {
-    //getChildren().remove(getTimerPane());
+    timer.startTimer();
+  }
 
+  /**
+   * Stop the timer.
+   */
+  public void stopTimer()
+  {
+    timer.stopTimer();
+  }
+
+  /**
+   * Reset the timer.
+   */
+  public void resetTimer()
+  {
+    /*
     int timerIndex = vBoxPane.getChildren().indexOf(getTimerPane());
     initTimerPane(minutes, seconds);
     vBoxPane.getChildren().set(timerIndex, getTimerPane());
-
-
-    //getChildren().add(getTimerPane());
-
+    */
+    timer.resetTimer();
   }
   /**
    * Get the timer pane.

@@ -126,8 +126,8 @@ public class GuiBase extends Application implements ControlListener
 
     paneToRefresh = testVotingPane;
     baseScene.setRoot(testVotingPane);
-    testVotingPane.getTimerPane().resetTimer();
-    testVotingPane.getTimerPane().startTimer();
+    testVotingPane.resetTimer();
+    testVotingPane.startTimer();
     //set current images to null, init images for other pane
   }
 
@@ -140,8 +140,8 @@ public class GuiBase extends Application implements ControlListener
     System.out.println("Now in Policy Drafting.");
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
     paneToRefresh = testPolicyPane;
-    testPolicyPane.getTimerPane().resetTimer();
-    testPolicyPane.getTimerPane().startTimer();
+    testPolicyPane.resetTimer();
+    testPolicyPane.startTimer();
     // TODO: get rid of test pane later
 //    baseScene.setRoot(policyPane);
 

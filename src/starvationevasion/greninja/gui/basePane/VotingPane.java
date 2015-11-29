@@ -54,7 +54,7 @@ public class VotingPane extends GamePhasePane
    */
   public void endPhase()
   {
-    resetTimer(vBoxPane, 5, 0);
+    stopTimer();
     base.endPolicyVotingPhase();
   }
 

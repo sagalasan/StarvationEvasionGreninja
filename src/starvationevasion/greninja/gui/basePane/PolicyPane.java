@@ -126,7 +126,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
    */
   public void endPhase()
   {
-    resetTimer(leftPane, 5, 0);
+    stopTimer();
     base.endPolicyDraftingPhase();
   }
   /**

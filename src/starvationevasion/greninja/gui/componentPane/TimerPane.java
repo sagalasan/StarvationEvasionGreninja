@@ -21,11 +21,17 @@ public class TimerPane extends StackPane
   private final Color timerGreen; //basic green color
   private Color timerDefaultColor; //color that this timer will remain as
   private Label timeLabel;
+  //time remaining is the current time string, phase length is the default time
+  //string
   private String timeRemaining, phaseLength;
   private Color timerColor; //current color
+  //keeps track of the time to be shown. [0] = minutes, [1] = seconds
   private Integer[] timeArray;
+  //timeline controls the countdown.
   private Timeline timeline;
+  //default minutes for the timer.
   private int phaseMinutes;
+  //default seconds for the timer.
   private int phaseSeconds;
 
   /**
@@ -57,6 +63,7 @@ public class TimerPane extends StackPane
     timeLabel.setFont(new Font(16));
     timeLabel.setStyle(GuiStyles.paddedGray());
     getChildren().add(timeLabel);
+
     //setup timeline for timer.  counts down once a second until timelimit hit.
     timeline = new Timeline();
     timeline.setCycleCount(Timeline.INDEFINITE);
@@ -87,6 +94,7 @@ public class TimerPane extends StackPane
   {
     if(timeline != null)
     {
+      setTimerColor(timeArray[0]);
       timeline.playFromStart();
     }
   }
