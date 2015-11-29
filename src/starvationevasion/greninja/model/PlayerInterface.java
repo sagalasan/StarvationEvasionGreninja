@@ -90,5 +90,5 @@ public interface PlayerInterface
    * The player-selected card during the drafting phase.
    * @param index
    */
-  void draft(int index);
+  PolicyCard draft(int index);
 }

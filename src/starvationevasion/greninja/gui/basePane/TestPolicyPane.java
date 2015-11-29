@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -31,8 +30,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   private EnumRegion playerRegion = EnumRegion.HEARTLAND;
   private int year = 2015;
   private double HDI = 200.0;
-  private int regionPopulation = 1;
-  private int worldPopulation = 2;
+  private double regionPopulation = 1;
+  private double worldPopulation = 2;
 
   public TestPolicyPane(GuiBase base)
   {
@@ -49,7 +48,11 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     mainPane.setId("mainPolicyPane");
     playerHandGui = new PlayerHandGui(base);
     toolbar = new ToolbarPane(base);
-//    playerHandGui.setAlignment(Pos.CENTER);
+
+    // Get the information to be displayed in the GUI
+    // getInfo();
+
+    // Build each sector of the GUI
     buildTop();
     buildLeft();
     buildRight();
@@ -76,14 +79,11 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     TimerPane timer = getTimerPane();
 
     VBox titleBox = new VBox(5);
-//    titleBox.setPadding(new Insets(15, 0, 0, 0));
     titleBox.setAlignment(Pos.TOP_CENTER);
-    Label title = new Label("Policy Phase: Draft Policies");
+    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
+    HBox gameInfo = gameStateInfo();
     title.setId("title");
-    titleBox.getChildren().add(title);
-
-//    HBox popInfo = populationInfo();
-//    titleBox.getChildren().add(popInfo);
+    titleBox.getChildren().addAll(title, gameInfo);
 
     VBox buttonBox = new VBox();
     buttonBox.setAlignment(Pos.CENTER);
@@ -95,7 +95,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     topPane.setBottom(divider);
     topPane.setLeft(timer);
     topPane.setRight(buttonBox);
-    topPane.setCenter(title);
+    topPane.setCenter(titleBox);
     mainPane.setTop(topPane);
   }
 
@@ -193,13 +193,36 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     mainPane.setBottom(bottomPane);
   }
 
-  private HBox populationInfo()
+  private HBox gameStateInfo()
   {
-    HBox populationBox = new HBox(5);
+    HBox populationBox = new HBox(10);
     populationBox.setAlignment(Pos.TOP_CENTER);
-    Label worldPop = new Label("World Pop: " + worldPopulation);
-    Label regionPop = new Label("Region Pop: " + regionPopulation);
-    populationBox.getChildren().addAll(regionPop, worldPop);
+
+    HBox worldPopBox = new HBox(2);
+    Label worldPopLabel = new Label("World Pop: ");
+    worldPopLabel.setId("stateInfoLabel");
+    String worldPopString = Double.toString(worldPopulation);
+    Label worldPop = new Label(worldPopString);
+    worldPop.setId("stateInfo");
+    worldPopBox.getChildren().addAll(worldPopLabel, worldPop);
+
+    HBox regionPopBox = new HBox(2);
+    Label regionPopLabel = new Label("Region Pop: ");
+    regionPopLabel.setId("stateInfoLabel");
+    String regionPopString = Double.toString(regionPopulation);
+    Label regionPop = new Label(regionPopString);
+    regionPop.setId("stateInfo");
+    regionPopBox.getChildren().addAll(regionPopLabel, regionPop);
+
+    HBox hdiBox = new HBox(2);
+    Label hdiLabel = new Label("Human Dev. Index: ");
+    hdiLabel.setId("stateInfoLabel");
+    String hdiString = Double.toString(HDI);
+    Label hdiInfo = new Label(hdiString);
+    hdiInfo.setId("stateInfo");
+    hdiBox.getChildren().addAll(hdiLabel, hdiInfo);
+
+    populationBox.getChildren().addAll(regionPopBox, worldPopBox, hdiBox);
     return populationBox;
   }
 

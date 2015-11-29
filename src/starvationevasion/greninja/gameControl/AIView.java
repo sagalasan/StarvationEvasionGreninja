@@ -18,6 +18,8 @@ public class AIView implements ControlListener
   private GameController control;
   private AvailableRegions availableRegions;
 
+  private boolean DEBUG = true;
+
   public AIView(GameController control)
   {
     this.control = control;
@@ -61,7 +63,9 @@ public class AIView implements ControlListener
   @Override
   public void swapToPolicyPane()
   {
-    System.out.println("I'm a robot and I'm drafting policies!");//
+    if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");//
+
+
   }
 
   /**
@@ -70,7 +74,7 @@ public class AIView implements ControlListener
   @Override
   public void swapToVotingPane()
   {
-    System.out.println("I'm a robot and I'm voting on policies!");
+    if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
   }
 
   /**

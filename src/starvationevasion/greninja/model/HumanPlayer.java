@@ -164,10 +164,11 @@ public class HumanPlayer implements PlayerInterface
 
 
   @Override
-  public void draft(int index)
+  public PolicyCard draft(int index)
   {
-    PolicyCard selectedCard = getCard(index);
-    // TODO: add this to a policy pile?
+    // TODO: add card to a policy pile?
+    PolicyCard selectedCard = cards.remove(index);
+    return selectedCard;
   }
 
   // TODO: communication with other players

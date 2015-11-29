@@ -41,10 +41,25 @@
   -fx-text-fill: white;
 }
 
+#stateInfoLabel
+{
+  -fx-font-size: 10pt;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-text-fill: white;
+}
+
+#stateInfo
+{
+  -fx-font-size: 10pt;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-text-fill: #afcae0;
+}
+
 #mainPolicyPane, #mainPaneVoting
 {
   -fx-background-color: #444444;
 }
+
 #leftLayout, #rightLayout, #topLayout, #bottomLayout
 {
   -fx-background-color: #333333;

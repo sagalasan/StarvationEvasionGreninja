@@ -124,8 +124,9 @@ public class AIPlayer implements PlayerInterface
   }
 
   @Override
-  public void draft(int index)
+  public PolicyCard draft(int index)
   {
-
+    PolicyCard selectedCard = cards.remove(index);
+    return selectedCard;
   }
 }
