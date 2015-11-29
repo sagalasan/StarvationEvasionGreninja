@@ -19,8 +19,11 @@ public class ClickableMap extends StackPane implements MapImages
       heartLand, northernCrescent, northernPlains;
   private boolean worldMap = true;
   //private StackPane USMap;
+  //todo display draft status somehow
+  //just try and print on area a label or something
   public void initImages()
   {
+
     if(worldMap)
     {
       california =
