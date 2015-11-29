@@ -167,16 +167,21 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     for (int i = 0; i < 7; i++)
     {
       draftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
+
     }
+    draftedCards.setId("voting-image");
     for (int i = 0; i < 7; i++)
     {
       otherDraftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
     }
+    otherDraftedCards.setId("voting-image");
 
     //draftedCardsAndRegions.getChildren().addAll(map, draftedCards);
     center.setTop(map);
     VBox bothRowsOfCards = new VBox();
     bothRowsOfCards.setSpacing(40);
+    //will get cards for each player.  Will assign regions to those cards
+    //will set each corresponding card with its state image id.
     //each card will have an id that on hover will highlight
     bothRowsOfCards.getChildren().addAll(draftedCards, otherDraftedCards);
 
