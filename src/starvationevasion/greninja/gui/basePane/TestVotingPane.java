@@ -41,7 +41,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
    */
   public void initPane()
   {
-    super.initTimerPane(ClientConstant.VOTING_TIME_PANE);
+    super.initTimerPane(2, 0);
     mainPane.setId("mainPaneVoting");
     //playerHandGui = new PlayerHandGui(base);
     //playerHandGui.setAlignment(Pos.CENTER);
@@ -193,7 +193,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
 
   public void endPhase()
   {
-
+    getTimerPane().stopTimer();
     base.endPolicyVotingPhase();
   }
 

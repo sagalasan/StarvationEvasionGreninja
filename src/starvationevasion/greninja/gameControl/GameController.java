@@ -334,8 +334,7 @@ public class GameController
   {
     //get HDI's, Populations, Money from server.
     view.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this, view.getTimerPane(EnumPhase.DRAFTING),
-        player);
+    draftingPhase = new DraftingPhase(this, player);
   }
 
   /**
@@ -344,7 +343,6 @@ public class GameController
   public void endPolicyDraftingPhase()
   {
     //start voting phase.
-    draftingPhase.stopTimer();
     startPolicyVotingPhase();
     //draftingPhase = null;
   }
@@ -432,7 +430,7 @@ public class GameController
   {
     view.swapToVotingPane();
     getCardsForVote();
-    votingPhase = new VotingPhase(this, view.getTimerPane(EnumPhase.VOTING));
+    votingPhase = new VotingPhase(this);
     //do stuff
   }
 
@@ -460,7 +458,6 @@ public class GameController
   public void endPolicyVotingPhase()
   {
     //fillHand();
-    votingPhase.stopTimer();
     startPolicyDraftingPhase();
     //votingPhase = null;
   }

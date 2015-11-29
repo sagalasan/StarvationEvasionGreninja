@@ -123,17 +123,12 @@ public class GuiBase extends Application implements ControlListener
   public void swapToVotingPane()
   {
     System.out.println("Now in Voting.");
-    //votingPane.getTimerPane().resetTimer();
-    //votingPane = new VotingPane(this);
-    //votingPane.initPane();
 
     paneToRefresh = testVotingPane;
-    //baseScene.setRoot(votingPane);
-    //testPolicyPane.getMap().setMapToNull();
-    //testVotingPane.getMap().initImages();
     baseScene.setRoot(testVotingPane);
+    testVotingPane.getTimerPane().resetTimer();
+    testVotingPane.getTimerPane().startTimer();
     //set current images to null, init images for other pane
-
   }
 
   /**
@@ -145,8 +140,8 @@ public class GuiBase extends Application implements ControlListener
     System.out.println("Now in Policy Drafting.");
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
     paneToRefresh = testPolicyPane;
-    //testVotingPane.getMap().setMapToNull();
-    //testPolicyPane.getMap().initImages();
+    testPolicyPane.getTimerPane().resetTimer();
+    testPolicyPane.getTimerPane().startTimer();
     // TODO: get rid of test pane later
 //    baseScene.setRoot(policyPane);
 
