@@ -203,7 +203,6 @@ public class GameController
   {
     //create initial hand
     ArrayList<PolicyCard> initialHand = new ArrayList<>();
-    //instantiate player
     playerRegionInfo = new State(playerRegion);
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     //fillHand();
@@ -246,6 +245,15 @@ public class GameController
     sendMessageOut(new Login(name, "SaltySaltSalt?", password));
     //TODO will be called upon recieving a login success message from server.
     view.swapToStagingPane();
+  }
+
+  /**
+   * Getter for player object.
+   * @return
+   */
+  public PlayerInterface getPlayer()
+  {
+    return player;
   }
  /*
   ============================end startup=======================================

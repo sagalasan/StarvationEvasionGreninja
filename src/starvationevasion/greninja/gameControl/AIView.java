@@ -17,14 +17,25 @@ public class AIView implements ControlListener
 
   private GameController control;
   private AvailableRegions availableRegions;
+  private AIDecisions decisions;
+  private AIPlayer player;
 
   private boolean DEBUG = true;
 
-  public AIView(GameController control)
+  public AIView(GameController control, AIPlayer player)
   {
     this.control = control;
+    this.player = player;
   }
 
+  /**
+   * set the decision making object.
+   * @param decisions
+   */
+  public void setDecisionObject(AIDecisions decisions)
+  {
+    this.decisions = decisions;
+  }
   /**
    * Get timerpane for ai returns null as of now.  Will be cleaned out.
    * @param phase
@@ -64,7 +75,7 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");//
-
+    decisions.analyzeCards(player.getPlayerHand());
 
   }
 
@@ -75,6 +86,7 @@ public class AIView implements ControlListener
   public void swapToVotingPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
+    decisions.analyzeCards(player.getPlayerHand());
   }
 
   /**
