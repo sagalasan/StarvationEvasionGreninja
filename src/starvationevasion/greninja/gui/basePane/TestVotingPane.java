@@ -79,6 +79,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
 
 //    Label timer = new Label("Timer"); // TODO: placeholder
     TimerPane timer = getTimerPane();
+    timer.setAlignment(Pos.CENTER);
 
     VBox titleBox = new VBox();
     titleBox.setPadding(new Insets(15, 0, 0, 0));
@@ -97,7 +98,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     topPane.setBottom(divider);
     topPane.setLeft(timer);
     topPane.setRight(buttonBox);
-    topPane.setCenter(title);
+    topPane.setCenter(titleBox);
     mainPane.setTop(topPane);
   }
 
@@ -106,27 +107,8 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
    */
   private void buildLeft()
   {
-    //BorderPane leftPane = new BorderPane();
-    //leftPane.setId("leftLayout");
-    //DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane();
-    //draftedCards.setAlignment(Pos.BOTTOM_CENTER);
-    //draftedCards.setSpacing(5);
 
-    //VBox visBox = new VBox(5);
-    //visBox.setAlignment(Pos.CENTER);
-    //ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
-    //visBox.getChildren().add(visImg);
-
-    //VBox draftedCardsBox = new VBox(5);
-    //draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
-    //draftedCardsBox.getChildren().addAll(new Label("Drafted Policies"), draftedCards);
-
-    //leftPane.setCenter(visBox);
-    //leftPane.setBottom(draftedCardsBox);
-    //leftPane.setPrefWidth(300);
-    //mainPane.setLeft(leftPane);
   }
-
   /*
    * Contains graphs
    */
@@ -166,6 +148,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     draftedCards.setAlignment(Pos.CENTER);
     for (int i = 0; i < 7; i++)
     {
+
       draftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
 
     }

@@ -19,11 +19,18 @@ public class StateImage extends ImageView {
   private boolean chosen = false;
   private Image stateImage;
   private Image stateWithTextImage;
+
   public StateImage(final Image image, final Image titleImage,
                     final EnumRegion regionName, final ClickableMap map, boolean worldMap)
   {
     super(image);
     this.regionName = regionName;
+    //todo
+    //get what stage this state is voting on
+    //draw image for that state
+    //if has played policy card, then have a one beside the name
+    //if 2 cards picked, then have a two beside the name
+    //if 0, then put a 0
     setFitHeight(350);
     if (worldMap)
     {
