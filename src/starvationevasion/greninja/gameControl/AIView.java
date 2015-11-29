@@ -18,11 +18,11 @@ public class AIView implements ControlListener
   private GameController control;
   private AvailableRegions availableRegions;
   private AIDecisions decisions;
-  private AIPlayer player;
+  private PlayerInterface player;
 
   private boolean DEBUG = true;
 
-  public AIView(GameController control, AIPlayer player)
+  public AIView(GameController control, PlayerInterface player)
   {
     this.control = control;
     this.player = player;

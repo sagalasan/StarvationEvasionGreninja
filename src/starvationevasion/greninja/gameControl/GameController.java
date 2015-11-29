@@ -43,7 +43,9 @@ public class GameController
   public GameController()
   {
     //start AI game
-    view = new AIView(this);
+    player = new AIPlayer();
+    player.setPlayerName("Compy 386");
+    view = new AIView(this, player);
     serverLine = new ServerConnection(this);
     player = new AIPlayer();
     player.setPlayerName("AI");
@@ -151,6 +153,9 @@ public class GameController
   public void startAiGame()
   {
     //Start a game for ai player.
+    //TODO may need to create an aiView object to have reference to.
+
+    view = new AIView(this, player);
   }
 
   /**
