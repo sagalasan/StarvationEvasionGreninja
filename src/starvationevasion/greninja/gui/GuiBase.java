@@ -127,7 +127,7 @@ public class GuiBase extends Application implements ControlListener
     //votingPane = new VotingPane(this);
     //votingPane.initPane();
 
-    paneToRefresh = votingPane;
+    paneToRefresh = testVotingPane;
     //baseScene.setRoot(votingPane);
     //testPolicyPane.getMap().setMapToNull();
     //testVotingPane.getMap().initImages();
@@ -144,7 +144,7 @@ public class GuiBase extends Application implements ControlListener
   {
     System.out.println("Now in Policy Drafting.");
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
-
+    paneToRefresh = testPolicyPane;
     //testVotingPane.getMap().setMapToNull();
     //testPolicyPane.getMap().initImages();
     // TODO: get rid of test pane later

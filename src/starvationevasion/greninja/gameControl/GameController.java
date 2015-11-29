@@ -173,6 +173,8 @@ public class GameController
 
   public void multiPlayerSelected()
   {
+    guiView = (GuiBase)view;
+    player = new HumanPlayer();
     serverLine = new ServerConnection(this);
     guiView.serverConnectForm();
   }
