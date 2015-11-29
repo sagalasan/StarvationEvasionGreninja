@@ -1,8 +1,10 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.MapHolder;
 
@@ -19,8 +21,7 @@ public class ClickableMap extends StackPane implements MapImages
       heartLand, northernCrescent, northernPlains;
   private boolean worldMap = true;
   //private StackPane USMap;
-  //todo display draft status somehow
-  //just try and print on area a label or something
+
   public void initImages()
   {
 
@@ -112,9 +113,22 @@ public class ClickableMap extends StackPane implements MapImages
     getChildren().addAll(california, pacificNorthWestAndMountainStates, southeast,
         southernPlainsAndDeltaStates, heartLand, northernCrescent, northernPlains);
 
+    if (worldMap)
+    {
+      for (StateImage state: stateArray)
+      {
+        state.updateDisplayInfo();
+        getChildren().add(state.getDisplayInfo());
+      }
+    }
+
+
+    //california.updateDisplayInfo();
+    //getChildren().addAll(california.getDisplayInfo());
 
 
   }
+
 /**
  * tried to set images to null.  I dont believe this worked
   public void setMapToNull()
