@@ -228,11 +228,11 @@ public class GuiBase extends Application implements ControlListener
     {
       case DRAFTING:
         //update drafting phase timer.
-        timer = policyPane.getTimerPane();
+        timer = testPolicyPane.getTimerPane();
         break;
       case VOTING:
         //update voting phase timer.
-        timer = votingPane.getTimerPane();
+        timer = testVotingPane.getTimerPane();
         break;
       default:
         timer = null;

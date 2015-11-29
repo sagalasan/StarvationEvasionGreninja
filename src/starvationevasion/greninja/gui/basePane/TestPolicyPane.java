@@ -76,8 +76,11 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    TimerPane timer = getTimerPane();
+    // Set up timer display
+    TimerDisplay timerDisplay = new TimerDisplay(base, getTimerPane());
+    timerDisplay.setPadding(new Insets(10, 10, 10, 10));
 
+    // Create and add title and game state info
     VBox titleBox = new VBox(5);
     titleBox.setAlignment(Pos.TOP_CENTER);
     Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
@@ -85,6 +88,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     title.setId("title");
     titleBox.getChildren().addAll(title, gameInfo);
 
+    // TODO: remove this button?
+    // Create and add next state button
     VBox buttonBox = new VBox();
     buttonBox.setAlignment(Pos.CENTER);
     buttonBox.setPadding(new Insets(10, 10, 10, 10));
@@ -93,7 +98,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     buttonBox.getChildren().add(nextPhaseButton);
 
     topPane.setBottom(divider);
-    topPane.setLeft(timer);
+    topPane.setLeft(timerDisplay);
     topPane.setRight(buttonBox);
     topPane.setCenter(titleBox);
     mainPane.setTop(topPane);

@@ -61,7 +61,7 @@ public class TimerPane extends StackPane
     timerColor = timerDefaultColor;
     timeLabel.setTextFill(timerGreen);
     timeLabel.setFont(new Font(16));
-    timeLabel.setStyle(GuiStyles.paddedGray());
+//    timeLabel.setStyle(GuiStyles.paddedGray());
     getChildren().add(timeLabel);
 
     //setup timeline for timer.  counts down once a second until timelimit hit.
