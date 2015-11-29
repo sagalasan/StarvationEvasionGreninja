@@ -69,7 +69,8 @@ public class AIView implements ControlListener
   }
 
   /**
-   * Inform AI that it is policy drafting phase.
+   * Inform AI that it is policy drafting phase.  When control calls the AI's
+   * "GUI" it will prompt AIDecisions to do stuff.
    */
   @Override
   public void swapToPolicyPane()
@@ -80,7 +81,8 @@ public class AIView implements ControlListener
   }
 
   /**
-   * Inform AI that it is voting phase.
+   * Inform AI that it is voting phase.  When control calls the AI's "GUI" it
+   * will prompt AIDecisions to do stuff.
    */
   @Override
   public void swapToVotingPane()
