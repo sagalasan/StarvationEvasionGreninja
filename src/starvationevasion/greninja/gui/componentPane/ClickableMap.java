@@ -18,6 +18,7 @@ public class ClickableMap extends StackPane implements MapImages
       southeast, pacificNorthWestAndMountainStates,
       heartLand, northernCrescent, northernPlains;
   private boolean worldMap = true;
+  //private StackPane USMap;
   public void initImages()
   {
     if(worldMap)
@@ -79,10 +80,6 @@ public class ClickableMap extends StackPane implements MapImages
           SOUTHEAST_TITLE_IMAGE_VOTING, EnumRegion.SOUTHEAST,this, worldMap);
     }
 
-
-
-
-
   }
 
   public ClickableMap(String paneType)
@@ -90,10 +87,13 @@ public class ClickableMap extends StackPane implements MapImages
     if (paneType.toLowerCase() == "voting")
     {
       worldMap = false;
+      //USMap = new StackPane();
     }
     else
     {
+
       worldMap = true;
+
     }
     //this.worldMap = worldMap;
     initImages();
@@ -105,6 +105,7 @@ public class ClickableMap extends StackPane implements MapImages
     stateArray[4] = heartLand;
     stateArray[5] = northernCrescent;
     stateArray[6] = northernPlains;
+
     getChildren().addAll(california, pacificNorthWestAndMountainStates, southeast,
         southernPlainsAndDeltaStates, heartLand, northernCrescent, northernPlains);
 
