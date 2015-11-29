@@ -44,7 +44,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
    */
   public void initPane()
   {
-    super.initTimerPane(ClientConstant.POLICY_TIME_LIMIT);
+    super.initTimerPane(5, 0);
     mainPane.setId("mainPolicyPane");
     playerHandGui = new PlayerHandGui(base);
     toolbar = new ToolbarPane(base);
@@ -228,7 +228,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   public void endPhase()
   {
-
+    stopTimer();
     base.endPolicyDraftingPhase();
   }
 

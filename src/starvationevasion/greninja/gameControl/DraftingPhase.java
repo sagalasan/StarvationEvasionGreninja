@@ -5,7 +5,6 @@ import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.HumanPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
-import starvationevasion.greninja.util.PhaseTimer;
 
 /**
  * Controls the policy drafting phase.
@@ -18,20 +17,16 @@ public class DraftingPhase extends GamePhase
   private boolean hasPlayedVoteCard;
   private boolean hasDiscarded;
   private GameController control;
-  private PhaseTimer phaseTimer;
+  //private PhaseTimer phaseTimer;
   private PlayerInterface player;
 
   /**
    * Instantiate phase timer, assign reference to control,
    * @param control
    */
-  public DraftingPhase(GameController control, TimerPane visibleTimer,
-                       PlayerInterface player)
+  public DraftingPhase(GameController control, PlayerInterface player)
   {
     this.player = player;
-    this.phaseTimer = new PhaseTimer(ClientConstant.DRAFTING_TIME_LIMIT,
-                                      this, visibleTimer);
-    phaseTimer.start();
     this.control = control;
     hasDiscarded = false;
     hasPlayedVoteCard = false;
@@ -46,7 +41,7 @@ public class DraftingPhase extends GamePhase
   public boolean discardThree(int[] cardsSelected)
   {
     boolean discardPerformed = true;
-    if(actionsTaken < 2 && phaseTimer.phaseNotOver())
+    if(actionsTaken < 2)
     {
       discardPerformed = player.discardThree(cardsSelected);
       if(discardPerformed)
@@ -65,7 +60,7 @@ public class DraftingPhase extends GamePhase
   public boolean discardOne(int cardIndex)
   {
     boolean discardPerformed = false;
-    if(!hasDiscarded && phaseTimer.phaseNotOver())
+    if(!hasDiscarded)
     {
       discardPerformed = player.discardCard(cardIndex);
     }
@@ -81,7 +76,7 @@ public class DraftingPhase extends GamePhase
   {
     PolicyCard cardSelected = null;
     //if can take action.
-    if(actionsTaken < 2 && phaseTimer.phaseNotOver())
+    if(actionsTaken < 2)
     {
       //check if valid card is played
       cardSelected = selectCardFromHand(cardIndex);
@@ -97,11 +92,6 @@ public class DraftingPhase extends GamePhase
       }
     }
     return cardSelected;
-  }
-
-  public void stopTimer()
-  {
-    phaseTimer.setPhaseActive(false);
   }
 
   /**

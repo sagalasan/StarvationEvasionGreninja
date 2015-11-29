@@ -31,7 +31,7 @@ public class VotingPane extends GamePhasePane
   private VBox vBoxPane;
   public void initPane()
   {
-    super.initTimerPane(ClientConstant.VOTING_TIME_PANE);
+    super.initTimerPane(2, 0);
     Button button = new Button();
     button.setText("Next State");
     button.setOnAction(new ButtonControl(this));
@@ -54,7 +54,7 @@ public class VotingPane extends GamePhasePane
    */
   public void endPhase()
   {
-    resetTimer(vBoxPane, ClientConstant.VOTING_TIME_PANE);
+    stopTimer();
     base.endPolicyVotingPhase();
   }
 

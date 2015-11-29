@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import starvationevasion.common.EnumRegion;
@@ -26,14 +27,20 @@ import starvationevasion.greninja.gui.componentPane.*;
  */
 public class TestVotingPane extends GamePhasePane implements MapHolder
 {
+  private final static int NUMBER_OF_TOTAL_DRAFTED_CARDS = 14;
   private GuiBase base;
   private PlayerHandGui playerHandGui;
-  BorderPane mainPane = new BorderPane();
-
+  private BorderPane mainPane = new BorderPane();
+  private CardImage[] stateCards;
+  //private String[] regionNames
+  //each region needs a name
   public TestVotingPane(GuiBase base)
   {
     super(base);
     this.base = base;
+    stateCards = new CardImage[NUMBER_OF_TOTAL_DRAFTED_CARDS];
+
+
   }
 
   /**
@@ -41,7 +48,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
    */
   public void initPane()
   {
-    super.initTimerPane(ClientConstant.VOTING_TIME_PANE);
+    super.initTimerPane(2, 0);
     mainPane.setId("mainPaneVoting");
     //playerHandGui = new PlayerHandGui(base);
     //playerHandGui.setAlignment(Pos.CENTER);
@@ -143,16 +150,44 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
   /*
    * Adds a clickable US map to the center of the pane.
    */
+  private BorderPane center;
   private void buildCenter()
   {
     //true for policyPane, false for VotingPane
+    center = new BorderPane();
     ClickableMap map = new ClickableMap("voting");
     map.setContainingPane(this);
-    mainPane.setCenter(map);
-    //todo build a policy voting mockup
-   // ClickableMap map = new ClickableMap();
-   // map.setContainingPane(this);
-   // mainPane.setCenter(map);
+    //VBox draftedCardsAndRegions = new VBox();
+    HBox draftedCards = new HBox();
+    HBox otherDraftedCards = new HBox();
+    otherDraftedCards.setSpacing(70);
+    otherDraftedCards.setAlignment(Pos.CENTER);
+    draftedCards.setSpacing(70);
+    draftedCards.setAlignment(Pos.CENTER);
+    for (int i = 0; i < 7; i++)
+    {
+      draftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
+
+    }
+    draftedCards.setId("voting-image");
+    for (int i = 0; i < 7; i++)
+    {
+      otherDraftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
+    }
+    otherDraftedCards.setId("voting-image");
+
+    //draftedCardsAndRegions.getChildren().addAll(map, draftedCards);
+    center.setTop(map);
+    VBox bothRowsOfCards = new VBox();
+    bothRowsOfCards.setSpacing(40);
+    //will get cards for each player.  Will assign regions to those cards
+    //will set each corresponding card with its state image id.
+    //each card will have an id that on hover will highlight
+    bothRowsOfCards.getChildren().addAll(draftedCards, otherDraftedCards);
+
+    center.setCenter(bothRowsOfCards);
+    //mainPane.setCenter(draftedCardsAndRegions);
+    mainPane.setCenter(center);
   }
 
   private void buildBottom()
@@ -193,7 +228,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
 
   public void endPhase()
   {
-
+    stopTimer();
     base.endPolicyVotingPhase();
   }
 

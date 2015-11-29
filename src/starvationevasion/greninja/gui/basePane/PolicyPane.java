@@ -48,7 +48,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
 
   public void initPane()
   {
-    super.initTimerPane(ClientConstant.POLICY_TIME_LIMIT);
+    super.initTimerPane(5, 0);
 
     Button button = new Button();
     button.setText("Next State");
@@ -126,7 +126,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
    */
   public void endPhase()
   {
-    resetTimer(leftPane, ClientConstant.POLICY_TIME_LIMIT);
+    stopTimer();
     base.endPolicyDraftingPhase();
   }
   /**
