@@ -93,7 +93,6 @@ public class ClickableMap extends StackPane implements MapImages
       worldMap = false;
       //USMap = new StackPane();
     }
-
     else
     {
 
