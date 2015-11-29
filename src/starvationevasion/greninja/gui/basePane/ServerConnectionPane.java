@@ -26,6 +26,11 @@ public class ServerConnectionPane extends StackPane
   private Button cancelButton;
   private ButtonListener buttonListener;
 
+  private Label responseMessageLabel;
+
+  private static final String INVALID_PORT_MSG = "This is an invalid port, please try again";
+  private static final String UNABLE_CONNECT_MSG = "Could not connect to server, please try again";
+
   public ServerConnectionPane(GuiBase guiBase)
   {
     this.guiBase = guiBase;
@@ -36,7 +41,7 @@ public class ServerConnectionPane extends StackPane
   public void initGui()
   {
     serverBox = new GridPane();
-    Rectangle rect    = new Rectangle(500, 500, Color.GRAY);
+    Rectangle rect    = new Rectangle(500, 300, Color.GRAY);
 
     connectButton = new Button("Connect");
     cancelButton  = new Button("Cancel");
@@ -45,6 +50,8 @@ public class ServerConnectionPane extends StackPane
     TextField portField = new TextField();
     nameField.setMaxWidth(Double.MAX_VALUE);
     portField.setMaxWidth(Double.MAX_VALUE);
+
+    responseMessageLabel = new Label("Temp response message");
 
     connectButton.setOnAction(buttonListener);
     cancelButton.setOnAction(buttonListener);
@@ -60,6 +67,7 @@ public class ServerConnectionPane extends StackPane
     serverBox.add(portField, 1, 2);
     serverBox.add(connectButton, 0, 3);
     serverBox.add(cancelButton, 1, 3);
+    serverBox.add(responseMessageLabel, 0, 4, 2, 1);
     this.getChildren().add(rect);
     this.getChildren().add(serverBox);
   }
@@ -78,6 +86,8 @@ public class ServerConnectionPane extends StackPane
       guiBase.serverConnectionPaneCancelled();
     }
   }
+
+
 
   private class ButtonListener implements EventHandler<ActionEvent>
   {
