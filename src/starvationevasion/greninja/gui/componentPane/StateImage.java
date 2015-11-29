@@ -114,6 +114,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   public void updateDisplayInfo()
   {
     displayInfo = new Label("cards discarded: ");
+    //displayInfo.setStyle();
     if (regionName.equals(EnumRegion.CALIFORNIA))
     {
       styleForDispInfo = new String(CALIFORNIA);

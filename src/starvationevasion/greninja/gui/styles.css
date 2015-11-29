@@ -93,6 +93,7 @@
 
 #california-images:hover
 {
+
   -fx-effect: dropshadow( gaussian ,  #483d8b , 3,1,0,0 );
 }
 #heartland-images:hover

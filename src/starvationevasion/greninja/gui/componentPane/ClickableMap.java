@@ -93,6 +93,7 @@ public class ClickableMap extends StackPane implements MapImages
       worldMap = false;
       //USMap = new StackPane();
     }
+
     else
     {
 
@@ -113,7 +114,7 @@ public class ClickableMap extends StackPane implements MapImages
     getChildren().addAll(california, pacificNorthWestAndMountainStates, southeast,
         southernPlainsAndDeltaStates, heartLand, northernCrescent, northernPlains);
 
-    if (worldMap)
+    if (worldMap && paneType.toLowerCase().equals("policy"))
     {
       for (StateImage state: stateArray)
       {
