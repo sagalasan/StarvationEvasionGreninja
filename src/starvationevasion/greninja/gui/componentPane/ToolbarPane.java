@@ -1,6 +1,7 @@
 package starvationevasion.greninja.gui.componentPane;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -14,7 +15,7 @@ public class ToolbarPane extends GridPane
 {
   private ImageView[][] productIcons = new ImageView[3][4];
   private GuiBase base;
-
+  private Tooltip tooltip = new Tooltip("icons");
   public ToolbarPane(GuiBase base)
   {
     this.base = base;
@@ -24,6 +25,7 @@ public class ToolbarPane extends GridPane
 
     // TODO: use all image icons
     Image img = new Image("file:assets/farmProductIcons/FarmProduct_Fruit_64x64.png");
+
     for (int i = 0; i < 3; i++)
     {
       for (int j = 0; j < 4; j++)
@@ -41,5 +43,7 @@ public class ToolbarPane extends GridPane
         add(productIcons[i][j], j, i+2);
       }
     }
+
+    //getChildren().add(tooltip);
   }
 }
