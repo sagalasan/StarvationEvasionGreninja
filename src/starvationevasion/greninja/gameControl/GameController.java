@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
+import javafx.application.Platform;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
@@ -94,14 +95,16 @@ public class GameController
     {
       //Confirmed connection.  This contains a salt thing for the password?
       System.out.println("Hello received!");
+      Hello hello = (Hello) message;
+      String salt = hello.loginNonce;
+      Platform.runLater(() ->
+      {
+
+      });
     }
     else if(message instanceof LoginResponse)
     {
       handleLoginResponse((LoginResponse)message);
-    }
-    else if(message instanceof Hello)
-    {
-      //Confirmed connection.  This contains a salt thing for the password?
     }
     else if(message instanceof ReadyToBegin)
     {
