@@ -56,15 +56,14 @@ public class ServerWriter extends Thread
 
   private synchronized void sendNextMessage() throws IOException
   {
-    Object o = messageQueue.removeFirst();
-    String name = getClassName(o);
-    if(ServerConnection.checkIfValidClass(name))
+    Object object = messageQueue.removeFirst();
+    if(ServerConnection.checkIfValidClass(object))
     {
-      objectOutputStream.writeObject(o);
+      objectOutputStream.writeObject(object);
     }
     else
     {
-      throw new IllegalArgumentException(name + ": This is not a starvationevasion.common.messages class");
+      throw new IllegalArgumentException(object + ": This is not a starvationevasion.common.messages class");
     }
   }
 
