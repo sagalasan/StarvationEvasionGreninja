@@ -77,10 +77,11 @@ public class GuiBase extends Application implements ControlListener
    * Start a multiplayer game.
    * TODO get server name from entrypane
    */
+  /*
   public void beginMultiPlayer()
   {
     control.startMultiPlayerGame("ServerName");
-  }
+  }*/
 
   public void multiPlayerSelected()
   {
@@ -98,9 +99,9 @@ public class GuiBase extends Application implements ControlListener
   /**
    * Tells control that player has entered login info.
    */
-  public void loginInfoSent(String name, String password)
+  public void loginInfoSent(String name, String password, String salt)
   {
-    control.sendLoginInfo(name, password);//
+    control.sendLoginInfo(name, password, salt);//
   }
 
   public void attemptToConnectServer(String hostname, int port)
@@ -199,22 +200,26 @@ public class GuiBase extends Application implements ControlListener
     control.endPolicyVotingPhase();
   }
 
+
   /**
    * Display login form and collect login info.  When multiplayer game is
    * selected, control calls this method and passes in a size 2 string array.
    * This method collects a username and password from the user and puts it into
    * the array.
    */
+  /*
   public void loginForm()
   {
     //display login info.
     entryPane.showLoginDialog();
   }
+*/
 
+  /*
   public void serverConnectForm()
   {
     entryPane.createServerSelectDialog();
-  }
+  }*/
 
   /**
    * Ten second countdown to game start.  Called when control recieves ready to

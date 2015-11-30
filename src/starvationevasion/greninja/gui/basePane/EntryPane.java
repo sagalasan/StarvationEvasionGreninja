@@ -76,11 +76,12 @@ public class EntryPane extends StackPane
     }
   }
 
-
+/*
   /**
    * Show the login dialog and collect login info.  Send as a login message
    * back to control.
    */
+  /*
   public void showLoginDialog()
   {
     StackPane dialog = new StackPane();
@@ -127,11 +128,13 @@ public class EntryPane extends StackPane
     dialog.getChildren().add(loginBox);
     getChildren().add(dialog);
   }
-
+  */
   /**
    * Creates and shows the server select dialog.
    * TODO get server name and port and send to base.  Needs a reworking.
    */
+
+  /*
   public void createServerSelectDialog()
   {
     StackPane dialog  = new StackPane();
@@ -177,20 +180,7 @@ public class EntryPane extends StackPane
     dialog.getChildren().add(rect);
     dialog.getChildren().add(serverBox);
     getChildren().add(dialog);
-
-    /*Rectangle rect = new Rectangle(500, 500);
-    rect.setFill(Color.GRAY);
-    VBox serverSelectDialog = new VBox();
-    serverSelected = new Button("OK");
-    serverSelected.setOnAction(buttonListener);
-    serverSelectDialog.getChildren().add(new Label("Please enter the server name."));
-    //Form goes in.
-    serverSelectDialog.getChildren().add(serverSelected);
-    serverSelectDialog.setAlignment(Pos.CENTER);
-
-    getChildren().addAll(rect, serverSelectDialog);
-    */
-  }
+  }*/
 
   private class ButtonControl implements EventHandler<ActionEvent>
   {

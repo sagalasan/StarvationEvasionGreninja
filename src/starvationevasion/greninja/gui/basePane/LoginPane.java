@@ -80,6 +80,7 @@ public class LoginPane extends StackPane
     if(source == okButton)
     {
       System.out.println("OK pressed");
+      guiBase.loginInfoSent(userNameField.getText(), passwordField.getText(), salt);
     }
     else if(source == cancelButton)
     {

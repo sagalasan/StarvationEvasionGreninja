@@ -202,6 +202,7 @@ public class GameController
   /**
    * Start multiplayer game and connect to server.
    */
+  /*
   public void startMultiPlayerGame(String serverName)
   {
     player = new HumanPlayer();
@@ -214,7 +215,7 @@ public class GameController
     System.out.println("Try To Connect");
     //TODO login form will be displayed when confirmation message is sent.
     guiView.loginForm();
-  }
+  }*/
 
   public void multiPlayerSelected()
   {
@@ -291,11 +292,12 @@ public class GameController
    * Send login info to the message queue in the form of a Login message.
    * @param name          name entered by user
    * @param password      password entered by user.
+   * @param salt          salt for password.
    */
-  public void sendLoginInfo(String name, String password)
+  public void sendLoginInfo(String name, String password, String salt)
   {
     player.setPlayerName(name);
-    sendMessageOut(new Login(name, "SaltySaltSalt?", password));
+    sendMessageOut(new Login(name, salt, password));
     //TODO will be called upon recieving a login success message from server.
     view.swapToStagingPane();
   }
