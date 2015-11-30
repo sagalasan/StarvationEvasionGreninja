@@ -77,8 +77,8 @@ public class ServerConnectionPane extends StackPane
 
     responseMessageLabel = new Label("");
 
-    connectButton.setOnAction(event -> buttonPressed(event));
-    cancelButton.setOnAction(event -> buttonPressed(event));
+    connectButton.setOnAction(this::buttonPressed);
+    cancelButton.setOnAction(this::buttonPressed);
 
     serverBox.setAlignment(Pos.CENTER);
     serverBox.setHgap(4);
