@@ -14,7 +14,8 @@ import java.util.regex.Pattern;
  * Loads a password file. A password file is a tab-delimited file
  * where rows are delimited by either "\n" OR "\r\n".
  * Each row is of the form USER_NAME\tPASSWORD\tREGION, where no fields contain tab
- * characters, and REGION is a (case-sensitive) value from EnumRegions.
+ * characters, and REGION is a value from EnumRegions.
+ * All fields are case-sensitive.
  * The region may be omitted from ALL records; if this is the case, the server
  * will instead allow each player to choose their own region.
  * An example password file can be found in the 'data/config' directory.
@@ -23,9 +24,9 @@ import java.util.regex.Pattern;
 public class PasswordFile
 {
   private static Pattern assignedCountriesPattern =
-      Pattern.compile("(?<username>[^\t]+)\t+(?<password>[^\t]+)\t+(?<region>\\w+)");
+      Pattern.compile("^(?<username>[^\t]+)\t+(?<password>[^\t]+)\t+(?<region>\\w+)$");
   private static Pattern userChosenCountriesPattern =
-      Pattern.compile("(?<username>[^\t]+)\t+(?<password>[^\t]+)\t+(?<region>\\w+)");
+      Pattern.compile("^(?<username>[^\t]+)\t+(?<password>[^\t]+)\t*$");
 
   /**
    * A Map mapping (case-sensitive) usernames to (case-sensitive) passwords.
@@ -47,6 +48,9 @@ public class PasswordFile
       for (String line : content)
       {
         Matcher m = assignedCountriesPattern.matcher(line);
+        //noinspection ResultOfMethodCallIgnored
+        m.matches(); //necessary for Java to actually look for matches, because
+                     //calling .matcher() doesn't automatically for some reason(!!!!)
         tempCredentialMap.put(m.group("username"), m.group("password"));
         tempRegionMap.put(m.group("username"), EnumRegion.valueOf(m.group("region")));
       }
@@ -58,7 +62,9 @@ public class PasswordFile
       Map<String, String> tempCredentialMap = new HashMap<>();
       for (String line : content)
       {
-        Matcher m = assignedCountriesPattern.matcher(line);
+        Matcher m = userChosenCountriesPattern.matcher(line);
+        //noinspection ResultOfMethodCallIgnored
+        m.matches(); //see above comment
         tempCredentialMap.put(m.group("username"), m.group("password"));
       }
       credentialMap = Collections.unmodifiableMap(tempCredentialMap);
