@@ -5,8 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.common.messages.Login;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
@@ -22,6 +24,7 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -61,9 +64,6 @@ public class GuiBase extends Application implements ControlListener
     testVotingPane.initPane();
 
   }
-  /*
-  ===========================TO CONTROL=========================================
-   */
 
   /**
    * Starts a single player game.
@@ -199,12 +199,6 @@ public class GuiBase extends Application implements ControlListener
     control.endPolicyVotingPhase();
   }
 
-  /*
-  ==============end to control==================================================
-  ******************************************************************************
-  ====================FROM CONTROL==============================================
-   */
-
   /**
    * Display login form and collect login info.  When multiplayer game is
    * selected, control calls this method and passes in a size 2 string array.
@@ -287,8 +281,29 @@ public class GuiBase extends Application implements ControlListener
     viewedRegionInfo = state;
   }
 
+  /**
+   * Send string chat message to control to pass on to server coms.
+   * @param message       String message.
+   * @param destination   destination regions
+   */
+  public void sendChatMessage(String message, EnumRegion[] destination)
+  {
+    ClientChatMessage messageOut = new ClientChatMessage(message, destination);
+    control.sendMessageOut(messageOut);
+  }
+
+  /**
+   * Send card info chat message to control to pass on to server coms.
+   * @param card       card message.
+   * @param destination   destination regions
+   */
+  public void sendChatMessage(EnumPolicy card, EnumRegion[] destination)
+  {
+    ClientChatMessage messageOut = new ClientChatMessage(card, destination);
+    control.sendMessageOut(messageOut);
+  }
   /*
-  ============end from control==================================================
+  ==============================================================
    ****************************************************************************
    * ====================GUI MANAGEMENT========================================
    */
@@ -368,7 +383,7 @@ public class GuiBase extends Application implements ControlListener
   }
 
   /**
-   * Override stop method to keep
+   * Override stop method because extra threads keep running after window is exited.
    */
   @Override
   public void stop()

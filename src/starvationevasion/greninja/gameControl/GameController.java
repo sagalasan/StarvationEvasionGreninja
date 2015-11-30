@@ -1,9 +1,7 @@
 package starvationevasion.greninja.gameControl;
 
 import javafx.application.Platform;
-import starvationevasion.common.EnumFood;
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
+import starvationevasion.common.*;
 import starvationevasion.common.messages.*;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
@@ -34,6 +32,7 @@ public class GameController
   private PlayerInterface player;
   private ArrayList<PolicyCard> cardsForVote;
   private ServerConnection serverLine;
+  private WorldData worldState;
   //WorldModel
   //GameStateTracker
 
@@ -86,6 +85,9 @@ public class GameController
     else if(message instanceof GameState)
     {
       //update game state.
+      GameState gameState = (GameState) message;
+      worldState = gameState.worldData;
+      //set player region info.
     }
     else if(message instanceof Goodbye)
     {
@@ -118,6 +120,7 @@ public class GameController
     else if(message instanceof ServerChatMessage)
     {
       //handle chat stuff.
+      receiveChatMessage((ServerChatMessage) message);
     }
   }
 
@@ -128,6 +131,7 @@ public class GameController
   public void sendMessageOut(Serializable message)
   {
     //send message to message queue;
+    //serverLine.sendMessage(message);
   }
 
   /**
@@ -207,7 +211,6 @@ public class GameController
     System.out.println("Start multiplayer game.");
     //serverLine = new ServerConnection(this);
     //serverLine.startConnection(serverName);
-    //serverLine.sendMessage(name, password);
     System.out.println("Try To Connect");
     //TODO login form will be displayed when confirmation message is sent.
     guiView.loginForm();
@@ -325,29 +328,36 @@ public class GameController
    * When region is clicked on the interactive map, eturn region details for
    * clicked region.
    * @param regionClicked       enum of region clicked.
-   * @return                    nothing yet.
+   * @return                    RegionData object for specified region.
    */
-  public void getRegionDetails(EnumRegion regionClicked)
+  public RegionData getRegionDetails(EnumRegion regionClicked)
   {
     //return region details
-  }
-
-  /**
-   * When chat message is sent from player, inform server that message was sent.
-   * @param messageSent
-   */
-  public void sendChatMessage(String messageSent)
-  {
-    //send message to server.
+    if(worldState != null)
+    {
+      return worldState.regionData[regionClicked.ordinal()];
+    }
+    else
+    {
+      return null;
+    }
   }
 
   /**
    * When message is received from server, send to gui
    * @param messageReceived
    */
-  public void receiveChatMessage(String messageReceived)
+  public void receiveChatMessage(ServerChatMessage messageReceived)
   {
     //send message to gui.
+    if(messageReceived.message == null)
+    {
+      //send card message to gui.
+    }
+    else
+    {
+      //send string message to gui.
+    }
   }
 
   /**
