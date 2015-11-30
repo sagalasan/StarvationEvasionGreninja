@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
  */
 public interface IconImages
 {
+  //Image[] iconImages = new Image[12];
+  int NUMBER_OF_IMAGES = 12;
   Image CITRUS_64 = new Image("file:assets/farmProductIcons/FarmProduct_CITRUS_64x64.png");
   Image CITRUS_256 = new Image("file:assets/farmProductIcons/FarmProduct_CITRUS_256x256.png");
 
