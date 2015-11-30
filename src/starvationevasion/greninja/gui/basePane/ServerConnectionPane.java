@@ -75,7 +75,7 @@ public class ServerConnectionPane extends StackPane
     nameField.setMaxWidth(Double.MAX_VALUE);
     portField.setMaxWidth(Double.MAX_VALUE);
 
-    responseMessageLabel = new Label("Temp response message");
+    responseMessageLabel = new Label("");
 
     connectButton.setOnAction(event -> buttonPressed(event));
     cancelButton.setOnAction(event -> buttonPressed(event));
