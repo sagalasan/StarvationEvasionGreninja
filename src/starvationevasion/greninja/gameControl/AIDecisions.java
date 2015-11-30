@@ -14,7 +14,7 @@ import java.util.List;
 public class AIDecisions
 {
   private AIPlayer player;
-  List<PolicyCard> playerHand;
+//  List<PolicyCard> playerHand;
   private int turnNumber;
   private State localRegion;
   private State worldRegion;
@@ -26,7 +26,7 @@ public class AIDecisions
     this.player = player;
     this.turnNumber = 2;
     //    this.turnNumber = turnNumber;
-    playerHand = player.getPlayerHand();
+//    playerHand = player.getPlayerHand();
 
     //Temporary code. Subject to change.
     localRegion = State.CALIFORNIA;
@@ -44,17 +44,22 @@ public class AIDecisions
 
   /**
    * Looks at each individual card and returns the index of the card that has the most beneficial effect.
-   * @param cards
+   * @param cards   the cards currently in the player's hand
    * @return
    */
   public int analyzeCards(List<PolicyCard> cards)
   {
     int numCards = cards.size();
-    //
-    return 0;
+    int chosenIndex = 0; // Zero by default
+    for (int i = 0; i < numCards; i++)
+    {
+
+    }
+    return chosenIndex;
   }
 
   // Voting and drafting will call analyzeCards?
+  // Alternatively:
   // vote()
   // draft()
 }

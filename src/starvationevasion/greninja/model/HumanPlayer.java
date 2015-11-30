@@ -88,6 +88,17 @@ public class HumanPlayer implements PlayerInterface
   }
 
   @Override
+  public boolean removeCard(int index)
+  {
+    if (cards.size() > 0)
+    {
+      cards.remove(index);
+      return true;
+    }
+    else return false;
+  }
+
+  @Override
   public boolean discardCard(int index)
   {
     if(index < cards.size())

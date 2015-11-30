@@ -16,11 +16,12 @@ import starvationevasion.greninja.model.State;
  */
 public class AIView implements ControlListener
 {
-
   private GameController control;
   private AvailableRegions availableRegions;
   private AIDecisions decisions;
   private PlayerInterface player;
+
+
 
   private boolean DEBUG = true;
 
@@ -67,7 +68,7 @@ public class AIView implements ControlListener
   @Override
   public void swapToStagingPane()
   {
-    //
+    // TODO: get player region?
   }
 
   /**
@@ -78,8 +79,8 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");//
-    decisions.analyzeCards(player.getPlayerHand());
-
+    int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
+    player.draft(draftCardIndex);
   }
 
   /**
@@ -90,7 +91,8 @@ public class AIView implements ControlListener
   public void swapToVotingPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
-    decisions.analyzeCards(player.getPlayerHand());
+    int voteCardIdx = decisions.analyzeCards(player.getPlayerHand());
+    player.vote(voteCardIdx);
   }
 
   /**
