@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.MapHolder;
 
+import java.util.Stack;
+
 /**
  * Created by Jalen on 11/23/2015.
  */
@@ -117,8 +119,18 @@ public class ClickableMap extends StackPane implements MapImages
     {
       for (StateImage state: stateArray)
       {
+        //StackPane allInfo = new StackPane();
+
         state.updateDisplayInfo();
-        getChildren().add(state.getDisplayInfo());
+        getChildren().addAll(state.getDisplayInfo());
+
+        //the 2 will have to be a value gotten from the stateimage
+        for (int i = 0; i < 2; i++)
+        {
+          getChildren().add(state.getDraftStatus()[i]);
+        }
+        //getChildren().add(allInfo);
+        //getChildren().add(state.getDisplayInfo());
       }
     }
 

@@ -1,10 +1,13 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.scene.image.Image;
+
 /**
  * Created by Jalen on 11/29/2015.
  */
 public interface EffectsConstantsForDisplayInfo {
 
+  Image BACK_OF_CARD = new Image("file:assets/CardImages/magikarp.png");
   /**
    * NOTE: CHANGES HERE SHOULD ALSO BE APPLIED TO styles.css
    */
