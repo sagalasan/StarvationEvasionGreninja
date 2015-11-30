@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.clientCommon.EnumPhase;
@@ -18,4 +19,6 @@ public interface ControlListener
   public void swapToStagingPane();
   public void swapToPolicyPane();
   public void swapToVotingPane();
+  public void sendChatMessage(String message, EnumRegion[] destination);
+  public void sendChatMessage(EnumPolicy card, EnumRegion[] destination);
 }

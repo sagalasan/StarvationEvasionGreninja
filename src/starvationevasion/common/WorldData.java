@@ -12,7 +12,8 @@ public class WorldData implements Serializable
   public int year;
   public double seaLevel;
   public ArrayList<WorldEventData> eventList = new ArrayList<>();
-  RegionData[] regionData = new RegionData[EnumRegion.SIZE];
+  //Made public for access.  Justin
+  public RegionData[] regionData = new RegionData[EnumRegion.SIZE];
 
   public WorldData()
   {

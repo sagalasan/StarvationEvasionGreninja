@@ -1,7 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.AIPlayer;
@@ -99,5 +101,27 @@ public class AIView implements ControlListener
   public void updateAvailableRegions(AvailableRegions availableRegions, PlayerInterface playerInterface)
   {
     this.availableRegions = availableRegions;
+  }
+
+  /**
+   * Send string chat message to control to pass on to server coms.
+   * @param message       String message.
+   * @param destination   destination regions
+   */
+  public void sendChatMessage(String message, EnumRegion[] destination)
+  {
+    ClientChatMessage messageOut = new ClientChatMessage(message, destination);
+    control.sendMessageOut(messageOut);
+  }
+
+  /**
+   * Send card info chat message to control to pass on to server coms.
+   * @param card       card message.
+   * @param destination   destination regions
+   */
+  public void sendChatMessage(EnumPolicy card, EnumRegion[] destination)
+  {
+    ClientChatMessage messageOut = new ClientChatMessage(card, destination);
+    control.sendMessageOut(messageOut);
   }
 }
