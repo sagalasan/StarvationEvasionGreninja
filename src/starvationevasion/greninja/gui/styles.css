@@ -98,7 +98,7 @@
 }
 #heartland-images:hover
 {
-  -fx-effect: dropshadow( gaussian , #f0e68c , 3,1,0,0 );
+  -fx-effect: dropshadow( gaussian , #91814b, 3,1,0,0 );
 }
 #mountain-images:hover
 {
@@ -118,9 +118,14 @@
 }
 #southeast-images:hover
 {
-  -fx-effect: dropshadow( gaussian , #ffd700 , 3,1,0,0 );
+  -fx-effect: dropshadow( gaussian , #f0b800 , 3,1,0,0 );
 }
 
+#display-info
+{
+  -fx-font-size:16;
+  -fx-fill: #f0b800;
+}
 #divider
 {
   -fx-background-color: #474747;

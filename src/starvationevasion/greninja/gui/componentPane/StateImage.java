@@ -7,6 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.MapHolder;
 
@@ -22,7 +25,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   private boolean chosen = false;
   private Image stateImage;
   private Image stateWithTextImage;
-  private Label displayInfo;
+  private Text displayInfo;
   private String styleForDispInfo;
   //todo display draft status somehow
   //just try and print on area a label or something
@@ -35,7 +38,8 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   {
     super(image);
     this.regionName = regionName;
-    displayInfo = new Label("cards discarded: ");
+    displayInfo = new Text("cards discarded: ");
+
     displayInfo.setId("display-info");
     //todo
     //get what stage this state is voting on
@@ -43,14 +47,14 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     //if has played policy card, then have a one beside the name
     //if 2 cards picked, then have a two beside the name
     //if 0, then put a 0
-    setFitHeight(400);
+    setFitHeight(350);
     if (worldMap)
     {
-      setFitWidth(600);
+      setFitWidth(500);
     }
     else
     {
-      setFitWidth(1200);
+      setFitWidth(1000);
     }
 
     setId("state-image");
@@ -106,19 +110,20 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
 
 
 
-  public Label getDisplayInfo()
+  public Text getDisplayInfo()
   {
     return displayInfo;
   }
 
   public void updateDisplayInfo()
   {
-    displayInfo = new Label("cards discarded: ");
+    displayInfo = new Text("cards discarded: ");
+    displayInfo.setFill(Color.WHITE);
     //displayInfo.setStyle();
     if (regionName.equals(EnumRegion.CALIFORNIA))
     {
       styleForDispInfo = new String(CALIFORNIA);
-      displayInfo.setId("california-images");
+      //displayInfo.setId("california-images");
       displayInfo.setTranslateX(-getFitWidth()/1.5);
       //displayInfo.setTranslateY(getFitHeight()/5);
 
@@ -126,42 +131,42 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     else if (regionName.equals(EnumRegion.HEARTLAND))
     {
       styleForDispInfo= new String(HEARTLAND);
-      displayInfo.setId("heartland-images");
+      //displayInfo.setId("heartland-images");
       displayInfo.setTranslateY(-getFitHeight()/2);
       displayInfo.setTranslateX(getFitWidth()/3);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_CRESCENT))
     {
       styleForDispInfo= new String(CRESCENT);
-      displayInfo.setId("crescent-images");
+      //displayInfo.setId("crescent-images");
       displayInfo.setTranslateY(-getFitHeight()/3);
       displayInfo.setTranslateX(getFitWidth()/1.6);
     }
     else if (regionName.equals(EnumRegion.SOUTHEAST))
     {
       styleForDispInfo= new String(SOUTHEAST);
-      displayInfo.setId("southeast-images");
+      //displayInfo.setId("southeast-images");
       displayInfo.setTranslateY(getFitHeight()/3);
       displayInfo.setTranslateX(getFitWidth()/1.8);
     }
     else if (regionName.equals(EnumRegion.SOUTHERN_PLAINS))
     {
       styleForDispInfo= new String(DELTAS);
-      displayInfo.setId("deltas-images");
+      //displayInfo.setId("deltas-images");
       displayInfo.setTranslateY(getFitHeight()/1.3);
       //displayInfo.setTranslateX(getFitWidth()/4);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_PLAINS))
     {
       styleForDispInfo= new String(PLAINS);
-      displayInfo.setId("plains-images");
+      //displayInfo.setId("plains-images");
       displayInfo.setTranslateY(-getFitHeight()/2);
       displayInfo.setTranslateX(-getFitWidth()/6);
     }
     else if (regionName.equals(EnumRegion.MOUNTAIN))
     {
       styleForDispInfo= new String(MOUNTAIN);
-      displayInfo.setId("mountain-images");
+      //displayInfo.setId("mountain-images");
       displayInfo.setTranslateY(getFitHeight()/2);
       displayInfo.setTranslateX(-getFitWidth()/2.6);
     }
