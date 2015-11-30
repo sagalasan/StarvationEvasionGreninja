@@ -29,7 +29,6 @@ public class ServerConnectionPane extends StackPane
 
   private Button connectButton;
   private Button cancelButton;
-  private ButtonListener buttonListener;
 
   private TextField nameField;
   private TextField portField;
@@ -60,7 +59,6 @@ public class ServerConnectionPane extends StackPane
   public ServerConnectionPane(GuiBase guiBase)
   {
     this.guiBase = guiBase;
-    buttonListener = new ButtonListener(this);
     initGui();
   }
 
@@ -79,8 +77,8 @@ public class ServerConnectionPane extends StackPane
 
     responseMessageLabel = new Label("Temp response message");
 
-    connectButton.setOnAction(buttonListener);
-    cancelButton.setOnAction(buttonListener);
+    connectButton.setOnAction(event -> buttonPressed(event));
+    cancelButton.setOnAction(event -> buttonPressed(event));
 
     serverBox.setAlignment(Pos.CENTER);
     serverBox.setHgap(4);
@@ -98,7 +96,7 @@ public class ServerConnectionPane extends StackPane
     this.getChildren().add(serverBox);
   }
 
-  public void buttonPressed(ActionEvent event)
+  private void buttonPressed(ActionEvent event)
   {
     Button source = (Button) event.getSource();
     System.out.println("Button pressed");
@@ -232,21 +230,5 @@ public class ServerConnectionPane extends StackPane
     }
 
     private void sendConnection() { reference.sendConnection(); }
-  }
-
-  private class ButtonListener implements EventHandler<ActionEvent>
-  {
-    private ServerConnectionPane serverConnectionPane;
-
-    public ButtonListener(ServerConnectionPane serverConnectionPane)
-    {
-      this.serverConnectionPane = serverConnectionPane;
-    }
-
-    @Override
-    public void handle(ActionEvent event)
-    {
-      serverConnectionPane.buttonPressed(event);
-    }
   }
 }
