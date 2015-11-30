@@ -10,6 +10,7 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.common.messages.Login;
+import starvationevasion.common.messages.LoginResponse;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.ControlListener;
@@ -135,6 +136,11 @@ public class GuiBase extends Application implements ControlListener
     System.out.println("Swapping to LoginPane");
     baseScene.setRoot(loginPane);
     loginPane.setSalt(salt);
+  }
+
+  public void sendLoginFailed(LoginResponse response)
+  {
+    loginPane.loginFailed(response);
   }
 
   public void serverConnectionPaneCancelled()

@@ -71,6 +71,7 @@ public class GameController
     //identify message type.
     if(message instanceof AvailableRegions)
     {
+      System.out.println("AvailableRegions message received");
       view.updateAvailableRegions((AvailableRegions) message, player);
     }
     else if(message instanceof BeginGame)
@@ -107,6 +108,7 @@ public class GameController
     }
     else if(message instanceof LoginResponse)
     {
+      System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
       handleLoginResponse((LoginResponse)message);
     }
     else if(message instanceof ReadyToBegin)
@@ -131,7 +133,7 @@ public class GameController
   public void sendMessageOut(Serializable message)
   {
     //send message to message queue;
-    //serverLine.sendMessage(message);
+    serverLine.sendMessage(message);
   }
 
   /**
@@ -141,10 +143,12 @@ public class GameController
   private void handleLoginResponse(LoginResponse response)
   {
     LoginResponse.ResponseType type = response.responseType;
+    guiView = (GuiBase) view;
     switch(type)
     {
       case ACCESS_DENIED:
-        //bad password.  Inform user, do again.
+        //bad password.  Inform user, do again
+        Platform.runLater(() -> guiView.sendLoginFailed(response));
         break;
       case ASSIGNED_REGION:
         EnumRegion region = response.assignedRegion;
@@ -298,8 +302,6 @@ public class GameController
   {
     player.setPlayerName(name);
     sendMessageOut(new Login(name, salt, password));
-    //TODO will be called upon recieving a login success message from server.
-    view.swapToStagingPane();
   }
 
   /**
