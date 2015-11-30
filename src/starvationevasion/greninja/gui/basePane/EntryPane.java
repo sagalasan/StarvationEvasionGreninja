@@ -26,7 +26,6 @@ public class EntryPane extends StackPane
   private Button multiplayer;
   private Button quit;
   private Button serverSelected;
-  private ButtonControl buttonListener;
   private GuiBase base;
   private VBox basePane;
 
@@ -39,13 +38,14 @@ public class EntryPane extends StackPane
     setAlignment(this, Pos.CENTER);
     basePane = new VBox();
 
-    buttonListener = new ButtonControl(this);
     solo = new Button("Single Player");
-    solo.setOnAction(buttonListener);
     multiplayer = new Button("Multiplayer");
-    multiplayer.setOnAction(buttonListener);
     quit = new Button("Quit");
-    quit.setOnAction(buttonListener);
+
+    solo.setOnAction(this::buttonPressed);
+    multiplayer.setOnAction(this::buttonPressed);
+    quit.setOnAction(this::buttonPressed);
+
     basePane.setSpacing(1.5);
     basePane.getChildren().add(new Label("Entry Pane, choose a game type."));
     basePane.getChildren().add(solo);
@@ -73,22 +73,6 @@ public class EntryPane extends StackPane
     {
       System.out.println("Pressed Quit");
       base.exitGame();
-    }
-  }
-
-  private class ButtonControl implements EventHandler<ActionEvent>
-  {
-    private EntryPane parentPane;
-
-    public ButtonControl(EntryPane parentPane)
-    {
-      this.parentPane = parentPane;
-    }
-
-    @Override
-    public void handle (ActionEvent e)
-    {
-      parentPane.buttonPressed(e);
     }
   }
 }
