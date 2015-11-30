@@ -75,9 +75,12 @@ public class ServerConnection
     }
     catch (IOException ioe)
     {
-      ioe.printStackTrace();
+      //ioe.printStackTrace();
+      System.out.println("Connection failed");
       return false;
     }
+
+    System.out.println("Connection to server established, waiting for Hello");
 
     serverReader = new ServerReader(this, objectInputStream);
     serverWriter = new ServerWriter(this, objectOutputStream);
