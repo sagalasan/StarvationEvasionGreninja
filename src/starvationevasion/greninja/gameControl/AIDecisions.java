@@ -6,7 +6,9 @@ import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -55,23 +57,39 @@ public class AIDecisions
   }
 
   /**
-   * Looks at each individual card and returns the index of the card that has the most beneficial effect.
+   * Chooses a card based on its effects on the game state. A card that benefits the player is more likely to be selected,
+   * but it is not guaranteed.
+   * @param rankedCards
+   * @return the index of the card to be selected.
+   */
+  public int chooseCard(Map rankedCards)
+  {
+    int chosenIndex = 0; // Zero initially
+    // do card selection here
+    // key = rank, value = index
+    return chosenIndex;
+  }
+
+  /**
+   * Looks at each individual card and returns the index of the card that may have the most beneficial effect.
    * @param cards   the cards currently in the player's hand
    * @return
    */
   public int analyzeCards(List<PolicyCard> cards)
   {
+    Map rankedCards = new HashMap(); // <rank, index>  or <rank, card>?
     int numCards = cards.size();
     int chosenIndex = 0; // Zero by default
     for (int i = 0; i < numCards; i++)
     {
-      //
+      // getCurrentInfo();
+      // TODO: see how policy would affect global and local state
+      // rank cards in order of most beneficial to least beneficial? (use HashMap or some other data structure?)
+      // then proportionally select a card? (chance of randomness makes game more fair for human player?)
     }
+
+
     return chosenIndex;
   }
 
-  // Voting and drafting will call analyzeCards?
-  // Alternatively:
-  // vote()
-  // draft()
 }

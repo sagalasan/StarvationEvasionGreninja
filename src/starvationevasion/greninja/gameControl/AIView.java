@@ -20,6 +20,7 @@ public class AIView implements ControlListener
   private AvailableRegions availableRegions;
   private AIDecisions decisions;
   private PlayerInterface player;
+  private State currentState;
 
   private boolean DEBUG = true;
 
@@ -56,6 +57,8 @@ public class AIView implements ControlListener
   @Override
   public void initPlayerRegionInfo(State state, EnumRegion pRegion)
   {
+    this.currentState = state;
+    // this.pRegion = pRegion;
     //Do Stuff
   }
 
