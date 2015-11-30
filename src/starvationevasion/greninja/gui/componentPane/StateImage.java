@@ -188,6 +188,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   {
     chosen = false;
     setImage(stateImage);
+    displayInfo.setStyle(null);
     displayInfo.toFront();
   }
 

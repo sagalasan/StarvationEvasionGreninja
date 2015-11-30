@@ -22,6 +22,7 @@ public class ToolbarPane extends GridPane implements IconImages
 
   private Image[] iconImages = new Image[NUMBER_OF_IMAGES];
 
+  //todo toolbar needs to be context sensitive
   public ToolbarPane(GuiBase base)
   {
     this.base = base;
@@ -32,6 +33,7 @@ public class ToolbarPane extends GridPane implements IconImages
     // TODO: use all image icons
     //Image img = new Image("file:assets/farmProductIcons/FarmProduct_Fruit_64x64.png");
     String[] iconNames = new String[NUMBER_OF_IMAGES];
+
     iconNames[0] = "Citrus";
     iconNames[1] = "Dairy";
     iconNames[2] = "Feed";
@@ -72,6 +74,7 @@ public class ToolbarPane extends GridPane implements IconImages
         icon.setFitHeight(50);
         icon.setSmooth(true);
         iconButton.setGraphic(icon);
+
         iconButton.setTooltip(tooltip);
 
         productIcons[i][j] = iconButton;
