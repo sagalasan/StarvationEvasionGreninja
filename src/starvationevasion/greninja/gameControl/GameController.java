@@ -99,7 +99,8 @@ public class GameController
       String salt = hello.loginNonce;
       Platform.runLater(() ->
       {
-
+        guiView = (GuiBase) view;
+        guiView.swapToLoginPane(salt);
       });
     }
     else if(message instanceof LoginResponse)

@@ -38,6 +38,7 @@ public class GuiBase extends Application implements ControlListener
 
   private EntryPane entryPane = new EntryPane(this);
   private ServerConnectionPane serverConnectionPane = new ServerConnectionPane(this);
+  private LoginPane loginPane = new LoginPane(this);
   private PolicyPane policyPane = new PolicyPane(this);
   private VotingPane votingPane = new VotingPane(this);
   private StagingPane stagingPane;
@@ -126,6 +127,13 @@ public class GuiBase extends Application implements ControlListener
   {
     System.out.println("Swapping to ServerConnectionPane");
     baseScene.setRoot(serverConnectionPane);
+  }
+
+  public void swapToLoginPane(String salt)
+  {
+    System.out.println("Swapping to LoginPane");
+    baseScene.setRoot(loginPane);
+    loginPane.setSalt(salt);
   }
 
   public void serverConnectionPaneCancelled()
