@@ -21,8 +21,6 @@ public class AIView implements ControlListener
   private AIDecisions decisions;
   private PlayerInterface player;
 
-
-
   private boolean DEBUG = true;
 
   public AIView(GameController control, PlayerInterface player)
@@ -68,7 +66,7 @@ public class AIView implements ControlListener
   @Override
   public void swapToStagingPane()
   {
-    // TODO: get player region?
+    decisions.selectRegion(availableRegions.availableRegions);
   }
 
   /**

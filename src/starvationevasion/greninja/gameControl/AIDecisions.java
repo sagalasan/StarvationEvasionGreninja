@@ -2,10 +2,12 @@ package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -42,6 +44,16 @@ public class AIDecisions
     localHDI = localRegion.getHDI(turnNumber);
   }
 
+  public boolean selectRegion(Set<EnumRegion> availableRegions) // Handle race conditions here or somewhere else?
+  {
+    if (!availableRegions.isEmpty())
+    {
+      player.setPlayerRegion(availableRegions.iterator().next());
+      return true;
+    }
+    else return false;
+  }
+
   /**
    * Looks at each individual card and returns the index of the card that has the most beneficial effect.
    * @param cards   the cards currently in the player's hand
@@ -53,7 +65,7 @@ public class AIDecisions
     int chosenIndex = 0; // Zero by default
     for (int i = 0; i < numCards; i++)
     {
-
+      //
     }
     return chosenIndex;
   }
