@@ -142,6 +142,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     VBox statsBox = new VBox(10);
     statsBox.setAlignment(Pos.TOP_CENTER);
     statsBox.getChildren().add(new Label("Regional Statistics"));
+
+    // TODO: make this so it's not using hard-coded region
     statsBox.getChildren().addAll(new RegionalStatistics(State.CALIFORNIA, "Population"),
         new RegionalStatistics(State.CALIFORNIA, "HDI"));
 

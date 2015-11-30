@@ -52,6 +52,13 @@ public interface PlayerInterface
   boolean addCard(PolicyCard card);
 
   /**
+   * Removes the card at the specified index from the player's hand.
+   * @param index   index of card to remove.
+   * @return        true if removeCard succeeded.
+   */
+  boolean removeCard(int index);
+
+  /**
    * Removes a card from the player's hand and puts it in the discard pile.
    * @param index   index of card selected.
    * @return        true if successful, false if no card to discard.
