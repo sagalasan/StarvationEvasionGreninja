@@ -91,35 +91,41 @@
   /*-fx-effect: innershadow( gaussian , rgba(255,255,255,0.5) , 2,1,0,0 );*/
 }
 
-#california-voting-images:hover
+#california-images:hover
 {
+
   -fx-effect: dropshadow( gaussian ,  #483d8b , 3,1,0,0 );
 }
-#heartland-voting-images:hover
+#heartland-images:hover
 {
-  -fx-effect: dropshadow( gaussian , #f0e68c , 3,1,0,0 );
+  -fx-effect: dropshadow( gaussian , #91814b, 3,1,0,0 );
 }
-#mountain-voting-images:hover
+#mountain-images:hover
 {
   -fx-effect: dropshadow( gaussian , #8b4513 , 3,1,0,0 );
 }
-#crescent-voting-images:hover
+#crescent-images:hover
 {
   -fx-effect: dropshadow( gaussian , #32cd32 , 3,1,0,0 );
 }
-#plains-voting-images:hover
+#plains-images:hover
 {
   -fx-effect: dropshadow( gaussian , #00bfff, 3,1,0,0 );
 }
-#deltas-voting-images:hover
+#deltas-images:hover
 {
   -fx-effect: dropshadow( gaussian , #f08080, 3,1,0,0 );
 }
-#southeast-voting-images:hover
+#southeast-images:hover
 {
-  -fx-effect: dropshadow( gaussian , #ffd700 , 3,1,0,0 );
+  -fx-effect: dropshadow( gaussian , #f0b800 , 3,1,0,0 );
 }
 
+#display-info
+{
+  -fx-font-size:16;
+  -fx-fill: #f0b800;
+}
 #divider
 {
   -fx-background-color: #474747;

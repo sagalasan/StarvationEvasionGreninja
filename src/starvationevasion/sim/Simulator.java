@@ -4,7 +4,6 @@ package starvationevasion.sim;
 import starvationevasion.common.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -28,7 +27,13 @@ public class Simulator
    */
   public Simulator(int startYear)
   {
-    LOGGER.setLevel(Level.ALL);
+    // Model instantiation parses all of the XML and CSV.
+    //
+    LOGGER.info("Loading and initializing model");
+    model = new Model(startYear);
+    model.instantiateRegions();
+
+    LOGGER.info("Starting Simulator: year="+startYear);
 
     if ((startYear < Constant.FIRST_YEAR || startYear > Constant.LAST_YEAR) ||
       ((Constant.LAST_YEAR - startYear) % 3 != 0))
@@ -44,11 +49,58 @@ public class Simulator
     {
       playerDeck[playerRegion.ordinal()] = new CardDeck(playerRegion);
     }
-
-    model = new Model(startYear);
-
-    LOGGER.info("Starting Simulation at year " + startYear);
   }
+
+
+
+  /**
+   * The Server should call init() at the start of the game before dealing cards to
+   * players.
+   *
+   * @return data structure populated with all game state data needed by the client
+   * except high resolution data that might be needed by the visualizer.
+   */
+  public WorldData init()
+  {
+    return model.getWorldData();
+  }
+
+
+
+
+  /**
+   * The Server should call nextTurn(cards) when it is ready to advance the simulator
+   * a turn (Constant.YEARS_PER_TURN years).<br><br>
+   * Before calling nextTurn, the Server must:
+   * <ol>
+   * <li>Verify all policy cards drafted by the clients during the draft phase.</li>
+   * <li>Verify that any cards discarded by a player could be discarded.</li>
+   * <li>Call discard on each card discarded by a player.</li>
+   * <li>End the voting phase and decide the results.</li>
+   * <li>Call discard on each card that did not receive enough votes.</li>
+   * <li>Call drawCards for each player and send them their new cards.</li>
+   * </ol>
+   * @param cards List of PolicyCards enacted this turn. Note: cards played but not
+   *              enacted (did not get required votes) must NOT be in this list.
+   *              Such cards must be discarded
+   *              (call discard(EnumRegion playerRegion, PolicyCard card))
+   *              <b>before</b> calling this method.
+   *
+   * @return data structure populated with all game state data needed by the client
+   * except high resolution data that might be needed by the visualizer.
+   */
+  public WorldData nextTurn(ArrayList<PolicyCard> cards)
+  {
+    LOGGER.info("Advancing Turn...");
+    model.nextYear(cards);
+    model.nextYear(cards);
+    model.nextYear(cards);
+    LOGGER.info("Turn complete, year is now " + model.getCurrentYear());
+    return model.getWorldData();
+  }
+
+
+
 
   /**
    * The server must call this for each playerRegion before the first turn
@@ -94,48 +146,8 @@ public class Simulator
     deck.discard(card);
   }
 
-  /**
-   * The Server should call nextTurn(cards) when it is ready to advance the simulator
-   * a turn (Constant.YEARS_PER_TURN years).<br><br>
-   * Before calling nextTurn, the Server must:
-   * <ol>
-   * <li>Verify all policy cards drafted by the clients during the draft phase.</li>
-   * <li>Verify that any cards discarded by a player could be discarded.</li>
-   * <li>Call discard on each card discarded by a player.</li>
-   * <li>End the voting phase and decide the results.</li>
-   * <li>Call discard on each card that did not receive enough votes.</li>
-   * <li>Call drawCards for each player and send them their new cards.</li>
-   * </ol>
-   * @param cards List of PolicyCards enacted this turn. Note: cards played but not
-   *              enacted (did not get required votes) must NOT be in this list.
-   *              Such cards must be discarded
-   *              (call discard(EnumRegion playerRegion, PolicyCard card))
-   *              <b>before</b> calling this method.
-   *
-   * @return the simulation year after nextTurn() has finished.
-   */
-  public int nextTurn(ArrayList<PolicyCard> cards)
-  {
-    LOGGER.info("Advancing Turn...");
-    model.nextYear(cards);
-    model.nextYear(cards);
-    model.nextYear(cards);
-    LOGGER.info("Turn complete, year is now " + model.getCurrentYear());
-    return model.getCurrentYear();
-  }
 
-  /**
-   * @param region Any US or world region.
-   * @param food Any food catagory.
-   * @return Number of square km used for farming of the given food in the given region.
-   */
-  public int getLandUsed(EnumRegion region, EnumFood food)
-  {
-    int landUsed = 0;
-    LOGGER.info("Land used for food " + food + " in region " + region + " = "
-                + landUsed + " km^2");
-    return landUsed;
-  }
+
 
   /**
    * This entry point is for testing only. <br><br>
@@ -144,8 +156,8 @@ public class Simulator
    * to deal each player a hand of cards.
    * @param args ignored.
    */
-  public static void main(String[] args)
-  {
+  public static void main(String[] args) {
+    LOGGER.setLevel(Level.ALL);
     Simulator sim = new Simulator(Constant.FIRST_YEAR);
     String msg = "Starting Hands: \n";
     for (EnumRegion playerRegion : EnumRegion.US_REGIONS)

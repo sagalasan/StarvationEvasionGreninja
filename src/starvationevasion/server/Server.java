@@ -1,18 +1,16 @@
 package starvationevasion.server;
 
-import starvationevasion.common.EnumRegion;
+import starvationevasion.common.*;
 import starvationevasion.common.messages.*;
-import starvationevasion.common.Tuple;
+import starvationevasion.sim.Simulator;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -27,7 +25,11 @@ public class Server
   private final List<ServerWorker> connectedClients = new ArrayList<>();
   private ConcurrentLinkedQueue<Tuple<Serializable, ServerWorker>> messageQueue = new ConcurrentLinkedQueue<>();
   private PasswordFile passwordFile;
-  private Thread gameStartThread;
+  private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+  private ScheduledFuture<?> gameStartFuture;
+  private Simulator simulator;
+  private Map<EnumRegion, List<EnumPolicy>> playerHands = new HashMap<>();
+  private Map<EnumRegion, RegionData> regionData = new HashMap<>();
 
   public Server(String loginFilePath)
   {
@@ -51,21 +53,13 @@ public class Server
 
   private void start()
   {
-    new Thread(this::processMessages);
+    new Thread(this::processMessages).start();
     waitForConnections();
   }
 
   private void waitForConnections()
   {
-    String host = "";
-    try
-    {
-      host = InetAddress.getLocalHost().getHostName();
-    }
-    catch (UnknownHostException e)
-    {
-      e.printStackTrace();
-    }
+    System.out.println("Waiting for clients to connect...");
     while (true)
     {
       //System.out.println("ServerMaster("+host+"): waiting for Connection on port: "+port);
@@ -144,6 +138,32 @@ public class Server
         handleRegionChoice(client, (RegionChoice) message);
         continue;
       }
+      if (message instanceof ClientChatMessage)
+      {
+        handleChatMessage(client, (ClientChatMessage) message);
+        continue;
+      }
+      client.send(Response.INAPPROPRIATE);
+    }
+  }
+
+  private void handleChatMessage(ServerWorker client, ClientChatMessage message)
+  {
+    if (client.getRegion() == null)
+    {
+      client.send(Response.INAPPROPRIATE); //if you haven't been assigned a region, no reason to be able to send messages
+      return;
+    }
+    client.send(Response.OK);
+    Set<EnumRegion> recipientSet = new HashSet<>(Arrays.asList(message.messageRecipients));
+    ServerChatMessage serverChatMessage = ServerChatMessage.constructFromClientMessage(message, client.getRegion());
+    for (ServerWorker connectedClient : connectedClients)
+    {
+      if (connectedClient.getRegion() != null &&
+          recipientSet.contains(connectedClient.getRegion()))
+      {
+        connectedClient.send(serverChatMessage);
+      }
     }
   }
 
@@ -177,24 +197,30 @@ public class Server
   {
     if (getCurrentState() == ServerState.DRAFTING) return; //already started, too late, oh well
     if (getCurrentState() != ServerState.BEGINNING) throw new IllegalStateException();
-    if (gameStartThread.isAlive()) gameStartThread.interrupt();
+    if (!gameStartFuture.cancel(false)) return; //already started, too late
     setServerState(ServerState.LOGIN);
     broadcast(new ReadyToBegin(false, 0, 0));
   }
 
   private void startGame()
   {
-    try
-    {
-      Thread.sleep(ServerConstants.GAME_START_WAIT_TIME);
-    }
-    catch (InterruptedException ignored)
-    {
-      return;
-      //game start cancelled, do nothing
-    }
-    setServerState(ServerState.DRAFTING);
+    setServerState(ServerState.DRAWING);
     broadcast(new BeginGame(getTakenRegions()));
+    simulator = new Simulator(Constant.FIRST_YEAR);
+    for (EnumRegion region : EnumRegion.US_REGIONS)
+    {
+      playerHands.put(region, Arrays.asList(simulator.drawCards(region)));
+    }
+  }
+
+  private void broadcastSimulatorState(WorldData worldData)
+  {
+    for (ServerWorker client : connectedClients)
+    {
+      if (client.getRegion() == null) continue;
+      final List<EnumPolicy> playerHand = playerHands.get(client.getRegion());
+      client.send(new GameState(worldData, playerHand.toArray(new EnumPolicy[playerHand.size()])));
+    }
   }
 
   private void handleLogin(ServerWorker client, Login message)
@@ -212,7 +238,7 @@ public class Server
       return;
     }
     if (connectedClients.stream().map(ServerWorker::getRegion).anyMatch(
-        s -> s.equals(passwordFile.regionMap.get(message.username))))
+        s -> s != null && s.equals(passwordFile.regionMap.get(message.username))))
     {
       client.send(new LoginResponse(LoginResponse.ResponseType.DUPLICATE, null));
       return;
@@ -221,7 +247,10 @@ public class Server
     if (Login.generateHashedPassword(client.getLoginNonce(),
         passwordFile.credentialMap.get(message.username)).equals(message.hashedPassword))
     {
-      client.setRegion(passwordFile.regionMap.get(message.username));
+      if (passwordFile.regionMap != null)
+      {
+        client.setRegion(passwordFile.regionMap.get(message.username));
+      }
       client.setUserName(message.username);
       client.send(new LoginResponse(client.getRegion() != null ?
           LoginResponse.ResponseType.ASSIGNED_REGION : LoginResponse.ResponseType.CHOOSE_REGION, client.getRegion()));
@@ -232,6 +261,10 @@ public class Server
         beginToStartGame();
       }
     }
+    else
+    {
+      client.send(new LoginResponse(LoginResponse.ResponseType.ACCESS_DENIED, null));
+    }
   }
 
   private void beginToStartGame()
@@ -241,8 +274,8 @@ public class Server
     broadcast(new ReadyToBegin(true,
         now.getEpochSecond(), now.plusMillis(ServerConstants.GAME_START_WAIT_TIME).getEpochSecond()));
     setServerState(ServerState.BEGINNING);
-    gameStartThread = new Thread(this::startGame);
-    gameStartThread.start();
+    gameStartFuture = scheduledExecutorService.schedule(
+        this::startGame, ServerConstants.GAME_START_WAIT_TIME, TimeUnit.MILLISECONDS);
   }
 
   private AvailableRegions getAvailableRegions()
@@ -262,6 +295,7 @@ public class Server
   public void disconnectClient(ServerWorker client, String disconnectMessage)
   {
     connectedClients.remove(client);
+    client.closeSocket();
     if (disconnectMessage != null)
     {
       client.send(new Goodbye(disconnectMessage));
