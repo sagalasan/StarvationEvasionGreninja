@@ -132,6 +132,7 @@ public class ServerConnection
     else if(object instanceof Hello) return true;
     else if(object instanceof Login) return true;
     else if(object instanceof LoginResponse) return true;
+    else if(object instanceof PhaseStart) return true;
     else if(object instanceof ReadyToBegin) return true;
     else if(object instanceof RegionChoice) return true;
     else if(object instanceof Response) return true;
