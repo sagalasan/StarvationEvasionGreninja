@@ -124,7 +124,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     {
       styleForDispInfo = new String(CALIFORNIA);
       //displayInfo.setId("california-images");
-      displayInfo.setTranslateX(-getFitWidth()/1.5);
+      displayInfo.setTranslateX(-getFitWidth()/1.7);
       //displayInfo.setTranslateY(getFitHeight()/5);
 
     }
@@ -132,8 +132,8 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     {
       styleForDispInfo= new String(HEARTLAND);
       //displayInfo.setId("heartland-images");
-      displayInfo.setTranslateY(-getFitHeight()/2);
-      displayInfo.setTranslateX(getFitWidth()/3);
+      displayInfo.setTranslateY(-getFitHeight()/1.8);
+      displayInfo.setTranslateX(getFitWidth()/4);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_CRESCENT))
     {
@@ -153,21 +153,21 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     {
       styleForDispInfo= new String(DELTAS);
       //displayInfo.setId("deltas-images");
-      displayInfo.setTranslateY(getFitHeight()/1.3);
+      displayInfo.setTranslateY(getFitHeight()/2.6);
       //displayInfo.setTranslateX(getFitWidth()/4);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_PLAINS))
     {
       styleForDispInfo= new String(PLAINS);
       //displayInfo.setId("plains-images");
-      displayInfo.setTranslateY(-getFitHeight()/2);
+      displayInfo.setTranslateY(-getFitHeight()/1.8);
       displayInfo.setTranslateX(-getFitWidth()/6);
     }
     else if (regionName.equals(EnumRegion.MOUNTAIN))
     {
       styleForDispInfo= new String(MOUNTAIN);
       //displayInfo.setId("mountain-images");
-      displayInfo.setTranslateY(getFitHeight()/2);
+      displayInfo.setTranslateY(getFitHeight()/3.7);
       displayInfo.setTranslateX(-getFitWidth()/2.6);
     }
     //have to also add image of how many cards are being played
