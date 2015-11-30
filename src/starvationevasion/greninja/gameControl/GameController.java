@@ -93,6 +93,7 @@ public class GameController
     else if(message instanceof Hello)
     {
       //Confirmed connection.  This contains a salt thing for the password?
+      System.out.println("Hello received!");
     }
     else if(message instanceof LoginResponse)
     {
