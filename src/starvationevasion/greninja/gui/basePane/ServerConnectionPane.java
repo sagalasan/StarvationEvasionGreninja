@@ -42,6 +42,9 @@ public class ServerConnectionPane extends StackPane
   private int connectionCountTimeout;
   private static final int MAX_ATTEMPT_CONNECT = 4;
   private static final int CONNECTION_INTERVAL = 15000;
+  private static final int REFRESH_INTERVAL = 1000;
+
+  private boolean helloReceived = false;
 
   public ServerConnectionPane(GuiBase guiBase)
   {
