@@ -4,8 +4,10 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.util.StringConverter;
-import starvationevasion.common.EnumRegion;
+import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.model.State;
+
+import java.util.HashMap;
 
 /**
  * This class is used to create line chart.
@@ -14,10 +16,18 @@ import starvationevasion.greninja.model.State;
 public class RegionalStatistics extends LineChart<Number, Number>
 {
   private static final int POINT_NUMBER = 5;
+
+  //TODO: update how data points are displayed. e.g., do we get data of different turns or years?
+  private int currentTurn = 4;
+  private int firstPointTurn = currentTurn - POINT_NUMBER + 1;
+  private  int startYear = 1980;
+
   private State region;
   private String dataType = null;
-  NumberAxis xAxis= null;
-  NumberAxis yAxis = null;
+  private NumberAxis xAxis= null;
+  private NumberAxis yAxis = null;
+  private HashMap<String, XYChart.Series<Number, Number>> data = null;
+
   public RegionalStatistics(State region, String dataType)
   { super(new NumberAxis(), new NumberAxis());
     xAxis = (NumberAxis)getXAxis();
@@ -25,6 +35,27 @@ public class RegionalStatistics extends LineChart<Number, Number>
     this.region = region;
     this.dataType = dataType;
     initializeChart();
+  }
+
+  public RegionalStatistics(State region)
+  {
+    super(new NumberAxis(), new NumberAxis());
+    xAxis = (NumberAxis)getXAxis();
+    yAxis = (NumberAxis)getYAxis();
+    this.region = region;
+    initializeFarmProductsChart();
+    addDataToChart(EnumFood.CITRUS);
+  }
+
+
+  protected void addDataToChart(EnumFood food)
+  {
+    getData().add(data.get(food.toString()));
+  }
+
+  protected void removeDataFromChart(EnumFood food)
+  {
+    getData().remove(data.get(food.toString()));
   }
 
   private void initializeAxis()
@@ -47,8 +78,8 @@ public class RegionalStatistics extends LineChart<Number, Number>
         return Integer.parseInt(string);
       }
     });
-    yAxis.setAnimated(true);
-    xAxis.setAnimated(true);
+    yAxis.setAnimated(false);
+    xAxis.setAnimated(false);
   }
 
   private void initializeChart()
@@ -60,46 +91,48 @@ public class RegionalStatistics extends LineChart<Number, Number>
     setLegendVisible(false);
   }
 
-//  public LineChart<Number, Number> getChart(String dataType)
-//  {
-//    XYChart.Series<Number, Number> series = getSeries(dataType);
-//    chart.getData().add(series);
-//
-//    chart.setLegendVisible(false);
-//    if(dataType == "HDI")
-//    {
-//      addSeries("SS");
-//      chart.getData().remove(series);
-//    }
-//    return chart;
-//  }
-//
-//  void addSeries(String dataCategory)
-//  {
-//    chart.getData().add(getSeries("Population"));
-//  }
+  private void initializeFarmProductsChart()
+  {
+    initializeAxis();
+    data = new HashMap<>();
+    region.initializeDataForTest();
+    setTitle("Farm Products");
+    setLegendVisible(false);
+    for(EnumFood food : EnumFood.values())
+    {
+      data.put(food.toString(),getSeries(food));
+    }
+  }
+
+
+
+  private XYChart.Series<Number, Number> getSeries(EnumFood food)
+  {
+    XYChart.Series<Number, Number> series = new XYChart.Series<>();
+    for(int i = firstPointTurn; i < currentTurn; i++)
+    {
+      series.getData().add(new XYChart.Data<>(startYear + 3 * i, region.getFoodIncome(food, i)));
+    }
+    return series;
+  }
 
   private XYChart.Series<Number, Number> getSeries(String dataCategory)
   {
-    //For test
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
-    int currentTurn = 4;
-    int firstPointTurn = currentTurn - POINT_NUMBER + 1;
-    int startYear = 1980;
-    //for test
+
     switch(dataCategory)
     {
       case "Population":
 
         for(int i = firstPointTurn; i <= currentTurn; i++ )
         {
-          series.getData().add(new XYChart.Data<Number, Number>(startYear + 3 * i, region.getPopulation(i)));
+          series.getData().add(new XYChart.Data<>(startYear + 3 * i, region.getPopulation(i)));
         }
         break;
       case "HDI":
         for(int i = firstPointTurn; i <= currentTurn; i++ )
         {
-          series.getData().add(new XYChart.Data<Number, Number>(startYear + 3 * i, region.getHDI(i)));
+          series.getData().add(new XYChart.Data<>(startYear + 3 * i, region.getHDI(i)));
         }
     }
     return series;

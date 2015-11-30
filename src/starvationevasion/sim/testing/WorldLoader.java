@@ -1,19 +1,17 @@
-package starvationevasion.testing;
+package starvationevasion.sim.testing;
 
-import spring2015code.common.EnumGrowMethod;
 import spring2015code.model.geography.Territory;
 import spring2015code.model.geography.Region;
 import spring2015code.model.geography.World;
-import starvationevasion.common.EnumFood;
 import starvationevasion.io.CountryCSVLoader;
 import spring2015code.io.CropZoneDataIO;
 import starvationevasion.io.XMLparsers.GeographyXMLparser;
 import starvationevasion.io.XMLparsers.KMLParser;
-import starvationevasion.geography.GeographicArea;
-import starvationevasion.geography.LandTile;
-import starvationevasion.geography.TileManager;
-import starvationevasion.util.EquirectangularConverter;
-import starvationevasion.util.MapConverter;
+import starvationevasion.sim.geography.GeographicArea;
+import starvationevasion.sim.geography.LandTile;
+import starvationevasion.sim.geography.TileManager;
+import starvationevasion.sim.util.EquirectangularConverter;
+import starvationevasion.sim.util.MapConverter;
 
 import java.util.Calendar;
 import java.util.Collection;

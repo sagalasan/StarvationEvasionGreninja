@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import starvationevasion.common.messages.LoginResponse;
 import starvationevasion.greninja.gui.GuiBase;
 
 /**
@@ -29,6 +30,7 @@ public class LoginPane extends StackPane
   private TextField userNameField;
   private PasswordField passwordField;
   private String salt;
+  private Label responseMessage;
 
   public LoginPane(GuiBase guiBase)
   {
@@ -45,6 +47,7 @@ public class LoginPane extends StackPane
 
     userNameField = new TextField();
     passwordField = new PasswordField();
+    responseMessage = new Label("");
     userNameField.setMaxWidth(Double.MAX_VALUE);
     passwordField.setMaxWidth(Double.MAX_VALUE);
 
@@ -62,6 +65,7 @@ public class LoginPane extends StackPane
     loginBox.add(passwordField, 1, 2);
     loginBox.add(okButton, 0, 3);
     loginBox.add(cancelButton, 1, 3);
+    loginBox.add(responseMessage, 0, 4, 2, 1);
     this.getChildren().add(rect);
     this.getChildren().add(loginBox);
   }
@@ -72,6 +76,15 @@ public class LoginPane extends StackPane
     System.out.println("Salt set: " + salt);
   }
 
+  /**
+   * TODO implement actual response handling
+   * @param response
+   */
+  public void loginFailed(LoginResponse response)
+  {
+    responseMessage.setText("Login failed, try again");
+  }
+
   private void buttonPressed(ActionEvent event)
   {
     Button source = (Button) event.getSource();
@@ -80,6 +93,7 @@ public class LoginPane extends StackPane
     if(source == okButton)
     {
       System.out.println("OK pressed");
+      guiBase.loginInfoSent(userNameField.getText(), passwordField.getText(), salt);
     }
     else if(source == cancelButton)
     {

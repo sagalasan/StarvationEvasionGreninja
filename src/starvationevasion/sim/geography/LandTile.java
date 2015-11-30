@@ -1,8 +1,8 @@
-package starvationevasion.geography;
+package starvationevasion.sim.geography;
 
 import starvationevasion.common.EnumFood;
 import starvationevasion.sim.CropClimateData;
-import starvationevasion.geography.CropZoneData.EnumCropZone;
+import starvationevasion.sim.geography.CropZoneData.EnumCropZone;
 
 import java.nio.ByteBuffer;
 

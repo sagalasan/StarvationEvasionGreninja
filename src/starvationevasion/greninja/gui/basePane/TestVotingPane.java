@@ -121,7 +121,8 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     VBox statsBox = new VBox(10);
     statsBox.setAlignment(Pos.TOP_CENTER);
     statsBox.getChildren().add(new Label("Regional Statistics"));
-    statsBox.getChildren().addAll(new RegionalStatistics(State.CALIFORNIA, "Population"),new RegionalStatistics(State.CALIFORNIA, "HDI"));
+    statsBox.getChildren().addAll(new RegionalStatistics(State.CALIFORNIA, "Population"),new RegionalStatistics(State.CALIFORNIA, "HDI"),
+      new FarmProductChartPane(State.CALIFORNIA));
 
     rightPane.setCenter(statsBox);
     mainPane.setRight(rightPane);

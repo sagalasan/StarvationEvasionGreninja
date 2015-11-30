@@ -71,6 +71,7 @@ public class GameController
     //identify message type.
     if(message instanceof AvailableRegions)
     {
+      System.out.println("AvailableRegions message received");
       view.updateAvailableRegions((AvailableRegions) message, player);
     }
     else if(message instanceof BeginGame)
@@ -107,6 +108,7 @@ public class GameController
     }
     else if(message instanceof LoginResponse)
     {
+      System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
       handleLoginResponse((LoginResponse)message);
     }
     else if(message instanceof ReadyToBegin)
@@ -131,7 +133,7 @@ public class GameController
   public void sendMessageOut(Serializable message)
   {
     //send message to message queue;
-    //serverLine.sendMessage(message);
+    serverLine.sendMessage(message);
   }
 
   /**
@@ -141,10 +143,12 @@ public class GameController
   private void handleLoginResponse(LoginResponse response)
   {
     LoginResponse.ResponseType type = response.responseType;
+    guiView = (GuiBase) view;
     switch(type)
     {
       case ACCESS_DENIED:
-        //bad password.  Inform user, do again.
+        //bad password.  Inform user, do again
+        Platform.runLater(() -> guiView.sendLoginFailed(response));
         break;
       case ASSIGNED_REGION:
         EnumRegion region = response.assignedRegion;
@@ -202,6 +206,7 @@ public class GameController
   /**
    * Start multiplayer game and connect to server.
    */
+  /*
   public void startMultiPlayerGame(String serverName)
   {
     player = new HumanPlayer();
@@ -214,7 +219,7 @@ public class GameController
     System.out.println("Try To Connect");
     //TODO login form will be displayed when confirmation message is sent.
     guiView.loginForm();
-  }
+  }*/
 
   public void multiPlayerSelected()
   {
@@ -291,13 +296,12 @@ public class GameController
    * Send login info to the message queue in the form of a Login message.
    * @param name          name entered by user
    * @param password      password entered by user.
+   * @param salt          salt for password.
    */
-  public void sendLoginInfo(String name, String password)
+  public void sendLoginInfo(String name, String password, String salt)
   {
     player.setPlayerName(name);
-    sendMessageOut(new Login(name, "SaltySaltSalt?", password));
-    //TODO will be called upon recieving a login success message from server.
-    view.swapToStagingPane();
+    sendMessageOut(new Login(name, salt, password));
   }
 
   /**

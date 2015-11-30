@@ -71,7 +71,8 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     rightPane = new VBox();
     rightPane.getChildren().add(new Label("Regional Statistics"));
     rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA, "Population"));
-    rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA, "HDI"));
+    //rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA, "HDI"));
+    rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA));
     mainBorderPane.setRight(rightPane);
 
     //===============================================================

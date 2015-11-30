@@ -1,7 +1,7 @@
-package starvationevasion.util;
+package starvationevasion.sim.util;
 
-import starvationevasion.geography.MapPoint;
-import starvationevasion.geography.GeographicArea;
+import starvationevasion.sim.geography.MapPoint;
+import starvationevasion.sim.geography.GeographicArea;
 
 import java.awt.*;
 import java.awt.geom.Dimension2D;
@@ -12,8 +12,7 @@ import java.util.List;
 
 /**
  @author david
- created: 2015-01-26
- <p/>
+ created: 2015-01-26<br>
  description:  MapConverter implementation for Equirectangular map
  projections with a constant scaling factor */
 public class EquirectangularConverter extends MapConverter
