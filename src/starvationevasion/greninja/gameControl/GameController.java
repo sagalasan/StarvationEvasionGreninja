@@ -78,9 +78,41 @@ public class GameController
       BeginGame msg = (BeginGame) message;
       beginGame(msg);
     }
+    else if(message instanceof ClientChatMessage)
+    {
+      //message recieved.
+    }
+    else if(message instanceof GameState)
+    {
+      //update game state.
+    }
+    else if(message instanceof Goodbye)
+    {
+      //Logoff?
+    }
+    else if(message instanceof Hello)
+    {
+      //Confirmed connection.  This contains a salt thing for the password?
+    }
     else if(message instanceof LoginResponse)
     {
       handleLoginResponse((LoginResponse)message);
+    }
+    else if(message instanceof Hello)
+    {
+      //Confirmed connection.  This contains a salt thing for the password?
+    }
+    else if(message instanceof ReadyToBegin)
+    {
+      //start countdown screen here?
+    }
+    else if(message instanceof Response)
+    {
+      //handle confirmation or error.
+    }
+    else if(message instanceof ServerChatMessage)
+    {
+      //handle chat stuff.
     }
   }
 
