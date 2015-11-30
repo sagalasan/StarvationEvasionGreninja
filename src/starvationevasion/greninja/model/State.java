@@ -62,7 +62,12 @@ public enum State
     {
       population[i] = 10 + i * random.nextGaussian();
       HDI[i] = 0.8 + random.nextGaussian() * i / 10;
+      for( EnumFood food :EnumFood.values())
+      {
+        setFoodIncome(food,0.8 + random.nextGaussian() * i / 10, i );
+      }
     }
+
   }
 
 

@@ -145,7 +145,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
     // TODO: make this so it's not using hard-coded region
     statsBox.getChildren().addAll(new RegionalStatistics(State.CALIFORNIA, "Population"),
-        new RegionalStatistics(State.CALIFORNIA, "HDI"));
+        new RegionalStatistics(State.CALIFORNIA, "HDI"), new FarmProductChartPane(State.CALIFORNIA));
 
     rightPane.setCenter(statsBox);
     mainPane.setRight(rightPane);
