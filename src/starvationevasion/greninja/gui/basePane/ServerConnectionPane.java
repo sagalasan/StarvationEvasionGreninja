@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.greninja.gui.GuiBase;
 
+import java.util.Timer;
+
 /**
  * Created by Christiaan Martinez on 11/28/15.
  */
@@ -26,10 +28,20 @@ public class ServerConnectionPane extends StackPane
   private Button cancelButton;
   private ButtonListener buttonListener;
 
+  private TextField nameField;
+  private TextField portField;
+
   private Label responseMessageLabel;
 
   private static final String INVALID_PORT_MSG = "This is an invalid port, please try again";
   private static final String UNABLE_CONNECT_MSG = "Could not connect to server, please try again";
+  private static final String ATTEMPT_CONNECT_MSG = "Attempting to connect to server...";
+
+  // Variables used to retry connections up to 4 times every 15 seconds
+  private Timer connectToServerTimer;
+  private int connectionCountTimeout;
+  private static final int MAX_ATTEMPT_CONNECT = 4;
+  private static final int CONNECTION_INTERVAL = 15000;
 
   public ServerConnectionPane(GuiBase guiBase)
   {
@@ -46,8 +58,8 @@ public class ServerConnectionPane extends StackPane
     connectButton = new Button("Connect");
     cancelButton  = new Button("Cancel");
 
-    TextField nameField = new TextField();
-    TextField portField = new TextField();
+    nameField = new TextField();
+    portField = new TextField();
     nameField.setMaxWidth(Double.MAX_VALUE);
     portField.setMaxWidth(Double.MAX_VALUE);
 
@@ -78,7 +90,24 @@ public class ServerConnectionPane extends StackPane
     System.out.println("Button pressed");
     if(source == connectButton)
     {
+      String hostName = nameField.getText();
+      String portString = portField.getText();
+      int portInt = getPortInt(portString);
 
+      System.out.println("Attempting to connect:");
+      System.out.println("\tHostname: " + hostName);
+      System.out.println("\tPort: " + portInt);
+
+      if(portInt == -1)
+      {
+        responseMessageLabel.setText(INVALID_PORT_MSG);
+        responseMessageLabel.setTextFill(Color.RED);
+      }
+      else
+      {
+        responseMessageLabel.setText(ATTEMPT_CONNECT_MSG);
+        responseMessageLabel.setTextFill(Color.WHITE);
+      }
     }
     else if(source == cancelButton)
     {
@@ -87,7 +116,22 @@ public class ServerConnectionPane extends StackPane
     }
   }
 
+  public int getPortInt(String portString)
+  {
+    int port;
+    try
+    {
+      port = Integer.parseInt(portString);
+    }
+    catch (NumberFormatException nfe)
+    {
+      port = -1;
+      System.out.println("Invalid port");
+      //nfe.printStackTrace();
+    }
 
+    return port;
+  }
 
   private class ButtonListener implements EventHandler<ActionEvent>
   {
