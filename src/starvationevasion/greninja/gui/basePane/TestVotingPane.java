@@ -13,10 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
+import starvationevasion.greninja.model.State;
 
 /**
  * Created by Jalen on 11/27/2015.
@@ -121,9 +121,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     VBox statsBox = new VBox(10);
     statsBox.setAlignment(Pos.TOP_CENTER);
     statsBox.getChildren().add(new Label("Regional Statistics"));
-    ChartCreator chartCreator = new ChartCreator();
-    statsBox.getChildren().addAll(chartCreator.getChart("Population"),
-        chartCreator.getChart("HDI"));
+    statsBox.getChildren().addAll(new RegionalStatistics(State.CALIFORNIA, "Population"),new RegionalStatistics(State.CALIFORNIA, "HDI"));
 
     rightPane.setCenter(statsBox);
     mainPane.setRight(rightPane);

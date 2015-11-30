@@ -252,7 +252,8 @@ public class GameController
   {
     //create initial hand
     ArrayList<PolicyCard> initialHand = new ArrayList<>();
-    playerRegionInfo = new State(playerRegion);
+    //Temporary code. Subject to change.
+    playerRegionInfo = State.CALIFORNIA;
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     //fillHand();
     //start policy drafting phase.

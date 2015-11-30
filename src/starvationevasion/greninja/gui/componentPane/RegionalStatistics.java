@@ -11,20 +11,24 @@ import starvationevasion.greninja.model.State;
  * This class is used to create line chart.
  * @author Zhu Li
  */
-public class ChartCreator
+public class RegionalStatistics extends LineChart<Number, Number>
 {
   private static final int POINT_NUMBER = 5;
-  private State region = new State(EnumRegion.CALIFORNIA);
-
-  public ChartCreator()
-  {
-    region.initializeDataForTest();
+  private State region;
+  private String dataType = null;
+  NumberAxis xAxis= null;
+  NumberAxis yAxis = null;
+  public RegionalStatistics(State region, String dataType)
+  { super(new NumberAxis(), new NumberAxis());
+    xAxis = (NumberAxis)getXAxis();
+    yAxis = (NumberAxis)getYAxis();
+    this.region = region;
+    this.dataType = dataType;
+    initializeChart();
   }
 
-  public LineChart<Number, Number> getChart(String dataType)
+  private void initializeAxis()
   {
-    NumberAxis xAxis = new NumberAxis();
-    NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Year");
     yAxis.setLabel("Value");
     xAxis.setForceZeroInRange(false);
@@ -43,13 +47,37 @@ public class ChartCreator
         return Integer.parseInt(string);
       }
     });
-    LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
-    chart.setTitle(dataType);
-    chart.getData().add(getSeries(dataType));
-    yAxis.setAnimated(false);
-    chart.setLegendVisible(false);
-    return chart;
+    yAxis.setAnimated(true);
+    xAxis.setAnimated(true);
   }
+
+  private void initializeChart()
+  {
+    initializeAxis();
+    region.initializeDataForTest();
+    setTitle(dataType);
+    getData().add(getSeries(dataType));
+    setLegendVisible(false);
+  }
+
+//  public LineChart<Number, Number> getChart(String dataType)
+//  {
+//    XYChart.Series<Number, Number> series = getSeries(dataType);
+//    chart.getData().add(series);
+//
+//    chart.setLegendVisible(false);
+//    if(dataType == "HDI")
+//    {
+//      addSeries("SS");
+//      chart.getData().remove(series);
+//    }
+//    return chart;
+//  }
+//
+//  void addSeries(String dataCategory)
+//  {
+//    chart.getData().add(getSeries("Population"));
+//  }
 
   private XYChart.Series<Number, Number> getSeries(String dataCategory)
   {

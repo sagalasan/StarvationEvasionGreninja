@@ -28,8 +28,9 @@ public class AIDecisions
     //    this.turnNumber = turnNumber;
     playerHand = player.getPlayerHand();
 
-    localRegion = new State(EnumRegion.HEARTLAND);
-    worldRegion = new State(EnumRegion.CENTRAL_ASIA);
+    //Temporary code. Subject to change.
+    localRegion = State.CALIFORNIA;
+    worldRegion = State.HEARTLAND;
 
     getCurrentInfo();
   }

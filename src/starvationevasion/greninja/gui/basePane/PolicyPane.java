@@ -5,21 +5,17 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import spring2015code.model.geography.Region;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
-
-import java.io.File;
-import java.io.IOException;
+import starvationevasion.greninja.model.State;
 
 /**
  * Base pane for Policy Drafting Phase.
@@ -74,9 +70,8 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     //todo make a right pane and populate with graphs.  Try and implement the regional stats info
     rightPane = new VBox();
     rightPane.getChildren().add(new Label("Regional Statistics"));
-    ChartCreator chartCreator = new ChartCreator();
-    rightPane.getChildren().add(chartCreator.getChart("Population"));
-    rightPane.getChildren().add(chartCreator.getChart("HDI"));
+    rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA, "Population"));
+    rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA, "HDI"));
     mainBorderPane.setRight(rightPane);
 
     //===============================================================
@@ -114,8 +109,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     bottomPane.getChildren().addAll(withdrawAndDiscardPile, playerHandGui);
     playerAndToolbarVBox.getChildren().addAll(bottomPane, new Label("ToolBar"), toolbar);
     mainBorderPane.setBottom(playerAndToolbarVBox);
-
-
 
     getChildren().add(mainBorderPane);
   }

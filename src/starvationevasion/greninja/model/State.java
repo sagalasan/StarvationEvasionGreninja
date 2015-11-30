@@ -11,15 +11,17 @@ import java.util.Random;
  *
  * A data class that includes most data required for a state.
  */
-public class State
+public enum State
 {
+  CALIFORNIA, HEARTLAND, NORTHERN_PLAINS, SOUTHEAST, NORTHERN_CRESCENT,
+  SOUTHERN_PLAINS, MOUNTAIN;
 
   public static final int FOOD_NUMBER = 12;
 
   private static final int TOTAL_TURN_NUMBER = 5;
   private int turnNumber = 0;
   private int startTurn;//TODO: This will be the index of data in the starting year.
-  private EnumRegion region;
+  //private EnumRegion region;
 
   private double[] population = new double[TOTAL_TURN_NUMBER];
   private double[] averageAge = new double[TOTAL_TURN_NUMBER];
@@ -41,10 +43,10 @@ public class State
   private double[][] foodExport = new double[TOTAL_TURN_NUMBER][FOOD_NUMBER];
 
   private double[] HDI = new double[TOTAL_TURN_NUMBER];
-  public State(EnumRegion region)
-  {
-    this.region = region;
-  }
+//  public State(EnumRegion region)
+//  {
+//    this.region = region;
+//  }
 
 
   public void update()
