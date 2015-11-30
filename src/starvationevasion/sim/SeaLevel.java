@@ -1,6 +1,7 @@
 package starvationevasion.sim;
 
 import starvationevasion.common.Constant;
+import starvationevasion.common.Util;
 
 import java.util.Random;
 
@@ -42,32 +43,28 @@ public class SeaLevel
    */
   public int lastYearOfHistoricalData = annualMeanSeaLevel.length - 1 + Constant.FIRST_YEAR;
 
-  /** fields a, b and c are used to store
+  /**
+   * fields a, b and c are used to store
    * the coefficients of the quadratic equation y = ax<sup>2</sup> + bx + c
    * which for x=year, gives y=Mean Annual Sea Level in cm above the ZERO_YEAR level.
    */
   private final double a, b, c, y0, y1, y2;
   private final int year0, year1, year2, x1, x2;
 
-  private final Random random;
 
-  /** TODO: implement
-   *
-   */
+
   public SeaLevel()
   {
-    random = new Random();
-
-    year0 = 1980;
+    year0 = Constant.FIRST_YEAR;
     year1 = 2014;
-    year2 = 2050;
+    year2 = Constant.LAST_YEAR;
 
     x1 = year1 - year0;
     x2 = year2 - year0;
 
-    y0 = random.nextGaussian() * 1.5;
-    y1 = 29 + random.nextGaussian() * 3.5;
-    y2 = 65 + random.nextGaussian() * 5;
+    y0 = Util.rand.nextGaussian() * 1.5;
+    y1 = 29 + Util.rand.nextGaussian() * 3.5;
+    y2 = 65 + Util.rand.nextGaussian() * 5;
 
     c = y0;
     a = getA();
@@ -76,7 +73,6 @@ public class SeaLevel
 
 
   /**
-   * TODO: implement
    * @param year any year between Constant.FIRST_YEAR and Constant.LAST_PREDICTED_YEAR.
    * @return mean sea level in cm above/below (+/-) the mean sea level at ZERO_YEAR.
    */
@@ -117,9 +113,13 @@ public class SeaLevel
     System.out.println("a = " + a + ", b = " + b + ", c = " + c);
   }
 
-//  public static void main(String[] args)
-//  {
-//    SeaLevel seaLevel = new SeaLevel();
-//    //seaLevel.print();
-//  }
+  public static void main(String[] args)
+  {
+
+    SeaLevel seaLevel = new SeaLevel();
+     for (int i=Constant.FIRST_YEAR; i<=Constant.LAST_YEAR; i=i+5)
+     {
+       System.out.println("Sea Level in " + i + " = " + seaLevel.getSeaLevel(i));
+     }
+  }
 }

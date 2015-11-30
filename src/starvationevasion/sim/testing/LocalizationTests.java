@@ -1,4 +1,4 @@
-package starvationevasion.testing;
+package starvationevasion.sim.testing;
 
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;

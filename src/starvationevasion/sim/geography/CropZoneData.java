@@ -1,4 +1,4 @@
-package starvationevasion.geography;
+package starvationevasion.sim.geography;
 
 
 

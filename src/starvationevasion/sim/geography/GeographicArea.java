@@ -1,10 +1,10 @@
-package starvationevasion.geography;
+package starvationevasion.sim.geography;
 
 
 import spring2015code.common.AbstractAgriculturalUnit;
 import spring2015code.model.geography.Territory;
-import starvationevasion.util.EquirectangularConverter;
-import starvationevasion.util.MapConverter;
+import starvationevasion.sim.util.EquirectangularConverter;
+import starvationevasion.sim.util.MapConverter;
 
 import java.awt.*;
 import java.util.List;
