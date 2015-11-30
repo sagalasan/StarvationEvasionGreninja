@@ -1,5 +1,6 @@
 package starvationevasion.greninja.serverCom;
 
+import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.gameControl.GameController;
 import starvationevasion.greninja.serverCom.threads.ServerReader;
@@ -118,15 +119,20 @@ public class ServerConnection
     gameController.handleMessageIn((Serializable) o);
   }
 
-  public static boolean checkIfValidClass(String name)
+  public static boolean checkIfValidClass(Object object)
   {
-    if(name.equals(AvailableRegions.class.getSimpleName())) return true;
-    else if(name.equals(BeginGame.class.getSimpleName())) return true;
-    else if(name.equals(Hello.class.getSimpleName())) return true;
-    else if(name.equals(Login.class.getSimpleName())) return true;
-    else if(name.equals(LoginResponse.class.getSimpleName())) return true;
-    else if(name.equals(RegionChoice.class.getSimpleName())) return true;
-    else if(name.equals(Response.class.getSimpleName())) return true;
+    if(object instanceof AvailableRegions) return true;
+    else if(object instanceof BeginGame) return true;
+    else if(object instanceof ClientChatMessage) return true;
+    else if(object instanceof GameState) return true;
+    else if(object instanceof Goodbye) return true;
+    else if(object instanceof Hello) return true;
+    else if(object instanceof Login) return true;
+    else if(object instanceof LoginResponse) return true;
+    else if(object instanceof ReadyToBegin) return true;
+    else if(object instanceof RegionChoice) return true;
+    else if(object instanceof Response) return true;
+    else if(object instanceof ServerChatMessage) return true;
     else return false;
   }
 
