@@ -6,10 +6,7 @@ import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -23,6 +20,23 @@ public class AIDecisions
   private State localRegion;
   private State worldRegion;
   private double regionPop, worldPop, localHDI, worldHDI;
+  private double[] probabilities;
+  private HashMap<Integer, Integer> rankedCards = new HashMap<Integer, Integer>();
+  private Random rand = new Random();
+
+  private boolean DEBUG = true;
+
+  // Test constructor. To be removed possibly.
+  public AIDecisions()
+  {
+    // Higher rank = higher chance of selection
+    rankedCards.put(10, 3);
+    rankedCards.put(20, 1);
+    rankedCards.put(30, 2);
+    rankedCards.put(40, 5);
+    rankedCards.put(50, 4);
+    chooseCard(rankedCards);
+  }
 
   public AIDecisions(AIPlayer player, int turnNumber)
   {
@@ -39,7 +53,43 @@ public class AIDecisions
     getCurrentInfo();
   }
 
-  public void getCurrentInfo()
+  private void initializeProbabilities()
+  {
+//    probabilities = new double[player.getPlayerHand().size()];
+    probabilities = new double[rankedCards.size()];
+
+    int i = 0;
+    double s = 0;
+    for (int probability : rankedCards.keySet())
+    {
+      probabilities[i] = probability;
+      s += probabilities[i];
+      i++;
+    }
+//    for (int i = 0; i < probabilities.length; i++)
+//    {
+////      probabilities[i] = rankedCards.
+//      s += probabilities[i];
+//    }
+
+    if (s == 0)
+    {
+      s = 1 / probabilities.length;
+      for (i = 0; i < probabilities.length; i++)
+      {
+        probabilities[i] = s;
+      }
+    }
+    else
+    {
+      for (i = 0; i < probabilities.length; i++)
+      {
+        probabilities[i] /= s;
+      }
+    }
+  }
+
+  private void getCurrentInfo()
   {
     regionPop = localRegion.getPopulation(turnNumber);
     worldPop = worldRegion.getPopulation(turnNumber);
@@ -62,12 +112,27 @@ public class AIDecisions
    * @param rankedCards
    * @return the index of the card to be selected.
    */
-  public int chooseCard(Map rankedCards)
+  public int chooseCard(HashMap<Integer, Integer> rankedCards)
   {
-    int chosenIndex = 0; // Zero initially
-    // do card selection here
     // key = rank, value = index
-    return chosenIndex;
+    // Bigger rank number = higher probability
+    if (probabilities == null) initializeProbabilities();
+
+    int selectedIndex = 0; // Initialize to zero
+
+    // Select card based on probability
+    double q = rand.nextDouble(); // Uniformly distributed random number
+    for (int i = 0; i < probabilities.length; i++)
+    {
+      if ((q -= probabilities[i]) < 0)
+      {
+        selectedIndex = i;
+        if (DEBUG) System.out.println("Selected index in HashMap: " + selectedIndex);
+        return selectedIndex;
+      }
+    }
+    if (DEBUG) System.out.println("Selected index: -1");
+    return -1;
   }
 
   /**
@@ -77,19 +142,22 @@ public class AIDecisions
    */
   public int analyzeCards(List<PolicyCard> cards)
   {
-    Map rankedCards = new HashMap(); // <rank, index>  or <rank, card>?
+    HashMap<Integer, Integer> rankedCards = new HashMap(); // <rank, index>  or <rank, card>?
     int numCards = cards.size();
     int chosenIndex = 0; // Zero by default
     for (int i = 0; i < numCards; i++)
     {
-      // getCurrentInfo();
-      // TODO: see how policy would affect global and local state
-      // rank cards in order of most beneficial to least beneficial? (use HashMap or some other data structure?)
-      // then proportionally select a card? (chance of randomness makes game more fair for human player?)
+      // rank cards
     }
 
-
+    chosenIndex = chooseCard(rankedCards);
     return chosenIndex;
+  }
+
+  // TODO: Remove this main later (for testing only)
+  public static void main(String[] args)
+  {
+    new AIDecisions();
   }
 
 }
