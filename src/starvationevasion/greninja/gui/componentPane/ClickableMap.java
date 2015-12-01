@@ -1,14 +1,10 @@
 package starvationevasion.greninja.gui.componentPane;
 
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.gui.ComponentImageView.MapImages;
+import starvationevasion.greninja.gui.ComponentImageView.StateImage;
 import starvationevasion.greninja.gui.MapHolder;
-
-import java.util.Stack;
 
 /**
  * Created by Jalen on 11/23/2015.

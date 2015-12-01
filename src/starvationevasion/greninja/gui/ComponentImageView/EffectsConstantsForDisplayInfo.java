@@ -1,4 +1,4 @@
-package starvationevasion.greninja.gui.componentPane;
+package starvationevasion.greninja.gui.ComponentImageView;
 
 import javafx.scene.image.Image;
 

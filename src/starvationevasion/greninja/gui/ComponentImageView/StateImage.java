@@ -1,20 +1,13 @@
-package starvationevasion.greninja.gui.componentPane;
+package starvationevasion.greninja.gui.ComponentImageView;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import org.omg.CORBA.TypeCodePackage.BadKind;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.greninja.gui.MapHolder;
-
-import java.util.Map;
+import starvationevasion.greninja.gui.componentPane.ClickableMap;
 
 /**
  * Created by Jalen on 11/23/2015.

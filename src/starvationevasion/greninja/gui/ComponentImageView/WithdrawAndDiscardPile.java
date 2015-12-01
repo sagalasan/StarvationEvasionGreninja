@@ -1,15 +1,10 @@
-package starvationevasion.greninja.gui.componentPane;
+package starvationevasion.greninja.gui.ComponentImageView;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import starvationevasion.greninja.gui.basePane.CardImage;
-import starvationevasion.greninja.gui.basePane.PolicyPane;
-
-import java.util.List;
 
 /**
  * Created by Jalen on 11/22/2015.

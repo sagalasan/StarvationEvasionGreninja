@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import starvationevasion.greninja.gui.basePane.CardImage;
+import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 
 public class TestWithdrawAndDiscardPile extends HBox
 {

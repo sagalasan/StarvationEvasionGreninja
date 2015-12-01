@@ -2,13 +2,10 @@ package starvationevasion.greninja.gui.componentPane;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 //import starvationevasion.common.EnumPolicy;
 import starvationevasion.greninja.gui.GuiBase;
-import starvationevasion.greninja.gui.basePane.CardImage;
-
-import java.util.List;
+import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 
 /**
  * Created by Jalen on 11/21/2015.

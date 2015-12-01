@@ -2,7 +2,7 @@ package starvationevasion.greninja.gui.componentPane;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import starvationevasion.greninja.gui.basePane.CardImage;
+import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 
 /**
  * Created by Jalen on 11/22/2015.

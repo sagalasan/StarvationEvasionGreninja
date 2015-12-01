@@ -3,13 +3,11 @@ package starvationevasion.greninja.gui.componentPane;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import starvationevasion.greninja.gui.ComponentImageView.IconImages;
 import starvationevasion.greninja.gui.GuiBase;
-
-import javax.swing.*;
 
 
 /**
