@@ -147,42 +147,21 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     draftedCards.setSpacing(20);
     draftedCards.setAlignment(Pos.CENTER);
 
-    //todo build a voting pane for each region
-    //each card, depending on its policy, will give a different layout
-    //on click, it is highlighted
-    //if clicked again it stops
-    //on right click it declines
-    //on left click it accepts?
 
-    //
     VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true);
 
     for (int i = 0; i < 7; i++)
     {
 
-      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true));
-      //draftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
+      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), false));
 
     }
     //draftedCards.setId("voting-image");
-    /**
-    for (int i = 0; i < 7; i++)
-    {
-      otherDraftedCards.getChildren().add(new ImageView(new Image("file:assets/CardImages/magikarp.png")));
-    }
-    otherDraftedCards.setId("voting-image");
-
-     **/
     //draftedCardsAndRegions.getChildren().addAll(map, draftedCards);
 
     center.setTop(map);
     //VBox bothRowsOfCards = new VBox();
     //bothRowsOfCards.setSpacing(5);
-
-    //will get cards for each player.  Will assign regions to those cards
-    //will set each corresponding card with its state image id.
-    //each card will have an id that on hover will highlight
-    //bothRowsOfCards.getChildren().addAll(draftedCards, otherDraftedCards);
 
     center.setCenter(draftedCards);
     //mainPane.setCenter(draftedCardsAndRegions);

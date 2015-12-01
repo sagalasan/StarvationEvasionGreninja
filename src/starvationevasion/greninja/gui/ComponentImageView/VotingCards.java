@@ -45,12 +45,14 @@ public class VotingCards extends VBox
   {
     //card will have a background dependent if voting card
     card = new ImageView(image);
-    if (isVotingCard) {
+    setAlignment(Pos.CENTER);
+    if (isVotingCard)
+    {
       //create background
       //each vote needs to be gotten from the controller
       votes = new Text(upArrow + yesVotes + "  " + sidewaysArrow + neutralVotes + "  " + downArrow + noVotes);
       votes.setFill(Color.WHITE);
-      setAlignment(Pos.CENTER);
+
       getChildren().addAll(card, votes);
       card.setStyle(GREY);
 
@@ -90,10 +92,14 @@ public class VotingCards extends VBox
 
         }
       });
-      setId("card-image");
-      //todo set what happens when card is pressed
-
       }
+      else
+      {
+        getChildren().add(card);
+     }
+
+      setId("card-image");
+
     }
   private void upVote()
   {
