@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -39,9 +40,11 @@ public class TestWithdrawAndDiscardPile extends HBox
     CardImage discardPile = new CardImage(image);
     discardBox.getChildren().addAll(discardLabel, discardPile);
 
-    StackPane dis = new StackPane();
-    Scene discard = new Scene(dis, 200, 300);
+    DiscardDisplay dis = new DiscardDisplay(new ImageView(image));
+    Scene discard = new Scene(dis, 300, 300);
     Stage newStage = new Stage();
+    //newStage.setMaxHeight(300);
+    //newStage.setMaxWidth(300);
 
     //todo get discarded pile from controller
 
