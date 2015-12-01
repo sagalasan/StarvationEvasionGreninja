@@ -206,27 +206,6 @@ public class GuiBase extends Application implements ControlListener
     control.endPolicyVotingPhase();
   }
 
-
-  /**
-   * Display login form and collect login info.  When multiplayer game is
-   * selected, control calls this method and passes in a size 2 string array.
-   * This method collects a username and password from the user and puts it into
-   * the array.
-   */
-  /*
-  public void loginForm()
-  {
-    //display login info.
-    entryPane.showLoginDialog();
-  }
-*/
-
-  /*
-  public void serverConnectForm()
-  {
-    entryPane.createServerSelectDialog();
-  }*/
-
   /**
    * Ten second countdown to game start.  Called when control recieves ready to
    * begin message.

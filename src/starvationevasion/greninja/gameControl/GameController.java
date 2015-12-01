@@ -111,6 +111,10 @@ public class GameController
       System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
       handleLoginResponse((LoginResponse)message);
     }
+    else if(message instanceof PhaseStart)
+    {
+      handlePhaseStartMessage((PhaseStart) message);
+    }
     else if(message instanceof ReadyToBegin)
     {
       //start countdown screen here?
@@ -167,8 +171,47 @@ public class GameController
       default:
         break;
     }
-
   }
+
+  /**
+   * Decide what phase is starting based on PhaseStart message and take appropriate
+   * action.
+   * @param msg       PhaseStart message received from serveer.
+   */
+  public void handlePhaseStartMessage(PhaseStart msg)
+  {
+    switch(msg.currentGameState)
+    {
+      case LOGIN:
+        //swap to login screen
+        break;
+      case BEGINNING:
+        //countdown to start
+        break;
+      case DRAWING:
+        //draw cards
+        break;
+      case DRAFTING:
+        startPolicyDraftingPhase();
+        break;
+      case VOTING:
+        startPolicyVotingPhase();
+        break;
+      case WIN:
+        System.out.println("A winner is you!");
+        break;
+      case LOSE:
+        System.out.println("All your base are belong to us.");
+        break;
+      case END:
+        //game over? disconnect?
+        break;
+      default:
+        System.out.println("Unknown state message.");
+        break;
+    }
+  }
+
 
   /*
   ============================Startup===========================================
@@ -202,24 +245,6 @@ public class GameController
 
     view = new AIView(this, player);
   }
-
-  /**
-   * Start multiplayer game and connect to server.
-   */
-  /*
-  public void startMultiPlayerGame(String serverName)
-  {
-    player = new HumanPlayer();
-    guiView = (GuiBase)view;//set reference to view as a GUI
-    //validate and attempt to connect to server.
-    //if invalid go back.
-    System.out.println("Start multiplayer game.");
-    //serverLine = new ServerConnection(this);
-    //serverLine.startConnection(serverName);
-    System.out.println("Try To Connect");
-    //TODO login form will be displayed when confirmation message is sent.
-    guiView.loginForm();
-  }*/
 
   public void multiPlayerSelected()
   {
@@ -411,6 +436,7 @@ public class GameController
 
   /**
    * Performs end drafting phase actions, and swaps to policy voting phase.
+   * //TODO this can be cut out once we switch over to server run games.
    */
   public void endPolicyDraftingPhase()
   {
@@ -528,6 +554,7 @@ public class GameController
 
   /**
    * end voting phase.
+   * //TODO this can be cut out when we switch to server run games.
    */
   public void endPolicyVotingPhase()
   {
