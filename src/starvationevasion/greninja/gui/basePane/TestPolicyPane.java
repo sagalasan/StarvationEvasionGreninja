@@ -33,6 +33,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   private double regionPopulation = 1;
   private double worldPopulation = 2;
 
+
+  private VBox statsBox;
   public TestPolicyPane(GuiBase base)
   {
     super(base);
@@ -139,13 +141,9 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     rightPane.setId("rightLayout");
     rightPane.setPrefWidth(300);
 
-    VBox statsBox = new VBox(10);
+    statsBox = new VBox(10);
     statsBox.setAlignment(Pos.TOP_CENTER);
-    statsBox.getChildren().add(new Label("Regional Statistics"));
-
-    // TODO: make this so it's not using hard-coded region
-    statsBox.getChildren().addAll(new RegionalStatistics(State.CALIFORNIA, "Population"),
-        new RegionalStatistics(State.CALIFORNIA, "HDI"), new FarmProductChartPane(State.CALIFORNIA));
+    createRightPane(EnumRegion.CALIFORNIA);
 
     rightPane.setCenter(statsBox);
     mainPane.setRight(rightPane);
@@ -260,6 +258,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   public void regionClicked(EnumRegion region)
   {
     System.out.println("selected Region is "+region.toString());
+    statsBox.getChildren().clear();
+    createRightPane(region);
   }
 //////////// Unused interface methods ////////////
   /**
@@ -280,5 +280,37 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   public void regionExited(EnumRegion region)
   {
     // selectedRegion = "None.";
+  }
+
+  private void createRightPane(EnumRegion region)
+  {
+    State state = null;
+    switch(region)
+    {
+      case CALIFORNIA:
+        state = State.CALIFORNIA;
+        break;
+      case HEARTLAND:
+        state = State.HEARTLAND;
+        break;
+      case NORTHERN_PLAINS:
+        state = State.NORTHERN_PLAINS;
+        break;
+      case SOUTHEAST:
+        state = State.SOUTHEAST;
+        break;
+      case NORTHERN_CRESCENT:
+        state = State.NORTHERN_CRESCENT;
+        break;
+      case SOUTHERN_PLAINS:
+        state = State.SOUTHERN_PLAINS;
+        break;
+      case MOUNTAIN:
+        state = State.SOUTHEAST;
+    }
+    statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
+    statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
+    statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
+    statsBox.getChildren().add(new FarmProductChartPane(state));
   }
 }
