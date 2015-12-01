@@ -354,6 +354,15 @@ public class GameController
   }
 
   /**
+   * Get the current worldState WorldData object.
+   * @return        WorldData currently held by server.
+   */
+  public WorldData getWorldData()
+  {
+    return worldState;
+  }
+
+  /**
    * When region is clicked on the interactive map, eturn region details for
    * clicked region.
    * @param regionClicked       enum of region clicked.
