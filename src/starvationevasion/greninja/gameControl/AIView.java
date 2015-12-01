@@ -2,6 +2,7 @@ package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.greninja.clientCommon.EnumPhase;
@@ -9,6 +10,9 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles AI coms with game controller.  This is parallel to GuiBase, it is kind
@@ -92,7 +96,13 @@ public class AIView implements ControlListener
   public void swapToVotingPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
-    int voteCardIdx = decisions.analyzeCards(player.getPlayerHand());
+    List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
+    for (PolicyCard card : player.getPlayerHand())
+    {
+      if (card.votesRequired() > 0) voteCards.add(card);
+    }
+//    int voteCardIdx = decisions.analyzeCards(player.getPlayerHand());
+    int voteCardIdx = decisions.analyzeCards(voteCards);
     player.vote(voteCardIdx);
   }
 
