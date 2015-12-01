@@ -39,7 +39,7 @@ public class AIDecisions
     rankedCards.put(30, 2);
     rankedCards.put(40, 5);
     rankedCards.put(50, 4);
-    draftCard(rankedCards);
+    chooseCard(rankedCards);
   }
 
   public AIDecisions(AIPlayer player, int turnNumber)
@@ -122,7 +122,7 @@ public class AIDecisions
 
   public int voteCard(LinkedHashMap<Integer, Integer> rankedCards, PolicyCard suggestedCard)
   {
-    // TODO: Works similar to draftCard but adds weight to suggestedCard?
+    // TODO: Works similar to chooseCard but adds weight to suggestedCard?
     return 0;
   }
 
@@ -132,9 +132,9 @@ public class AIDecisions
    * @param rankedCards
    * @return the index of the card to be selected.
    */
-  public int draftCard(LinkedHashMap<Integer, Integer> rankedCards)
+  public int chooseCard(LinkedHashMap<Integer, Integer> rankedCards)
   {
-    if (DEBUG) System.out.println("AIDecisions: draftCard()");
+    if (DEBUG) System.out.println("AIDecisions: chooseCard()");
 
     if (DEBUG) for (int probability : rankedCards.keySet())
     {
@@ -157,6 +157,7 @@ public class AIDecisions
     double q = rand.nextDouble(); // Uniformly distributed random number
     for (int i = 0; i < probabilities.length; i++)
     {
+      if (DEBUG) System.out.println("q - probabilities[" + i + "] = " + (q - probabilities[i]));
       if ((q -= probabilities[i]) < 0)
       {
         selectedIndex = i;
@@ -181,10 +182,10 @@ public class AIDecisions
     int chosenIndex = 0; // Zero by default
     for (int i = 0; i < numCards; i++)
     {
-      // Sort cards from best to worst
+      // TODO: Sort cards from best to worst??
     }
 
-    chosenIndex = draftCard(rankedCards);
+    chosenIndex = chooseCard(rankedCards);
     return chosenIndex;
   }
 
