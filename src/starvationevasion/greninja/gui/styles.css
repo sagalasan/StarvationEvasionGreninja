@@ -34,6 +34,11 @@
   -fx-background-color: #5b5b5b;
 }
 
+#iconButton
+{
+  -fx-padding: 2;
+}
+
 #title
 {
   -fx-font-size: 16pt;

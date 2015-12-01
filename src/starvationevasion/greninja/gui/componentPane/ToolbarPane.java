@@ -3,6 +3,7 @@ package starvationevasion.greninja.gui.componentPane;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -66,6 +67,7 @@ public class ToolbarPane extends GridPane implements IconImages
       for (int j = 0; j < 4; j++)
       {
         Button iconButton = new Button();
+        iconButton.setId("iconButton");
         Tooltip tooltip = new Tooltip(iconNames[i*4+j]);
 
         ImageView icon = new ImageView(iconImages[i*4+j]);
