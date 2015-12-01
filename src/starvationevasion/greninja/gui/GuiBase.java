@@ -63,7 +63,8 @@ public class GuiBase extends Application implements ControlListener
     // TODO: get rid of this test later
     testPolicyPane.initPane();
     testVotingPane.initPane();
-
+    stagingPane = new StagingPane(this);
+    stagingPane.initPane();
   }
 
   /**
@@ -188,8 +189,7 @@ public class GuiBase extends Application implements ControlListener
   public void swapToStagingPane()
   {
     System.out.println("Entered Staging Pane");
-    stagingPane = new StagingPane(this);
-    stagingPane.initPane();
+
     //initializePanes();
     baseScene.setRoot(stagingPane);
     paneToRefresh = stagingPane;
