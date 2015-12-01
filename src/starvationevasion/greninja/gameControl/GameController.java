@@ -447,6 +447,8 @@ public class GameController
     }
   }
 
+
+  //need a way to get all discarded cards
   /**
    * When player discards a card on the gui, call this.
    * @param cardIndex           index of card player selected.
@@ -541,6 +543,7 @@ public class GameController
       //add to cardsForVote
     //inform gui of cards by region.
   }
+
 
 
   /*

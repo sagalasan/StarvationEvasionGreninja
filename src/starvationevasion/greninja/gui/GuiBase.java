@@ -43,8 +43,8 @@ public class GuiBase extends Application implements ControlListener
   private EntryPane entryPane = new EntryPane(this);
   private ServerConnectionPane serverConnectionPane = new ServerConnectionPane(this);
   private LoginPane loginPane = new LoginPane(this);
-  private PolicyPane policyPane = new PolicyPane(this);
-  private VotingPane votingPane = new VotingPane(this);
+  //private PolicyPane policyPane = new PolicyPane(this);
+  //private VotingPane votingPane = new VotingPane(this);
   private StagingPane stagingPane;
 
   private GuiTimerSubscriber paneToRefresh;
@@ -57,8 +57,8 @@ public class GuiBase extends Application implements ControlListener
 
   public void initializePanes()
   {
-    votingPane.initPane();
-    policyPane.initPane();
+    //votingPane.initPane();
+    //policyPane.initPane();
 
     // TODO: get rid of this test later
     testPolicyPane.initPane();

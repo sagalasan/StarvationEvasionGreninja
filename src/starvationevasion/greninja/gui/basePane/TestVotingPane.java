@@ -153,7 +153,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     for (int i = 0; i < 7; i++)
     {
 
-      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), false));
+      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true));
 
     }
     //draftedCards.setId("voting-image");
