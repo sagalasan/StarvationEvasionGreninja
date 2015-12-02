@@ -455,6 +455,8 @@ public class GameController
    */
   public void startPolicyDraftingPhase()
   {
+    //TODO Temporary.  Remove
+    fillHand();
     //get HDI's, Populations, Money from server.
     view.swapToPolicyPane();
     draftingPhase = new DraftingPhase(this, player);
@@ -491,6 +493,8 @@ public class GameController
         //inform server that card was played;
         //cardsForVote.add(new PolicyCard(playerRegion, cardDrafted));
       }
+      //TODO Temporary, remove
+      tempDeck.discard(cardDrafted.getCardType());
     }
     else
     {
@@ -507,6 +511,8 @@ public class GameController
    */
   public void discardOne(int cardIndex)
   {
+    tempDeck.discard(player.getCard(cardIndex).getCardType());
+    /*TODO will use again when server is set up for drafting
     if(draftingPhase.discardOne(cardIndex))
     {
       //inform server of discard
@@ -517,7 +523,7 @@ public class GameController
     {
       //send failure message to gui.
       System.out.println("Discard failed.");
-    }
+    }*/
   }
 
   /**
@@ -528,8 +534,14 @@ public class GameController
     //check if 3 cards in hand.
     //prompt user to select 3 cards to discard
     int[] cardsSelected = new int[3];
+    for(int i = 0; i < 3; ++i)
+    {
+      tempDeck.discard(player.getCard(cardsSelected[i]).getCardType());
+      player.discardCard(cardsSelected[i]);
+    }
     //gui.selectThree(cardsSelected)
 
+    /*TODO will use again when server is set up for drafting phase
     if(draftingPhase.discardThree(cardsSelected))
     {
       //inform server of discards
@@ -540,7 +552,7 @@ public class GameController
     {
       //send failure message to gui
       System.out.println("Discard failed.");
-    }
+    }*/
   }
 
   /*
