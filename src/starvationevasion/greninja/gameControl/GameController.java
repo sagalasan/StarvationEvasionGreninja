@@ -90,6 +90,7 @@ public class GameController
       //update game state.
       GameState gameState = (GameState) message;
       worldState = gameState.worldData;
+      State.updateAllData(worldState);
       //set player region info.
     }
     else if(message instanceof Goodbye)

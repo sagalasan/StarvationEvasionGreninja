@@ -121,7 +121,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     rightPane.setId("rightLayout");
     rightPane.setPrefWidth(300);
 
-     statsBox = new VBox(10);
+    statsBox = new VBox(10);
     statsBox.setAlignment(Pos.TOP_CENTER);
     createRightPane(EnumRegion.CALIFORNIA);
 
