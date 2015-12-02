@@ -116,11 +116,13 @@ public class GameController
     }
     else if(message instanceof PhaseStart)
     {
+      System.out.println("PhaseStartMessage");
       handlePhaseStartMessage((PhaseStart) message);
     }
     else if(message instanceof ReadyToBegin)
     {
       //start countdown screen here?
+      System.out.println("Ready to begin message.");
     }
     else if(message instanceof Response)
     {
@@ -161,6 +163,7 @@ public class GameController
         EnumRegion region = response.assignedRegion;
         playerRegion = region;
         player.setPlayerRegion(region);
+        System.out.println("Assigned Region " + region);
         //assign this region.
         //skip staging pane?
         break;
