@@ -10,6 +10,7 @@ import starvationevasion.greninja.model.HumanPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 import starvationevasion.greninja.serverCom.ServerConnection;
+import starvationevasion.sim.CardDeck;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class GameController
   private WorldData worldState;
   //WorldModel
   //GameStateTracker
+  private CardDeck tempDeck; //TODO Remove when server handles this.
 
   /**
    * Constructor for ai game.
@@ -284,11 +286,10 @@ public class GameController
   private void beginGame()
   {
     //create initial hand
-    ArrayList<PolicyCard> initialHand = new ArrayList<>();
     //Temporary code. Subject to change.
     playerRegionInfo = State.CALIFORNIA;
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
-    //fillHand();
+    tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
     startPolicyDraftingPhase();
   }
@@ -336,6 +337,22 @@ public class GameController
   public PlayerInterface getPlayer()
   {
     return player;
+  }
+
+  //=====================Temporary deck management.
+  //TODO Remove when done
+
+  /**
+   * Fill player hand up to 7 cards.
+   */
+  private void fillHand()
+  {
+    EnumPolicy[] newCards = tempDeck.drawCards();
+    ArrayList<PolicyCard> newHand = new ArrayList<>();
+    for(EnumPolicy card : newCards)
+    {
+      player.getPlayerHand().add(PolicyCard.create(playerRegion, card));
+    }
   }
  /*
   ============================end startup=======================================
