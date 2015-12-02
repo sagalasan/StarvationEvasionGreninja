@@ -149,6 +149,8 @@ public class PolicyPane extends GamePhasePane implements MapHolder
   public void regionClicked(EnumRegion region)
   {
     System.out.println("selected Region is "+region.toString());
+    rightPane.getChildren().removeAll();
+    createRightPane(region);
   }
 
   /**
@@ -171,4 +173,35 @@ public class PolicyPane extends GamePhasePane implements MapHolder
    // selectedRegion = "None.";
   }
 
+  private void createRightPane(EnumRegion region)
+  {
+    State state = null;
+    switch(region)
+    {
+      case CALIFORNIA:
+        state = State.CALIFORNIA;
+        break;
+      case HEARTLAND:
+        state = State.HEARTLAND;
+        break;
+      case NORTHERN_PLAINS:
+        state = State.NORTHERN_PLAINS;
+        break;
+      case SOUTHEAST:
+        state = State.SOUTHEAST;
+        break;
+      case NORTHERN_CRESCENT:
+        state = State.NORTHERN_CRESCENT;
+        break;
+      case SOUTHERN_PLAINS:
+        state = State.SOUTHERN_PLAINS;
+        break;
+      case MOUNTAIN:
+        state = State.SOUTHEAST;
+    }
+    rightPane.getChildren().add(new Label("Regional Statistics"));
+    rightPane.getChildren().add(new RegionalStatistics(state, "Population"));
+    //rightPane.getChildren().add(new RegionalStatistics(State.CALIFORNIA, "HDI"));
+    rightPane.getChildren().add(new RegionalStatistics(state));
+  }
 }

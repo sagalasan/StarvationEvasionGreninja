@@ -47,8 +47,7 @@ public class RegionalStatistics extends LineChart<Number, Number>
     addDataToChart(EnumFood.CITRUS);
   }
 
-
-  protected void addDataToChart(EnumFood food)
+  protected  void addDataToChart(EnumFood food)
   {
     getData().add(data.get(food.toString()));
   }
@@ -89,6 +88,7 @@ public class RegionalStatistics extends LineChart<Number, Number>
     setTitle(dataType);
     getData().add(getSeries(dataType));
     setLegendVisible(false);
+    setAnimated(false);
   }
 
   private void initializeFarmProductsChart()
