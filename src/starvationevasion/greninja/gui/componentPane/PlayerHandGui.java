@@ -28,7 +28,7 @@ public class PlayerHandGui extends HBox
     //HBox cardHand = new HBox();
     int j = 0;
     Image image = new Image("file:assets/CardImages/magikarp.png");
-    setSpacing(20);
+    setSpacing(25);
 
     //List<EnumPolicy> playerHand = base.getPlayerHand();
     //for (EnumPolicy enumPolicy : playerHand)
