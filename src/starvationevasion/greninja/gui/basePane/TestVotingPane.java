@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -282,9 +284,39 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
       case MOUNTAIN:
         state = State.SOUTHEAST;
     }
-    statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
-    statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
-    statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
-    statsBox.getChildren().add(new FarmProductChartPane(state));
+
+    if(state == null) throw new NullPointerException("Variable state should not be null!!");
+    //creates a tabpane and tabs that display the graphs
+    TabPane stats = new TabPane();
+    Tab farmProduct = new Tab("Production Charts");
+    Tab population = new Tab("Population");
+    Tab HDI = new Tab("HDI");
+
+    farmProduct.setClosable(false);
+    population.setClosable(false);
+    HDI.setClosable(false);
+
+    // Label regionStatsLabel = new Label(state.toString() + " Statistics");
+
+    VBox pop = new VBox();
+    pop.getChildren().addAll(new RegionalStatistics(state, "Population"));
+
+    VBox hdiVbox = new VBox();
+    hdiVbox.getChildren().addAll(new RegionalStatistics(state, "HDI"));
+
+    VBox farmPro = new VBox();
+    farmPro.getChildren().addAll(new FarmProductChartPane(state));
+
+    farmProduct.setContent(farmPro);
+    population.setContent(pop);
+    HDI.setContent(hdiVbox);
+
+    stats.getTabs().addAll(population, farmProduct,HDI);
+
+    statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
+//    statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
+//    statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
+//    statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
+//    statsBox.getChildren().add(new FarmProductChartPane(state));
   }
 }

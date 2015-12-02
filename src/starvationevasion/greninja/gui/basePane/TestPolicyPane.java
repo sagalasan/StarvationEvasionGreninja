@@ -38,7 +38,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
 
   private VBox statsBox;
-  private TabPane stats;
+
   public TestPolicyPane(GuiBase base)
   {
     super(base);
@@ -154,7 +154,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     statsBox.setAlignment(Pos.TOP_CENTER);
     createRightPane(EnumRegion.CALIFORNIA);
 
-    rightPane.setCenter(stats);
+    rightPane.setCenter(statsBox);
     mainPane.setRight(rightPane);
   }
 
@@ -322,8 +322,9 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
         state = State.SOUTHEAST;
     }
 
+    if(state == null) throw new NullPointerException("Variable state should not be null!!");
     //creates a tabpane and tabs that display the graphs
-    stats = new TabPane();
+    TabPane stats = new TabPane();
     Tab farmProduct = new Tab("Production Charts");
     Tab population = new Tab("Population");
     Tab HDI = new Tab("HDI");
@@ -332,24 +333,24 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     population.setClosable(false);
     HDI.setClosable(false);
 
-    Label regionStatsLabel = new Label(state.toString() + " Statistics");
+   // Label regionStatsLabel = new Label(state.toString() + " Statistics");
 
     VBox pop = new VBox();
-    pop.getChildren().addAll(regionStatsLabel, new RegionalStatistics(state,
-        state.toString()+" Population"));
+    pop.getChildren().addAll(new RegionalStatistics(state, "Population"));
 
     VBox hdiVbox = new VBox();
-    hdiVbox.getChildren().addAll(regionStatsLabel, new RegionalStatistics(state,
-        state.toString()+" HDI"));
+    hdiVbox.getChildren().addAll(new RegionalStatistics(state, "HDI"));
 
     VBox farmPro = new VBox();
-    farmPro.getChildren().addAll(regionStatsLabel, new FarmProductChartPane(state));
+    farmPro.getChildren().addAll(new FarmProductChartPane(state));
 
     farmProduct.setContent(farmPro);
     population.setContent(pop);
     HDI.setContent(hdiVbox);
 
     stats.getTabs().addAll(population, farmProduct,HDI);
+
+    statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
     //Comment these back in to use other way to see graphs stacked on top of eachother
     //statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
     //statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
