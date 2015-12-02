@@ -54,8 +54,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
       setFitWidth(500);
     }
     else
-    {
-      setFitWidth(1000);
+    {setFitWidth(1000);
     }
 
     setId("state-image");

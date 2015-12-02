@@ -4,8 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +38,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
 
   private VBox statsBox;
+  private TabPane stats;
   public TestPolicyPane(GuiBase base)
   {
     super(base);
@@ -103,6 +107,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     topPane.setLeft(timerDisplay);
     topPane.setRight(buttonBox);
     topPane.setCenter(titleBox);
+    //topPane.setPrefHeight(100);
     mainPane.setTop(topPane);
   }
 
@@ -114,12 +119,16 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     BorderPane leftPane = new BorderPane();
     leftPane.setId("leftLayout");
     DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane(base);
+    //draftedCards.setScaleY(.5);
+    //draftedCards.setScaleX(.5);
     draftedCards.setAlignment(Pos.BOTTOM_CENTER);
     draftedCards.setSpacing(5);
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.CENTER);
     ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
+    //visImg.setScaleX(.5);
+    //visImg.setScaleY(.5);
     visBox.getChildren().add(visImg);
 
     VBox draftedCardsBox = new VBox(5);
@@ -145,7 +154,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     statsBox.setAlignment(Pos.TOP_CENTER);
     createRightPane(EnumRegion.CALIFORNIA);
 
-    rightPane.setCenter(statsBox);
+    rightPane.setCenter(stats);
     mainPane.setRight(rightPane);
   }
 
@@ -172,6 +181,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
     TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
+    drawDiscardPile.setScaleX(.75);
+    drawDiscardPile.setScaleY(.75);
     drawDiscardPile.setSpacing(5);
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
     drawDiscardPile.setAlignment(Pos.TOP_CENTER);
@@ -182,6 +193,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     Label cardLabel = new Label("Your Cards");
 //    playerHandGui.setAlignment(Pos.CENTER);
 //    playerHandGui.setPadding(new Insets(10, 10, 10, 10));
+    //playerHandGui.setScaleX(.5);
+    //playerHandGui.setScaleY(.5);
     cardBox.getChildren().addAll(cardLabel, playerHandGui);
 
     VBox toolBarBox = new VBox(3);
@@ -308,9 +321,36 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
       case MOUNTAIN:
         state = State.SOUTHEAST;
     }
-    statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
-    statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
-    statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
-    statsBox.getChildren().add(new FarmProductChartPane(state));
+
+    //creates a tabpane and tabs that display the graphs
+    stats = new TabPane();
+    Tab farmProduct = new Tab("Production Charts");
+    Tab population = new Tab("Population");
+    Tab HDI = new Tab("HDI");
+
+    Label regionStatsLabel = new Label(state.toString() + " Statistics");
+
+    VBox pop = new VBox();
+    pop.getChildren().addAll(regionStatsLabel, new RegionalStatistics(state,
+        state.toString()+" Population"));
+
+    VBox hdiVbox = new VBox();
+    hdiVbox.getChildren().addAll(regionStatsLabel, new RegionalStatistics(state,
+        state.toString()+" HDI"));
+
+    VBox farmPro = new VBox();
+    farmPro.getChildren().addAll(regionStatsLabel, new FarmProductChartPane(state));
+
+    farmProduct.setContent(farmPro);
+    population.setContent(pop);
+    HDI.setContent(hdiVbox);
+
+    stats.getTabs().addAll(population, farmProduct,HDI);
+    //Comment these back in to use other way to see graphs stacked on top of eachother
+    //statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
+    //statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
+    //statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
+    //statsBox.getChildren().add(new FarmProductChartPane(state));
+
   }
 }

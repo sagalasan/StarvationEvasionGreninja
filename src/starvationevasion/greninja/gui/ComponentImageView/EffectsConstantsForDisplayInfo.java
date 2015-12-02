@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  */
 public interface EffectsConstantsForDisplayInfo {
 
-  Image BACK_OF_CARD = new Image("file:assets/CardImages/magikarp.png");
+  Image BACK_OF_CARD = new Image("file:assets/CardImages/magikarp1.png");
   /**
    * NOTE: CHANGES HERE SHOULD ALSO BE APPLIED TO styles.css
    */

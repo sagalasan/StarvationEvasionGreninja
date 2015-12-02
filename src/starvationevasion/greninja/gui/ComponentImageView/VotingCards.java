@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-
+import javax.smartcardio.Card;
 
 
 /**
@@ -27,7 +27,7 @@ public class VotingCards extends VBox
   private int neutralVotes = 7;
   private Text votes;
   private int currentStatus = 2;
-  private ImageView card;
+  private CardImage card;
   //can find unicode symbols from https://en.wikipedia.org/wiki/List_of_Unicode_characters#Arrows
   private final String upArrow = "\u2191";
   private final String downArrow = "\u2193";
@@ -44,7 +44,7 @@ public class VotingCards extends VBox
   public VotingCards(Image image, boolean isVotingCard)
   {
     //card will have a background dependent if voting card
-    card = new ImageView(image);
+    card = new CardImage(image);
     setAlignment(Pos.CENTER);
     if (isVotingCard)
     {

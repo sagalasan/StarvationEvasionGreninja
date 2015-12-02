@@ -70,8 +70,8 @@ public class ToolbarPane extends GridPane implements IconImages
 
         ImageView icon = new ImageView(iconImages[i*4+j]);
         icon.setPreserveRatio(true);
-        icon.setFitWidth(50);
-        icon.setFitHeight(50);
+        icon.setFitWidth(30);
+        icon.setFitHeight(30);
         icon.setSmooth(true);
         iconButton.setGraphic(icon);
 

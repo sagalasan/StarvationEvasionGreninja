@@ -322,7 +322,8 @@ public class GuiBase extends Application implements ControlListener
 
     StackPane loading = new StackPane();
     loading.getChildren().add(new Label("Loading."));
-    baseScene = new Scene(loading, 300, 500);
+
+    baseScene = new Scene(loading, 500,500);
     mainStage.setScene(baseScene);
     //==========================================================================
     //this is where the style sheet gets added so that the .css will apply its design to
@@ -340,10 +341,13 @@ public class GuiBase extends Application implements ControlListener
     //maximize screen
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
+
     mainStage.setX(bounds.getMinX());
     mainStage.setY(bounds.getMinY());
     mainStage.setWidth(bounds.getWidth());
     mainStage.setHeight(bounds.getHeight());
+    //mainStage.setResizable(true);
+
     guiTimer = new GuiTimer(this);
     guiTimer.start();
   }
