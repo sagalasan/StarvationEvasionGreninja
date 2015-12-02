@@ -1,7 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
+import spring2015code.model.geography.Region;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.greninja.gui.componentPane.RegionalStatistics;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
@@ -22,11 +24,14 @@ public class AIDecisions
   private double regionPop, worldPop, localHDI, worldHDI;
 
   private double[] probabilities;
-  private LinkedHashMap<Integer, Integer> rankedCards = new LinkedHashMap<Integer, Integer>();
+  private LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
   private Random rand = new Random();
 
   private boolean communication = false;
   private PolicyCard suggestedCard;
+
+  private RegionalStatistics localStatistics;
+  private RegionalStatistics globalStatistics;
 
   private boolean DEBUG = true;
 
@@ -34,11 +39,11 @@ public class AIDecisions
   public AIDecisions()
   {
     // Higher rank = higher chance of selection
-    rankedCards.put(10, 3);
-    rankedCards.put(20, 1);
-    rankedCards.put(30, 2);
-    rankedCards.put(40, 5);
-    rankedCards.put(50, 4);
+    rankedCards.put(10.0, 3);
+    rankedCards.put(20.0, 1);
+    rankedCards.put(30.0, 2);
+    rankedCards.put(40.0, 5);
+    rankedCards.put(50.0, 4);
     chooseCard(rankedCards);
   }
 
@@ -52,7 +57,9 @@ public class AIDecisions
 
     //Temporary code. Subject to change.
     localRegion = State.CALIFORNIA;
+    localStatistics = new RegionalStatistics(localRegion);
     worldRegion = State.HEARTLAND;
+    globalStatistics = new RegionalStatistics(worldRegion);
 
     getCurrentInfo();
   }
@@ -69,6 +76,9 @@ public class AIDecisions
     this.suggestedCard = suggestedCard;
   }
 
+  /*
+   * Initialize array of probabilities.
+   */
   private void initializeProbabilities()
   {
     if (DEBUG) System.out.println("AIDecisions: initializeProbabilities()");
@@ -77,7 +87,7 @@ public class AIDecisions
 
     int i = 0;
     double s = 0;
-    for (int probability : rankedCards.keySet())
+    for (double probability : rankedCards.keySet())
     {
       probabilities[i] = probability;
       if (DEBUG) System.out.println("probability[" + i + "]: " + probabilities[i]);
@@ -132,11 +142,11 @@ public class AIDecisions
    * @param rankedCards
    * @return the index of the card to be selected.
    */
-  public int chooseCard(LinkedHashMap<Integer, Integer> rankedCards)
+  public int chooseCard(LinkedHashMap<Double, Integer> rankedCards)
   {
     if (DEBUG) System.out.println("AIDecisions: chooseCard()");
 
-    if (DEBUG) for (int probability : rankedCards.keySet())
+    if (DEBUG) for (double probability : rankedCards.keySet())
     {
       System.out.println("Rank: " + probability);
     }
@@ -151,7 +161,7 @@ public class AIDecisions
     if (probabilities == null) initializeProbabilities();
     List<Integer> rankedCardsIndices = new ArrayList<Integer>(rankedCards.values());
 
-    int selectedIndex = 0; // Initialize to zero
+    int selectedIndex; // Initialize to zero
 
     // Select card based on probability
     double q = rand.nextDouble(); // Uniformly distributed random number
@@ -166,8 +176,24 @@ public class AIDecisions
         return rankedCardsIndices.get(selectedIndex);
       }
     }
-    if (DEBUG) System.out.println("Selected index: -1");
-    return -1;
+    return 0;
+  }
+
+  /*
+   * Sees the potential future world values if a card is played.
+   */
+  private double cardEffects(PolicyCard card)
+  {
+    int x = card.getX();
+    int y = card.getY();
+    int z = card.getZ();
+
+    // TODO: create variables to represent new values
+
+    // TODO: subtract x, y, z from proper world values
+    // What value do I return though?
+
+    return 0.0;
   }
 
   /**
@@ -177,12 +203,15 @@ public class AIDecisions
    */
   public int analyzeCards(List<PolicyCard> cards)
   {
-    LinkedHashMap<Integer, Integer> rankedCards = new LinkedHashMap<Integer, Integer>(); // <rank, index>  or <rank, card>?
+    LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>(); // <rank, index>  or <rank, card>?
     int numCards = cards.size();
     int chosenIndex = 0; // Zero by default
     for (int i = 0; i < numCards; i++)
     {
-      // TODO: Sort cards from best to worst??
+      // TODO: assign each card a "rank" or some value that denotes how beneficial it is
+      // Take an average for all the effects and use that average as the key?
+      double cardRank = cardEffects(cards.get(i));
+      rankedCards.put(cardRank, i);
     }
 
     chosenIndex = chooseCard(rankedCards);
