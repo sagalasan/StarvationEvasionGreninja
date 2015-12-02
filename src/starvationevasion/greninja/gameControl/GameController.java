@@ -349,10 +349,10 @@ public class GameController
   {
     EnumPolicy[] newCards = tempDeck.drawCards();
     ArrayList<PolicyCard> newHand = new ArrayList<>();
-    for(EnumPolicy card : newCards)
-    {
-      player.getPlayerHand().add(PolicyCard.create(playerRegion, card));
-    }
+    //for(EnumPolicy card : newCards)
+    //{
+//      player.getPlayerHand().add(PolicyCard.create(playerRegion, card));
+    //}
   }
  /*
   ============================end startup=======================================

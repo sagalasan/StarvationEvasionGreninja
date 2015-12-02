@@ -113,7 +113,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   {
     BorderPane leftPane = new BorderPane();
     leftPane.setId("leftLayout");
-    DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane();
+    DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane(base);
     draftedCards.setAlignment(Pos.BOTTOM_CENTER);
     draftedCards.setSpacing(5);
 
@@ -171,7 +171,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile();
+    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
     drawDiscardPile.setSpacing(5);
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
     drawDiscardPile.setAlignment(Pos.TOP_CENTER);

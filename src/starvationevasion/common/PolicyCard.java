@@ -22,7 +22,7 @@ import java.io.Serializable;
  * Use the validate() method to verify all needed parameters of the policy
  * are defined in range.
  */
-public abstract class PolicyCard  implements Serializable
+public abstract class PolicyCard implements Serializable
 {
   public static final int MIN_PERCENT = 1;
   public static final int MAX_PERCENT = 100;

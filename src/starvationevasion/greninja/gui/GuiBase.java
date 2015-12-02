@@ -381,4 +381,9 @@ public class GuiBase extends Application implements ControlListener
     Platform.exit();
     System.exit(0);
   }
+
+  public GameController getGameController()
+  {
+    return control;
+  }
 }

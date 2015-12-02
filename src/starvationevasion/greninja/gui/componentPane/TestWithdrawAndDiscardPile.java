@@ -11,11 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
+import starvationevasion.greninja.gui.GuiBase;
 
 public class TestWithdrawAndDiscardPile extends HBox
 {
-  public TestWithdrawAndDiscardPile()
+  public TestWithdrawAndDiscardPile(GuiBase base)
   {
     setId("withdraw-and-discard-pile");
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -37,6 +40,7 @@ public class TestWithdrawAndDiscardPile extends HBox
     VBox discardBox = new VBox(10);
     discardBox.setAlignment(Pos.TOP_CENTER);
     Label discardLabel = new Label("Discard");
+    //PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);
     CardImage discardPile = new CardImage(image);
     discardBox.getChildren().addAll(discardLabel, discardPile);
 

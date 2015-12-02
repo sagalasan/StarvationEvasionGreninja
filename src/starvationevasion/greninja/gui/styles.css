@@ -83,6 +83,13 @@
     -fx-scale-y: 1.5;
     -fx-translate-y: -50;
 }
+#card-image
+{
+  -fx-font-size:10;
+  -fx-background-fill: #992299;
+
+}
+
 
 #state-image:hover
 {
