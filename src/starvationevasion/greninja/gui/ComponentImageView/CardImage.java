@@ -48,7 +48,13 @@ public class CardImage extends VBox
 
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //will set vertical scroll bar to not show
     //scrollPane.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(1), null)));
+    //setStyle("-fx-background: black");
+
     scrollPane.setStyle("-fx-background: black");
+
+    //setStyle("-fx-border-color: white");
+    //setStyle("-fx-background-color: black");
+    //setStyle("-fx-border-width: 20");
     //super(image);
     //card = new ImageView(image);
     //super(image);
