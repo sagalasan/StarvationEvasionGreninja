@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
@@ -332,6 +333,7 @@ public class GuiBase extends Application implements ControlListener
     loading.getChildren().add(new Label("Loading."));
 
     baseScene = new Scene(loading, 500,500);
+
     mainStage.setScene(baseScene);
     //==========================================================================
     //this is where the style sheet gets added so that the .css will apply its design to
@@ -355,6 +357,7 @@ public class GuiBase extends Application implements ControlListener
     mainStage.setWidth(bounds.getWidth());
     mainStage.setHeight(bounds.getHeight());
     //mainStage.setResizable(true);
+
 
     guiTimer = new GuiTimer(this);
     guiTimer.start();

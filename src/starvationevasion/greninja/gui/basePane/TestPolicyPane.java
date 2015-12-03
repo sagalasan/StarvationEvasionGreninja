@@ -122,7 +122,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     //draftedCards.setScaleY(.5);
     //draftedCards.setScaleX(.5);
     draftedCards.setAlignment(Pos.BOTTOM_CENTER);
-    draftedCards.setSpacing(5);
+    draftedCards.setSpacing(30);
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.CENTER);
@@ -181,9 +181,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
     TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
-    drawDiscardPile.setScaleX(.75);
-    drawDiscardPile.setScaleY(.75);
-    drawDiscardPile.setSpacing(5);
+
+    drawDiscardPile.setSpacing(30);
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
     drawDiscardPile.setAlignment(Pos.TOP_CENTER);
 
@@ -191,10 +190,6 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     cardBox.setPadding(new Insets(10, 10, 10, 10));
     cardBox.setAlignment(Pos.TOP_CENTER);
     Label cardLabel = new Label("Your Cards");
-//    playerHandGui.setAlignment(Pos.CENTER);
-//    playerHandGui.setPadding(new Insets(10, 10, 10, 10));
-    //playerHandGui.setScaleX(.5);
-    //playerHandGui.setScaleY(.5);
     cardBox.getChildren().addAll(cardLabel, playerHandGui);
 
     VBox toolBarBox = new VBox(3);
