@@ -1,5 +1,8 @@
 package starvationevasion.greninja.gameControl;
 
+import java.io.Serializable;
+import java.util.ArrayDeque;
+
 /**
  * This will be a thread that an AI runs on.  This is basically another instance
  * of the client (hopefully).
@@ -7,10 +10,17 @@ package starvationevasion.greninja.gameControl;
 public class AIThread extends GameController implements Runnable
 {
   private boolean stillPlaying = true;
+  private String loginName;
+  private String loginPW;
+  private ArrayDeque<Serializable> messageQueue;
 
   public AIThread(String loginName, String loginPW)
   {
     //do login stuff.
+    super();
+    this.loginName = loginName;
+    this.loginPW = loginPW;
+    this.messageQueue = new ArrayDeque<>();
   }
 
   @Override
@@ -19,7 +29,18 @@ public class AIThread extends GameController implements Runnable
     //play a game
     while(stillPlaying)
     {
-      //sit here and let game controller take care of everything
+      while(messageQueue.isEmpty())
+      {
+        //sit here and let game controller take care of everything
+        try
+        {
+          wait();
+        }
+        catch (InterruptedException e)
+        {
+          System.out.println("AI Thread Interrupted");
+        }
+      }
     }
     //disconnect and stop.
   }
