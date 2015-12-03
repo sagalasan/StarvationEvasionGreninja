@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -68,6 +70,8 @@ public class LoginPane extends StackPane
     loginBox.add(responseMessage, 0, 4, 2, 1);
     this.getChildren().add(rect);
     this.getChildren().add(loginBox);
+
+    this.setOnKeyReleased(this::keyReleased);
   }
 
   public void setSalt(String salt)
@@ -98,6 +102,16 @@ public class LoginPane extends StackPane
     else if(source == cancelButton)
     {
       System.out.println("Cancel pressed");
+    }
+  }
+
+  private void keyReleased(KeyEvent event)
+  {
+    KeyCode keyCode = event.getCode();
+    if(keyCode == KeyCode.ENTER)
+    {
+      System.out.println("Enter Released");
+      okButton.fire();
     }
   }
 }
