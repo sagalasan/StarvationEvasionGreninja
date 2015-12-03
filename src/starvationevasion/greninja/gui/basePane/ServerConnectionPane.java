@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.serverCom.ServerConnection;
+import starvationevasion.server.ServerConstants;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -99,6 +100,9 @@ public class ServerConnectionPane extends StackPane
     serverBox.add(responseMessageLabel, 0, 4, 2, 1);
     this.getChildren().add(rect);
     this.getChildren().add(serverBox);
+
+    // Sets the default port to whatever is in the server api
+    portField.setText(Integer.toString(ServerConstants.DEFAULT_PORT));
   }
 
   private void buttonPressed(ActionEvent event)
