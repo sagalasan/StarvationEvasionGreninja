@@ -65,6 +65,8 @@ public class DiscardDisplay extends HBox
     card = discardedCards;
     card.setScaleY(1.5);
     card.setScaleX(1.5);
+
+    //card.setId("card-image");
     ImageView rightArrow = new ImageView(new Image("file:assets/greninjaAssets/arrow.png"));
     ImageView leftArrow = new ImageView(new Image("file:assets/greninjaAssets/arrow.png"));
     leftArrow.setRotate(180);

@@ -61,7 +61,9 @@ public class CardImage extends VBox
 
     scrollPane.setStyle("-fx-background: black;");
 
-
+    setStyle( "-fx-font-size:10;-fx-background-fill: #992299;" +
+            "-fx-border-color: white; -fx-background-color: black;" +
+            "-fx-border-width: 2;-fx-background-width: 4;");
 
     setId("card-image");
 
