@@ -125,15 +125,8 @@ public class ClickableMap extends StackPane implements MapImages
         {
           getChildren().add(state.getDraftStatus()[i]);
         }
-        //getChildren().add(allInfo);
-        //getChildren().add(state.getDisplayInfo());
       }
     }
-
-
-    //california.updateDisplayInfo();
-    //getChildren().addAll(california.getDisplayInfo());
-
 
   }
 
