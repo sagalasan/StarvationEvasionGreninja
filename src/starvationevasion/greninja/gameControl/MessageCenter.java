@@ -36,6 +36,7 @@ public class MessageCenter
     }
     else if(message instanceof BeginGame)
     {
+      System.out.println("Begin Game Message.");
       BeginGame msg = (BeginGame) message;
       control.beginGame(msg);
     }

@@ -239,9 +239,6 @@ public class GameController
   {
     playerRegion = region;
     player.setPlayerRegion(region);
-    System.out.println("Inform server of choice.");
-    System.out.println("Wait for other players.");
-    System.out.println("Start Policy Phase.");
     beginGame();
     //serverLine.sendMessage(new RegionChoice(region));
   }
@@ -268,7 +265,10 @@ public class GameController
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
-    startPolicyDraftingPhase();
+    if(isTesting)
+    {
+      startPolicyDraftingPhase();
+    }
   }
 
   /**
