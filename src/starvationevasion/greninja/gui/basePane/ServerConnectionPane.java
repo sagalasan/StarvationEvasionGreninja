@@ -5,9 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -30,6 +34,7 @@ public class ServerConnectionPane extends StackPane
 
   private Button connectButton;
   private Button cancelButton;
+  private Node enterKeyNode;
 
   private TextField nameField;
   private TextField portField;
@@ -57,15 +62,26 @@ public class ServerConnectionPane extends StackPane
   private String hostName;
   private int port;
 
+  private Stage currentStage;
+
   public ServerConnectionPane(GuiBase guiBase)
   {
     this.guiBase = guiBase;
+    currentStage = Stage.DISCONNECTED;
     initGui();
+  }
+
+  private enum Stage
+  {
+    DISCONNECTED,
+    CONNECTING,
+    CONNECTED;
   }
 
   public void setHelloReceived(boolean received)
   {
     helloReceived = received;
+    currentStage = Stage.CONNECTED;
   }
 
   public void initGui()
@@ -103,6 +119,9 @@ public class ServerConnectionPane extends StackPane
 
     // Sets the default port to whatever is in the server api
     portField.setText(Integer.toString(ServerConstants.DEFAULT_PORT));
+
+    this.setOnKeyPressed(this::keyPressed);
+    this.setOnKeyReleased(this::keyReleased);
   }
 
   private void buttonPressed(ActionEvent event)
@@ -133,6 +152,7 @@ public class ServerConnectionPane extends StackPane
         responseMessageLabel.setTextFill(Color.WHITE);
         connectToServerTimer = new Timer();
         connectToServerTimer.schedule(new ScheduledTimer(this), 0, REFRESH_INTERVAL);
+        currentStage = Stage.CONNECTING;
       }
     }
     else if(source == cancelButton)
@@ -140,6 +160,26 @@ public class ServerConnectionPane extends StackPane
       System.out.println("Cancel pressed");
       guiBase.serverConnectionPaneCancelled();
     }
+  }
+
+  private void keyPressed(KeyEvent event)
+  {
+    KeyCode keyCode = event.getCode();
+    if(keyCode == KeyCode.ENTER)
+    {
+      System.out.println("Enter Pressed");
+    }
+  }
+
+  private void keyReleased(KeyEvent event)
+  {
+    KeyCode keyCode = event.getCode();
+    if(keyCode == KeyCode.ENTER)
+    {
+      System.out.println("Enter Released");
+      connectButton.fire();
+    }
+
   }
 
   public int getPortInt(String portString)
