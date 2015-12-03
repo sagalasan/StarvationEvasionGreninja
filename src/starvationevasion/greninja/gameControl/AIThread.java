@@ -39,9 +39,18 @@ public class AIThread extends GameController implements Runnable
         catch (InterruptedException e)
         {
           System.out.println("AI Thread Interrupted");
+          e.printStackTrace();
         }
       }
+      super.handleMessageIn(messageQueue.pop());
     }
     //disconnect and stop.
+  }
+
+  @Override
+  public void handleMessageIn(Serializable message)
+  {
+    messageQueue.addLast(message);
+    notify();
   }
 }
