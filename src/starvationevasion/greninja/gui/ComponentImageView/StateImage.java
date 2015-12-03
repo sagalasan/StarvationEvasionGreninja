@@ -22,13 +22,8 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   private Text displayInfo;
   private String styleForDispInfo;
   private ImageView[] draftStatusCards;
+  private boolean clickable = true;
 
-  //todo display draft status somehow
-  //just try and print on area a label or something
-  //probably, going to make a set of images that will display at a location
-  //the location will be dependent on where the map is located
-  //since each of these images has the same length/width, going to have find someway to pick a coord on the map
-  //and scale it dependent on scale size
   public StateImage(final Image image, final Image titleImage,
                     final EnumRegion regionName, final ClickableMap map, boolean worldMap)
   {
@@ -42,12 +37,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
       draftStatusCards[i] = new ImageView(BACK_OF_CARD);
     }
     displayInfo.setId("display-info");
-    //todo
-    //get what stage this state is voting on
-    //draw image for that state
-    //if has played policy card, then have a one beside the name
-    //if 2 cards picked, then have a two beside the name
-    //if 0, then put a 0
+
     setFitHeight(350);
     if (worldMap)
     {
@@ -63,9 +53,6 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
 
 
 
-    //todo
-    //at all times, the cards played/discarded are shown
-
     /**
      * performs actions based on mouse clicked on the image
      */
@@ -73,10 +60,13 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
+        if(clickable)
+        {
+          map.chooseState(getThis());
+          chosen = true;
+          showStateName();
+        }
         System.out.println("this is the region of " + regionName);
-        map.chooseState(getThis());
-        chosen = true;
-        showStateName();
 
        // displayInfo.toFront();
         event.consume();
@@ -109,6 +99,10 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     });
   }
 
+  public void setClickable(boolean b)
+  {
+    clickable = b;
+  }
 
   public ImageView[] getDraftStatus()
   {

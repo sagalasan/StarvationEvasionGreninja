@@ -154,10 +154,12 @@ public class ClickableMap extends StackPane implements MapImages
       {
         if (greyOut == true)
         {
+          state.setClickable(false);
           state.setOpacity(.5);
         }
         else
         {
+          state.setClickable(true);
           state.setOpacity(1);
         }
       }
