@@ -174,6 +174,7 @@ public class GameController
    */
   public void startTestingGame()
   {
+    isTesting = true;
     System.out.println("Start single player game.");
     guiView = (GuiBase)view; //set reference to view as a gui.
     //for remaining slots, start AiGame (on new thread?).
