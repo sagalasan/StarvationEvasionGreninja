@@ -21,6 +21,7 @@ public class DraftedPolicyCardPane extends HBox
    */
   public DraftedPolicyCardPane(GuiBase base)
   {
+
     draftedCards = new CardImage[2];
     Image image = new Image("file:assets/CardImages/magikarp.png");
     //PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);

@@ -32,6 +32,7 @@ public class CardImage extends VBox
   //private PolicyCard policyCard;
   public CardImage(Image image)
   {
+    setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     setMaxWidth(100);
     setMaxHeight(150);
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
