@@ -3,7 +3,9 @@ package starvationevasion.greninja.gameControl;
 //import spring2015code.model.geography.Region;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.greninja.gui.componentPane.RegionalStatistics;
+//import starvationevasion.greninja.gui.componentPane.RegionalStatistics;
+import starvationevasion.common.RegionData;
+import starvationevasion.common.WorldData;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
@@ -20,8 +22,9 @@ public class AIDecisions
 //  List<PolicyCard> playerHand;
 
   private State localRegion;
-  private State worldRegion;
+  private State globalRegion;
   private double regionPop, worldPop, localHDI, worldHDI;
+  private double localUndernourishedPop, globalUndernourishedPop;
 
   private double[] probabilities;
   private LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
@@ -30,8 +33,13 @@ public class AIDecisions
   private boolean communication = false;
   private PolicyCard suggestedCard;
 
-  private RegionalStatistics localStatistics;
-  private RegionalStatistics globalStatistics;
+  private RegionData regionData;
+  private WorldData worldData;
+
+//  private RegionalStatistics localStatistics;
+//  private RegionalStatistics globalStatistics;
+
+  // TODO: use classes RegionData and WorldData from starvationevasion.common package to get current statistics
 
   private boolean DEBUG = true;
 
@@ -47,6 +55,8 @@ public class AIDecisions
     chooseCard(rankedCards);
   }
 
+  // Should take "State state" as an argument too?
+  // State localState, State globalState
   public AIDecisions(AIPlayer player, int turnNumber)
   {
     // TODO: hardcoded for testing
@@ -57,9 +67,12 @@ public class AIDecisions
 
     //Temporary code. Subject to change.
     localRegion = State.CALIFORNIA;
-    localStatistics = new RegionalStatistics(localRegion);
-    worldRegion = State.HEARTLAND;
-    globalStatistics = new RegionalStatistics(worldRegion);
+//    localStatistics = new RegionalStatistics(localRegion);
+    globalRegion = State.HEARTLAND;
+//    globalStatistics = new RegionalStatistics(globalRegion);
+
+    // localRegion = this.localState
+    // globalRegion = this.globalState
 
     getCurrentInfo();
   }
@@ -74,6 +87,8 @@ public class AIDecisions
   {
     this.communication = true;
     this.suggestedCard = suggestedCard;
+
+    getCurrentInfo();
   }
 
   /*
@@ -116,8 +131,12 @@ public class AIDecisions
   private void getCurrentInfo()
   {
     regionPop = localRegion.getPopulation(turnNumber);
-    worldPop = worldRegion.getPopulation(turnNumber);
+    worldPop = globalRegion.getPopulation(turnNumber);
     localHDI = localRegion.getHDI(turnNumber);
+    localUndernourishedPop = localRegion.getUndernourishedPopulation();
+    globalUndernourishedPop = globalRegion.getUndernourishedPopulation();
+
+    // TODO: should i get migration rate too?
   }
 
   public boolean selectRegion(Set<EnumRegion> availableRegions) // Handle race conditions here or somewhere else?
@@ -189,9 +208,23 @@ public class AIDecisions
     int z = card.getZ();
 
     // TODO: create variables to represent new values
+    double regionBalance; // Total money for a region
+    double regionPop;
+    double worldPop;
+
+//    int newRegionBalance = regionBalance - x;
+//    int newRegionPop = regionPop - y;
+//    int newWorldPop = worldPop - z;
+
+    // Minimizing undernourished population is priority?
+    // Minimizing money loss is next most important
+    // Increase in population is next priority (but check to make sure it's not too big)
+//    if (newWorldPop / worldPop >= 0.01 && newWorldPop / worldPop <= 0.05) TODO: ideal population growth is within this range
 
     // TODO: subtract x, y, z from proper world values
     // What value do I return though?
+    // just return some kind of average?
+    // return (newRegionBalance + newRegionPop + newWorldPop) / 3;
 
     return 0.0;
   }
