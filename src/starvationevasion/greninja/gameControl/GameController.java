@@ -36,6 +36,7 @@ public class GameController
   private WorldData worldState;
   private MessageCenter messageCenter;
   private boolean isHuman;
+  private boolean isTesting = false;
   //WorldModel
   //GameStateTracker
   private CardDeck tempDeck; //TODO Remove when server handles this.
@@ -52,8 +53,6 @@ public class GameController
     player.setPlayerName("Compy 386");
     view = new AIView(this, player);
     serverLine = new ServerConnection(this);
-    player = new AIPlayer();
-    player.setPlayerName("AI");
     messageCenter = new MessageCenter(this);
   }
 
@@ -552,18 +551,12 @@ public class GameController
   /**
    * Cast a vote.  Called from the gui, informs server of card and vote cast
    * for it.
-   * @param vote        true if "yes" vote, false if "no" vote.
+   * @param card        PolicyCard chosen by player.
+   * @param vote    Vote Type enum chosen by player.
    */
-  public void voteCast(boolean vote)
+  public void voteCast(PolicyCard card, VoteType vote)
   {
-    if(vote)
-    {
-      //inform server that vote yes.
-    }
-    else
-    {
-      //inform server of no vote.
-    }
+    serverLine.sendMessage(new Vote(card, vote));
   }
 
 
@@ -576,6 +569,15 @@ public class GameController
     //fillHand();
     startPolicyDraftingPhase();
     //votingPhase = null;
+  }
+
+  /**
+   * Get Info about vote tallies on voting cards.
+   * @param msg       VoteStatus message object.
+   */
+  public void updateVoteStatusInfo(VoteStatus msg)
+  {
+    //Send vote status to gui.
   }
 
   private void getCardsForVote()

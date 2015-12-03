@@ -26,7 +26,11 @@ public class MessageCenter
   public void handleMessageIn(Serializable message)
   {
     //identify message type.
-    if(message instanceof AvailableRegions)
+    if(message instanceof ActionResponse)
+    {
+      //relay action response to appropriate channels.
+    }
+    else if(message instanceof AvailableRegions)
     {
       control.availableRegionReceived((AvailableRegions) message);
     }
@@ -74,6 +78,10 @@ public class MessageCenter
     {
       //handle chat stuff.
       control.receiveChatMessage((ServerChatMessage) message);
+    }
+    else if(message instanceof VoteStatus)
+    {
+      control.updateVoteStatusInfo((VoteStatus) message);
     }
   }
 
