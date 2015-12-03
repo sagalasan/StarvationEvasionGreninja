@@ -1,5 +1,10 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import starvationevasion.common.EnumPolicy;
@@ -23,7 +28,14 @@ public class DraftedPolicyCardPane extends HBox
   public DraftedPolicyCardPane(GuiBase base)
   {
 
-    draftedCards = new CardImage[2];
+    setAlignment(Pos.BOTTOM_CENTER);
+    setSpacing(30);
+    //setMaxWidth(300);
+    //setStyle("-fx-background-color: black;");
+
+
+    // this.draftedCards = draftedCards;
+    this.draftedCards = new CardImage[2];
     Image image = new Image("file:assets/CardImages/magikarp.png");
     //PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
@@ -32,6 +44,16 @@ public class DraftedPolicyCardPane extends HBox
       draftedCards[i] = new CardImage(image, policyCard);
       getChildren().add(draftedCards[i]);
     }
+    //setMaxHeight(300);
+    setMaxWidth(200);
+    setMaxHeight(draftedCards[0].getBoundsInParent().getHeight());
+
+    //setPrefHeight(300);
+    //setMinHeight(150);
+  }
+  public HBox getThis()
+  {
+    return this;
   }
 
 }

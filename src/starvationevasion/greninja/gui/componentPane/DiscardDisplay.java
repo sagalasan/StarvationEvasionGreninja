@@ -24,10 +24,12 @@ public class DiscardDisplay extends HBox
   //going to get all discarded cards
   //cycle through
   //private discarded cards
-  private ImageView[] discardedCards;
-  public DiscardDisplay(CardImage[] discardedCards)
+  //private ImageView[] discardedCards;
+  private int currentIndex = 0;
+  private CardImage card;
+  public DiscardDisplay(final CardImage[] discardedCards)
   {
-    CardImage card = discardedCards[0];
+    card = discardedCards[0];
     setSpacing(30);
 
     card.setScaleY(1.5);
@@ -49,6 +51,28 @@ public class DiscardDisplay extends HBox
     leftButton.setBackground(Background.EMPTY);
     leftArrow.setId("arrow-button");
 
+    leftButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        currentIndex++;
+        card = discardedCards[currentIndex%discardedCards.length];
+        card.setScaleY(1.5);
+        card.setScaleX(1.5);
+        getChildren().set(1, card);
+        //System.out.println("left arrow clicked");
+      }
+    });
+    rightButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        currentIndex--;
+        card = discardedCards[currentIndex%discardedCards.length];
+        card.setScaleY(1.5);
+        card.setScaleX(1.5);
+        getChildren().set(1, card);
+        //System.out.println("right arrow clicked");
+      }
+    });
     setAlignment(Pos.CENTER);
 
 
@@ -56,7 +80,11 @@ public class DiscardDisplay extends HBox
     getChildren().addAll(leftButton, card, rightButton);
 
   }
-  private CardImage card;
+  public void setCard(int index)
+  {
+    //card = discardedCards[index%discardedCards.length]
+  }
+
 
   public DiscardDisplay(CardImage discardedCards)
   {
