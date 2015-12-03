@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.greninja.gui.GuiBase;
 
 import javax.smartcardio.Card;
 
@@ -42,12 +43,12 @@ public class VotingCards extends VBox
   private final String RED_SHADOW = "-fx-effect: innershadow( gaussian ,  #dc143c , 2,1,0,0 );";
   private final String GREY_SHADOW = "-fx-effect: innershadow( gaussian , #778899, 2,1,0,0 );";
 
-  public VotingCards(Image image, boolean isVotingCard, PolicyCard policyCard)
+  public VotingCards(Image image, boolean isVotingCard, PolicyCard policyCard, GuiBase base)
   {
     //card will have a background dependent if voting card
     setMaxWidth(100);
     setMaxHeight(150);
-    card = new CardImage(image, policyCard);
+    card = new CardImage(image, policyCard, base);
     setAlignment(Pos.CENTER);
     //setId("card-image");
     if (isVotingCard)

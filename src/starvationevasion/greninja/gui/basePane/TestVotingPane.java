@@ -152,12 +152,13 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     draftedCards.setAlignment(Pos.CENTER);
 
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
-    VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard);
+    VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard, base);
 
     for (int i = 0; i < 7; i++)
     {
 
-      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard));
+      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"),
+          true, policyCard, base));
 
     }
     //draftedCards.setMaxWidth(100);

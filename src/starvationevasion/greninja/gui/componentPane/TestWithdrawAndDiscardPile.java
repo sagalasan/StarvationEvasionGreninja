@@ -47,10 +47,10 @@ public class TestWithdrawAndDiscardPile extends HBox
     PolicyCard policyCard2 = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Fertilizer_Subsidy);
 
 
-    CardImage discardPile = new CardImage(image, policyCard );
+    CardImage discardPile = new CardImage(image, policyCard, base );
     CardImage[] pile = new CardImage[2];
-    pile[0] = new CardImage(image, policyCard);
-    pile[1] = new CardImage(image, policyCard2);
+    pile[0] = new CardImage(image, policyCard, base);
+    pile[1] = new CardImage(image, policyCard2, base);
     /**for (int i = 0; i < 2; i++)
     {
 
@@ -115,7 +115,7 @@ public class TestWithdrawAndDiscardPile extends HBox
     VBox deckBox = new VBox(10);
     deckBox.setAlignment(Pos.TOP_CENTER);
     Label deckLabel = new Label("Deck");
-    CardImage deck = new CardImage(image, policyCard);
+    CardImage deck = new CardImage(image, policyCard, base);
     deckBox.getChildren().addAll(deckLabel, deck);
 
 //    getChildren().addAll(discardPile, deck);

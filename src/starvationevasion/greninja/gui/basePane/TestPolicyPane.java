@@ -138,6 +138,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     //leftPane.setBottom(draftedCardsBox);
     leftPane.setPrefWidth(300);
     TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
+    /**
     //ScrollPane scrollPane = new ScrollPane(draftedCards);
     //scrollPane.setFitToHeight(true);
     //scrollPane.setStyle("-fx-background-color: black;");
@@ -148,6 +149,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     //scrollPane.setPrefHeight(draftedCards.getHeight());
     //System.out.println(scrollPane.getHeight());
     //scrollPane.setPrefHeight(draftedCards.getMaxHeight());
+     **/
     setPrefWidth(draftedCards.getMaxWidth());
     draftedCardsBox.getChildren().addAll(draftTitle, draftedCards);
     leftPane.setBottom(draftedCardsBox);

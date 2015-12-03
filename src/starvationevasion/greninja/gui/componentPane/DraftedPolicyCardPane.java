@@ -41,7 +41,7 @@ public class DraftedPolicyCardPane extends HBox
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
     for (int i = 0; i < 2; i++)
     {
-      draftedCards[i] = new CardImage(image, policyCard);
+      draftedCards[i] = new CardImage(image, policyCard, base);
       getChildren().add(draftedCards[i]);
     }
     //setMaxHeight(300);

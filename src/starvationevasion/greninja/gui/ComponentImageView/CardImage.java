@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.greninja.gui.GuiBase;
 
 import javax.smartcardio.Card;
 
@@ -25,9 +26,10 @@ public class CardImage extends VBox
 
 
   //private ImageView card;
-
-  public CardImage(Image image, PolicyCard policyCard)
+  private GuiBase base;
+  public CardImage(Image image, PolicyCard policyCard, GuiBase base)
   {
+    this.base = base;
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     setMaxWidth(100);
     setMaxHeight(150);
@@ -81,6 +83,11 @@ public class CardImage extends VBox
       public void handle(MouseEvent event) {
         //card.toFront();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        //to set to front
+        //get the parent pane
+        //get the child at this index
+        //set that to front
+
 
       }
     });
