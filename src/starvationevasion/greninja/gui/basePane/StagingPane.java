@@ -54,6 +54,11 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     map = new ClickableMap("staging");
     map.setContainingPane(this);
 
+
+    //EXAMPLE OF HOW TO GREY OUT, JUST SETS THE OPAQUENESS
+    //map.greyOut(EnumRegion.CALIFORNIA, true);
+
+
     basePane.getChildren().add(map);
   }
 

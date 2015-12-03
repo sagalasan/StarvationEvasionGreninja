@@ -62,6 +62,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     stateWithTextImage = titleImage;
 
 
+
     //todo
     //at all times, the cards played/discarded are shown
 
@@ -143,6 +144,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     }
   }
 
+
   public void updateDisplayInfo()
   {
     //int draftedCards = 2; //this will be how many drafted cards currently placed
@@ -154,61 +156,31 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     if (regionName.equals(EnumRegion.CALIFORNIA))
     {
       setupDisplayInfo(CALIFORNIA,-getFitWidth()/1.7,0, 2 );
-      //styleForDispInfo = new String(CALIFORNIA);
-      //displayInfo.setTranslateX(-getFitWidth()/1.7);
-
-
     }
     else if (regionName.equals(EnumRegion.HEARTLAND))
     {
       setupDisplayInfo(HEARTLAND, getFitWidth()/4, -getFitHeight()/1.8, 2 );
-      //styleForDispInfo= new String(HEARTLAND);
-      //displayInfo.setTranslateY(-getFitHeight()/1.8);
-      //displayInfo.setTranslateX(getFitWidth()/4);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_CRESCENT))
     {
       setupDisplayInfo(CRESCENT, getFitWidth()/1.6, -getFitHeight()/3, 2);
-      //styleForDispInfo= new String(CRESCENT);
-      //displayInfo.setId("crescent-images");
-      //displayInfo.setTranslateY(-getFitHeight()/3);
-      //displayInfo.setTranslateX(getFitWidth()/1.6);
     }
     else if (regionName.equals(EnumRegion.SOUTHEAST))
     {
       setupDisplayInfo(SOUTHEAST, getFitWidth()/1.8, getFitHeight()/3, 2);
-      //styleForDispInfo= new String(SOUTHEAST);
-      //displayInfo.setId("southeast-images");
-      //displayInfo.setTranslateY(getFitHeight()/3);
-      //displayInfo.setTranslateX(getFitWidth()/1.8);
     }
     else if (regionName.equals(EnumRegion.SOUTHERN_PLAINS))
     {
       setupDisplayInfo(DELTAS, 0, getFitHeight()/2.6, 2 );
-      //styleForDispInfo= new String(DELTAS);
-      //displayInfo.setId("deltas-images");
-      //displayInfo.setTranslateY(getFitHeight()/2.6);
-      //displayInfo.setTranslateX(getFitWidth()/4);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_PLAINS))
     {
       setupDisplayInfo(PLAINS, -getFitWidth()/6, -getFitHeight()/1.7, 2);
-      //styleForDispInfo= new String(PLAINS);
-      //displayInfo.setId("plains-images");
-      //displayInfo.setTranslateY(-getFitHeight()/1.8);
-      //displayInfo.setTranslateX(-getFitWidth()/6);
     }
     else if (regionName.equals(EnumRegion.MOUNTAIN))
     {
       setupDisplayInfo(MOUNTAIN, -getFitWidth()/2.6, getFitHeight()/3.7, 2);
-      //styleForDispInfo= new String(MOUNTAIN);
-      //displayInfo.setId("mountain-images");
-      //displayInfo.setTranslateY(getFitHeight()/3.7);
-      //displayInfo.setTranslateX(-getFitWidth()/2.6);
     }
-    //have to also add image of how many cards are being played
-
-
 
   }
   private StateImage getThis()

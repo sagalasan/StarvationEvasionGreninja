@@ -137,21 +137,34 @@ public class ClickableMap extends StackPane implements MapImages
 
   }
 
-/**
- * tried to set images to null.  I dont believe this worked
-  public void setMapToNull()
+  /**
+   *
+   * @param regionName sets the state specified to be opaque or not
+   *              this can be used to say that a state has been selected
+   * @param greyOut whether or not the state will be greyed out.  True if you want
+   *                it to be greyed, false if you want it to be full opacity
+   */
+  public void greyOut(EnumRegion regionName, boolean greyOut)
   {
-    california = null; southernPlainsAndDeltaStates = null;
-        southeast = null; pacificNorthWestAndMountainStates = null;
-        heartLand = null; northernCrescent = null; northernPlains = null;
 
-    for (StateImage state : stateArray)
+    //state.setOpacity(.5);
+    for (StateImage state: stateArray)
     {
-      state = null;
+      if (state.getName().equals(regionName))
+      {
+        if (greyOut == true)
+        {
+          state.setOpacity(.5);
+        }
+        else
+        {
+          state.setOpacity(1);
+        }
+      }
     }
-
   }
- **/
+
+
   /**
    * Set a reference to the pane that contains the map so that actions can be
    * performed when things happen.
