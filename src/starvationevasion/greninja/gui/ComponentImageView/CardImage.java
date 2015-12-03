@@ -32,7 +32,7 @@ public class CardImage extends VBox
     this.base = base;
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     setMaxWidth(100);
-    setMaxHeight(150);
+    setMaxHeight(200);
     //PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
       //  EnumPolicy.Clean_River_Incentive);
     //this.policyCard = policyCard;
@@ -61,13 +61,9 @@ public class CardImage extends VBox
     });
     scrollPane.setContent(cardInfo);
 
-
     scrollPane.setMaxWidth(card.getBoundsInParent().getWidth()+20);
-
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //will set vertical scroll bar to not show
-
     scrollPane.setStyle("-fx-background: black;");
-
     setStyle( "-fx-font-size:10;-fx-background-fill: #992299;" +
             "-fx-border-color: white; -fx-background-color: black;" +
             "-fx-border-width: 2;-fx-background-width: 4;");
@@ -101,6 +97,7 @@ public class CardImage extends VBox
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
+
         System.out.println("id for card is " + getId());
         event.consume();
       }

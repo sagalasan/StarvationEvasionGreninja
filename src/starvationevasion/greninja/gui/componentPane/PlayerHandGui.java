@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.greninja.gui.ComponentImageView.PlayerCard;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 
@@ -16,7 +17,7 @@ import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 public class PlayerHandGui extends HBox
 {
   //gather what cards to draw, place them next to each other
-  private CardImage[] playerCards;
+  private PlayerCard[] playerCards;
   private GuiBase base;
 
   public PlayerHandGui(GuiBase base)//prob will take an argument of the cards it receives
@@ -24,7 +25,7 @@ public class PlayerHandGui extends HBox
     this.base = base;
     setAlignment(Pos.CENTER);
     int MAX_CARDS_IN_PLAYER_HAND = 7;
-    playerCards = new CardImage[MAX_CARDS_IN_PLAYER_HAND];
+    playerCards = new PlayerCard[MAX_CARDS_IN_PLAYER_HAND];
 
     //HBox cardHand = new HBox();
     int j = 0;
@@ -47,9 +48,9 @@ public class PlayerHandGui extends HBox
     for (int i = 0; i < MAX_CARDS_IN_PLAYER_HAND; i++)
     {
 
-      playerCards[i] = new CardImage(image, policyCard, base);
+      playerCards[i] = new PlayerCard(new CardImage(image, policyCard, base));
       //adds to cardHand
-      getChildren().add(playerCards[i]);
+      getChildren().add(playerCards[i].getCard());
     }
     //Image image = new Image("file:assets/CardImages/magikarp.png");
     //make n cards, place them at bottom of pane, side by side
