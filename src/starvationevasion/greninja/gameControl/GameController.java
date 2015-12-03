@@ -556,7 +556,7 @@ public class GameController
    */
   public void voteCast(PolicyCard card, VoteType vote)
   {
-    serverLine.sendMessage(new Vote(card, vote));
+    serverLine.sendMessage(new Vote(playerRegion, vote));
   }
 
 
