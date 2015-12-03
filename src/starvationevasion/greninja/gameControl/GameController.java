@@ -34,6 +34,8 @@ public class GameController
   private ArrayList<PolicyCard> cardsForVote;
   private ServerConnection serverLine;
   private WorldData worldState;
+  private MessageCenter messageCenter;
+  private boolean isHuman;
   //WorldModel
   //GameStateTracker
   private CardDeck tempDeck; //TODO Remove when server handles this.
@@ -45,12 +47,14 @@ public class GameController
   public GameController()
   {
     //start AI game
+    isHuman = false;
     player = new AIPlayer();
     player.setPlayerName("Compy 386");
     view = new AIView(this, player);
     serverLine = new ServerConnection(this);
     player = new AIPlayer();
     player.setPlayerName("AI");
+    messageCenter = new MessageCenter(this);
   }
 
   /**
@@ -59,8 +63,19 @@ public class GameController
    */
   public GameController(GuiBase view)
   {
+    isHuman = true;
     this.view = view;
     cardsForVote = new ArrayList<>();
+    messageCenter = new MessageCenter(this);
+  }
+
+  /**
+   * Is this controller for a human player?
+   * @return
+   */
+  public boolean isHuman()
+  {
+    return isHuman;
   }
 
   /**
@@ -70,86 +85,43 @@ public class GameController
    */
   public void handleMessageIn(Serializable message)
   {
-    //identify message type.
-    if(message instanceof AvailableRegions)
-    {
-      System.out.println("AvailableRegions message received");
-      view.updateAvailableRegions((AvailableRegions) message, player);
-    }
-    else if(message instanceof BeginGame)
-    {
-      BeginGame msg = (BeginGame) message;
-      beginGame(msg);
-    }
-    else if(message instanceof ClientChatMessage)
-    {
-      //message recieved.
-    }
-    else if(message instanceof GameState)
-    {
-      //update game state.
-      GameState gameState = (GameState) message;
-      worldState = gameState.worldData;
-      State.updateAllData(worldState);
-      //set player region info.
-    }
-    else if(message instanceof Goodbye)
-    {
-      //Logoff?
-    }
-    else if(message instanceof Hello)
-    {
-      //Confirmed connection.  This contains a salt thing for the password?
-      System.out.println("Hello received!");
-      Hello hello = (Hello) message;
-      String salt = hello.loginNonce;
-      Platform.runLater(() ->
-      {
-        guiView = (GuiBase) view;
-        guiView.swapToLoginPane(salt);
-      });
-    }
-    else if(message instanceof LoginResponse)
-    {
-      System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
-      handleLoginResponse((LoginResponse)message);
-    }
-    else if(message instanceof PhaseStart)
-    {
-      System.out.println("PhaseStartMessage");
-      handlePhaseStartMessage((PhaseStart) message);
-    }
-    else if(message instanceof ReadyToBegin)
-    {
-      //start countdown screen here?
-      System.out.println("Ready to begin message.");
-    }
-    else if(message instanceof Response)
-    {
-      //handle confirmation or error.
-    }
-    else if(message instanceof ServerChatMessage)
-    {
-      //handle chat stuff.
-      receiveChatMessage((ServerChatMessage) message);
-    }
+    messageCenter.handleMessageIn(message);
   }
 
   /**
-   * Send a message to the message queue
-   * @param message       Serializable object.
+   * If message center gets a hello from server, it kicks the message back to control
+   * to do the control stuff.
+   * @param message
    */
-  public void sendMessageOut(Serializable message)
+  public void helloReceived(Hello message)
   {
-    //send message to message queue;
-    serverLine.sendMessage(message);
+    //Confirmed connection.  This contains a salt thing for the password?
+    System.out.println("Hello received!");
+    Hello hello = (Hello) message;
+    String salt = hello.loginNonce;
+    Platform.runLater(() ->
+    {
+      guiView = (GuiBase) view;
+      guiView.swapToLoginPane(salt);
+    });
+  }
+
+  /**
+   * If availableRegion message is received, message center kicks it back to
+   * control to do gui stuff.
+   * @param message
+   */
+  public void availableRegionReceived(AvailableRegions message)
+  {
+    System.out.println("AvailableRegions message received");
+    view.updateAvailableRegions(message, player);
   }
 
   /**
    * If message is LoginResponse perform appropriate action
    * @param response        LoginResponse from server
    */
-  private void handleLoginResponse(LoginResponse response)
+  public void handleLoginResponse(LoginResponse response)
   {
     LoginResponse.ResponseType type = response.responseType;
     guiView = (GuiBase) view;
@@ -161,9 +133,7 @@ public class GameController
         break;
       case ASSIGNED_REGION:
         EnumRegion region = response.assignedRegion;
-        playerRegion = region;
-        player.setPlayerRegion(region);
-        System.out.println("Assigned Region " + region);
+        regionSelected(region);
         //assign this region.
         //skip staging pane?
         break;
@@ -180,44 +150,14 @@ public class GameController
   }
 
   /**
-   * Decide what phase is starting based on PhaseStart message and take appropriate
-   * action.
-   * @param msg       PhaseStart message received from serveer.
+   * Send a message to the message queue
+   * @param message       Serializable object.
    */
-  public void handlePhaseStartMessage(PhaseStart msg)
+  public void sendMessageOut(Serializable message)
   {
-    switch(msg.currentGameState)
-    {
-      case LOGIN:
-        //swap to login screen
-        break;
-      case BEGINNING:
-        //countdown to start
-        break;
-      case DRAWING:
-        //draw cards
-        break;
-      case DRAFTING:
-        startPolicyDraftingPhase();
-        break;
-      case VOTING:
-        startPolicyVotingPhase();
-        break;
-      case WIN:
-        System.out.println("A winner is you!");
-        break;
-      case LOSE:
-        System.out.println("All your base are belong to us.");
-        break;
-      case END:
-        //game over? disconnect?
-        break;
-      default:
-        System.out.println("Unknown state message.");
-        break;
-    }
+    //send message to message queue;
+    serverLine.sendMessage(message);
   }
-
 
   /*
   ============================Startup===========================================
@@ -284,6 +224,16 @@ public class GameController
   }
 
   /**
+   * If message recieved is a game state message, message center calls this.
+   * @param state
+   */
+  public void updateWorldStateInfo(GameState state)
+  {
+    worldState = state.worldData;
+    State.updateAllData(worldState);
+  }
+
+  /**
    * Once initial phases are over, setup rest of game and start policy drafting
    * phase.
    */
@@ -291,7 +241,7 @@ public class GameController
   {
     //create initial hand
     //Temporary code. Subject to change.
-    playerRegionInfo = State.CALIFORNIA;
+    //playerRegionInfo = State.CALIFORNIA;
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
@@ -303,7 +253,7 @@ public class GameController
    * default begin game message.
    * @param msg
    */
-  private void beginGame(BeginGame msg)
+  public void beginGame(BeginGame msg)
   {
     //confirm player region.
     for(EnumRegion region : msg.finalRegionChoices.keySet())

@@ -1,8 +1,8 @@
 package starvationevasion.greninja.model;
 
 
-import spring2015code.model.geography.Region;
-import spring2015code.model.geography.World;
+//import spring2015code.model.geography.Region;
+//import spring2015code.model.geography.World;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.RegionData;
