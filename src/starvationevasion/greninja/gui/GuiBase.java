@@ -144,6 +144,7 @@ public class GuiBase extends Application implements ControlListener
   public void swapToLoginPane(String salt)
   {
     System.out.println("Swapping to LoginPane");
+    serverConnectionPane.setHelloReceived(true);
     baseScene.setRoot(loginPane);
     loginPane.setSalt(salt);
   }

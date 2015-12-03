@@ -62,6 +62,11 @@ public class ServerConnectionPane extends StackPane
     initGui();
   }
 
+  public void setHelloReceived(boolean received)
+  {
+    helloReceived = received;
+  }
+
   public void initGui()
   {
     serverBox = new GridPane();
@@ -202,6 +207,7 @@ public class ServerConnectionPane extends StackPane
     private void attemptConnection()
     {
       long timeDiff = System.currentTimeMillis() - attemptStart;
+      if(helloReceived) connectToServerTimer.cancel();
       if(!hasStarted)
       {
         attemptStart = System.currentTimeMillis();
