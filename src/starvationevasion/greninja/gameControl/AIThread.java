@@ -4,14 +4,13 @@ package starvationevasion.greninja.gameControl;
  * This will be a thread that an AI runs on.  This is basically another instance
  * of the client (hopefully).
  */
-public class AIThread extends Thread
+public class AIThread extends GameController implements Runnable
 {
-  private GameController control;
   private boolean stillPlaying = true;
 
   public AIThread(String loginName, String loginPW)
   {
-    control = new GameController();
+    //do login stuff.
   }
 
   @Override
