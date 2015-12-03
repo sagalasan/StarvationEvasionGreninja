@@ -5,15 +5,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
@@ -121,8 +117,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane(base);
     //draftedCards.setScaleY(.5);
     //draftedCards.setScaleX(.5);
-    draftedCards.setAlignment(Pos.BOTTOM_CENTER);
-    draftedCards.setSpacing(30);
+    //draftedCards.setAlignment(Pos.BOTTOM_CENTER);
+    //draftedCards.setSpacing(30);
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.CENTER);
@@ -133,11 +129,28 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
     VBox draftedCardsBox = new VBox(5);
     draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
-    draftedCardsBox.getChildren().addAll(new Label("Drafted Policies"), draftedCards);
+    Label draftTitle = new Label("Drafted Policies");
+    //draftTitle.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(1),null)));
 
+
+    //leftPane.setPrefWidth(200);
     leftPane.setCenter(visBox);
-    leftPane.setBottom(draftedCardsBox);
+    //leftPane.setBottom(draftedCardsBox);
     leftPane.setPrefWidth(300);
+    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
+    //ScrollPane scrollPane = new ScrollPane(draftedCards);
+    //scrollPane.setFitToHeight(true);
+    //scrollPane.setStyle("-fx-background-color: black;");
+    //todo instead of scrollpane, just make it a card viewer that views a couple cards at a time
+    //scrollPane.setPrefHeight(200);
+    //scrollPane.setFitToWidth(true);
+    //scrollPane.setFitToHeight(true);
+    //scrollPane.setPrefHeight(draftedCards.getHeight());
+    //System.out.println(scrollPane.getHeight());
+    //scrollPane.setPrefHeight(draftedCards.getMaxHeight());
+    setPrefWidth(draftedCards.getMaxWidth());
+    draftedCardsBox.getChildren().addAll(draftTitle, draftedCards);
+    leftPane.setBottom(draftedCardsBox);
     mainPane.setLeft(leftPane);
   }
 

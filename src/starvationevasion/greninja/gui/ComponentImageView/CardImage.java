@@ -3,10 +3,7 @@ package starvationevasion.greninja.gui.ComponentImageView;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
@@ -29,7 +26,6 @@ public class CardImage extends VBox
 
   //private ImageView card;
 
-  //private PolicyCard policyCard;
   public CardImage(Image image, PolicyCard policyCard)
   {
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -50,7 +46,20 @@ public class CardImage extends VBox
     Text gameText = new Text(policyCard.getGameText());
     gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10); //the 20 is to pad the text area
     gameText.setFill(Color.WHITE);
-    scrollPane.setContent(gameText);
+
+    Button proposeButton = new Button("propose");
+    VBox cardInfo = new VBox();
+    cardInfo.getChildren().addAll(gameText, proposeButton);
+
+    proposeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        //does stuff
+      }
+    });
+    scrollPane.setContent(cardInfo);
+
+
     scrollPane.setMaxWidth(card.getBoundsInParent().getWidth()+20);
 
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //will set vertical scroll bar to not show

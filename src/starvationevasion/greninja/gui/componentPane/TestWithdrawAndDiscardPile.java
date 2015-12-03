@@ -43,13 +43,29 @@ public class TestWithdrawAndDiscardPile extends HBox
     VBox discardBox = new VBox(10);
     discardBox.setAlignment(Pos.TOP_CENTER);
     Label discardLabel = new Label("Discard");
-    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
+    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Clean_River_Incentive);
+    PolicyCard policyCard2 = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Fertilizer_Subsidy);
+
+
     CardImage discardPile = new CardImage(image, policyCard );
+    CardImage[] pile = new CardImage[2];
+    pile[0] = new CardImage(image, policyCard);
+    pile[1] = new CardImage(image, policyCard2);
+    /**for (int i = 0; i < 2; i++)
+    {
+
+      pile[i] = new CardImage(image, policyCard);
+      //getChildren().add(pile[i]);
+    }
+    **/
     discardBox.getChildren().addAll(discardLabel, discardPile);
 
     //makes a discarddisplay which is made up of cards passed, and two arrow buttons
     //this proceeds to make new stage with a new scene that is transparent
-    DiscardDisplay dis = new DiscardDisplay(new CardImage(image, policyCard));
+    //DiscardDisplay dis = new DiscardDisplay(new CardImage(image, policyCard));
+    DiscardDisplay dis = new DiscardDisplay(pile);
+
+
     Scene discard = new Scene(dis, 250, 250);
     discard.setFill(Color.TRANSPARENT);
     discard.setRoot(dis);
