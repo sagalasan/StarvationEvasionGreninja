@@ -7,8 +7,6 @@ import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.RegionData;
 import starvationevasion.common.WorldData;
-
-import java.util.HashMap;
 import java.util.Random;
 
 /**

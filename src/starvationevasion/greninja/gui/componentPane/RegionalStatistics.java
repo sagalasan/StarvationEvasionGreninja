@@ -44,7 +44,7 @@ public class RegionalStatistics extends LineChart<Number, Number>
     yAxis = (NumberAxis)getYAxis();
     this.region = region;
     initializeFarmProductsChart();
-    addDataToChart(EnumFood.CITRUS);
+    //addDataToChart(EnumFood.CITRUS);
   }
 
   protected  void addDataToChart(EnumFood food)
