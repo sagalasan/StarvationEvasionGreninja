@@ -62,15 +62,26 @@ public class ServerConnectionPane extends StackPane
   private String hostName;
   private int port;
 
+  private Stage currentStage;
+
   public ServerConnectionPane(GuiBase guiBase)
   {
     this.guiBase = guiBase;
+    currentStage = Stage.DISCONNECTED;
     initGui();
+  }
+
+  private enum Stage
+  {
+    DISCONNECTED,
+    CONNECTING,
+    CONNECTED;
   }
 
   public void setHelloReceived(boolean received)
   {
     helloReceived = received;
+    currentStage = Stage.CONNECTED;
   }
 
   public void initGui()
@@ -141,6 +152,7 @@ public class ServerConnectionPane extends StackPane
         responseMessageLabel.setTextFill(Color.WHITE);
         connectToServerTimer = new Timer();
         connectToServerTimer.schedule(new ScheduledTimer(this), 0, REFRESH_INTERVAL);
+        currentStage = Stage.CONNECTING;
       }
     }
     else if(source == cancelButton)
