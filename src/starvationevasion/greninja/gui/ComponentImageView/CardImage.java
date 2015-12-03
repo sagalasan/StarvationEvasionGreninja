@@ -84,7 +84,6 @@ public class CardImage extends VBox
         //get the child at this index
         //set that to front
 
-
       }
     });
 
