@@ -37,11 +37,15 @@ public class CardImage extends VBox
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
         EnumPolicy.Clean_River_Incentive);
     //this.policyCard = policyCard;
-    Label title = new Label(policyCard.getTitle());
+    //Label title = new Label(policyCard.getTitle());
     ImageView card = new ImageView(image);
     ScrollPane scrollPane = new ScrollPane();
 
+    Text title = new Text(policyCard.getTitle());
     title.setStyle("-fx-font-size: 14;");
+    title.setFill(Color.WHITE);
+    title.setWrappingWidth(card.getBoundsInParent().getWidth()+10);
+
     Text gameText = new Text(policyCard.getGameText());
     gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10); //the 20 is to pad the text area
     gameText.setFill(Color.WHITE);
@@ -53,16 +57,13 @@ public class CardImage extends VBox
     //scrollPane.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(1), null)));
     //setStyle("-fx-background: black");
 
-    scrollPane.setStyle("-fx-background: black");
 
-    //setStyle("-fx-border-color: white");
-    //setStyle("-fx-background-color: black");
-    //setStyle("-fx-border-width: 20");
-    //super(image);
-    //card = new ImageView(image);
-    //super(image);
+    scrollPane.setStyle("-fx-background: black;");
+
+
 
     setId("card-image");
+
     //isHover()
 
     //todo place a draft card button and a setting to choose how much money/resources to use for it
@@ -73,8 +74,10 @@ public class CardImage extends VBox
       public void handle(MouseEvent event) {
         //card.toFront();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
       }
     });
+
     setOnMouseExited(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {

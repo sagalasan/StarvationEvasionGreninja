@@ -158,6 +158,8 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
       draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true));
 
     }
+    //draftedCards.setMaxWidth(100);
+    //draftedCards.setMaxHeight(150);
     //draftedCards.setId("voting-image");
     //draftedCardsAndRegions.getChildren().addAll(map, draftedCards);
 

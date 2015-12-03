@@ -79,10 +79,13 @@
 
 #card-image:hover
 {
+
     -fx-scale-x: 1.5;
     -fx-scale-y: 1.5;
     -fx-translate-y: -50;
+
 }
+
 #card-image
 {
   -fx-font-size:10;

@@ -44,63 +44,66 @@ public class VotingCards extends VBox
   public VotingCards(Image image, boolean isVotingCard)
   {
     //card will have a background dependent if voting card
+    setMaxWidth(100);
+    setMaxHeight(150);
     card = new CardImage(image);
     setAlignment(Pos.CENTER);
+    //setId("card-image");
     if (isVotingCard)
     {
       //create background
       //each vote needs to be gotten from the controller
       votes = new Text(upArrow + yesVotes + "  " + sidewaysArrow + neutralVotes + "  " + downArrow + noVotes);
       votes.setFill(Color.WHITE);
+      getChildren().add(card);
+      card.getChildren().addAll(votes);
+      setStyle(GREY);
 
-      getChildren().addAll(card, votes);
-      card.setStyle(GREY);
-
-      setOnMouseClicked(new EventHandler<MouseEvent>() {
+      //votes.setId("card-image");
+      //setId("card-image");
+      card.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
           //System.out.println(event.getButton());
 
           String eventPressed = event.getButton().toString();
-          if (eventPressed.equals("PRIMARY"))
-          {
+          if (eventPressed.equals("PRIMARY")) {
             upVote();
             System.out.println("mouse 1 clicked");
-          }
-          else if (eventPressed.equals("SECONDARY"))
-          {
+          } else if (eventPressed.equals("SECONDARY")) {
             downVote();
             System.out.println("mouse 2 clicked");
           }
           //currentstatus gets updated as a player clicks upvoting or downvoting
           if (currentStatus == 1)
           {
-            card.setStyle(RED);
-            card.setStyle(RED_SHADOW);
+            setStyle(RED);
+            //card.setStyle(RED_SHADOW);
           }
           else if (currentStatus == 2)
           {
-            card.setStyle(GREY);
-            card.setStyle(GREY_SHADOW);
+            setStyle(GREY);
+            //card.setStyle(GREY_SHADOW);
           }
           else if (currentStatus == 3)
           {
-
-            card.setStyle(GREEN);
-            card.setStyle(GREEN_SHADOW);
+            setStyle(GREEN);
+            //card.setStyle(GREEN_SHADOW);
           }
 
         }
+
       });
-      }
-      else
-      {
-        getChildren().add(card);
-     }
-
-      setId("card-image");
-
     }
+    else
+    {
+      getChildren().add(card);
+    }
+
+      //setId("card-image");
+
+  }
+
   private void upVote()
   {
     if (currentStatus < 3)
