@@ -13,7 +13,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.ComponentImageView.VotingCards;
 import starvationevasion.greninja.gui.GuiBase;
@@ -149,13 +151,13 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     draftedCards.setSpacing(20);
     draftedCards.setAlignment(Pos.CENTER);
 
-
-    VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true);
+    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
+    VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard);
 
     for (int i = 0; i < 7; i++)
     {
 
-      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true));
+      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard));
 
     }
     //draftedCards.setMaxWidth(100);

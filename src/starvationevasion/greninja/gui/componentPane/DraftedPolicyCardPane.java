@@ -3,6 +3,7 @@ package starvationevasion.greninja.gui.componentPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.GuiBase;
@@ -25,9 +26,10 @@ public class DraftedPolicyCardPane extends HBox
     draftedCards = new CardImage[2];
     Image image = new Image("file:assets/CardImages/magikarp.png");
     //PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);
+    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
     for (int i = 0; i < 2; i++)
     {
-      draftedCards[i] = new CardImage(image);
+      draftedCards[i] = new CardImage(image, policyCard);
       getChildren().add(draftedCards[i]);
     }
   }

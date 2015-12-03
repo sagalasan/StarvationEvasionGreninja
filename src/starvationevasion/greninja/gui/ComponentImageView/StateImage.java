@@ -192,7 +192,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     }
     else if (regionName.equals(EnumRegion.NORTHERN_PLAINS))
     {
-      setupDisplayInfo(PLAINS, -getFitWidth()/6, -getFitHeight()/1.6, 2);
+      setupDisplayInfo(PLAINS, -getFitWidth()/6, -getFitHeight()/1.7, 2);
       //styleForDispInfo= new String(PLAINS);
       //displayInfo.setId("plains-images");
       //displayInfo.setTranslateY(-getFitHeight()/1.8);

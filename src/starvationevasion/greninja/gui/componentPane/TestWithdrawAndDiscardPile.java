@@ -14,6 +14,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.GuiBase;
@@ -42,12 +43,13 @@ public class TestWithdrawAndDiscardPile extends HBox
     VBox discardBox = new VBox(10);
     discardBox.setAlignment(Pos.TOP_CENTER);
     Label discardLabel = new Label("Discard");
-    CardImage discardPile = new CardImage(image);
+    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
+    CardImage discardPile = new CardImage(image, policyCard );
     discardBox.getChildren().addAll(discardLabel, discardPile);
 
     //makes a discarddisplay which is made up of cards passed, and two arrow buttons
     //this proceeds to make new stage with a new scene that is transparent
-    DiscardDisplay dis = new DiscardDisplay(new CardImage(image));
+    DiscardDisplay dis = new DiscardDisplay(new CardImage(image, policyCard));
     Scene discard = new Scene(dis, 250, 250);
     discard.setFill(Color.TRANSPARENT);
     discard.setRoot(dis);
@@ -97,7 +99,7 @@ public class TestWithdrawAndDiscardPile extends HBox
     VBox deckBox = new VBox(10);
     deckBox.setAlignment(Pos.TOP_CENTER);
     Label deckLabel = new Label("Deck");
-    CardImage deck = new CardImage(image);
+    CardImage deck = new CardImage(image, policyCard);
     deckBox.getChildren().addAll(deckLabel, deck);
 
 //    getChildren().addAll(discardPile, deck);

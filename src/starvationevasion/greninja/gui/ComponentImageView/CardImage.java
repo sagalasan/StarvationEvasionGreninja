@@ -30,13 +30,13 @@ public class CardImage extends VBox
   //private ImageView card;
 
   //private PolicyCard policyCard;
-  public CardImage(Image image)
+  public CardImage(Image image, PolicyCard policyCard)
   {
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     setMaxWidth(100);
     setMaxHeight(150);
-    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
-        EnumPolicy.Clean_River_Incentive);
+    //PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
+      //  EnumPolicy.Clean_River_Incentive);
     //this.policyCard = policyCard;
     //Label title = new Label(policyCard.getTitle());
     ImageView card = new ImageView(image);
@@ -51,13 +51,9 @@ public class CardImage extends VBox
     gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10); //the 20 is to pad the text area
     gameText.setFill(Color.WHITE);
     scrollPane.setContent(gameText);
-    //scrollPane.set
     scrollPane.setMaxWidth(card.getBoundsInParent().getWidth()+20);
 
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //will set vertical scroll bar to not show
-    //scrollPane.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(1), null)));
-    //setStyle("-fx-background: black");
-
 
     scrollPane.setStyle("-fx-background: black;");
 
@@ -67,7 +63,6 @@ public class CardImage extends VBox
 
     setId("card-image");
 
-    //isHover()
 
     //todo place a draft card button and a setting to choose how much money/resources to use for it
 

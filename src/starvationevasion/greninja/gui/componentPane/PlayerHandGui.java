@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 //import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumPolicy;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
@@ -42,11 +43,11 @@ public class PlayerHandGui extends HBox
     /**
      * this for loop is a place holder till the player hand returns something
      */
-   // PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);
+    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
     for (int i = 0; i < MAX_CARDS_IN_PLAYER_HAND; i++)
     {
 
-      playerCards[i] = new CardImage(image);
+      playerCards[i] = new CardImage(image, policyCard);
       //adds to cardHand
       getChildren().add(playerCards[i]);
     }
