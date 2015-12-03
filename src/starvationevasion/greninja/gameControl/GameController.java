@@ -141,6 +141,7 @@ public class GameController
         regionSelected(region);
         playerRegion = region;
         player.setPlayerRegion(region);
+        Platform.runLater(() -> view.swapToPolicyPane());
         //skip staging pane?
         break;
       case REJOIN:
@@ -148,7 +149,7 @@ public class GameController
         break;
       case CHOOSE_REGION:
         //go to staging like normal.
-        view.swapToStagingPane();
+        Platform.runLater(() -> view.swapToStagingPane());
         break;
       default:
         break;
