@@ -39,12 +39,12 @@ public interface MapImages {
       new Image("file:assets/greninjaAssets/pacificNorthwestAndMountainStates/pacificNorthwestAndMountainStatesVotingTitle.png");
 
 
-  Image HEARTLAND_IMAGE = new Image("file:assets/greninjaAssets/heartLand/heartLand.png");
-  Image HEARTLAND_TITLE_IMAGE = new Image("file:assets/greninjaAssets/heartLand/heartLandTitle.png");
+  Image HEARTLAND_IMAGE = new Image("file:assets/greninjaAssets/heartland/heartLand.png");
+  Image HEARTLAND_TITLE_IMAGE = new Image("file:assets/greninjaAssets/heartland/heartLandTitle.png");
 
 
-  Image HEARTLAND_IMAGE_VOTING = new Image("file:assets/greninjaAssets/heartLand/heartLandVoting.png");
-  Image HEARTLAND_TITLE_IMAGE_VOTING = new Image("file:assets/greninjaAssets/heartLand/heartLandVotingTitle.png");
+  Image HEARTLAND_IMAGE_VOTING = new Image("file:assets/greninjaAssets/heartland/heartLandVoting.png");
+  Image HEARTLAND_TITLE_IMAGE_VOTING = new Image("file:assets/greninjaAssets/heartland/heartLandVotingTitle.png");
 
   Image NORTHERN_CRESCENT_IMAGE = new Image("file:assets/greninjaAssets/northernCrescent/northernCrescent.png");
   Image NORTHERN_CRESCENT_TITLE_IMAGE =
