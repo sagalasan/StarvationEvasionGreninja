@@ -456,6 +456,7 @@ public class GameController
    * and this method adds it to the appropriate policy pending list.
    * @param cardIndex       index of card to draft.
    */
+  //perhaps just take by the index in the player hand
   public void draftPolicy(int cardIndex)
   {
     PolicyCard cardDrafted = draftingPhase.draftPolicy(cardIndex);

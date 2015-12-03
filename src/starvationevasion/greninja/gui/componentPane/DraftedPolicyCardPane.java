@@ -55,5 +55,9 @@ public class DraftedPolicyCardPane extends HBox
   {
     return this;
   }
+  public void updateCards()
+  {
+    //looks at controller, makes new cards to display
+  }
 
 }

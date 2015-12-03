@@ -88,6 +88,7 @@
     -fx-scale-x: 1.5;
     -fx-scale-y: 1.5;
     -fx-translate-y: -50;
+    -fx-font-size:20;
     /*try and resize here*/
 
 }

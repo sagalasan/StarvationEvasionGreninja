@@ -48,7 +48,7 @@ public class PlayerHandGui extends HBox
     for (int i = 0; i < MAX_CARDS_IN_PLAYER_HAND; i++)
     {
 
-      playerCards[i] = new PlayerCard(new CardImage(image, policyCard, base));
+      playerCards[i] = new PlayerCard(new CardImage(image, policyCard, base), base);
       //adds to cardHand
       getChildren().add(playerCards[i].getCard());
     }
