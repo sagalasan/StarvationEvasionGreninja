@@ -114,7 +114,10 @@ public class GameController
   public void availableRegionReceived(AvailableRegions message)
   {
     System.out.println("AvailableRegions message received");
-    view.updateAvailableRegions(message, player);
+    if(isHuman)
+    {
+      Platform.runLater(() -> guiView.updateAvailableRegions(message, player));
+    }
   }
 
   /**
@@ -129,12 +132,16 @@ public class GameController
     {
       case ACCESS_DENIED:
         //bad password.  Inform user, do again
-        Platform.runLater(() -> guiView.sendLoginFailed(response));
+        if(isHuman)
+        {
+          Platform.runLater(() -> guiView.sendLoginFailed(response));
+        }//if ai?
         break;
       case ASSIGNED_REGION:
         EnumRegion region = response.assignedRegion;
         regionSelected(region);
-        //assign this region.
+        playerRegion = region;
+        player.setPlayerRegion(region);
         //skip staging pane?
         break;
       case REJOIN:
@@ -162,6 +169,23 @@ public class GameController
   /*
   ============================Startup===========================================
   */
+
+  /**
+   * Starts no AIs or servers
+   */
+  public void startTestingGame()
+  {
+    System.out.println("Start single player game.");
+    guiView = (GuiBase)view; //set reference to view as a gui.
+    //for remaining slots, start AiGame (on new thread?).
+    serverLine = new ServerConnection(this);
+    //serverLine.startConnection("localhost");
+    player = new HumanPlayer();
+    player.setPlayerName("Player");
+    //login
+    //TODO server will swap to staging pane.
+    view.swapToStagingPane();
+  }
 
   /**
    * Begin single player game.
@@ -218,9 +242,8 @@ public class GameController
     System.out.println("Inform server of choice.");
     System.out.println("Wait for other players.");
     System.out.println("Start Policy Phase.");
-    //serverLine.sendMessage(new RegionChoice(region));
-    //TODO will be called from server's begin game message.
     beginGame();
+    //serverLine.sendMessage(new RegionChoice(region));
   }
 
   /**

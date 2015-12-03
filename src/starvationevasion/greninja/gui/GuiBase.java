@@ -68,6 +68,14 @@ public class GuiBase extends Application implements ControlListener
   }
 
   /**
+   * Starts a game with no server or ais
+   */
+  public void beginTestingGame()
+  {
+    control.startTestingGame();
+  }
+
+  /**
    * Starts a single player game.
    */
   public void beginSinglePlayer()

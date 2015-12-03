@@ -13,4 +13,6 @@ public class ClientConstant
   public static final String POLICY_TIME_LIMIT = "5:00";
   public static final Color GRAYOUT = new Color(0.5, 0.5, 0.5, 0.5);
   public static final String VOTING_TIME_PANE = "2:00";
+  public static final String LOCAL_HOST = "localhost";
+  public static final String TEST_PORT = "27015";
 }

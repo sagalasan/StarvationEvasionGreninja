@@ -24,6 +24,7 @@ public class EntryPane extends StackPane
 {
   private Button solo;
   private Button multiplayer;
+  private Button testing;
   private Button quit;
   private Button serverSelected;
   private GuiBase base;
@@ -39,15 +40,18 @@ public class EntryPane extends StackPane
     basePane = new VBox();
 
     solo = new Button("Single Player");
+    testing = new Button("Testing");
     multiplayer = new Button("Multiplayer");
     quit = new Button("Quit");
 
+    testing.setOnAction(this::buttonPressed);
     solo.setOnAction(this::buttonPressed);
     multiplayer.setOnAction(this::buttonPressed);
     quit.setOnAction(this::buttonPressed);
 
     basePane.setSpacing(1.5);
     basePane.getChildren().add(new Label("Entry Pane, choose a game type."));
+    basePane.getChildren().add(testing);
     basePane.getChildren().add(solo);
     basePane.getChildren().add(multiplayer);
     basePane.getChildren().add(quit);
@@ -62,6 +66,11 @@ public class EntryPane extends StackPane
     {
       System.out.println("Pressed Solo");
       base.beginSinglePlayer();
+    }
+    else if(source == testing)
+    {
+      System.out.println("Pressed Testing.");
+      base.beginTestingGame();
     }
     else if(source == multiplayer)
     {
