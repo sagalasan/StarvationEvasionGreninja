@@ -141,7 +141,11 @@ public class GameController
         regionSelected(region);
         playerRegion = region;
         player.setPlayerRegion(region);
-        Platform.runLater(() -> view.swapToPolicyPane());
+        Platform.runLater(() ->
+        {
+          view.swapToStagingPane();
+          ((GuiBase) view).lockStagingPane(playerRegion);
+        });
         //skip staging pane?
         break;
       case REJOIN:

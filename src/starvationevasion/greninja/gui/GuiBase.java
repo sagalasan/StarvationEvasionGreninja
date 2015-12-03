@@ -206,6 +206,11 @@ public class GuiBase extends Application implements ControlListener
 
   }
 
+  public void lockStagingPane(EnumRegion region)
+  {
+    stagingPane.lock(region);
+  }
+
   public void endPolicyDraftingPhase()
   {
     control.endPolicyDraftingPhase();

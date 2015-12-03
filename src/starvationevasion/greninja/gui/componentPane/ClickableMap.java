@@ -143,7 +143,7 @@ public class ClickableMap extends StackPane implements MapImages
     //state.setOpacity(.5);
     for (StateImage state: stateArray)
     {
-      if (state.getName().equals(regionName))
+      if (!state.getName().equals(regionName))
       {
         if (greyOut == true)
         {
