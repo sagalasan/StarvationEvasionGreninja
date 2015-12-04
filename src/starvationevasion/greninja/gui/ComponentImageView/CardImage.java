@@ -34,8 +34,8 @@ public class CardImage extends VBox
     this.base = base;
     this.policyCard = policyCard;
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-    setMaxWidth(100);
-    setMaxHeight(180);
+    setPrefWidth(100);
+    setPrefHeight(180);
     //PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
       //  EnumPolicy.Clean_River_Incentive);
     //this.policyCard = policyCard;
