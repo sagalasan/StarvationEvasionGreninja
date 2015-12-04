@@ -3,6 +3,7 @@ package starvationevasion.greninja.gameControl;
 import javafx.application.Platform;
 import starvationevasion.common.*;
 import starvationevasion.common.messages.*;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.model.AIPlayer;
@@ -220,12 +221,10 @@ public class GameController
     guiView = (GuiBase)view; //set reference to view as a gui.
     //for remaining slots, start AiGame (on new thread?).
     serverLine = new ServerConnection(this);
-    //serverLine.startConnection("localhost");
     player = new HumanPlayer();
     player.setPlayerName("Player");
     //login
-    //TODO server will swap to staging pane.
-    view.swapToStagingPane();
+    serverLine.startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
   }
 
   public void multiPlayerSelected()
@@ -264,6 +263,7 @@ public class GameController
     worldState = state.worldData;
     State.updateAllData(worldState);
     updatePlayerHand(state.hand);
+    //TODO send hand to gui
   }
 
   /**
