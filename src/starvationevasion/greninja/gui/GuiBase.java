@@ -215,6 +215,7 @@ public class GuiBase extends Application implements ControlListener
   public void displayProposeDialog(PolicyCard policyCard)
   {
     ProposalDialog proposalDialog = new ProposalDialog(this, policyCard);
+    testPolicyPane.addDarkenOverlay();
     testPolicyPane.getChildren().add(proposalDialog);
     proposalDialog.toFront();
   }
@@ -222,6 +223,7 @@ public class GuiBase extends Application implements ControlListener
   public void removeProposalDialog(ProposalDialog dialog)
   {
     testPolicyPane.getChildren().remove(dialog);
+    testPolicyPane.removeDarkenOverlay();
   }
 
   public void endPolicyDraftingPhase()

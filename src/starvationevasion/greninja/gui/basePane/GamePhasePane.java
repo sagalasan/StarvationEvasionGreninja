@@ -23,8 +23,6 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
   public GamePhasePane(GuiBase base)
   {
     this.base = base;
-    overlayRectangle = new Rectangle(this.getWidth(), this.getHeight(), Color.BLACK);
-    overlayRectangle.setOpacity(.8);
   }
 
   /**
@@ -86,6 +84,8 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
    */
   public void addDarkenOverlay()
   {
+    overlayRectangle = new Rectangle(this.getWidth(), this.getHeight(), Color.BLACK);
+    overlayRectangle.setOpacity(.8);
     this.getChildren().add(overlayRectangle);
     overlayRectangle.toFront();
   }
