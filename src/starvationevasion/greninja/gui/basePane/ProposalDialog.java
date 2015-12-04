@@ -17,6 +17,8 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.GuiBase;
 
+import java.util.ArrayList;
+
 /**
  * Created by Christiaan Martinez on 12/3/15.
  */
@@ -40,7 +42,6 @@ public class ProposalDialog extends StackPane
   {
     this.guiBase = guiBase;
     this.policyCard = policyCard;
-    //this.setOpacity(.3);
     initGui();
   }
 
@@ -48,9 +49,11 @@ public class ProposalDialog extends StackPane
   {
     initCheckBoxVBox();
 
+
+
     gridPane = new GridPane();
     gridPane.setAlignment(Pos.CENTER);
-    Rectangle rect = new Rectangle(500, 500,Color.GRAY);
+    Rectangle rect = new Rectangle(600, 600, Color.GRAY);
     sendButton = new Button("Send");
     cancelButton = new Button("Cancel");
 
@@ -76,6 +79,8 @@ public class ProposalDialog extends StackPane
 
   private void initCheckBoxVBox()
   {
+    EnumRegion ownerRegion = policyCard.getOwner();
+
     checkBoxGroup = new VBox();
     checkBoxGroup.setSpacing(5);
     checkBoxGroup.getChildren().add(new Label("Select Regions to send proposal:"));
@@ -84,7 +89,26 @@ public class ProposalDialog extends StackPane
     for(int i = 0; i < checkBoxNames.length; i++)
     {
       String name = getNameOfEnumRegion(checkBoxNames[i]);
-      CheckBox box = new CheckBox(name);
+      CheckBox box;
+      if(checkBoxNames[i].equals(ownerRegion))
+      {
+        System.out.println("Owner");
+        box = new CheckBox(name + " - (You)")
+        {
+          @Override
+          public void fire() {}
+        };
+      }
+      else
+      {
+        box = new CheckBox(name);
+      }
+
+      box.setAllowIndeterminate(false);
+      box.setIndeterminate(false);
+      box.setSelected(false);
+
+      checkBoxes[i] = box;
       checkBoxGroup.getChildren().add(box);
     }
   }
@@ -95,12 +119,33 @@ public class ProposalDialog extends StackPane
     if(button == sendButton)
     {
       System.out.println("Send pressed");
+      sendChatMessages();
     }
     else if(button == cancelButton)
     {
       System.out.println("Cancel pressed");
       guiBase.removeProposalDialog(this);
     }
+  }
+
+  private void sendChatMessages()
+  {
+    guiBase.removeProposalDialog(this);
+    ArrayList<EnumRegion> regions = new ArrayList<>();
+    EnumRegion[] regionArray;
+    for(int i = 0; i < checkBoxes.length; i++)
+    {
+      boolean state = checkBoxes[i].isSelected();
+      if(state)
+      {
+        EnumRegion region = checkBoxNames[i];
+        regions.add(region);
+        System.out.println("Chat message: " + policyCard.getTitle() + " -> " + region);
+      }
+    }
+    regionArray = new EnumRegion[regions.size()];
+    regionArray = regions.toArray(regionArray);
+    guiBase.sendChatMessage(policyCard.getCardType(), regionArray);
   }
 
   private String getNameOfEnumRegion(EnumRegion region)

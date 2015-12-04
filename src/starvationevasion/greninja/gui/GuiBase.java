@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
