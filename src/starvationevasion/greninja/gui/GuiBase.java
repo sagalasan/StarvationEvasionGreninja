@@ -433,6 +433,13 @@ public class GuiBase extends Application implements ControlListener
   public void stop()
   {
     control.sendMessageOut(new Goodbye("poop"));
+    if(aiThreads != null)
+    {
+      for(AIThread ai : aiThreads)
+      {
+        ai.sendMessageOut(new Goodbye("me too."));
+      }
+    }
     Platform.exit();
     System.exit(0);
   }
