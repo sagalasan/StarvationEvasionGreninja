@@ -277,6 +277,11 @@ public class GameController
     {
       newHand.add(PolicyCard.create(player.getPlayerRegion(), policy));
     }
+    player.setPlayerHand(newHand);
+    if(isHuman)
+    {
+      Platform.runLater(() -> guiView.setPlayerHand(newHand));
+    }
   }
 
   /**
@@ -473,6 +478,7 @@ public class GameController
     if(isTesting)
     {
       fillHand();
+      guiView.setPlayerHand((ArrayList<PolicyCard>)player.getPlayerHand());
     }
     view.swapToPolicyPane();
     draftingPhase = new DraftingPhase(this, player);

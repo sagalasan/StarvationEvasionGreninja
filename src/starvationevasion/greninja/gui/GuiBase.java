@@ -57,6 +57,8 @@ public class GuiBase extends Application implements ControlListener
   private GuiTimer guiTimer;
   private ArrayList<AIThread> aiThreads;
 
+  private ArrayList<PolicyCard> playerHand;
+
   public void initializePanes()
   {
     testPolicyPane = new TestPolicyPane(this);
@@ -318,6 +320,16 @@ public class GuiBase extends Application implements ControlListener
   {
     ClientChatMessage messageOut = new ClientChatMessage(card, destination);
     control.sendMessageOut(messageOut);
+  }
+
+  /**
+   * Set the reference to player hand.  If this hasn't happened yet player hand
+   * should be null.
+   * @param playerHand
+   */
+  public void setPlayerHand(ArrayList<PolicyCard> playerHand)
+  {
+    this.playerHand = playerHand;
   }
   /*
   ==============================================================
