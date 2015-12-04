@@ -52,7 +52,7 @@ public class PlayerHandGui extends HBox
     {
       //System.out.println("playerHand policy cards");
      // System.out.println(policy.getTitle());
-      getChildren().add(new PlayerCard(new CardImage(image, policy, base),base).getCard());
+      getChildren().add(new PlayerCard(new CardImage(image, policy, base),base).getCard().getScrollCard());
 
     }
 

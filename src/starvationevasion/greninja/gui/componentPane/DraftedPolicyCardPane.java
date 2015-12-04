@@ -42,11 +42,11 @@ public class DraftedPolicyCardPane extends HBox
     for (int i = 0; i < 2; i++)
     {
       draftedCards[i] = new CardImage(image, policyCard, base);
-      getChildren().add(draftedCards[i]);
+      getChildren().add(draftedCards[i].getScrollCard());
     }
     //setMaxHeight(300);
-    setMaxWidth(200);
-    setMaxHeight(draftedCards[0].getBoundsInParent().getHeight());
+    //setMaxWidth(200);
+    //setMaxHeight(draftedCards[0].getBoundsInParent().getHeight());
 
     //setPrefHeight(300);
     //setMinHeight(150);
