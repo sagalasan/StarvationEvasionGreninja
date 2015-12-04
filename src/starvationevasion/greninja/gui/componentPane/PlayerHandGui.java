@@ -11,8 +11,11 @@ import starvationevasion.greninja.gui.ComponentImageView.PlayerCard;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 
+import java.util.List;
+
 /**
  * Created by Jalen on 11/21/2015.
+ * thursday 10
  */
 public class PlayerHandGui extends HBox
 {
@@ -41,17 +44,30 @@ public class PlayerHandGui extends HBox
 
 
 
+
+    //base.getPlayerHand();
+    //List<PolicyCard> playerHand = base.getPlayerHand();
+    /**for (PolicyCard policy: base.getPlayerHand() )
+    {
+      System.out.println(policy.getTitle());
+      //getChildren().add(new PlayerCard(new CardImage(image, policy, base),base).getCard());
+
+    }
+**/
     /**
      * this for loop is a place holder till the player hand returns something
      */
+
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
     for (int i = 0; i < MAX_CARDS_IN_PLAYER_HAND; i++)
     {
-
+      //base.getPlayerHand();
       playerCards[i] = new PlayerCard(new CardImage(image, policyCard, base), base);
       //adds to cardHand
       getChildren().add(playerCards[i].getCard());
     }
+
+
     //Image image = new Image("file:assets/CardImages/magikarp.png");
     //make n cards, place them at bottom of pane, side by side
     //have them adjust according to their position
@@ -63,10 +79,10 @@ public class PlayerHandGui extends HBox
    *
    *  updates the hand
    */
-  public void updateCards()
-  {
-    base.getPlayerHand();
-  }
+  //public void updateCards()
+ // {
+   // base.getPlayerHand();
+ // }
 
 
 

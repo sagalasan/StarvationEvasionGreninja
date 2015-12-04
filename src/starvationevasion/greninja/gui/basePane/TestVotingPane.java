@@ -46,13 +46,23 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     super(base);
     this.base = base;
     stateCards = new CardImage[NUMBER_OF_TOTAL_DRAFTED_CARDS];
-
+    super.initTimerPane(2, 0);
+    mainPane.setId("mainPaneVoting");
+    //playerHandGui = new PlayerHandGui(base);
+    //playerHandGui.setAlignment(Pos.CENTER);
+    buildTop();
+    buildLeft();
+    buildRight();
+    buildBottom();
+    buildCenter();
+    getChildren().add(mainPane);
 
   }
 
   /**
    * Instantiates and adds components to pane.
    */
+  /**
   public void initPane()
   {
     super.initTimerPane(2, 0);
@@ -67,6 +77,8 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     getChildren().add(mainPane);
 
   }
+  **/
+
 
   /*
    * Contains the phase title and the next phase button.

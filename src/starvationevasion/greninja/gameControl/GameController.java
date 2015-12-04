@@ -336,12 +336,15 @@ public class GameController
    */
   private void fillHand()
   {
-    EnumPolicy[] newCards = tempDeck.drawCards();
+   /** EnumPolicy[] newCards = tempDeck.drawCards();
+
     ArrayList<PolicyCard> newHand = new ArrayList<>();
-    //for(EnumPolicy card : newCards)
-    //{
-//      player.getPlayerHand().add(PolicyCard.create(playerRegion, card));
-    //}
+    for(EnumPolicy card : newCards)
+    {
+     // System.out.println(card);
+      player.addCard(PolicyCard.create(playerRegion, card));
+    }
+    **/
   }
  /*
   ============================end startup=======================================
@@ -429,6 +432,12 @@ public class GameController
    */
   public List<PolicyCard> getPlayerHand()
   {
+    if (player.equals(null))
+    {
+      System.out.println("helloWorld");
+    }
+    System.out.println("helloWorld");
+    System.out.println(player.getPlayerHand().get(0).getTitle());
     return player.getPlayerHand();
   }
 

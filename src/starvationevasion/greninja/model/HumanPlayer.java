@@ -12,15 +12,22 @@ import java.util.List;
 public class HumanPlayer implements PlayerInterface
 {
   EnumRegion region;
-  List<PolicyCard> cards, discardPile, voteRequiredPolicies;
+  List<PolicyCard> cards , discardPile, voteRequiredPolicies;
   private String playerName;
 
   int votingPolicyCount = 0;
 
-  public HumanPlayer() {}
+  public HumanPlayer()
+  {
+    cards = new ArrayList<PolicyCard>();
+    discardPile = new ArrayList<PolicyCard>();
+    voteRequiredPolicies = new ArrayList<PolicyCard>();
+
+  }
 
   public HumanPlayer(EnumRegion region, List<PolicyCard> cards)
   {
+    cards = new ArrayList<PolicyCard>();
     discardPile = new ArrayList<PolicyCard>();
     voteRequiredPolicies = new ArrayList<PolicyCard>();
 
@@ -76,6 +83,7 @@ public class HumanPlayer implements PlayerInterface
   @Override
   public boolean addCard(PolicyCard card)
   {
+    //System.out.println("adding " +card.getTitle());
     if (cards.size() < 7)
     {
       cards.add(card);
@@ -139,6 +147,7 @@ public class HumanPlayer implements PlayerInterface
   @Override
   public PolicyCard getCard(int index)
   {
+    //at most there can only be 7 cards
     if(index < cards.size())
     {
       return cards.get(index);

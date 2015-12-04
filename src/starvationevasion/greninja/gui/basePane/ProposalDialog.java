@@ -6,10 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumRegion;
@@ -49,29 +46,34 @@ public class ProposalDialog extends StackPane
   {
     initCheckBoxVBox();
 
-
-
     gridPane = new GridPane();
     gridPane.setAlignment(Pos.CENTER);
+    gridPane.setVgap(4);
+    gridPane.setHgap(4);
     Rectangle rect = new Rectangle(600, 600, Color.GRAY);
+
     sendButton = new Button("Send");
-    cancelButton = new Button("Cancel");
-
+    sendButton.setAlignment(Pos.CENTER);
     sendButton.setOnAction(this::buttonPressed);
-    cancelButton.setOnAction(this::buttonPressed);
 
-    HBox buttonHBox = new HBox();
-    buttonHBox.getChildren().add(sendButton);
-    buttonHBox.getChildren().add(cancelButton);
+    cancelButton = new Button("Cancel");
+    cancelButton.setAlignment(Pos.CENTER_RIGHT);
+    cancelButton.setOnAction(this::buttonPressed);
 
     Image image = new Image("file:assets/CardImages/magikarp.png");
     cardImage = new CardImage(image, policyCard, guiBase);
 
+    HBox checkParent = new HBox();
+    checkParent.getChildren().add(checkBoxGroup);
+    checkParent.setAlignment(Pos.CENTER_RIGHT);
+
     Label title = new Label("Send Proposal to Selected Regions");
+    title.setAlignment(Pos.CENTER);
     gridPane.add(title, 0, 0, 2, 1);
     gridPane.add(cardImage, 0, 1);
-    gridPane.add(buttonHBox, 0, 2);
-    gridPane.add(checkBoxGroup, 1, 1, 1, 2);
+    gridPane.add(checkBoxGroup, 1, 1);
+    gridPane.add(sendButton, 0, 2);
+    gridPane.add(cancelButton, 1, 2);
 
     this.getChildren().add(rect);
     this.getChildren().add(gridPane);
@@ -83,7 +85,7 @@ public class ProposalDialog extends StackPane
 
     checkBoxGroup = new VBox();
     checkBoxGroup.setSpacing(5);
-    checkBoxGroup.getChildren().add(new Label("Select Regions to send proposal:"));
+    checkBoxGroup.getChildren().add(new Label("Regions"));
 
     checkBoxes = new CheckBox[checkBoxNames.length];
     for(int i = 0; i < checkBoxNames.length; i++)
