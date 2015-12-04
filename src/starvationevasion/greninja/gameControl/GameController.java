@@ -640,4 +640,9 @@ public class GameController
   /*
   ===========voting phase end===================================================
    */
+
+  public void print(String print)
+  {
+    System.out.println(player.getPlayerName() + ": " + print);
+  }
 }
