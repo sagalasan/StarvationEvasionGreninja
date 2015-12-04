@@ -347,19 +347,20 @@ public class GameController
 
   /**
    * @deprecated
-   * Fill player hand up to 7 cards.
+   * Fill player hand up to 7 cards. quick and dirty
    */
   private void fillHand()
   {
-   /** EnumPolicy[] newCards = tempDeck.drawCards();
-
     ArrayList<PolicyCard> newHand = new ArrayList<>();
-    for(EnumPolicy card : newCards)
-    {
-     // System.out.println(card);
-      player.addCard(PolicyCard.create(playerRegion, card));
-    }
-    **/
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Clean_River_Incentive));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Fertilizer_Subsidy));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.GMO_Seed_Insect_Resistance_Research));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Efficient_Irrigation_Incentive));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Ethanol_Tax_Credit_Change));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Covert_Intelligence));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Foreign_Aid_for_Farm_Infrastructure));
+
+    player.setPlayerHand(newHand);
   }
  /*
   ============================end startup=======================================
