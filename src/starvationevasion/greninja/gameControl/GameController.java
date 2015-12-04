@@ -110,7 +110,7 @@ public class GameController
   public void helloReceived(Hello message)
   {
     //Confirmed connection.  This contains a salt thing for the password?
-    System.out.println("Hello received!");
+    print("Hello received!");
     Hello hello = (Hello) message;
     String salt = hello.loginNonce;
     Platform.runLater(() ->
@@ -127,7 +127,7 @@ public class GameController
    */
   public void availableRegionReceived(AvailableRegions message)
   {
-    System.out.println("AvailableRegions message received");
+    print("AvailableRegions message received");
     if(isHuman)
     {
       Platform.runLater(() -> guiView.updateAvailableRegions(message, player));
