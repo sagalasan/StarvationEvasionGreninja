@@ -37,17 +37,10 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
   {
     base = gui;
     availableRegions = null;
-  }
-
-  /**
-   * Setup Staging Pane.
-   */
-  public void initPane()
-  {
     basePane = new VBox();
     getChildren().add(basePane);
     basePane.getChildren().add(new Label("Staging Pane, select a region."));
-    selectedRegion = "None.";
+    //selectedRegion = "None.";
     regionSelectedLabel = new Label(selectedRegion);
 
     basePane.getChildren().add(regionSelectedLabel);
@@ -63,6 +56,33 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
 
     basePane.getChildren().add(map);
   }
+
+  /**
+   * Setup Staging Pane.
+   */
+  /**
+  public void initPane()
+  {
+    basePane = new VBox();
+    getChildren().add(basePane);
+    basePane.getChildren().add(new Label("Staging Pane, select a region."));
+    //selectedRegion = "None.";
+    regionSelectedLabel = new Label(selectedRegion);
+
+    basePane.getChildren().add(regionSelectedLabel);
+    map = new ClickableMap("staging");
+    map.setContainingPane(this);
+
+
+    //EXAMPLE OF HOW TO GREY OUT, JUST SETS THE OPAQUENESS
+    //true to set grey
+    //false to set back to full colored
+    //map.greyOut(EnumRegion.CALIFORNIA, true);
+    //map.greyOut(EnumRegion.CALIFORNIA, false);
+
+    basePane.getChildren().add(map);
+  }
+   **/
 
   /**
    * When interactive map is clicked, set region selected to that region.

@@ -26,6 +26,7 @@ public class PlayerCard
       public void handle(MouseEvent event) {
         //add a drafted card to controller
         //make it a drafted card, remove button
+
       }
     });
   }

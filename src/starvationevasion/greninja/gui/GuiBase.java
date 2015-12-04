@@ -40,8 +40,8 @@ import java.util.List;
 public class GuiBase extends Application implements ControlListener
 {
   // ERIN'S ADDED VARIABLES (to be deleted later)
-  private TestPolicyPane testPolicyPane = new TestPolicyPane(this);
-  private TestVotingPane testVotingPane = new TestVotingPane(this);
+  private TestPolicyPane testPolicyPane;// = new TestPolicyPane(this);
+  private TestVotingPane testVotingPane;// = new TestVotingPane(this);
 
 
   private EntryPane entryPane = new EntryPane(this);
@@ -62,14 +62,10 @@ public class GuiBase extends Application implements ControlListener
 
   public void initializePanes()
   {
-    //votingPane.initPane();
-    //policyPane.initPane();
-
-    // TODO: get rid of this test later
-    testPolicyPane.initPane();
-    testVotingPane.initPane();
+    testPolicyPane = new TestPolicyPane(this);
+    testVotingPane = new TestVotingPane(this);
     stagingPane = new StagingPane(this);
-    stagingPane.initPane();
+    //stagingPane.initPane();
   }
 
   /**
@@ -428,7 +424,9 @@ public class GuiBase extends Application implements ControlListener
   }
   public List<PolicyCard> getPlayerHand()
   {
-    return control.getPlayerHand();
+    System.out.println("helloWorldguibase");
+    //System.out.println(control.getPlayerHand().get(0).getTitle());
+    return control.getPlayer().getPlayerHand();
   }
 
   /**

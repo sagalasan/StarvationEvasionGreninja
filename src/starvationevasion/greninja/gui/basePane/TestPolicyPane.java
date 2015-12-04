@@ -39,11 +39,27 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   {
     super(base);
     this.base = base;
+    super.initTimerPane(5, 0);
+    mainPane.setId("mainPolicyPane");
+    playerHandGui = new PlayerHandGui(base);
+    toolbar = new ToolbarPane(base);
+
+    // Get the information to be displayed in the GUI
+    // getInfo();
+
+    // Build each sector of the GUI
+    buildTop();
+    buildLeft();
+    buildRight();
+    buildBottom();
+    buildCenter();
+    getChildren().add(mainPane);
   }
 
   /**
    * Instantiates and adds components to pane.
    */
+  /**
   public void initPane()
   {
     super.initTimerPane(5, 0);
@@ -62,6 +78,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     buildCenter();
     getChildren().add(mainPane);
   }
+   **/
 
   /*
    * Contains the phase title and the next phase button.
