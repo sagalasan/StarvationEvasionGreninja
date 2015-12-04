@@ -59,6 +59,8 @@ public class GuiBase extends Application implements ControlListener
 
   private ArrayList<PolicyCard> playerHand;
 
+  private ServerThread serverThread;
+
   /**
   public void initializePanes()
   {
@@ -394,6 +396,7 @@ public class GuiBase extends Application implements ControlListener
    */
   public void startAIThreads()
   {
+    serverThread = new ServerThread("data/config/easy_password_file.tsv");
     aiThreads = new ArrayList<>();
     aiThreads.add(new AIThread("user1", "password"));
     aiThreads.add(new AIThread("user2", "password"));
