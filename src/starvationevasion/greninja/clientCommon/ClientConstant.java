@@ -14,5 +14,5 @@ public class ClientConstant
   public static final Color GRAYOUT = new Color(0.5, 0.5, 0.5, 0.5);
   public static final String VOTING_TIME_PANE = "2:00";
   public static final String LOCAL_HOST = "localhost";
-  public static final String TEST_PORT = "27015";
+  public static final int TEST_PORT = 27015;
 }

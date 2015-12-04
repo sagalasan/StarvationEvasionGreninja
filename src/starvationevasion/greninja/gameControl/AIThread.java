@@ -1,5 +1,9 @@
 package starvationevasion.greninja.gameControl;
 
+import starvationevasion.common.messages.Hello;
+import starvationevasion.common.messages.Login;
+import starvationevasion.greninja.clientCommon.ClientConstant;
+
 import java.io.Serializable;
 import java.util.ArrayDeque;
 
@@ -26,31 +30,55 @@ public class AIThread extends GameController implements Runnable
   @Override
   public void run()
   {
+    //connect!
+    getServerLine().startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
     //play a game
     while(stillPlaying)
     {
-      while(messageQueue.isEmpty())
-      {
-        //sit here and let game controller take care of everything
-        try
-        {
-          wait();
-        }
-        catch (InterruptedException e)
-        {
-          System.out.println("AI Thread Interrupted");
-          e.printStackTrace();
-        }
-      }
-      super.handleMessageIn(messageQueue.pop());
+      checkPoint();
+      super.handleMessageIn(messageQueue.removeFirst());
     }
     //disconnect and stop.
   }
 
+  /**
+   * Intercept hello received message and send Login to server.
+   * @param message
+   */
   @Override
-  public void handleMessageIn(Serializable message)
+  public synchronized void helloReceived(Hello message)
+  {
+    System.out.println(loginName + " Received Hello");
+    Hello hello = (Hello) message;
+    String salt = hello.loginNonce;
+    sendLoginInfo(loginName, loginPW, salt);
+  }
+
+  /**
+   * Intercept handle message in.  This will add the message to the message queue
+   * and notify that run method that there are messages to do stuff with.
+   * @param message       Serializable object.
+   */
+  @Override
+  public synchronized void handleMessageIn(Serializable message)
   {
     messageQueue.addLast(message);
     notify();
+  }
+
+  private synchronized void checkPoint()
+  {
+    while(messageQueue.isEmpty())
+    {
+      try
+      {
+        wait();
+      }
+      catch (InterruptedException e)
+      {
+        System.out.println("AI Thread Interrupted");
+        e.printStackTrace();
+      }
+    }
   }
 }

@@ -14,6 +14,7 @@ import starvationevasion.common.messages.Login;
 import starvationevasion.common.messages.LoginResponse;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.greninja.gameControl.AIThread;
 import starvationevasion.greninja.gameControl.ControlListener;
 import starvationevasion.greninja.gameControl.GameController;
 import javafx.application.Application;
@@ -27,6 +28,7 @@ import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +57,7 @@ public class GuiBase extends Application implements ControlListener
   private Scene baseScene;
   private GameController control;
   private GuiTimer guiTimer;
+  private ArrayList<AIThread> aiThreads;
 
   public void initializePanes()
   {
@@ -81,6 +84,7 @@ public class GuiBase extends Application implements ControlListener
    */
   public void beginSinglePlayer()
   {
+    startAIThreads();
     control.startSinglePlayerGame();
   }
 
@@ -379,6 +383,25 @@ public class GuiBase extends Application implements ControlListener
 
     guiTimer = new GuiTimer(this);
     guiTimer.start();
+  }
+
+  /**
+   * This method should be called when the player selects single player.  Will
+   * instantiate and start up 6 ais.
+   */
+  public void startAIThreads()
+  {
+    aiThreads = new ArrayList<>();
+    aiThreads.add(new AIThread("shea", "sw0rdf1sh"));
+    aiThreads.add(new AIThread("WOPR", "aStrangeGame"));
+    aiThreads.add(new AIThread("Rami", "Who is Mr. Robot?"));
+    aiThreads.add(new AIThread("smoak", "4rr0w"));
+    aiThreads.add(new AIThread("barbaraG", "0r4cl3"));
+    aiThreads.add(new AIThread("hsalf", "ItWasMeBarry"));
+    for(AIThread thread : aiThreads)
+    {
+      new Thread(thread).start();
+    }
   }
 
   public static void main(String[] args)

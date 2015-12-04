@@ -69,6 +69,15 @@ public class GameController
   }
 
   /**
+   * Returns a reference to the server line
+   * @return        ServerLine
+   */
+  public ServerConnection getServerLine()
+  {
+    return serverLine;
+  }
+
+  /**
    * Is this controller for a human player?
    * @return
    */
