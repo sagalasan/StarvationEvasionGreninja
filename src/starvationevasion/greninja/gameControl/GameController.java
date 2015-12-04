@@ -469,6 +469,10 @@ public class GameController
   public void startPolicyDraftingPhase()
   {
     //get HDI's, Populations, Money from server.
+    if(isTesting)
+    {
+      fillHand();
+    }
     view.swapToPolicyPane();
     draftingPhase = new DraftingPhase(this, player);
   }

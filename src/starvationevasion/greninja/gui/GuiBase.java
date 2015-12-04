@@ -9,10 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
-import starvationevasion.common.messages.AvailableRegions;
-import starvationevasion.common.messages.ClientChatMessage;
-import starvationevasion.common.messages.Login;
-import starvationevasion.common.messages.LoginResponse;
+import starvationevasion.common.messages.*;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.AIThread;
@@ -435,6 +432,7 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void stop()
   {
+    control.sendMessageOut(new Goodbye("poop"));
     Platform.exit();
     System.exit(0);
   }
