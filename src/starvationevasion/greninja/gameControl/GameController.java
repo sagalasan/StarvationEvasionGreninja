@@ -64,11 +64,14 @@ public class GameController
    */
   public GameController(GuiBase view)
   {
+    System.out.println("human player game controller being made");
+
     isHuman = true;
     this.view = view;
     guiView = (GuiBase) view;
     cardsForVote = new ArrayList<>();
     messageCenter = new MessageCenter(this);
+
   }
 
   /**
@@ -209,6 +212,7 @@ public class GameController
     //login
     //TODO server will swap to staging pane.
     view.swapToStagingPane();
+
   }
 
   /**
@@ -354,8 +358,9 @@ public class GameController
    * @deprecated
    * Fill player hand up to 7 cards. quick and dirty
    */
-  private void fillHand()
+  public void fillHand()
   {
+    //System.out.println("filling hand");
     ArrayList<PolicyCard> newHand = new ArrayList<>();
     newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Clean_River_Incentive));
     newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Fertilizer_Subsidy));
@@ -477,7 +482,7 @@ public class GameController
     //get HDI's, Populations, Money from server.
     if(isTesting)
     {
-      fillHand();
+    //  fillHand();
       guiView.setPlayerHand((ArrayList<PolicyCard>)player.getPlayerHand());
     }
     view.swapToPolicyPane();
