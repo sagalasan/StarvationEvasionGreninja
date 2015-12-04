@@ -263,6 +263,20 @@ public class GameController
   {
     worldState = state.worldData;
     State.updateAllData(worldState);
+    updatePlayerHand(state.hand);
+  }
+
+  /**
+   * Update the player's hand with the new hand from the server.
+   * @param hand        EnumPolicy[] from GameState Message.
+   */
+  public void updatePlayerHand(EnumPolicy[] hand)
+  {
+    ArrayList<PolicyCard> newHand = new ArrayList<>();
+    for(EnumPolicy policy : hand)
+    {
+      newHand.add(PolicyCard.create(player.getPlayerRegion(), policy));
+    }
   }
 
   /**
@@ -332,6 +346,7 @@ public class GameController
   //TODO Remove when done
 
   /**
+   * @deprecated
    * Fill player hand up to 7 cards.
    */
   private void fillHand()
@@ -453,8 +468,6 @@ public class GameController
    */
   public void startPolicyDraftingPhase()
   {
-    //TODO Temporary.  Remove
-    fillHand();
     //get HDI's, Populations, Money from server.
     view.swapToPolicyPane();
     draftingPhase = new DraftingPhase(this, player);
