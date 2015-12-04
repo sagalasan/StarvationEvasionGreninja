@@ -135,7 +135,8 @@ public class CardImage extends VBox
       @Override
       public void handle(MouseEvent event) {
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        setStyle( "-fx-font-size:10;-fx-background-fill: #992299;" +
+
+        setStyle("-fx-font-size:10;-fx-background-fill: #992299;" +
             "-fx-border-color: white; -fx-background-color: black;" +
             "-fx-border-width: 2;-fx-background-width: 4;");
 
@@ -145,6 +146,7 @@ public class CardImage extends VBox
         //scroll.setPrefWidth(230);
       }
     });
+    scroll.setStyle("-fx-font-size:8");
     scroll.setPrefHeight(180);
     scroll.setPrefWidth(230);
 
