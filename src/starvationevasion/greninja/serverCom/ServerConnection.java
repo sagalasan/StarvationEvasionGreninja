@@ -124,9 +124,13 @@ public class ServerConnection
 
   public static boolean checkIfValidClass(Object object)
   {
-    if(object instanceof AvailableRegions) return true;
+    if(object instanceof ActionResponse) return true;
+    else if(object instanceof ActionResponseType) return true;
+    else if(object instanceof AvailableRegions) return true;
     else if(object instanceof BeginGame) return true;
     else if(object instanceof ClientChatMessage) return true;
+    else if(object instanceof Discard) return true;
+    else if(object instanceof DraftCard) return true;
     else if(object instanceof GameState) return true;
     else if(object instanceof Goodbye) return true;
     else if(object instanceof Hello) return true;
@@ -137,6 +141,9 @@ public class ServerConnection
     else if(object instanceof RegionChoice) return true;
     else if(object instanceof Response) return true;
     else if(object instanceof ServerChatMessage) return true;
+    else if(object instanceof Vote) return true;
+    else if(object instanceof VoteStatus) return true;
+    else if(object instanceof VoteType) return true;
     else return false;
   }
 
