@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
@@ -218,6 +219,7 @@ public class GuiBase extends Application implements ControlListener
   public void displayProposeDialog(PolicyCard policyCard)
   {
     ProposalDialog proposalDialog = new ProposalDialog(this, policyCard);
+    testPolicyPane.addDarkenOverlay();
     testPolicyPane.getChildren().add(proposalDialog);
     proposalDialog.toFront();
   }
@@ -225,6 +227,7 @@ public class GuiBase extends Application implements ControlListener
   public void removeProposalDialog(ProposalDialog dialog)
   {
     testPolicyPane.getChildren().remove(dialog);
+    testPolicyPane.removeDarkenOverlay();
   }
 
   public void endPolicyDraftingPhase()
