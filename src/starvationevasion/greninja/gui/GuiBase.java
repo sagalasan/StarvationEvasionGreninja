@@ -214,6 +214,13 @@ public class GuiBase extends Application implements ControlListener
   public void displayProposeDialog(PolicyCard policyCard)
   {
     ProposalDialog proposalDialog = new ProposalDialog(this, policyCard);
+    testPolicyPane.getChildren().add(proposalDialog);
+    proposalDialog.toFront();
+  }
+
+  public void removeProposalDialog(ProposalDialog dialog)
+  {
+    testPolicyPane.getChildren().remove(dialog);
   }
 
   public void endPolicyDraftingPhase()

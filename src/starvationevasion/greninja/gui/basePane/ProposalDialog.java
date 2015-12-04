@@ -1,15 +1,20 @@
 package starvationevasion.greninja.gui.basePane;
 
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.GuiBase;
 
 /**
@@ -25,6 +30,8 @@ public class ProposalDialog extends StackPane
   private Button sendButton;
   private Button cancelButton;
 
+  private CardImage cardImage;
+
   private CheckBox[] checkBoxes;
   private static EnumRegion[] checkBoxNames = EnumRegion.US_REGIONS;
   private VBox checkBoxGroup;
@@ -33,7 +40,7 @@ public class ProposalDialog extends StackPane
   {
     this.guiBase = guiBase;
     this.policyCard = policyCard;
-    this.setOpacity(.3);
+    //this.setOpacity(.3);
     initGui();
   }
 
@@ -42,12 +49,29 @@ public class ProposalDialog extends StackPane
     initCheckBoxVBox();
 
     gridPane = new GridPane();
-    Rectangle rect = new Rectangle(500, 500, Color.GRAY);
+    gridPane.setAlignment(Pos.CENTER);
+    Rectangle rect = new Rectangle(500, 500,Color.GRAY);
     sendButton = new Button("Send");
     cancelButton = new Button("Cancel");
 
+    sendButton.setOnAction(this::buttonPressed);
+    cancelButton.setOnAction(this::buttonPressed);
 
+    HBox buttonHBox = new HBox();
+    buttonHBox.getChildren().add(sendButton);
+    buttonHBox.getChildren().add(cancelButton);
 
+    Image image = new Image("file:assets/CardImages/magikarp.png");
+    cardImage = new CardImage(image, policyCard, guiBase);
+
+    Label title = new Label("Send Proposal to Selected Regions");
+    gridPane.add(title, 0, 0, 2, 1);
+    gridPane.add(cardImage, 0, 1);
+    gridPane.add(buttonHBox, 0, 2);
+    gridPane.add(checkBoxGroup, 1, 1, 1, 2);
+
+    this.getChildren().add(rect);
+    this.getChildren().add(gridPane);
   }
 
   private void initCheckBoxVBox()
@@ -62,6 +86,20 @@ public class ProposalDialog extends StackPane
       String name = getNameOfEnumRegion(checkBoxNames[i]);
       CheckBox box = new CheckBox(name);
       checkBoxGroup.getChildren().add(box);
+    }
+  }
+
+  private void buttonPressed(ActionEvent event)
+  {
+    Button button = (Button) event.getSource();
+    if(button == sendButton)
+    {
+      System.out.println("Send pressed");
+    }
+    else if(button == cancelButton)
+    {
+      System.out.println("Cancel pressed");
+      guiBase.removeProposalDialog(this);
     }
   }
 

@@ -119,6 +119,7 @@ public class CardImage extends VBox
 
   private void proposeButtonClicked(MouseEvent event)
   {
+    System.out.println("Propose button clicked");
     base.displayProposeDialog(policyCard);
   }
 
