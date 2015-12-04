@@ -54,6 +54,7 @@ public class GameController
     view = new AIView(this, player);
     serverLine = new ServerConnection(this);
     messageCenter = new MessageCenter(this);
+    ((AIView)view).setDecisionObject(new AIDecisions());
   }
 
   /**
@@ -64,6 +65,7 @@ public class GameController
   {
     isHuman = true;
     this.view = view;
+    guiView = (GuiBase) view;
     cardsForVote = new ArrayList<>();
     messageCenter = new MessageCenter(this);
   }
@@ -109,7 +111,7 @@ public class GameController
     String salt = hello.loginNonce;
     Platform.runLater(() ->
     {
-      guiView = (GuiBase) view;
+      //guiView = (GuiBase) view;
       guiView.swapToLoginPane(salt);
     });
   }
@@ -126,6 +128,10 @@ public class GameController
     {
       Platform.runLater(() -> guiView.updateAvailableRegions(message, player));
     }
+    else
+    {
+      view.updateAvailableRegions(message, player);
+    }
   }
 
   /**
@@ -135,7 +141,7 @@ public class GameController
   public void handleLoginResponse(LoginResponse response)
   {
     LoginResponse.ResponseType type = response.responseType;
-    guiView = (GuiBase) view;
+    //guiView = (GuiBase) view;
     switch(type)
     {
       case ACCESS_DENIED:
@@ -150,11 +156,14 @@ public class GameController
         regionSelected(region);
         playerRegion = region;
         player.setPlayerRegion(region);
-        Platform.runLater(() ->
+        if(isHuman)
         {
-          view.swapToStagingPane();
-          ((GuiBase) view).lockStagingPane(playerRegion);
-        });
+          Platform.runLater(() ->
+          {
+            view.swapToStagingPane();
+            ((GuiBase) view).lockStagingPane(playerRegion);
+          });
+        }
         //skip staging pane?
         break;
       case REJOIN:
@@ -217,17 +226,6 @@ public class GameController
     //login
     //TODO server will swap to staging pane.
     view.swapToStagingPane();
-  }
-
-  /**
-   * Start game for an ai player.
-   */
-  public void startAiGame()
-  {
-    //Start a game for ai player.
-    //TODO may need to create an aiView object to have reference to.
-
-    view = new AIView(this, player);
   }
 
   public void multiPlayerSelected()

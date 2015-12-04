@@ -73,7 +73,13 @@ public class AIView implements ControlListener
   @Override
   public void swapToStagingPane()
   {
-    decisions.selectRegion(availableRegions.availableRegions);
+    if(availableRegions != null)
+    {
+      if(availableRegions.availableRegions != null)
+      {
+        decisions.selectRegion(availableRegions.availableRegions);
+      }
+    }
   }
 
   /**
