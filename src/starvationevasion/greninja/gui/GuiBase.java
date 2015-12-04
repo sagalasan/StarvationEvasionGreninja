@@ -83,7 +83,7 @@ public class GuiBase extends Application implements ControlListener
   public void beginSinglePlayer()
   {
     startAIThreads();
-    control.startSinglePlayerGame();
+    control.startSinglePlayerGame("neo", "thel");
   }
 
   /**
@@ -395,12 +395,12 @@ public class GuiBase extends Application implements ControlListener
   public void startAIThreads()
   {
     aiThreads = new ArrayList<>();
-    aiThreads.add(new AIThread("shea", "sw0rdf1sh"));
-    aiThreads.add(new AIThread("WOPR", "aStrangeGame"));
-    aiThreads.add(new AIThread("Rami", "Who is Mr. Robot?"));
-    aiThreads.add(new AIThread("smoak", "4rr0w"));
-    aiThreads.add(new AIThread("barbaraG", "0r4cl3"));
-    aiThreads.add(new AIThread("hsalf", "ItWasMeBarry"));
+    aiThreads.add(new AIThread("user1", "password"));
+    aiThreads.add(new AIThread("user2", "password"));
+    aiThreads.add(new AIThread("user3", "password"));
+    aiThreads.add(new AIThread("user4", "password"));
+    aiThreads.add(new AIThread("user5", "password"));
+    aiThreads.add(new AIThread("user6", "password"));
     for(AIThread thread : aiThreads)
     {
       new Thread(thread).start();

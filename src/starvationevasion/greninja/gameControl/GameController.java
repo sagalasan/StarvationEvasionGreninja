@@ -219,7 +219,7 @@ public class GameController
    * Begin single player game.
    * Instantiate local server.
    */
-  public void startSinglePlayerGame()
+  public void startSinglePlayerGame(String name, String pass)
   {
     System.out.println("Start single player game.");
     guiView = (GuiBase)view; //set reference to view as a gui.
