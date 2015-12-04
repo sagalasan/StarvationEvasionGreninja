@@ -121,8 +121,8 @@ public class ProposalDialog extends StackPane
     if(button == sendButton)
     {
       System.out.println("Send pressed");
-      sendChatMessages();
       guiBase.removeProposalDialog(this);
+      sendChatMessages();
     }
     else if(button == cancelButton)
     {
