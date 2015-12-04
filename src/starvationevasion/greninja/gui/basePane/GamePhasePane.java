@@ -2,6 +2,8 @@ package starvationevasion.greninja.gui.basePane;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.GuiTimerSubscriber;
@@ -16,9 +18,13 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
   private TimerPane timer;
   private GuiBase base;
 
+  private Rectangle overlayRectangle;
+
   public GamePhasePane(GuiBase base)
   {
     this.base = base;
+    overlayRectangle = new Rectangle(this.getWidth(), this.getHeight(), Color.BLACK);
+    overlayRectangle.setOpacity(.8);
   }
 
   /**
@@ -73,6 +79,23 @@ public class GamePhasePane extends StackPane implements GuiTimerSubscriber
   public TimerPane getTimerPane()
   {
     return timer;
+  }
+
+  /**
+   * Adds darken overlay
+   */
+  public void addDarkenOverlay()
+  {
+    this.getChildren().add(overlayRectangle);
+    overlayRectangle.toFront();
+  }
+
+  /**
+   * Removes darkened overlay
+   */
+  public void removeDarkenOverlay()
+  {
+    this.getChildren().remove(overlayRectangle);
   }
 
 }
