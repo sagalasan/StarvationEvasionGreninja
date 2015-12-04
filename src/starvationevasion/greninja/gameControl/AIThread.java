@@ -81,4 +81,9 @@ public class AIThread extends GameController implements Runnable
       }
     }
   }
+
+  private void print(String print)
+  {
+    System.out.println(loginName + ": " + print);
+  }
 }
