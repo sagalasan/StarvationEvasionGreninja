@@ -23,13 +23,16 @@ import javax.smartcardio.Card;
  */
 public class CardImage extends VBox
 {
+  private PolicyCard policyCard;
 
+  private Button proposeButton;
 
   //private ImageView card;
   private GuiBase base;
   public CardImage(Image image, PolicyCard policyCard, GuiBase base)
   {
     this.base = base;
+    this.policyCard = policyCard;
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     setMaxWidth(100);
     setMaxHeight(180);
@@ -49,16 +52,12 @@ public class CardImage extends VBox
     gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10); //the 20 is to pad the text area
     gameText.setFill(Color.WHITE);
 
-    Button proposeButton = new Button("propose");
+    proposeButton = new Button("propose");
     VBox cardInfo = new VBox();
     cardInfo.getChildren().addAll(gameText, proposeButton);
 
-    proposeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        //does stuff
-      }
-    });
+    proposeButton.setOnMouseClicked(this::proposeButtonClicked);
+
     scrollPane.setContent(cardInfo);
 
     scrollPane.setMaxWidth(card.getBoundsInParent().getWidth()+20);
@@ -118,5 +117,9 @@ public class CardImage extends VBox
    **/
 
 
+  private void proposeButtonClicked(MouseEvent event)
+  {
+    base.displayProposeDialog(policyCard);
+  }
 
 }

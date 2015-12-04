@@ -211,6 +211,11 @@ public class GuiBase extends Application implements ControlListener
     stagingPane.lock(region);
   }
 
+  public void displayProposeDialog(PolicyCard policyCard)
+  {
+    ProposalDialog proposalDialog = new ProposalDialog(this, policyCard);
+  }
+
   public void endPolicyDraftingPhase()
   {
     control.endPolicyDraftingPhase();
