@@ -80,7 +80,7 @@ public class ServerConnection
       return false;
     }
 
-    System.out.println("Connection to server established, waiting for Hello");
+    //System.out.println("Connection to server established, waiting for Hello");
 
     serverReader = new ServerReader(this, objectInputStream);
     serverWriter = new ServerWriter(this, objectOutputStream);
