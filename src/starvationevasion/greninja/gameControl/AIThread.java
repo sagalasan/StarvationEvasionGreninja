@@ -21,7 +21,7 @@ public class AIThread extends GameController implements Runnable
   public AIThread(String loginName, String loginPW)
   {
     //do login stuff.
-    super();
+    super(loginName);
     this.loginName = loginName;
     this.loginPW = loginPW;
     this.messageQueue = new ArrayDeque<>();
@@ -48,7 +48,7 @@ public class AIThread extends GameController implements Runnable
   @Override
   public synchronized void helloReceived(Hello message)
   {
-    System.out.println(loginName + " Received Hello");
+    print("Received hello!");
     Hello hello = (Hello) message;
     String salt = hello.loginNonce;
     sendLoginInfo(loginName, loginPW, salt);

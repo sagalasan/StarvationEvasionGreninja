@@ -46,12 +46,12 @@ public class GameController
    * Constructor for ai game.
    * TODO wait to see what server does for ais
    */
-  public GameController()
+  public GameController(String playerName)
   {
     //start AI game
     isHuman = false;
     player = new AIPlayer();
-    player.setPlayerName("Compy 386");
+    player.setPlayerName(playerName);
     view = new AIView(this, player);
     serverLine = new ServerConnection(this);
     messageCenter = new MessageCenter(this);
