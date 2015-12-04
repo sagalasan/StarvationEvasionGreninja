@@ -25,6 +25,7 @@ public class PlayerHandGui extends HBox
 
   public PlayerHandGui(GuiBase base)//prob will take an argument of the cards it receives
   {
+    System.out.println("playerhand is being created");
     this.base = base;
     setAlignment(Pos.CENTER);
     int MAX_CARDS_IN_PLAYER_HAND = 7;
@@ -44,20 +45,22 @@ public class PlayerHandGui extends HBox
 
 
 
-
+    base.getGameController().fillHand();
     //base.getPlayerHand();
-    //List<PolicyCard> playerHand = base.getPlayerHand();
-    /**for (PolicyCard policy: base.getPlayerHand() )
+    List<PolicyCard> playerHand = base.getPlayerHand();
+    for (PolicyCard policy: playerHand )
     {
-      System.out.println(policy.getTitle());
-      //getChildren().add(new PlayerCard(new CardImage(image, policy, base),base).getCard());
+      //System.out.println("playerHand policy cards");
+     // System.out.println(policy.getTitle());
+      getChildren().add(new PlayerCard(new CardImage(image, policy, base),base).getCard());
 
     }
-**/
+
     /**
      * this for loop is a place holder till the player hand returns something
      */
-
+    //base.getPlayerHand();
+/**
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
     for (int i = 0; i < MAX_CARDS_IN_PLAYER_HAND; i++)
     {
@@ -66,7 +69,7 @@ public class PlayerHandGui extends HBox
       //adds to cardHand
       getChildren().add(playerCards[i].getCard());
     }
-
+**/
 
     //Image image = new Image("file:assets/CardImages/magikarp.png");
     //make n cards, place them at bottom of pane, side by side

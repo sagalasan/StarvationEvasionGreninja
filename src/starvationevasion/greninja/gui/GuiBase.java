@@ -59,14 +59,16 @@ public class GuiBase extends Application implements ControlListener
 
   private ArrayList<PolicyCard> playerHand;
 
+  /**
   public void initializePanes()
   {
-    testPolicyPane = new TestPolicyPane(this);
-    testVotingPane = new TestVotingPane(this);
-    stagingPane = new StagingPane(this);
+    //changed this
+    //testPolicyPane = new TestPolicyPane(this);
+    //testVotingPane = new TestVotingPane(this);
+
     //stagingPane.initPane();
   }
-
+**/
   /**
    * Starts a game with no server or ais
    */
@@ -165,6 +167,7 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void swapToVotingPane()
   {
+    testVotingPane = new TestVotingPane(this);
     System.out.println("Now in Voting.");
 
     paneToRefresh = testVotingPane;
@@ -180,6 +183,7 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void swapToPolicyPane()
   {
+    testPolicyPane = new TestPolicyPane(this);
     System.out.println("Now in Policy Drafting.");
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
     paneToRefresh = testPolicyPane;
@@ -200,7 +204,6 @@ public class GuiBase extends Application implements ControlListener
   {
     System.out.println("Entered Staging Pane");
 
-    //initializePanes();
     baseScene.setRoot(stagingPane);
     paneToRefresh = stagingPane;
 
@@ -356,28 +359,21 @@ public class GuiBase extends Application implements ControlListener
   {
     //initialize components
     mainStage.setTitle("Starvation Evasion");
-
-    initializePanes();
+    stagingPane = new StagingPane(this);
+    //initializePanes(); //changed this
 
     StackPane loading = new StackPane();
     loading.getChildren().add(new Label("Loading."));
-
     baseScene = new Scene(loading, 500,500);
-
     mainStage.setScene(baseScene);
     //==========================================================================
     //this is where the style sheet gets added so that the .css will apply its design to
     //the nodes
-
-    // TODO: get rid of the testing statement later
-//    baseScene.getStylesheets().add
-//        (this.getClass().getResource("styleSheetForGui.css").toExternalForm());
     baseScene.getStylesheets().add
         (this.getClass().getResource("styles.css").toExternalForm());
     //=============================================================================
     baseScene.setRoot(entryPane);
     mainStage.show();
-
     //maximize screen
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
@@ -387,7 +383,6 @@ public class GuiBase extends Application implements ControlListener
     mainStage.setWidth(bounds.getWidth());
     mainStage.setHeight(bounds.getHeight());
     //mainStage.setResizable(true);
-
 
     guiTimer = new GuiTimer(this);
     guiTimer.start();
@@ -427,9 +422,10 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void start(Stage primaryStage)
   {
+    control = new GameController(this);
     mainStage = primaryStage;
     setupGui();
-    control = new GameController(this);
+
   }
   public List<PolicyCard> getPlayerHand()
   {
