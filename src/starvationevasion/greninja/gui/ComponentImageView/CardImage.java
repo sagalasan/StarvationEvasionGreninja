@@ -25,7 +25,7 @@ public class CardImage extends VBox
 {
   private PolicyCard policyCard;
 
-  private Button proposeButton;
+  //private Button proposeButton;
 
   private ImageView card;
   private GuiBase base;
@@ -41,7 +41,7 @@ public class CardImage extends VBox
 
     //PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
       //  EnumPolicy.Clean_River_Incentive);
-    //this.policyCard = policyCard;
+    this.policyCard = policyCard;
     //Label title = new Label(policyCard.getTitle());
     card = new ImageView(image);
     //ScrollPane scrollPane = new ScrollPane();
@@ -55,14 +55,15 @@ public class CardImage extends VBox
     gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10); //the 20 is to pad the text area
     gameText.setFill(Color.WHITE);
 
-    proposeButton = new Button("propose");
+    /**proposeButton = new Button("propose");
     proposeButton.setAlignment(Pos.BOTTOM_LEFT);
     proposeButton.setScaleX(.5);
     proposeButton.setScaleY(.5);
+     **/
     VBox cardInfo = new VBox();
-    cardInfo.getChildren().addAll(gameText, proposeButton);
+    cardInfo.getChildren().addAll(gameText);//, proposeButton);
 
-    proposeButton.setOnMouseClicked(this::proposeButtonClicked);
+    //proposeButton.setOnMouseClicked(this::proposeButtonClicked);
 
    // scrollPane.setContent(cardInfo);
 
@@ -103,7 +104,7 @@ public class CardImage extends VBox
     });
     setAlignment(Pos.CENTER);
     //getChildren().add(card);
-    getChildren().addAll(title, card, gameText, proposeButton);
+    getChildren().addAll(title, card, gameText);//, proposeButton);
    // ScrollPane scroll = new ScrollPane(this);
   }
   public ScrollPane getScrollCard()
@@ -153,13 +154,20 @@ public class CardImage extends VBox
     return scroll;
   }
 
+  /**
+   *
+   * @return returns the policy card for this card
+   */
+  public PolicyCard getPolicyCard()
+  {
+    return policyCard;
+  }
 
-
-
+/**
   private void proposeButtonClicked(MouseEvent event)
   {
     System.out.println("Propose button clicked");
     base.displayProposeDialog(policyCard);
   }
-
+**/
 }

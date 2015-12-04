@@ -13,13 +13,16 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.GuiBase;
 
+import javax.smartcardio.Card;
+import java.util.ArrayList;
+
 /**
  * Created by Jalen on 11/22/2015.
  */
 public class DraftedPolicyCardPane extends HBox
 {
 
-  private CardImage[] draftedCards;
+  //private CardImage[] draftedCards;
 
   /**
    * just a placeholder constructor that makes cards for now
@@ -30,20 +33,23 @@ public class DraftedPolicyCardPane extends HBox
 
     setAlignment(Pos.BOTTOM_CENTER);
     setSpacing(30);
+    base.getGameController().setDraftedCards();
+    updateCards(base.getGameController().getDraftedCards(), base);
     //setMaxWidth(300);
     //setStyle("-fx-background-color: black;");
 
 
     // this.draftedCards = draftedCards;
-    this.draftedCards = new CardImage[2];
-    Image image = new Image("file:assets/CardImages/magikarp.png");
+    //this.draftedCards = new CardImage[2];
+    //Image image = new Image("file:assets/CardImages/magikarp.png");
     //PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);
-    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
+    /**PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
     for (int i = 0; i < 2; i++)
     {
       draftedCards[i] = new CardImage(image, policyCard, base);
       getChildren().add(draftedCards[i].getScrollCard());
     }
+     **/
     //setMaxHeight(300);
     //setMaxWidth(200);
     //setMaxHeight(draftedCards[0].getBoundsInParent().getHeight());
@@ -51,12 +57,29 @@ public class DraftedPolicyCardPane extends HBox
     //setPrefHeight(300);
     //setMinHeight(150);
   }
-  public HBox getThis()
+  /**public HBox getThis()
   {
     return this;
   }
-  public void updateCards()
+   **/
+  //todo get drafted policy cards to display
+  //todo when draft button clicked, update the children
+  //todo work on overlay when icon clicked
+  //todo get policy drafting pane working better
+  //todo make back of card
+  public void updateCards(ArrayList<PolicyCard> draftedCards, GuiBase base)
   {
+    CardImage[] paneCards = new CardImage[2];
+    int j = 0;
+    for (int i = 0; i < 2; i++)
+    {
+      if (draftedCards.size() > i)
+      {
+        Image image = new Image("file:assets/CardImages/magikarp.png");
+        paneCards[i] = new CardImage(image, draftedCards.get(i), base);
+        getChildren().set(j++, paneCards[i].getScrollCard());
+      }
+    }
     //looks at controller, makes new cards to display
   }
 

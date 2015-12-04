@@ -61,6 +61,10 @@ public class GuiBase extends Application implements ControlListener
 
   private ServerThread serverThread;
 
+  public void updateDraftedCards()
+  {
+    //testPolicyPane.buildLeft();
+  }
   /**
   public void initializePanes()
   {

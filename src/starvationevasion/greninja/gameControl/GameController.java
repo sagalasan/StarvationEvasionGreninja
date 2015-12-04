@@ -14,6 +14,7 @@ import starvationevasion.greninja.serverCom.ServerConnection;
 import starvationevasion.sim.CardDeck;
 
 import java.io.Serializable;
+import java.security.Policy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class GameController
   private VotingPhase votingPhase;
   private PlayerInterface player;
   private ArrayList<PolicyCard> cardsForVote;
+  private ArrayList<PolicyCard> draftedCards;
+
   private ServerConnection serverLine;
   private WorldData worldState;
   private MessageCenter messageCenter;
@@ -56,6 +59,7 @@ public class GameController
     serverLine = new ServerConnection(this);
     messageCenter = new MessageCenter(this);
     ((AIView)view).setDecisionObject(new AIDecisions());
+    draftedCards = new ArrayList<>();
   }
 
   /**
@@ -71,7 +75,7 @@ public class GameController
     guiView = (GuiBase) view;
     cardsForVote = new ArrayList<>();
     messageCenter = new MessageCenter(this);
-
+    //draftedCards = new ArrayList<>();
   }
 
   /**
@@ -531,6 +535,35 @@ public class GameController
     }
   }
 
+  public void setDraftedCards()
+  {
+    draftedCards = new ArrayList<>();
+  }
+  public void setDraftCard(PolicyCard cardToDraft)
+  {
+    if (draftedCards.size()<=2)
+    {
+      draftedCards.add(cardToDraft);
+    }
+
+  }
+  public void undoDraftCard(PolicyCard cardToUndo)
+  {
+    if (draftedCards.size()==0) return;
+
+    for (PolicyCard policy: draftedCards)
+    {
+      if (policy.equals(cardToUndo))
+      {
+        draftedCards.remove(policy);
+      }
+    }
+  }
+  public ArrayList<PolicyCard> getDraftedCards()
+  {
+    return draftedCards;
+
+  }
 
   //need a way to get all discarded cards
   /**
