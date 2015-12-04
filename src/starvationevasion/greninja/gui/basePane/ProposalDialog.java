@@ -122,6 +122,7 @@ public class ProposalDialog extends StackPane
     {
       System.out.println("Send pressed");
       sendChatMessages();
+      guiBase.removeProposalDialog(this);
     }
     else if(button == cancelButton)
     {
@@ -132,7 +133,6 @@ public class ProposalDialog extends StackPane
 
   private void sendChatMessages()
   {
-    guiBase.removeProposalDialog(this);
     ArrayList<EnumRegion> regions = new ArrayList<>();
     EnumRegion[] regionArray;
     for(int i = 0; i < checkBoxes.length; i++)
