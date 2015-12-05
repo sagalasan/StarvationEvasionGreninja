@@ -129,7 +129,7 @@ public class GameController
    */
   public void availableRegionReceived(AvailableRegions message)
   {
-    print("AvailableRegions message received");
+    //print("AvailableRegions message received");
     if(isHuman)
     {
       Platform.runLater(() -> guiView.updateAvailableRegions(message, player));
@@ -170,6 +170,7 @@ public class GameController
             ((GuiBase) view).lockStagingPane(playerRegion);
           });
         }
+        sendMessageOut(new RegionChoice(playerRegion));
         //skip staging pane?
         break;
       case REJOIN:

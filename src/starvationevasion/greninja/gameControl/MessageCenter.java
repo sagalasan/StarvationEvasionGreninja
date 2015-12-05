@@ -36,7 +36,7 @@ public class MessageCenter
     }
     else if(message instanceof BeginGame)
     {
-      //System.out.println("Begin Game Message.");
+      System.out.println("Begin Game Message.");
       BeginGame msg = (BeginGame) message;
       control.beginGame(msg);
     }
@@ -46,6 +46,7 @@ public class MessageCenter
     }
     else if(message instanceof GameState)
     {
+      System.out.println("Recieved world state msg.");
       control.updateWorldStateInfo((GameState)message);
     }
     else if(message instanceof Goodbye)
@@ -58,12 +59,12 @@ public class MessageCenter
     }
     else if(message instanceof LoginResponse)
     {
-      //System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
+      System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
       control.handleLoginResponse((LoginResponse)message);
     }
     else if(message instanceof PhaseStart)
     {
-      //System.out.println("PhaseStartMessage");
+      System.out.println("PhaseStartMessage");
       handlePhaseStartMessage((PhaseStart) message);
     }
     else if(message instanceof ReadyToBegin)
