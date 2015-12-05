@@ -58,7 +58,7 @@ public class GameController
     view = new AIView(this, player);
     serverLine = new ServerConnection(this);
     messageCenter = new MessageCenter(this);
-    ((AIView)view).setDecisionObject(new AIDecisions());
+    ((AIView)view).setDecisionObject(new AIDecisions((AIPlayer)player, 0));
     draftedCards = new ArrayList<>();
   }
 
