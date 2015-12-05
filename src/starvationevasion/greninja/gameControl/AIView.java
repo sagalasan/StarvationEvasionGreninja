@@ -25,6 +25,7 @@ public class AIView implements ControlListener
   private AIDecisions decisions;
   private PlayerInterface player;
   private State currentState;
+  EnumRegion pRegion;
 
   private boolean DEBUG = true;
 
@@ -62,7 +63,7 @@ public class AIView implements ControlListener
   public void initPlayerRegionInfo(State state, EnumRegion pRegion)
   {
     this.currentState = state;
-    // this.pRegion = pRegion;
+     this.pRegion = pRegion;
     //Do Stuff
   }
 
@@ -104,16 +105,11 @@ public class AIView implements ControlListener
   @Override
   public void swapToVotingPane()
   {
-    // TODO: create method in AIDecisions for voting that looks at cards
     if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
     int voteCardIdx = 0;
     List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
-    // Get cards from voting pane
-//    for (PolicyCard card : player.getPlayerHand())
-//    {
-//      if (card.votesRequired() > 0) voteCards.add(card);
-//    }
-//    int voteCardIdx = decisions.analyzeCards(voteCards);
+    // TODO: Get cards from voting pane
+
     player.vote(voteCardIdx);
   }
 

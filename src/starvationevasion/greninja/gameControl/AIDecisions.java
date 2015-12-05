@@ -29,14 +29,14 @@ public class AIDecisions
   private boolean communication = false;
   private PolicyCard suggestedCard;
 
-  private boolean DEBUG = true;
+  private boolean DEBUG = false;
 
   private boolean serverCreated = false;
 
   // Default constructor is test constructor. To be removed possibly.
   public AIDecisions()
   {
-    getCurrentInfo();
+    setCurrentInfo();
 
     // Higher rank = higher chance of selection
     rankedCards.put(10.0, 3);
@@ -56,8 +56,7 @@ public class AIDecisions
     // TODO: hardcoded for testing
     this.player = player;
     this.turnNumber = 2;
-
-    getCurrentInfo();
+    setCurrentInfo();
   }
 
   /**
@@ -70,19 +69,28 @@ public class AIDecisions
   {
     this.communication = true;
     this.suggestedCard = suggestedCard;
+    setCurrentInfo();
+  }
 
-    getCurrentInfo();
+  private void setCurrentInfo()
+  {
+    playerRegion = player.getPlayerRegion();
+    california = State.CALIFORNIA;
+    heartland = State.HEARTLAND;
+    northernPlains = State.NORTHERN_PLAINS;
+    southeast = State.SOUTHEAST;
+    northernCrescent = State.NORTHERN_CRESCENT;
+    southernPlains = State.SOUTHERN_PLAINS;
+    mountain = State.MOUNTAIN;
   }
 
   /*
    * Initialize array of probabilities.
    */
-  private void initializeProbabilities()
+  private void initializeCardProbabilities()
   {
-    if (DEBUG) System.out.println("AIDecisions: initializeProbabilities()");
-//    probabilities = new double[player.getPlayerHand().size()];
+    if (DEBUG) System.out.println("AIDecisions: initializeCardProbabilities()");
     probabilities = new double[rankedCards.size()];
-
     int i = 0;
     double s = 0;
     for (double probability : rankedCards.keySet())
@@ -111,27 +119,11 @@ public class AIDecisions
     }
   }
 
-  private void getCurrentInfo()
-  {
-    //playerRegion = player.getPlayerRegion();
-    california = State.CALIFORNIA;
-    heartland = State.HEARTLAND;
-    northernPlains = State.NORTHERN_PLAINS;
-    southeast = State.SOUTHEAST;
-    northernCrescent = State.NORTHERN_CRESCENT;
-    southernPlains = State.SOUTHERN_PLAINS;
-    mountain = State.MOUNTAIN;
-
-
-//    regionPop = localRegion.getPopulation(turnNumber);
-//    worldPop = globalRegion.getPopulation(turnNumber);
-//    localHDI = localRegion.getHDI(turnNumber);
-//    localUndernourishedPop = localRegion.getUndernourishedPopulation();
-//    globalUndernourishedPop = globalRegion.getUndernourishedPopulation();
-    // TODO: get food cost?
-
-  }
-
+  /**
+   * Selects the region for the player.
+   * @param availableRegions  a set of the currently available regions.
+   * @return  true if the player has selected a region else false.
+   */
   public boolean selectRegion(Set<EnumRegion> availableRegions) // Handle race conditions here or somewhere else?
   {
     if (!availableRegions.isEmpty())
@@ -142,7 +134,12 @@ public class AIDecisions
     else return false;
   }
 
-  public int voteCard(LinkedHashMap<Integer, Integer> rankedCards, PolicyCard suggestedCard)
+  /**
+   * Casts a vote during the voting phase.
+   * @param rankedCards   a hash map of cards that are ranked by probability of being chosen.
+   * @return the index for the card to be voted for.
+   */
+  public int voteCard(LinkedHashMap<Integer, Integer> rankedCards)
   {
     // TODO: Works similar to chooseCard but adds weight to suggestedCard?
     return 0;
@@ -157,20 +154,18 @@ public class AIDecisions
   public int chooseCard(LinkedHashMap<Double, Integer> rankedCards)
   {
     if (DEBUG) System.out.println("AIDecisions: chooseCard()");
-
     if (DEBUG) for (double probability : rankedCards.keySet())
     {
       System.out.println("Rank: " + probability);
     }
-
     if (DEBUG) for (int index : rankedCards.values())
     {
       System.out.println("Index: " + index);
     }
 
-    // key = rank, value = index
-    // Bigger rank number = higher probability
-    if (probabilities == null) initializeProbabilities();
+    // rankedCards is a LinkedHashMap<K, V> where K = probability, V = the index of the card in the player's hand
+    // A higher "probability" means that a card is more likely to be selected
+    if (probabilities == null) initializeCardProbabilities();
     List<Integer> rankedCardsIndices = new ArrayList<Integer>(rankedCards.values());
 
     int selectedIndex = 0; // Initialize to zero
@@ -209,6 +204,7 @@ public class AIDecisions
         break;
       case Covert_Intelligence:
         // Ignoring covert intelligence now
+        cardRank = 0;
         break;
       case Educate_the_Women_Campaign:
         // US sends out 7X million dollars to foreign country to educate women
@@ -251,48 +247,6 @@ public class AIDecisions
         x = card.getX() * 1000000;
         break;
     }
-
-//    int x = card.getX();
-//    int y = card.getY();
-//    int z = card.getZ();
-//
-//    double currentPopAvg = (california.getPopulation(turnNumber) + heartland.getPopulation(turnNumber) +
-//      northernPlains.getPopulation(turnNumber) + southeast.getPopulation(turnNumber) + northernCrescent.getPopulation(turnNumber) +
-//      southernPlains.getPopulation(turnNumber) + mountain.getPopulation(turnNumber)) / 7;
-//
-//    // TODO: subtract from the populations
-//    double projectedPopAvg = (california.getPopulation(turnNumber) + heartland.getPopulation(turnNumber) +
-//        northernPlains.getPopulation(turnNumber) + southeast.getPopulation(turnNumber) + northernCrescent.getPopulation(turnNumber) +
-//        southernPlains.getPopulation(turnNumber) + mountain.getPopulation(turnNumber)) / 7;
-//
-//    if (projectedPopAvg > currentPopAvg) // If future population is bigger
-//    {
-//      if ((currentPopAvg / projectedPopAvg) >= 0.01 && (currentPopAvg / projectedPopAvg) <= 0.05)
-//      {
-////        cardRank +=
-//      }
-////      else cardRank +=
-//    }
-////    else cardRank +=
-//
-//    // Get average malnourished population
-//    // Get projected average malnourished population
-//    // If future average is higher, subtract from rank
-//
-//
-//
-//
-//
-//
-////    int newRegionBalance = regionBalance - x;
-////    int newRegionPop = regionPop - y;
-////    int newWorldPop = worldPop - z;
-//
-//    // Minimizing undernourished population is priority?
-//    // Minimizing money loss is next most important
-//    // Increase in population is next priority (but check to make sure it's not too big)
-////    if (newWorldPop / worldPop >= 0.01 && newWorldPop / worldPop <= 0.05) TODO: ideal population growth is within this range
-//
     return cardRank;
   }
 
