@@ -25,7 +25,6 @@ public class CardImage extends VBox
 {
   private PolicyCard policyCard;
 
-  //private Button proposeButton;
 
   private ImageView card;
   private GuiBase base;
@@ -39,12 +38,8 @@ public class CardImage extends VBox
     setPrefWidth(100);
     setPrefHeight(200);
 
-    //PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA,
-      //  EnumPolicy.Clean_River_Incentive);
     this.policyCard = policyCard;
-    //Label title = new Label(policyCard.getTitle());
     card = new ImageView(image);
-    //ScrollPane scrollPane = new ScrollPane();
 
     Text title = new Text(policyCard.getTitle());
     title.setStyle("-fx-font-size: 14;");
@@ -55,21 +50,10 @@ public class CardImage extends VBox
     gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10); //the 20 is to pad the text area
     gameText.setFill(Color.WHITE);
 
-    /**proposeButton = new Button("propose");
-    proposeButton.setAlignment(Pos.BOTTOM_LEFT);
-    proposeButton.setScaleX(.5);
-    proposeButton.setScaleY(.5);
-     **/
     VBox cardInfo = new VBox();
     cardInfo.getChildren().addAll(gameText);//, proposeButton);
 
-    //proposeButton.setOnMouseClicked(this::proposeButtonClicked);
 
-   // scrollPane.setContent(cardInfo);
-
-    //scrollPane.setMaxWidth(card.getBoundsInParent().getWidth()+20);
-    //scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //will set vertical scroll bar to not show
-    //scrollPane.setStyle("-fx-background: black;");
     setStyle( "-fx-font-size:10;-fx-background-fill: #992299;" +
             "-fx-border-color: white; -fx-background-color: black;" +
             "-fx-border-width: 2;-fx-background-width: 4;");
@@ -103,9 +87,7 @@ public class CardImage extends VBox
       }
     });
     setAlignment(Pos.CENTER);
-    //getChildren().add(card);
-    getChildren().addAll(title, card, gameText);//, proposeButton);
-   // ScrollPane scroll = new ScrollPane(this);
+    getChildren().addAll(title, card, gameText);
   }
   public ScrollPane getScrollCard()
   {
@@ -163,11 +145,4 @@ public class CardImage extends VBox
     return policyCard;
   }
 
-/**
-  private void proposeButtonClicked(MouseEvent event)
-  {
-    System.out.println("Propose button clicked");
-    base.displayProposeDialog(policyCard);
-  }
-**/
 }

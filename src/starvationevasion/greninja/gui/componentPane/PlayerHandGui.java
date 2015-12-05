@@ -22,7 +22,7 @@ public class PlayerHandGui extends HBox
   //gather what cards to draw, place them next to each other
   private PlayerCard[] playerCards;
   private GuiBase base;
-
+  private List<PolicyCard> playerHand;
   public PlayerHandGui(GuiBase base)//prob will take an argument of the cards it receives
   {
     System.out.println("playerhand is being created");
@@ -33,28 +33,22 @@ public class PlayerHandGui extends HBox
 
     //HBox cardHand = new HBox();
     int j = 0;
-    Image image = new Image("file:assets/CardImages/magikarp.png");
+
     setSpacing(25);
 
-    //List<EnumPolicy> playerHand = base.getPlayerHand();
-    //for (EnumPolicy enumPolicy : playerHand)
-    //{
-    //  System.out.println(j++);
-    //}
-
-
-
-
     base.getGameController().fillHand();
+    //updatePlayerHand();
     //base.getPlayerHand();
-    List<PolicyCard> playerHand = base.getPlayerHand();
+    //initiallizes and adds to player hand
+    playerHand = base.getPlayerHand();
+    int i = 0;
     for (PolicyCard policy: playerHand )
     {
-      //System.out.println("playerHand policy cards");
-     // System.out.println(policy.getTitle());
-      getChildren().add(new PlayerCard(new CardImage(image, policy, base),base).getCard().getScrollCard());
+      Image image = new Image("file:assets/CardImages/magikarp.png");
+      getChildren().add(new PlayerCard(new CardImage(image, policy, base),base, i++).getCard().getScrollCard());
 
     }
+
 
     /**
      * this for loop is a place holder till the player hand returns something
@@ -71,21 +65,25 @@ public class PlayerHandGui extends HBox
     }
 **/
 
-    //Image image = new Image("file:assets/CardImages/magikarp.png");
-    //make n cards, place them at bottom of pane, side by side
-    //have them adjust according to their position
-    //setBottom(cardHand);
-
   }
 
-  /**
-   *
-   *  updates the hand
-   */
-  //public void updateCards()
- // {
-   // base.getPlayerHand();
- // }
+  public void updatePlayerHand()
+  {
+    int tempSizeBeforeUpdate = getChildren().size();
+    playerHand = base.getPlayerHand();
+    int i = 0;
+    for (PolicyCard policy: playerHand )
+    {
+      Image image = new Image("file:assets/CardImages/magikarp.png");
+      getChildren().set(i, new PlayerCard(new CardImage(image, policy, base), base, i++).getCard().getScrollCard());
+
+    }
+    for (int j = 0; j < tempSizeBeforeUpdate-playerHand.size(); j++)
+    {
+      getChildren().remove(i + j);
+    }
+
+  }
 
 
 

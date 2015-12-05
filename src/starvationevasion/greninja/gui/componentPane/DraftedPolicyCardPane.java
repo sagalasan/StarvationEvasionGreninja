@@ -23,7 +23,7 @@ public class DraftedPolicyCardPane extends HBox
 {
 
   //private CardImage[] draftedCards;
-
+  private final static int MAX_CARDS = 2;
   /**
    * just a placeholder constructor that makes cards for now
    * todo This needs to be able to make the cards according to what drafted cards are currently in play
@@ -33,51 +33,31 @@ public class DraftedPolicyCardPane extends HBox
 
     setAlignment(Pos.BOTTOM_CENTER);
     setSpacing(30);
-    base.getGameController().setDraftedCards();
+    //base.getGameController().setDraftedCards();
     updateCards(base.getGameController().getDraftedCards(), base);
-    //setMaxWidth(300);
-    //setStyle("-fx-background-color: black;");
 
-
-    // this.draftedCards = draftedCards;
-    //this.draftedCards = new CardImage[2];
-    //Image image = new Image("file:assets/CardImages/magikarp.png");
-    //PolicyCard policyCard = PolicyCard.create(base.getGameController().getPlayer().getPlayerRegion(), EnumPolicy.Covert_Intelligence);
-    /**PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
-    for (int i = 0; i < 2; i++)
-    {
-      draftedCards[i] = new CardImage(image, policyCard, base);
-      getChildren().add(draftedCards[i].getScrollCard());
-    }
-     **/
-    //setMaxHeight(300);
-    //setMaxWidth(200);
-    //setMaxHeight(draftedCards[0].getBoundsInParent().getHeight());
-
-    //setPrefHeight(300);
-    //setMinHeight(150);
   }
-  /**public HBox getThis()
-  {
-    return this;
-  }
-   **/
   //todo get drafted policy cards to display
   //todo when draft button clicked, update the children
   //todo work on overlay when icon clicked
   //todo get policy drafting pane working better
   //todo make back of card
+
   public void updateCards(ArrayList<PolicyCard> draftedCards, GuiBase base)
   {
-    CardImage[] paneCards = new CardImage[2];
-    int j = 0;
-    for (int i = 0; i < 2; i++)
+   // CardImage[] paneCards = new CardImage[MAX_CARDS];
+   // int j = 0;
+    for (int i = 0; i < MAX_CARDS; i++)
     {
-      if (draftedCards.size() > i)
+      if (draftedCards.size() > i && draftedCards.size()<=2)
       {
         Image image = new Image("file:assets/CardImages/magikarp.png");
-        paneCards[i] = new CardImage(image, draftedCards.get(i), base);
-        getChildren().set(j++, paneCards[i].getScrollCard());
+        //paneCards[i] = new CardImage(image, draftedCards.get(i), base);
+        //if(getChildren().get(j)!= null)
+        //{
+        getChildren().add(new CardImage(image, draftedCards.get(i), base).getScrollCard());
+       // }
+
       }
     }
     //looks at controller, makes new cards to display

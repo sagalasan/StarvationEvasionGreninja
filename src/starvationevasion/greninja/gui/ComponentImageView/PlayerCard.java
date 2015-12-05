@@ -18,7 +18,7 @@ public class PlayerCard
   private GuiBase base;
   private Button proposeButton;
 
-  public PlayerCard(CardImage card, GuiBase base)
+  public PlayerCard(CardImage card, GuiBase base, int cardIndex)
   {
     this.base = base;
     this.card = card;
@@ -38,7 +38,13 @@ public class PlayerCard
       @Override
       public void handle(MouseEvent event)
       {
-        base.getGameController().setDraftCard(card.getPolicyCard());
+       if(base.getGameController().setDraftCard(card.getPolicyCard(), cardIndex))
+       {
+         base.updateDraftedCardsAndPlayerHand();
+
+
+       }
+
         //add a drafted card to controller
         //make it a drafted card, remove button
 
