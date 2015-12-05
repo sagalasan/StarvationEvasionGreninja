@@ -1,5 +1,7 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
@@ -47,23 +49,31 @@ public class FarmProductChartPane extends VBox
     regionalStatistics = new RegionalStatistics(region);
     getChildren().add(regionalStatistics);
     box1.selectedProperty().setValue(true);
+    box1.changeSelectedStatus(true);
   }
 
   private class ProductCheckBox extends CheckBox
   {
+    private boolean isSelected = false;
+    void changeSelectedStatus(boolean isSelected)
+    {
+      this.isSelected = isSelected;
+    }
+
     ProductCheckBox(String name)
     {
       super(name);
+
       EnumFood foodName = getEnumValue(name);
       selectedProperty().addListener((observable, oldValue, newValue) -> {
-        if(!oldValue)
-        {
-          regionalStatistics.addDataToChart(foodName);
-        }
-        else
-        {
-          regionalStatistics.removeDataFromChart(foodName);
-        }
+          if (!oldValue && newValue)
+          {
+            regionalStatistics.addDataToChart(foodName);
+          }
+          else if(oldValue &&!newValue)
+          {
+            regionalStatistics.removeDataFromChart(foodName);
+          }
       });
     }
 

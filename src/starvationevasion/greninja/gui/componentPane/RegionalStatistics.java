@@ -1,12 +1,24 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.util.StringConverter;
 import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.model.State;
+import starvationevasion.vis.controller.Event;
 
+import java.awt.event.MouseAdapter;
 import java.util.HashMap;
 
 /**
@@ -104,14 +116,14 @@ public class RegionalStatistics extends LineChart<Number, Number>
     }
   }
 
-
-
   private XYChart.Series<Number, Number> getSeries(EnumFood food)
   {
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
     for(int i = firstPointTurn; i < currentTurn; i++)
-    {
-      series.getData().add(new XYChart.Data<>(startYear + 3 * i, region.getFoodIncome(food, i)));
+    { XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(startYear + 3 * i, region.getFoodIncome(food, i));
+      dataPoint.setNode(new DataPoint((Double)dataPoint.getYValue()));
+      //dataPoint.nodeProperty().
+      series.getData().add(dataPoint);
     }
     return series;
   }
@@ -125,16 +137,46 @@ public class RegionalStatistics extends LineChart<Number, Number>
       case "Population":
 
         for(int i = firstPointTurn; i <= currentTurn; i++ )
-        {
-          series.getData().add(new XYChart.Data<>(startYear + 3 * i, region.getPopulation(i)));
+        { XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(startYear + 3 * i, region.getPopulation(i));
+          dataPoint.setNode(new DataPoint((Double)dataPoint.getYValue()));
+          series.getData().add(dataPoint);
         }
         break;
       case "HDI":
         for(int i = firstPointTurn; i <= currentTurn; i++ )
-        {
-          series.getData().add(new XYChart.Data<>(startYear + 3 * i, region.getHDI(i)));
+        { XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(startYear + 3 * i, region.getHDI(i));
+          dataPoint.setNode(new DataPoint((Double)dataPoint.getYValue()));
+          series.getData().add(dataPoint);
         }
     }
     return series;
   }
+  private class DataPoint extends StackPane
+  {
+    DataPoint(double productionValue)
+    {
+      setPrefSize(4, 4);
+      String rawValue = "" + productionValue;
+      System.out.println("LongValue: " + rawValue);
+      int end = 5 > rawValue.length() ? rawValue.length() : 5;
+      String shortValue = rawValue.substring(0, end);
+      System.out.println(shortValue);
+      final Label label = new Label(shortValue);
+      label.setStyle("-fx-text-fill: black");
+      label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+      //setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+      setOnMouseEntered(mouseEvent -> {
+        getChildren().setAll(label);
+        setCursor(Cursor.NONE);
+        toFront();
+      });
+      setOnMouseExited(mouseEvent -> {
+        getChildren().clear();
+        setCursor(Cursor.CROSSHAIR);
+      });
+    }
+
+
+  }
 }
+
