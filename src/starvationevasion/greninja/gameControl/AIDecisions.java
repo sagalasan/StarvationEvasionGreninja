@@ -194,32 +194,59 @@ public class AIDecisions
    */
   private double cardEffects(PolicyCard card)
   {
+    int x, y;
     EnumPolicy cardType = card.getCardType();
     double cardRank = 0;
 
     switch (cardType)
     {
       case Clean_River_Incentive:
+        // X% tax break for farmers who reduce fertilizer outflow by Y%
+        x = card.getX();
+        y = card.getY();
         break;
       case Covert_Intelligence:
+        // Ignoring covert intelligence now
         break;
       case Educate_the_Women_Campaign:
+        // US sends out 7X million dollars to foreign country to educate women
+        x = (card.getX() * 7) * 1000000;
         break;
       case Efficient_Irrigation_Incentive:
+        // X% of money spent by farmers in player's region for improved irrigation efficiency
+        // is tax deductible
+        x = card.getX();
         break;
       case Ethanol_Tax_Credit_Change:
+        // Currently, ethanol producer located in player's region is entitled to Y% tax credit
+        // to cost of ethanol production. This policy changes it to X%.
+        x = card.getX();
+        y = card.getY();
         break;
       case Fertilizer_Subsidy:
+        // Offers subsidy of X% rebate to farmers in player region purchasing commercial fertilizer
+        x = card.getX();
         break;
       case Foreign_Aid_for_Farm_Infrastructure:
+        // US sends 7X million dollars in foreign aid for capital development/farming infrastructure of target world region
+        x = (card.getX() * 7) * 1000000;
         break;
       case GMO_Seed_Insect_Resistance_Research:
+        // Each participating region spends X million dollars to fund GMO seed research
+        x = card.getX() * 1000000;
         break;
       case International_Food_Relief_Program:
+        // Each participating region spends X million dolars to purchase their own regions commodity food
+        // for relief of world hunger
+        x = card.getX() * 1000000;
         break;
       case Loan:
+        // Target player region lends you X million dollars at 10% interest.
+        x = card.getX() * 1000000;
         break;
       case MyPlate_Promotion_Campaign:
+        // Player spends X million dollars on advertising campaign within region promoting public awareness of USDA's nutrition guide
+        x = card.getX() * 1000000;
         break;
     }
 
@@ -264,7 +291,7 @@ public class AIDecisions
 //    // Increase in population is next priority (but check to make sure it's not too big)
 ////    if (newWorldPop / worldPop >= 0.01 && newWorldPop / worldPop <= 0.05) TODO: ideal population growth is within this range
 //
-    return 0.0;
+    return cardRank;
   }
 
   /**
