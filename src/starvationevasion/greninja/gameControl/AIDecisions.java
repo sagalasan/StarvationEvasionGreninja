@@ -264,7 +264,7 @@ public class AIDecisions
 //    // Increase in population is next priority (but check to make sure it's not too big)
 ////    if (newWorldPop / worldPop >= 0.01 && newWorldPop / worldPop <= 0.05) TODO: ideal population growth is within this range
 //
-//    return 0.0;
+    return 0.0;
   }
 
   /**
