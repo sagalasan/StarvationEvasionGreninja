@@ -90,8 +90,11 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");//
-    int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
-    player.draft(draftCardIndex);
+    for (int i = 0; i < 2; i++)
+    {
+      int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
+      player.draft(draftCardIndex);
+    }
   }
 
   /**
@@ -101,14 +104,16 @@ public class AIView implements ControlListener
   @Override
   public void swapToVotingPane()
   {
+    // TODO: create method in AIDecisions for voting that looks at cards
     if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
+    int voteCardIdx = 0;
     List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
-    for (PolicyCard card : player.getPlayerHand())
-    {
-      if (card.votesRequired() > 0) voteCards.add(card);
-    }
-//    int voteCardIdx = decisions.analyzeCards(player.getPlayerHand());
-    int voteCardIdx = decisions.analyzeCards(voteCards);
+    // Get cards from voting pane
+//    for (PolicyCard card : player.getPlayerHand())
+//    {
+//      if (card.votesRequired() > 0) voteCards.add(card);
+//    }
+//    int voteCardIdx = decisions.analyzeCards(voteCards);
     player.vote(voteCardIdx);
   }
 
