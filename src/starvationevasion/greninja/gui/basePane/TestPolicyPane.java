@@ -4,12 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.GuiBase;
@@ -35,6 +33,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   private VBox draftedCardsBox;
   private DraftedPolicyCardPane draftedCards;
+  VBox titleBox;
   private VBox statsBox;
 
   public TestPolicyPane(GuiBase base)
@@ -58,30 +57,6 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     getChildren().add(mainPane);
   }
 
-  /**
-   * Instantiates and adds components to pane.
-   */
-  /**
-  public void initPane()
-  {
-    super.initTimerPane(5, 0);
-    mainPane.setId("mainPolicyPane");
-    playerHandGui = new PlayerHandGui(base);
-    toolbar = new ToolbarPane(base);
-
-    // Get the information to be displayed in the GUI
-    // getInfo();
-
-    // Build each sector of the GUI
-    buildTop();
-    buildLeft();
-    buildRight();
-    buildBottom();
-    buildCenter();
-    getChildren().add(mainPane);
-  }
-   **/
-
   /*
    * Contains the phase title and the next phase button.
    */
@@ -102,12 +77,16 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     timerDisplay.setPadding(new Insets(10, 10, 10, 10));
 
     // Create and add title and game state info
-    VBox titleBox = new VBox(5);
+    titleBox = new VBox(5);
     titleBox.setAlignment(Pos.TOP_CENTER);
-    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
-    HBox gameInfo = gameStateInfo();
-    title.setId("title");
-    titleBox.getChildren().addAll(title, gameInfo);
+    updateTopDisplay(EnumRegion.CALIFORNIA);
+
+//    VBox titleBox = new VBox(5);
+//    titleBox.setAlignment(Pos.TOP_CENTER);
+//    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
+//    HBox gameInfo = gameStateInfo();
+//    title.setId("title");
+//    titleBox.getChildren().addAll(title, gameInfo);
 
     // TODO: remove this button?
     // Create and add next state button
@@ -134,7 +113,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   {
     BorderPane leftPane = new BorderPane();
     leftPane.setId("leftLayout");
-
+    leftPane.setPrefWidth(300);
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
@@ -145,13 +124,11 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
     Label draftTitle = new Label("Drafted Policies");
 
-
-    leftPane.setCenter(visBox);
-    leftPane.setPrefWidth(300);
-
     draftedCards = new DraftedPolicyCardPane(base);
     setPrefWidth(draftedCards.getMaxWidth());
     draftedCardsBox.getChildren().addAll(draftTitle, draftedCards);
+
+    leftPane.setTop(visBox);
     leftPane.setBottom(draftedCardsBox);
     mainPane.setLeft(leftPane);
   }
@@ -159,7 +136,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
 
   /*
-   * Contains graphs
+   * Builds the right pane, which contains the graphs for each region.
    */
   private void buildRight()
   {
@@ -185,6 +162,9 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     mainPane.setCenter(map);
   }
 
+  /*
+   * Builds the bottom pane, which contains the player hand, draw/discard deck, and farm product toolbar.
+   */
   private void buildBottom()
   {
     BorderPane bottomPane = new BorderPane();
@@ -286,7 +266,9 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   public void regionClicked(EnumRegion region)
   {
     System.out.println("selected Region is "+region.toString());
+    titleBox.getChildren().clear();
     statsBox.getChildren().clear();
+    updateTopDisplay(region);
     createRightPane(region);
   }
 //////////// Unused interface methods ////////////
@@ -310,10 +292,10 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     // selectedRegion = "None.";
   }
 
-  private void createRightPane(EnumRegion region)
+  private State getSelectedRegion(EnumRegion region)
   {
     State state = null;
-    switch(region)
+    switch (region)
     {
       case CALIFORNIA:
         state = State.CALIFORNIA;
@@ -337,7 +319,89 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
         state = State.SOUTHEAST;
     }
 
-    if(state == null) throw new NullPointerException("Variable state should not be null!!");
+    if(state == null) throw new NullPointerException("Variable state should not be null.");
+    return state;
+  }
+
+  private void updateTopDisplay(EnumRegion region)
+  {
+//    // Draw divider
+//    Label divider = new Label();
+//    divider.setId("divider");
+//    divider.setMaxHeight(1);
+//    divider.setMinHeight(1);
+//    divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+//
+//    // Set up timer display
+//    TimerDisplay timerDisplay = new TimerDisplay(base, getTimerPane());
+//    timerDisplay.setPadding(new Insets(10, 10, 10, 10));
+//
+//    // Create and add title and game state info
+//    VBox titleBox = new VBox(5);
+//    titleBox.setAlignment(Pos.TOP_CENTER);
+//    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
+//    HBox gameInfo = gameStateInfo();
+//    title.setId("title");
+//    titleBox.getChildren().addAll(title, gameInfo);
+//
+//    // TODO: remove this button?
+//    // Create and add next state button
+//    VBox buttonBox = new VBox();
+//    buttonBox.setAlignment(Pos.CENTER);
+//    buttonBox.setPadding(new Insets(10, 10, 10, 10));
+//    Button nextPhaseButton = new Button("Next Phase");
+//    nextPhaseButton.setOnAction(new ButtonControl(this));
+//    buttonBox.getChildren().add(nextPhaseButton);
+//
+//    topPane.setBottom(divider);
+//    topPane.setLeft(timerDisplay);
+//    topPane.setRight(buttonBox);
+//    topPane.setCenter(titleBox);
+//    //topPane.setPrefHeight(100);
+//    mainPane.setTop(topPane);
+
+
+    State state = getSelectedRegion(region);
+    regionPopulation = state.getPopulation();
+    HDI = state.getHDI();
+
+    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
+    HBox gameInfo = gameStateInfo();
+    title.setId("title");
+    titleBox.getChildren().addAll(title, gameInfo);
+  }
+
+  private void createRightPane(EnumRegion region)
+  {
+//    State state = null;
+//    switch(region)
+//    {
+//      case CALIFORNIA:
+//        state = State.CALIFORNIA;
+//        break;
+//      case HEARTLAND:
+//        state = State.HEARTLAND;
+//        break;
+//      case NORTHERN_PLAINS:
+//        state = State.NORTHERN_PLAINS;
+//        break;
+//      case SOUTHEAST:
+//        state = State.SOUTHEAST;
+//        break;
+//      case NORTHERN_CRESCENT:
+//        state = State.NORTHERN_CRESCENT;
+//        break;
+//      case SOUTHERN_PLAINS:
+//        state = State.SOUTHERN_PLAINS;
+//        break;
+//      case MOUNTAIN:
+//        state = State.SOUTHEAST;
+//    }
+//
+//    if(state == null) throw new NullPointerException("Variable state should not be null!!");
+
+    State state = getSelectedRegion(region);
+
     //creates a tabpane and tabs that display the graphs
     TabPane stats = new TabPane();
     Tab farmProduct = new Tab("Production Charts");
