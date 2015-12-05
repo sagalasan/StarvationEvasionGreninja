@@ -43,7 +43,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     this.base = base;
     super.initTimerPane(5, 0);
     mainPane.setId("mainPolicyPane");
-
+    base.getGameController().setDraftedCards();
     toolbar = new ToolbarPane(base);
 
     // Get the information to be displayed in the GUI
@@ -137,7 +137,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
 
     VBox visBox = new VBox(5);
-    visBox.setAlignment(Pos.CENTER);
+    visBox.setAlignment(Pos.TOP_CENTER);
     ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
     visBox.getChildren().add(visImg);
 
@@ -199,7 +199,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
     TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
 
-    drawDiscardPile.setSpacing(30);
+    drawDiscardPile.setSpacing(5);
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
     drawDiscardPile.setAlignment(Pos.TOP_CENTER);
 
@@ -370,14 +370,14 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   }
   public void updateDraftedCards()
   {
-    int tempIndexOfDraftedCards = draftedCardsBox.getChildren().indexOf(draftedCards);
-    draftedCards = new DraftedPolicyCardPane(base);
-    draftedCardsBox.getChildren().set(tempIndexOfDraftedCards, draftedCards);
+    //int tempIndexOfDraftedCards = draftedCardsBox.getChildren().indexOf(draftedCards);
+    draftedCards.updateCards();
+    //draftedCardsBox.getChildren().set(tempIndexOfDraftedCards, draftedCards);
   }
   public void updatePlayerHand()
   {
-    int tempIndexOfPlayerHand = cardBox.getChildren().indexOf(playerHandGui);
+    //int tempIndexOfPlayerHand = cardBox.getChildren().indexOf(playerHandGui);
     playerHandGui.updatePlayerHand();// = new PlayerHandGui(base);
-    cardBox.getChildren().set(tempIndexOfPlayerHand, playerHandGui);
+    //cardBox.getChildren().set(tempIndexOfPlayerHand, playerHandGui);
   }
 }

@@ -130,12 +130,15 @@ public class CardImage extends VBox
       }
     });
     scroll.setStyle("-fx-font-size:8");
-    scroll.setPrefHeight(180);
-    scroll.setPrefWidth(230);
+    scroll.setPrefHeight(160);
+    scroll.setPrefWidth(150);
 
     return scroll;
   }
-
+  public CardImage getCard()
+  {
+    return this;
+  }
   /**
    *
    * @return returns the policy card for this card

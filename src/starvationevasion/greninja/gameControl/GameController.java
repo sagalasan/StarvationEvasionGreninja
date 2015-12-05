@@ -68,8 +68,6 @@ public class GameController
    */
   public GameController(GuiBase view)
   {
-    System.out.println("human player game controller being made");
-
     isHuman = true;
     this.view = view;
     guiView = (GuiBase) view;
@@ -540,37 +538,46 @@ public class GameController
 
     player.setPlayerHand(newHand);
   }
-  private void removeCardFromPlayerHand(int index)
-  {
-    player.removeCard(index);
-  }
+ // private void removeCardFromPlayerHand(int index)
+ // {
+  //  player.removeCard(index);
+ // }
   public boolean setDraftCard(PolicyCard cardToDraft, int index)
   {
     if (draftedCards.size()<2)
     {
       draftedCards.add(cardToDraft);
-      removeCardFromPlayerHand(index);
+      player.removeCard(index);
+      //removeCardFromPlayerHand(index);
       return true;
     }
     return false;
   }
 
-  public void undoDraftCard(PolicyCard cardToUndo)
+  public boolean undoDraftCard(PolicyCard cardToUndo)
   {
-    if (draftedCards.size()==0) return;
+    if (draftedCards.size()==0) return false;
 
     for (PolicyCard policy: draftedCards)
     {
       if (policy.equals(cardToUndo))
       {
         draftedCards.remove(policy);
+        player.addCard(policy);
+        return true;
       }
     }
+    return false;
   }
+
   public ArrayList<PolicyCard> getDraftedCards()
   {
     return draftedCards;
 
+  }
+  public void setDraftedCards()
+  {
+    draftedCards = new ArrayList<>();
   }
 
   //need a way to get all discarded cards

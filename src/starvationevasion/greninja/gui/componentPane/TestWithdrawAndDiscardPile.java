@@ -58,7 +58,7 @@ public class TestWithdrawAndDiscardPile extends HBox
       //getChildren().add(pile[i]);
     }
     **/
-    discardBox.getChildren().addAll(discardLabel, discardPile);
+    discardBox.getChildren().addAll(discardLabel, discardPile.getScrollCard());
 
     //makes a discarddisplay which is made up of cards passed, and two arrow buttons
     //this proceeds to make new stage with a new scene that is transparent
@@ -116,9 +116,14 @@ public class TestWithdrawAndDiscardPile extends HBox
     deckBox.setAlignment(Pos.TOP_CENTER);
     Label deckLabel = new Label("Deck");
     CardImage deck = new CardImage(image, policyCard, base);
-    deckBox.getChildren().addAll(deckLabel, deck);
+    deckBox.getChildren().addAll(deckLabel, deck.getScrollCard());
 
 //    getChildren().addAll(discardPile, deck);
+    deckBox.setScaleY(.7);
+    deckBox.setScaleX(.7);
+
+    discardBox.setScaleX(.7);
+    discardBox.setScaleY(.7);
     getChildren().addAll(discardBox, deckBox);
   }
 }

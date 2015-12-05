@@ -45,43 +45,39 @@ public class PlayerHandGui extends HBox
     for (PolicyCard policy: playerHand )
     {
       Image image = new Image("file:assets/CardImages/magikarp.png");
-      getChildren().add(new PlayerCard(new CardImage(image, policy, base),base, i++).getCard().getScrollCard());
+      getChildren().add(new PlayerCard(image, policy, base, i++).getScrollCard());
 
     }
-
-
-    /**
-     * this for loop is a place holder till the player hand returns something
-     */
-    //base.getPlayerHand();
-/**
-    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
-    for (int i = 0; i < MAX_CARDS_IN_PLAYER_HAND; i++)
-    {
-      //base.getPlayerHand();
-      playerCards[i] = new PlayerCard(new CardImage(image, policyCard, base), base);
-      //adds to cardHand
-      getChildren().add(playerCards[i].getCard());
-    }
-**/
 
   }
 
   public void updatePlayerHand()
   {
-    int tempSizeBeforeUpdate = getChildren().size();
     playerHand = base.getPlayerHand();
-    int i = 0;
-    for (PolicyCard policy: playerHand )
+    for (int i = 0; i < 7; i++ )
     {
-      Image image = new Image("file:assets/CardImages/magikarp.png");
-      getChildren().set(i, new PlayerCard(new CardImage(image, policy, base), base, i++).getCard().getScrollCard());
+      if (playerHand.size()>i)
+      {
+        Image image = new Image("file:assets/CardImages/magikarp.png");
+        if (getChildren().size() > i)
+        {
+          getChildren().set(i, new PlayerCard(image, playerHand.get(i), base, i).getScrollCard());
+        }
+        else
+        {
+          getChildren().add(new PlayerCard(image, playerHand.get(i), base, i).getScrollCard());
+        }
 
+      }
+      if (playerHand.size() <= i && playerHand.size() < getChildren().size())
+      {
+        System.out.println("removing card from drafting pane");
+        getChildren().remove(i);
+
+
+      }
     }
-    for (int j = 0; j < tempSizeBeforeUpdate-playerHand.size(); j++)
-    {
-      getChildren().remove(i + j);
-    }
+
 
   }
 

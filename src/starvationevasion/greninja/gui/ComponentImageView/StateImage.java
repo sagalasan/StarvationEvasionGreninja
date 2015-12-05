@@ -126,8 +126,8 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     for (int i = 0; i< numberOfDraftCards; i++)
     {
       draftStatusCards[i] = new ImageView(BACK_OF_CARD);
-      draftStatusCards[i].setScaleX(.25);
-      draftStatusCards[i].setScaleY(.25);
+      draftStatusCards[i].setScaleX(.4);
+      draftStatusCards[i].setScaleY(.4);
       draftStatusCards[i].setTranslateX(dispInfoTranslateX + i*draftStatusCards[i].getBoundsInParent().getWidth()/2);
       draftStatusCards[i].setTranslateY(dispInforTranslateY+draftStatusCards[i].getBoundsInParent().getHeight());
       if (i == 1)
@@ -153,7 +153,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     }
     else if (regionName.equals(EnumRegion.HEARTLAND))
     {
-      setupDisplayInfo(HEARTLAND, getFitWidth()/4, -getFitHeight()/1.8, 2 );
+      setupDisplayInfo(HEARTLAND, getFitWidth()/4, -getFitHeight()/2, 2 );
     }
     else if (regionName.equals(EnumRegion.NORTHERN_CRESCENT))
     {
@@ -161,15 +161,15 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     }
     else if (regionName.equals(EnumRegion.SOUTHEAST))
     {
-      setupDisplayInfo(SOUTHEAST, getFitWidth()/1.8, getFitHeight()/3, 2);
+      setupDisplayInfo(SOUTHEAST, getFitWidth()/2.2, getFitHeight()/6, 2);
     }
     else if (regionName.equals(EnumRegion.SOUTHERN_PLAINS))
     {
-      setupDisplayInfo(DELTAS, 0, getFitHeight()/2.6, 2 );
+      setupDisplayInfo(DELTAS, getFitWidth()/6, getFitHeight()/3.4, 2 );
     }
     else if (regionName.equals(EnumRegion.NORTHERN_PLAINS))
     {
-      setupDisplayInfo(PLAINS, -getFitWidth()/6, -getFitHeight()/1.7, 2);
+      setupDisplayInfo(PLAINS, -getFitWidth()/1.7, -getFitHeight()/2.3, 2);
     }
     else if (regionName.equals(EnumRegion.MOUNTAIN))
     {

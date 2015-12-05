@@ -29,6 +29,7 @@ public class DiscardDisplay extends HBox
   private CardImage card;
   public DiscardDisplay(final CardImage[] discardedCards)
   {
+
     card = discardedCards[0];
     setSpacing(30);
 
@@ -54,30 +55,38 @@ public class DiscardDisplay extends HBox
     leftButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        currentIndex++;
-        card = discardedCards[currentIndex%discardedCards.length];
-        card.setScaleY(1.5);
-        card.setScaleX(1.5);
-        getChildren().set(1, card);
+        if (!(currentIndex - 1 < 0))
+        {
+          currentIndex--;
+          card = discardedCards[currentIndex%discardedCards.length];
+          card.setScaleY(1.5);
+          card.setScaleX(1.5);
+          getChildren().set(1, card);
+        }
+
         //System.out.println("left arrow clicked");
       }
     });
     rightButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        currentIndex--;
-        card = discardedCards[currentIndex%discardedCards.length];
-        card.setScaleY(1.5);
-        card.setScaleX(1.5);
-        getChildren().set(1, card);
+        if (!(currentIndex + 1 >= discardedCards.length))
+        {
+          currentIndex++;
+          card = discardedCards[currentIndex%discardedCards.length];
+          card.setScaleY(1.5);
+          card.setScaleX(1.5);
+          getChildren().set(1, card);
+        }
+
+
         //System.out.println("right arrow clicked");
       }
     });
     setAlignment(Pos.CENTER);
 
 
-
-    getChildren().addAll(leftButton, card, rightButton);
+    getChildren().addAll(leftButton, card.getScrollCard(), rightButton);
 
   }
   public void setCard(int index)
