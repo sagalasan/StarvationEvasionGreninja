@@ -343,7 +343,6 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     Tab farmProduct = new Tab("Production Charts");
     Tab population = new Tab("Population");
     Tab HDI = new Tab("HDI");
-
     farmProduct.setClosable(false);
     population.setClosable(false);
     HDI.setClosable(false);
