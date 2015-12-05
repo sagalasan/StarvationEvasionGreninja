@@ -9,6 +9,19 @@
   -fx-font-family: "Segoe UI Semibold";
   -fx-text-fill: white;
 }
+.check-box{
+
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-text-fill: white;
+}
+
+.tab{
+  -fx-background-color:#333333;
+}
+.tab-label{
+  -fx-text-fill:white;
+}
+
 
 .button
 {
@@ -23,13 +36,16 @@
   -fx-text-fill: white;
   -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
-
+.tab:hover
+{
+  -fx-background-color: #474747;
+}
 .button:hover
 {
   -fx-background-color: #474747;
 
 }
-#arrow-button: hover
+#arrow-button:hover
 {
   -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 3,1,0,0 );
 }

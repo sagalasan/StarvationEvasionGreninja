@@ -1,7 +1,8 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ToolBar;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.model.State;
@@ -26,32 +27,26 @@ public class FarmProductChartPane extends VBox
     ProductCheckBox box10 = new ProductCheckBox("MEAT");
     ProductCheckBox box11 = new ProductCheckBox("POULTRY");
     ProductCheckBox box12 = new ProductCheckBox("DIARY");
-    ToolBar toolBar = new ToolBar(box1, box2, box3, box4, box5, box6,
-      box7, box8, box9, box10, box11, box12);
-    getChildren().add(toolBar);
+    GridPane checkBoxPane = new GridPane();
+    checkBoxPane.setVgap(3);
+    checkBoxPane.setHgap(2);
+    checkBoxPane.add(box1, 1, 1);
+    checkBoxPane.add(box2, 2, 1);
+    checkBoxPane.add(box3, 3, 1);
+    checkBoxPane.add(box4, 1, 2);
+    checkBoxPane.add(box5, 2, 2);
+    checkBoxPane.add(box6, 3, 2);
+    checkBoxPane.add(box7, 1, 3);
+    checkBoxPane.add(box8, 2, 3);
+    checkBoxPane.add(box9, 3, 3);
+    checkBoxPane.add(box10, 1, 4);
+    checkBoxPane.add(box11, 2, 4);
+    checkBoxPane.add(box12, 3, 4);
+    getChildren().add(checkBoxPane);
+    checkBoxPane.setAlignment(Pos.CENTER);
     regionalStatistics = new RegionalStatistics(region);
     getChildren().add(regionalStatistics);
     box1.selectedProperty().setValue(true);
-//    box1.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//      if(oldValue == false)
-//      {
-//        regionalStatistics.addDataToChart(EnumFood.CITRUS);
-//      }
-//      else
-//      {
-//        regionalStatistics.removeDataFromChart(EnumFood.CITRUS);
-//      }
-//    });
-//    box2.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//      if(oldValue == false)
-//      {
-//        regionalStatistics.addDataToChart(EnumFood.FRUIT);
-//      }
-//      else
-//      {
-//        regionalStatistics.removeDataFromChart(EnumFood.FRUIT);
-//      }
-//    });
   }
 
   private class ProductCheckBox extends CheckBox
