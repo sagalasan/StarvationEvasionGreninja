@@ -1,11 +1,8 @@
 package starvationevasion.greninja.gameControl;
 
 //import spring2015code.model.geography.Region;
-import starvationevasion.common.EnumRegion;
-import starvationevasion.common.PolicyCard;
+import starvationevasion.common.*;
 //import starvationevasion.greninja.gui.componentPane.RegionalStatistics;
-import starvationevasion.common.RegionData;
-import starvationevasion.common.WorldData;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
@@ -19,10 +16,9 @@ public class AIDecisions
 {
   private AIPlayer player;
   private int turnNumber;
-//  List<PolicyCard> playerHand;
 
-  private State localRegion;
-  private State globalRegion;
+  private EnumRegion playerRegion; // TODO: Should this be a State or an EnumRegion
+  private State california, heartland, northernPlains, southeast, northernCrescent, southernPlains, mountain;
   private double regionPop, worldPop, localHDI, worldHDI;
   private double localUndernourishedPop, globalUndernourishedPop;
 
@@ -33,19 +29,13 @@ public class AIDecisions
   private boolean communication = false;
   private PolicyCard suggestedCard;
 
-  private RegionData regionData;
-  private WorldData worldData;
-
-//  private RegionalStatistics localStatistics;
-//  private RegionalStatistics globalStatistics;
-
-  // TODO: use classes RegionData and WorldData from starvationevasion.common package to get current statistics
-
   private boolean DEBUG = true;
 
-  // Test constructor. To be removed possibly.
+  // Default constructor is test constructor. To be removed possibly.
   public AIDecisions()
   {
+    getCurrentInfo();
+
     // Higher rank = higher chance of selection
     rankedCards.put(10.0, 3);
     rankedCards.put(20.0, 1);
@@ -59,20 +49,11 @@ public class AIDecisions
   // State localState, State globalState
   public AIDecisions(AIPlayer player, int turnNumber)
   {
+//    this.player = player;
+//    this.turnNumber = turnNumber;
     // TODO: hardcoded for testing
     this.player = player;
     this.turnNumber = 2;
-    //    this.turnNumber = turnNumber;
-//    playerHand = player.getPlayerHand();
-
-    //Temporary code. Subject to change.
-    localRegion = State.CALIFORNIA;
-//    localStatistics = new RegionalStatistics(localRegion);
-    globalRegion = State.HEARTLAND;
-//    globalStatistics = new RegionalStatistics(globalRegion);
-
-    // localRegion = this.localState
-    // globalRegion = this.globalState
 
     getCurrentInfo();
   }
@@ -130,13 +111,23 @@ public class AIDecisions
 
   private void getCurrentInfo()
   {
-    regionPop = localRegion.getPopulation(turnNumber);
-    worldPop = globalRegion.getPopulation(turnNumber);
-    localHDI = localRegion.getHDI(turnNumber);
-    localUndernourishedPop = localRegion.getUndernourishedPopulation();
-    globalUndernourishedPop = globalRegion.getUndernourishedPopulation();
+    playerRegion = player.getPlayerRegion();
+    california = State.CALIFORNIA;
+    heartland = State.HEARTLAND;
+    northernPlains = State.NORTHERN_PLAINS;
+    southeast = State.SOUTHEAST;
+    northernCrescent = State.NORTHERN_CRESCENT;
+    southernPlains = State.SOUTHERN_PLAINS;
+    mountain = State.MOUNTAIN;
 
-    // TODO: should i get migration rate too?
+
+//    regionPop = localRegion.getPopulation(turnNumber);
+//    worldPop = globalRegion.getPopulation(turnNumber);
+//    localHDI = localRegion.getHDI(turnNumber);
+//    localUndernourishedPop = localRegion.getUndernourishedPopulation();
+//    globalUndernourishedPop = globalRegion.getUndernourishedPopulation();
+    // TODO: get food cost?
+
   }
 
   public boolean selectRegion(Set<EnumRegion> availableRegions) // Handle race conditions here or somewhere else?
@@ -180,7 +171,7 @@ public class AIDecisions
     if (probabilities == null) initializeProbabilities();
     List<Integer> rankedCardsIndices = new ArrayList<Integer>(rankedCards.values());
 
-    int selectedIndex; // Initialize to zero
+    int selectedIndex = 0; // Initialize to zero
 
     // Select card based on probability
     double q = rand.nextDouble(); // Uniformly distributed random number
@@ -195,7 +186,7 @@ public class AIDecisions
         return rankedCardsIndices.get(selectedIndex);
       }
     }
-    return 0;
+    return -1;
   }
 
   /*
@@ -203,29 +194,76 @@ public class AIDecisions
    */
   private double cardEffects(PolicyCard card)
   {
-    int x = card.getX();
-    int y = card.getY();
-    int z = card.getZ();
+    EnumPolicy cardType = card.getCardType();
+    double cardRank = 0;
 
-    // TODO: create variables to represent new values
-    double regionBalance; // Total money for a region
-    double regionPop;
-    double worldPop;
+    switch (cardType)
+    {
+      case Clean_River_Incentive:
+        break;
+      case Covert_Intelligence:
+        break;
+      case Educate_the_Women_Campaign:
+        break;
+      case Efficient_Irrigation_Incentive:
+        break;
+      case Ethanol_Tax_Credit_Change:
+        break;
+      case Fertilizer_Subsidy:
+        break;
+      case Foreign_Aid_for_Farm_Infrastructure:
+        break;
+      case GMO_Seed_Insect_Resistance_Research:
+        break;
+      case International_Food_Relief_Program:
+        break;
+      case Loan:
+        break;
+      case MyPlate_Promotion_Campaign:
+        break;
+    }
 
-//    int newRegionBalance = regionBalance - x;
-//    int newRegionPop = regionPop - y;
-//    int newWorldPop = worldPop - z;
-
-    // Minimizing undernourished population is priority?
-    // Minimizing money loss is next most important
-    // Increase in population is next priority (but check to make sure it's not too big)
-//    if (newWorldPop / worldPop >= 0.01 && newWorldPop / worldPop <= 0.05) TODO: ideal population growth is within this range
-
-    // TODO: subtract x, y, z from proper world values
-    // What value do I return though?
-    // just return some kind of average?
-    // return (newRegionBalance + newRegionPop + newWorldPop) / 3;
-
+//    int x = card.getX();
+//    int y = card.getY();
+//    int z = card.getZ();
+//
+//    double currentPopAvg = (california.getPopulation(turnNumber) + heartland.getPopulation(turnNumber) +
+//      northernPlains.getPopulation(turnNumber) + southeast.getPopulation(turnNumber) + northernCrescent.getPopulation(turnNumber) +
+//      southernPlains.getPopulation(turnNumber) + mountain.getPopulation(turnNumber)) / 7;
+//
+//    // TODO: subtract from the populations
+//    double projectedPopAvg = (california.getPopulation(turnNumber) + heartland.getPopulation(turnNumber) +
+//        northernPlains.getPopulation(turnNumber) + southeast.getPopulation(turnNumber) + northernCrescent.getPopulation(turnNumber) +
+//        southernPlains.getPopulation(turnNumber) + mountain.getPopulation(turnNumber)) / 7;
+//
+//    if (projectedPopAvg > currentPopAvg) // If future population is bigger
+//    {
+//      if ((currentPopAvg / projectedPopAvg) >= 0.01 && (currentPopAvg / projectedPopAvg) <= 0.05)
+//      {
+////        cardRank +=
+//      }
+////      else cardRank +=
+//    }
+////    else cardRank +=
+//
+//    // Get average malnourished population
+//    // Get projected average malnourished population
+//    // If future average is higher, subtract from rank
+//
+//
+//
+//
+//
+//
+////    int newRegionBalance = regionBalance - x;
+////    int newRegionPop = regionPop - y;
+////    int newWorldPop = worldPop - z;
+//
+//    // Minimizing undernourished population is priority?
+//    // Minimizing money loss is next most important
+//    // Increase in population is next priority (but check to make sure it's not too big)
+////    if (newWorldPop / worldPop >= 0.01 && newWorldPop / worldPop <= 0.05) TODO: ideal population growth is within this range
+//
     return 0.0;
   }
 
@@ -237,9 +275,13 @@ public class AIDecisions
   public int analyzeCards(List<PolicyCard> cards)
   {
     LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>(); // <rank, index>  or <rank, card>?
-    int numCards = cards.size();
+    if (cards.size() < 7)
+    {
+      // TODO: need 'draw from deck' functionality
+//      player.drawCard
+    }
     int chosenIndex = 0; // Zero by default
-    for (int i = 0; i < numCards; i++)
+    for (int i = 0; i < cards.size(); i++)
     {
       // TODO: assign each card a "rank" or some value that denotes how beneficial it is
       // Take an average for all the effects and use that average as the key?
@@ -248,6 +290,14 @@ public class AIDecisions
     }
 
     chosenIndex = chooseCard(rankedCards);
+    // should i do this in AIView instead?
+    if (chosenIndex < 0)
+    {
+//      player.discardCard()
+      // cardt to discard is card with lowest rank
+      // draw card
+      // run choosecard
+    }
     return chosenIndex;
   }
 

@@ -22,6 +22,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 {
   private GuiBase base;
   private PlayerHandGui playerHandGui;
+  private VBox cardBox;
   private ToolbarPane toolbar;
   private BorderPane mainPane = new BorderPane();
 
@@ -32,7 +33,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   private double regionPopulation = 1;
   private double worldPopulation = 2;
 
-
+  private VBox draftedCardsBox;
+  private DraftedPolicyCardPane draftedCards;
   private VBox statsBox;
 
   public TestPolicyPane(GuiBase base)
@@ -41,7 +43,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     this.base = base;
     super.initTimerPane(5, 0);
     mainPane.setId("mainPolicyPane");
-    playerHandGui = new PlayerHandGui(base);
+
     toolbar = new ToolbarPane(base);
 
     // Get the information to be displayed in the GUI
@@ -127,51 +129,34 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   /*
    * Left pane holds the timer, action buttons, and drafted policies.
    */
+
   private void buildLeft()
   {
     BorderPane leftPane = new BorderPane();
     leftPane.setId("leftLayout");
-    DraftedPolicyCardPane draftedCards = new DraftedPolicyCardPane(base);
-    //draftedCards.setScaleY(.5);
-    //draftedCards.setScaleX(.5);
-    //draftedCards.setAlignment(Pos.BOTTOM_CENTER);
-    //draftedCards.setSpacing(30);
+
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.CENTER);
     ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
-    //visImg.setScaleX(.5);
-    //visImg.setScaleY(.5);
     visBox.getChildren().add(visImg);
 
-    VBox draftedCardsBox = new VBox(5);
+    draftedCardsBox = new VBox(5);
     draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
     Label draftTitle = new Label("Drafted Policies");
-    //draftTitle.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(1),null)));
 
 
-    //leftPane.setPrefWidth(200);
     leftPane.setCenter(visBox);
-    //leftPane.setBottom(draftedCardsBox);
     leftPane.setPrefWidth(300);
-    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
-    /**
-    //ScrollPane scrollPane = new ScrollPane(draftedCards);
-    //scrollPane.setFitToHeight(true);
-    //scrollPane.setStyle("-fx-background-color: black;");
-    //todo instead of scrollpane, just make it a card viewer that views a couple cards at a time
-    //scrollPane.setPrefHeight(200);
-    //scrollPane.setFitToWidth(true);
-    //scrollPane.setFitToHeight(true);
-    //scrollPane.setPrefHeight(draftedCards.getHeight());
-    //System.out.println(scrollPane.getHeight());
-    //scrollPane.setPrefHeight(draftedCards.getMaxHeight());
-     **/
+
+    draftedCards = new DraftedPolicyCardPane(base);
     setPrefWidth(draftedCards.getMaxWidth());
     draftedCardsBox.getChildren().addAll(draftTitle, draftedCards);
     leftPane.setBottom(draftedCardsBox);
     mainPane.setLeft(leftPane);
   }
+
+
 
   /*
    * Contains graphs
@@ -218,10 +203,13 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
     drawDiscardPile.setAlignment(Pos.TOP_CENTER);
 
-    VBox cardBox = new VBox(10);
+
+    cardBox = new VBox(10);
     cardBox.setPadding(new Insets(10, 10, 10, 10));
     cardBox.setAlignment(Pos.TOP_CENTER);
     Label cardLabel = new Label("Your Cards");
+    playerHandGui = new PlayerHandGui(base);
+
     cardBox.getChildren().addAll(cardLabel, playerHandGui);
 
     VBox toolBarBox = new VBox(3);
@@ -378,11 +366,18 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     stats.getTabs().addAll(population, farmProduct,HDI);
 
     statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
-    //Comment these back in to use other way to see graphs stacked on top of eachother
-    //statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
-    //statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
-    //statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
-    //statsBox.getChildren().add(new FarmProductChartPane(state));
 
+  }
+  public void updateDraftedCards()
+  {
+    int tempIndexOfDraftedCards = draftedCardsBox.getChildren().indexOf(draftedCards);
+    draftedCards = new DraftedPolicyCardPane(base);
+    draftedCardsBox.getChildren().set(tempIndexOfDraftedCards, draftedCards);
+  }
+  public void updatePlayerHand()
+  {
+    int tempIndexOfPlayerHand = cardBox.getChildren().indexOf(playerHandGui);
+    playerHandGui.updatePlayerHand();// = new PlayerHandGui(base);
+    cardBox.getChildren().set(tempIndexOfPlayerHand, playerHandGui);
   }
 }

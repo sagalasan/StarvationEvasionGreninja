@@ -61,6 +61,13 @@ public class GuiBase extends Application implements ControlListener
 
   private ServerThread serverThread;
 
+  public void updateDraftedCardsAndPlayerHand()
+  {
+    //testPolicyPane will have to recreate hands
+    testPolicyPane.updateDraftedCards();
+    testPolicyPane.updatePlayerHand();
+
+  }
   /**
   public void initializePanes()
   {
@@ -432,8 +439,6 @@ public class GuiBase extends Application implements ControlListener
   }
   public List<PolicyCard> getPlayerHand()
   {
-    System.out.println("helloWorldguibase");
-    //System.out.println(control.getPlayerHand().get(0).getTitle());
     return control.getPlayer().getPlayerHand();
   }
 

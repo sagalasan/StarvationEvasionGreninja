@@ -14,6 +14,7 @@ import starvationevasion.greninja.serverCom.ServerConnection;
 import starvationevasion.sim.CardDeck;
 
 import java.io.Serializable;
+import java.security.Policy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class GameController
   private VotingPhase votingPhase;
   private PlayerInterface player;
   private ArrayList<PolicyCard> cardsForVote;
+  private ArrayList<PolicyCard> draftedCards;
+
   private ServerConnection serverLine;
   private WorldData worldState;
   private MessageCenter messageCenter;
@@ -56,6 +59,7 @@ public class GameController
     serverLine = new ServerConnection(this);
     messageCenter = new MessageCenter(this);
     ((AIView)view).setDecisionObject(new AIDecisions());
+    draftedCards = new ArrayList<>();
   }
 
   /**
@@ -71,7 +75,7 @@ public class GameController
     guiView = (GuiBase) view;
     cardsForVote = new ArrayList<>();
     messageCenter = new MessageCenter(this);
-
+    draftedCards = new ArrayList<>();
   }
 
   /**
@@ -351,27 +355,7 @@ public class GameController
     return player;
   }
 
-  //=====================Temporary deck management.
-  //TODO Remove when done
 
-  /**
-   * @deprecated
-   * Fill player hand up to 7 cards. quick and dirty
-   */
-  public void fillHand()
-  {
-    //System.out.println("filling hand");
-    ArrayList<PolicyCard> newHand = new ArrayList<>();
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Clean_River_Incentive));
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Fertilizer_Subsidy));
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.GMO_Seed_Insect_Resistance_Research));
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Efficient_Irrigation_Incentive));
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Ethanol_Tax_Credit_Change));
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Covert_Intelligence));
-    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Foreign_Aid_for_Farm_Infrastructure));
-
-    player.setPlayerHand(newHand);
-  }
  /*
   ============================end startup=======================================
   ******************************************************************************
@@ -531,6 +515,63 @@ public class GameController
     }
   }
 
+  /**public void setDraftedCards()
+  {
+    draftedCards = new ArrayList<>();
+  }**/
+  //=====================Temporary deck management.
+  //TODO Remove when done
+
+  /**
+   * @deprecated
+   * Fill player hand up to 7 cards. quick and dirty
+   */
+  public void fillHand()
+  {
+    //System.out.println("filling hand");
+    ArrayList<PolicyCard> newHand = new ArrayList<>();
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Clean_River_Incentive));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Fertilizer_Subsidy));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.GMO_Seed_Insect_Resistance_Research));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Efficient_Irrigation_Incentive));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Ethanol_Tax_Credit_Change));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Covert_Intelligence));
+    newHand.add(PolicyCard.create(player.getPlayerRegion(), EnumPolicy.Foreign_Aid_for_Farm_Infrastructure));
+
+    player.setPlayerHand(newHand);
+  }
+  private void removeCardFromPlayerHand(int index)
+  {
+    player.removeCard(index);
+  }
+  public boolean setDraftCard(PolicyCard cardToDraft, int index)
+  {
+    if (draftedCards.size()<2)
+    {
+      draftedCards.add(cardToDraft);
+      removeCardFromPlayerHand(index);
+      return true;
+    }
+    return false;
+  }
+
+  public void undoDraftCard(PolicyCard cardToUndo)
+  {
+    if (draftedCards.size()==0) return;
+
+    for (PolicyCard policy: draftedCards)
+    {
+      if (policy.equals(cardToUndo))
+      {
+        draftedCards.remove(policy);
+      }
+    }
+  }
+  public ArrayList<PolicyCard> getDraftedCards()
+  {
+    return draftedCards;
+
+  }
 
   //need a way to get all discarded cards
   /**
