@@ -31,6 +31,8 @@ public class AIDecisions
 
   private boolean DEBUG = true;
 
+  private boolean serverCreated = false;
+
   // Default constructor is test constructor. To be removed possibly.
   public AIDecisions()
   {
@@ -111,7 +113,7 @@ public class AIDecisions
 
   private void getCurrentInfo()
   {
-    playerRegion = player.getPlayerRegion();
+    //playerRegion = player.getPlayerRegion();
     california = State.CALIFORNIA;
     heartland = State.HEARTLAND;
     northernPlains = State.NORTHERN_PLAINS;

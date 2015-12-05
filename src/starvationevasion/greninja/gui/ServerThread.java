@@ -10,10 +10,18 @@ import java.util.List;
 /**
  * Created by sagalasan on 12/3/15.
  */
-public class ServerThread
+public class ServerThread extends Thread
 {
+  private String loginPath;
+  private Process start;
   private ArrayList<String> commands;
   public ServerThread(String loginPath)
+  {
+    this.loginPath = loginPath;
+  }
+
+  @Override
+  public void run()
   {
     commands = new ArrayList<>();
     commands.add("java");
@@ -31,7 +39,6 @@ public class ServerThread
 
     processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
     processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
-    Process start;
     try
     {
       start = processBuilder.start();
@@ -49,6 +56,14 @@ public class ServerThread
     {
       e.printStackTrace();
     }
+    System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
+  }
+
+  public void stopServer()
+  {
+    System.out.println("Trying to stop server");
+    this.interrupt();
+    start.destroyForcibly();
   }
 
   public static void main(String[] args)

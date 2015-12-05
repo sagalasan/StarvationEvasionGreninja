@@ -404,6 +404,7 @@ public class GuiBase extends Application implements ControlListener
   public void startAIThreads()
   {
     serverThread = new ServerThread("config/easy_password_file.tsv");
+    serverThread.start();
     aiThreads = new ArrayList<>();
     aiThreads.add(new AIThread("user1", "password"));
     aiThreads.add(new AIThread("user2", "password"));
@@ -448,14 +449,23 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void stop()
   {
-    control.sendMessageOut(new Goodbye("poop"));
-    if(aiThreads != null)
+    try
     {
-      for(AIThread ai : aiThreads)
+      control.sendMessageOut(new Goodbye("poop"));
+      if(aiThreads != null)
       {
-        ai.sendMessageOut(new Goodbye("me too."));
+        for(AIThread ai : aiThreads)
+        {
+          ai.sendMessageOut(new Goodbye("me too."));
+        }
       }
     }
+    catch (RuntimeException re)
+    {
+      re.printStackTrace();
+    }
+
+    serverThread.stopServer();
     Platform.exit();
     System.exit(0);
   }
