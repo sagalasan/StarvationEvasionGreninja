@@ -119,7 +119,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
     //ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
-    CustomLayout earthViewLayout = new CustomLayout();
+    WorldViewer earthViewLayout = new WorldViewer();
     visBox.getChildren().add(earthViewLayout);
 
 
