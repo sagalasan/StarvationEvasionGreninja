@@ -23,6 +23,8 @@ import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
 import starvationevasion.greninja.model.State;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jalen on 11/27/2015.
  */
@@ -157,9 +159,9 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     map.setContainingPane(this);
     //VBox draftedCardsAndRegions = new VBox();
     HBox draftedCards = new HBox();
-    HBox otherDraftedCards = new HBox();
-    otherDraftedCards.setSpacing(70);
-    otherDraftedCards.setAlignment(Pos.CENTER);
+    //HBox otherDraftedCards = new HBox();
+    //otherDraftedCards.setSpacing(70);
+    //otherDraftedCards.setAlignment(Pos.CENTER);
     draftedCards.setSpacing(20);
     draftedCards.setAlignment(Pos.CENTER);
 
@@ -167,13 +169,69 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     //VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard, base);
 
     //each of these will be gotten from each player region
+    //each player will have two cards to draft.
+    //get cards from game controller
+    //display cards underneath their respective region
+    //also add buttons
+    //give voting status updates
+
+    //make vbox array, add cards with respective regions to those arrays
+
+    /** uncomment to get cards from ai/player
+    Image image = new Image("file:assets/CardImages/magikarp.png");
+    ArrayList<PolicyCard> policyCards = base.getAllVotingCards();
+    VBox[] votingCards = new VBox[7];//7 is the number of regions
+    //for (int j = 0; j<7;j++)
+    //{
+    for (PolicyCard policy: policyCards)
+    {
+      if (policy.getOwner().equals(EnumRegion.CALIFORNIA))
+      {
+        votingCards[0].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+      else if (policy.getOwner().equals(EnumRegion.MOUNTAIN))
+      {
+        votingCards[1].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+      else if (policy.getOwner().equals(EnumRegion.HEARTLAND))
+      {
+        votingCards[2].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+      else if (policy.getOwner().equals(EnumRegion.NORTHERN_PLAINS))
+      {
+        votingCards[3].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+      else if (policy.getOwner().equals(EnumRegion.NORTHERN_CRESCENT))
+      {
+        votingCards[4].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+      else if (policy.getOwner().equals(EnumRegion.SOUTHERN_PLAINS))
+      {
+        votingCards[5].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+      else if (policy.getOwner().equals(EnumRegion.SOUTHEAST))
+      {
+        votingCards[6].getChildren().add(new VotingCards(image, true, policy,base ));
+      }
+    }
+   // }
+
+    HBox allCards = new HBox();
+    allCards.setSpacing(20);
+    allCards.setAlignment(Pos.CENTER);
+    for (VBox votingCard: votingCards)
+    {
+      allCards.getChildren().add(draftedCards);
+    }
+     center.setCenter(allCards);
+**/
     for (int i = 0; i < 7; i++)
     {
-
       draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"),
           true, policyCard, base));
 
     }
+
     center.setTop(map);
 
     center.setCenter(draftedCards);
@@ -193,27 +251,6 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    //TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile();
-    //drawDiscardPile.setSpacing(5);
-    //drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
-    //drawDiscardPile.setAlignment(Pos.TOP_CENTER);
-
-    //VBox cardBox = new VBox(5);
-    //cardBox.setPadding(new Insets(10, 10, 10, 10));
-    //cardBox.setAlignment(Pos.TOP_CENTER);
-    //Label cardLabel = new Label("Your Cards");
-//    playerHandGui.setAlignment(Pos.CENTER);
-//    playerHandGui.setPadding(new Insets(10, 10, 10, 10));
-    //cardBox.getChildren().addAll(cardLabel, playerHandGui);
-
-    //VBox toolBarBox = new VBox();
-    //toolBarBox.setAlignment(Pos.TOP_CENTER);
-    //toolBarBox.getChildren().add(new Label("Toolbar as grid of icons here?"));
-
-    //bottomPane.setTop(divider);
-    //bottomPane.setLeft(drawDiscardPile);
-    //bottomPane.setCenter(cardBox);
-    //bottomPane.setRight(toolBarBox);
     mainPane.setBottom(bottomPane);
   }
 

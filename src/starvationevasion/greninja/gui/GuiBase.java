@@ -17,6 +17,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import starvationevasion.greninja.gui.ComponentImageView.VotingCards;
 import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.PlayerInterface;
@@ -426,6 +427,32 @@ public class GuiBase extends Application implements ControlListener
     {
       new Thread(thread).start();
     }
+  }
+
+  /**
+   *
+   * @return returns all the voting cards from every player
+   */
+  public ArrayList<PolicyCard> getAllVotingCards()
+  {
+    ArrayList<PolicyCard> votingCards = new ArrayList<>();
+    //has to be in order
+    ArrayList<PolicyCard> draftedCards;
+    for (AIThread aiThread: aiThreads)
+    {
+      draftedCards = aiThread.getDraftedCards();
+      for(PolicyCard policyCard: draftedCards)
+      {
+        votingCards.add(policyCard);
+      }
+    }
+    draftedCards = control.getDraftedCards();
+    for(PolicyCard policyCard: draftedCards)
+    {
+      votingCards.add(policyCard);
+    }
+
+    return votingCards;
   }
 
   public static void main(String[] args)

@@ -96,7 +96,7 @@ public class WorldViewer extends VBox{
 
     earthViewer = new EarthViewer(30, 140);
     getChildren().add(earthViewer.updateMini());
-     System.out.println(getChildren().size());//getChildren().size();//.add(earthViewer.updateMini());
+     //System.out.println(getChildren().size());//getChildren().size();//.add(earthViewer.updateMini());
   }
 
 
