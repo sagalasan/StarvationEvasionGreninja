@@ -91,10 +91,13 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");//
-    for (int i = 0; i < 2; i++)
+    if(player.getPlayerHand() != null)
     {
-      int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
-      player.draft(draftCardIndex);
+      for (int i = 0; i < 2; i++)
+      {
+        int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
+        player.draft(draftCardIndex);
+      }
     }
   }
 
