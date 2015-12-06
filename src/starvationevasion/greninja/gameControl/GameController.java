@@ -271,7 +271,7 @@ public class GameController
   {
     playerRegion = region;
     player.setPlayerRegion(region);
-    beginGame();
+    if(isTesting) beginGame();
     //serverLine.sendMessage(new RegionChoice(region));
   }
 
@@ -316,10 +316,7 @@ public class GameController
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
-    if(isTesting)
-    {
-      startPolicyDraftingPhase();
-    }
+    startPolicyDraftingPhase();
   }
 
   /**
@@ -339,6 +336,11 @@ public class GameController
       }
     }
     beginGame();
+  }
+
+  public void startBeginGameCountdown(ReadyToBegin message)
+  {
+    if(isHuman) guiView.startBeginGameCountdown(message);
   }
 
   /**

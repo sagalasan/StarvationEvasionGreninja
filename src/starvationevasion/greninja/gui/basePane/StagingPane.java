@@ -1,12 +1,14 @@
 package starvationevasion.greninja.gui.basePane;
 
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumRegion;
 import javafx.scene.control.Label;
 import starvationevasion.common.messages.AvailableRegions;
+import starvationevasion.common.messages.ReadyToBegin;
 import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.GuiTimerSubscriber;
 import starvationevasion.greninja.gui.MapHolder;
@@ -16,6 +18,8 @@ import starvationevasion.greninja.model.PlayerInterface;
 import javax.smartcardio.Card;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Select region, wait for other players to join.
@@ -30,6 +34,11 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
   private Label regionSelectedLabel;
   private ClickableMap map;
   private AvailableRegions availableRegions;
+
+  private Label countdownMessage;
+  private String cString = "Game will begin in... %ds";
+  private Timer timer;
+  private long timeLeft;
   //private CardController card;
 
 
@@ -47,6 +56,8 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     map = new ClickableMap("staging");
     map.setContainingPane(this);
 
+    countdownMessage = new Label("");
+
 
     //EXAMPLE OF HOW TO GREY OUT, JUST SETS THE OPAQUENESS
     //true to set grey
@@ -55,6 +66,7 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     //map.greyOut(EnumRegion.CALIFORNIA, false);
 
     basePane.getChildren().add(map);
+    basePane.getChildren().add(countdownMessage);
   }
 
   /**
@@ -133,5 +145,29 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     System.out.println("Locking staging pane");
     map.greyOut(region, true);
     //regionClicked(region);
+  }
+
+  public void startCountdown(ReadyToBegin readyToBegin)
+  {
+    long serverStart = readyToBegin.gameStartServerTime;
+    long serverCurrent = readyToBegin.currentServerTime;
+    long start = System.currentTimeMillis();
+    long diff = (serverStart - serverCurrent) * 1000;
+    System.out.println("diff: " + diff);
+    timeLeft = (diff - (System.currentTimeMillis() - start)) / 1000;
+    timer = new Timer();
+    timer.schedule(new TimerTask()
+    {
+      @Override
+      public void run()
+      {
+        Platform.runLater(() ->
+        {
+          timeLeft = (diff - (System.currentTimeMillis() - start)) / 1000;
+          countdownMessage.setText(String.format(cString, timeLeft));
+          if(timeLeft < 0) timer.cancel();
+        });
+      }
+    }, 0, 1000);
   }
 }

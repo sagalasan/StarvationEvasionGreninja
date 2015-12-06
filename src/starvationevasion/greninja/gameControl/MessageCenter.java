@@ -70,6 +70,7 @@ public class MessageCenter
     else if(message instanceof ReadyToBegin)
     {
       //start countdown screen here?
+      control.startBeginGameCountdown((ReadyToBegin) message);
       System.out.println("Ready to begin message.");
     }
     else if(message instanceof Response)

@@ -229,6 +229,11 @@ public class GuiBase extends Application implements ControlListener
 
   }
 
+  public void startBeginGameCountdown(ReadyToBegin message)
+  {
+    stagingPane.startCountdown(message);
+  }
+
   public void lockStagingPane(EnumRegion region)
   {
     stagingPane.lock(region);
