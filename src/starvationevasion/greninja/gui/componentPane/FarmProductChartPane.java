@@ -16,6 +16,7 @@ public class FarmProductChartPane extends VBox
   public FarmProductChartPane(State region)
   {
     ProductCheckBox box1 = new ProductCheckBox("CITRUS");
+
     ProductCheckBox box2 = new ProductCheckBox("FRUIT");
     ProductCheckBox box3 = new ProductCheckBox("NUT");
     ProductCheckBox box4 = new ProductCheckBox("GRAIN");
@@ -51,19 +52,21 @@ public class FarmProductChartPane extends VBox
 
   private class ProductCheckBox extends CheckBox
   {
+
     ProductCheckBox(String name)
     {
       super(name);
+
       EnumFood foodName = getEnumValue(name);
       selectedProperty().addListener((observable, oldValue, newValue) -> {
-        if(!oldValue)
-        {
-          regionalStatistics.addDataToChart(foodName);
-        }
-        else
-        {
-          regionalStatistics.removeDataFromChart(foodName);
-        }
+          if (!oldValue && newValue)
+          {
+            regionalStatistics.addDataToChart(foodName);
+          }
+          else if(oldValue &&!newValue)
+          {
+            regionalStatistics.removeDataFromChart(foodName);
+          }
       });
     }
 
