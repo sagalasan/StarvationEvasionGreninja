@@ -397,8 +397,8 @@ public class GuiBase extends Application implements ControlListener
    */
   public void startAIThreads()
   {
-    //serverThread = new ServerThread("config/easy_password_file.tsv");
-    //serverThread.start();
+    serverThread = new ServerThread("config/easy_password_file.tsv");
+    serverThread.start();
     aiThreads = new ArrayList<>();
     aiThreads.add(new AIThread("user1", "password"));
     aiThreads.add(new AIThread("user2", "password"));

@@ -146,6 +146,7 @@ public class GameController
    */
   public void handleLoginResponse(LoginResponse response)
   {
+    print("Login Response Received: " + response.responseType);
     LoginResponse.ResponseType type = response.responseType;
     //guiView = (GuiBase) view;
     switch(type)

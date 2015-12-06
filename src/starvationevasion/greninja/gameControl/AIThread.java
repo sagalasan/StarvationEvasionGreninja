@@ -1,8 +1,13 @@
 package starvationevasion.greninja.gameControl;
 
+import javafx.application.Platform;
+import starvationevasion.common.EnumRegion;
 import starvationevasion.common.messages.Hello;
 import starvationevasion.common.messages.Login;
+import starvationevasion.common.messages.LoginResponse;
+import starvationevasion.common.messages.RegionChoice;
 import starvationevasion.greninja.clientCommon.ClientConstant;
+import starvationevasion.greninja.gui.GuiBase;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
@@ -16,6 +21,7 @@ public class AIThread extends GameController implements Runnable
   private boolean stillPlaying = true;
   private String loginName;
   private String loginPW;
+  private String salt;
   private ArrayDeque<Serializable> messageQueue;
 
   public AIThread(String loginName, String loginPW)
@@ -31,7 +37,23 @@ public class AIThread extends GameController implements Runnable
   public void run()
   {
     //connect!
-    getServerLine().startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
+    for(int i = 0; i < 100; i++)
+    {
+      print("Attempt " + i);
+      if(!getServerLine().isConnected())
+      {
+        try
+        {
+          Thread.sleep(500);
+        }
+        catch (InterruptedException e)
+        {
+          e.printStackTrace();
+        }
+        getServerLine().startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
+      }
+      else break;
+    }
     //play a game
     while(stillPlaying)
     {
@@ -48,10 +70,47 @@ public class AIThread extends GameController implements Runnable
   @Override
   public synchronized void helloReceived(Hello message)
   {
-    print("Received hello!");
-    Hello hello = (Hello) message;
-    String salt = hello.loginNonce;
+    Hello hello = message;
+    salt = hello.loginNonce;
+    print("Received hello! -> salt: " + salt);
     sendLoginInfo(loginName, loginPW, salt);
+  }
+
+  @Override
+  public synchronized void handleLoginResponse(LoginResponse response)
+  {
+    print("Login Response Received: " + response.responseType);
+    LoginResponse.ResponseType type = response.responseType;
+    //guiView = (GuiBase) view;
+    switch (type)
+    {
+      case ACCESS_DENIED:
+        try
+        {
+          Thread.sleep(100);
+        } catch (InterruptedException e)
+        {
+          e.printStackTrace();
+        }
+        sendLoginInfo(loginName, loginPW, salt);
+        break;
+      case ASSIGNED_REGION:
+        EnumRegion region = response.assignedRegion;
+        regionSelected(region);
+        //playerRegion = region;
+        //player.setPlayerRegion(region);
+        sendMessageOut(new RegionChoice(region));
+        //skip staging pane?
+        break;
+      case REJOIN:
+        //??
+        break;
+      case CHOOSE_REGION:
+        //go to staging like normal;
+        break;
+      default:
+        break;
+    }
   }
 
   /**

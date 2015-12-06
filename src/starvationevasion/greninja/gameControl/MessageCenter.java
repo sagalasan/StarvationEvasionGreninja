@@ -59,7 +59,7 @@ public class MessageCenter
     }
     else if(message instanceof LoginResponse)
     {
-      System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
+      //System.out.println("Login Response Received: " + ((LoginResponse) message).responseType);
       control.handleLoginResponse((LoginResponse)message);
     }
     else if(message instanceof PhaseStart)

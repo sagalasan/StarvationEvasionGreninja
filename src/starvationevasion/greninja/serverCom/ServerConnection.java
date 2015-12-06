@@ -147,6 +147,11 @@ public class ServerConnection
     else return false;
   }
 
+  public boolean isConnected()
+  {
+    return isConnectionValid;
+  }
+
   public static void main(String[] args)
   {
     ServerConnection serverConnection = new ServerConnection(null);
