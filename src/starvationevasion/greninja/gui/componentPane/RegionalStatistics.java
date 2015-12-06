@@ -1,24 +1,14 @@
 package starvationevasion.greninja.gui.componentPane;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.util.StringConverter;
 import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.model.State;
-import starvationevasion.vis.controller.Event;
-
-import java.awt.event.MouseAdapter;
 import java.util.HashMap;
 
 /**
@@ -56,12 +46,13 @@ public class RegionalStatistics extends LineChart<Number, Number>
     yAxis = (NumberAxis)getYAxis();
     this.region = region;
     initializeFarmProductsChart();
-    //addDataToChart(EnumFood.CITRUS);
+    setMinHeight(520);
   }
 
   protected  void addDataToChart(EnumFood food)
   {
     getData().add(data.get(food.toString()));
+
   }
 
   protected void removeDataFromChart(EnumFood food)
@@ -99,7 +90,6 @@ public class RegionalStatistics extends LineChart<Number, Number>
     region.initializeDataForTest();
     setTitle(dataType);
     getData().add(getSeries(dataType));
-    setLegendVisible(false);
     setAnimated(false);
   }
 
@@ -109,7 +99,6 @@ public class RegionalStatistics extends LineChart<Number, Number>
     data = new HashMap<>();
     region.initializeDataForTest();
     setTitle("Farm Products");
-    setLegendVisible(false);
     for(EnumFood food : EnumFood.values())
     {
       data.put(food.toString(),getSeries(food));
@@ -119,11 +108,12 @@ public class RegionalStatistics extends LineChart<Number, Number>
   private XYChart.Series<Number, Number> getSeries(EnumFood food)
   {
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
+    series.setName(food.toString());
     for(int i = firstPointTurn; i < currentTurn; i++)
     { XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(startYear + 3 * i, region.getFoodIncome(food, i));
       dataPoint.setNode(new DataPoint((Double)dataPoint.getYValue()));
-      //dataPoint.nodeProperty().
       series.getData().add(dataPoint);
+
     }
     return series;
   }
@@ -131,6 +121,7 @@ public class RegionalStatistics extends LineChart<Number, Number>
   private XYChart.Series<Number, Number> getSeries(String dataCategory)
   {
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
+    series.setName(dataCategory);
 
     switch(dataCategory)
     {
@@ -155,16 +146,13 @@ public class RegionalStatistics extends LineChart<Number, Number>
   {
     DataPoint(double productionValue)
     {
-      setPrefSize(4, 4);
+      setPrefSize(6, 6);
       String rawValue = "" + productionValue;
-      System.out.println("LongValue: " + rawValue);
       int end = 5 > rawValue.length() ? rawValue.length() : 5;
       String shortValue = rawValue.substring(0, end);
-      System.out.println(shortValue);
       final Label label = new Label(shortValue);
-      label.setStyle("-fx-text-fill: black");
+      label.setStyle("-fx-text-fill: white; -fx-font-size: 8pt;");
       label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
-      //setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
       setOnMouseEntered(mouseEvent -> {
         getChildren().setAll(label);
         setCursor(Cursor.NONE);

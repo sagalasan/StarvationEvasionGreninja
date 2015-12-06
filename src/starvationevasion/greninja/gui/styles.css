@@ -17,11 +17,15 @@
 
 .tab{
   -fx-background-color:#333333;
+  -fx-border-color: white;
+  -fx-border-width: 1;
 }
 .tab-label{
   -fx-text-fill:white;
 }
-
+.tab-header-background{
+  -fx-background-color: #333333;
+}
 
 .button
 {
@@ -36,6 +40,44 @@
   -fx-text-fill: white;
   -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
+
+.chart {
+  -fx-font-size: 10pt;
+  -fx-padding: 30px;
+}
+
+.chart-title{
+  -fx-font-size: 14pt;
+}
+.axis-label{
+  -fx-font-size: 10pt;
+}
+.chart-content{
+  -fx-min-height: 1000;
+}
+.chart-legend {
+  -fx-background-color: transparent;
+}
+.chart-plot-background {
+  -fx-background-color: transparent;
+}
+.chart-alternative-row-fill {
+  -fx-fill: transparent;
+  -fx-stroke: transparent;
+  -fx-stroke-width: 0;
+}
+.chart-vertical-grid-lines {
+  -fx-stroke-width: 0.5pt;
+  -fx-stroke-dash-array: null;
+}
+.chart-horizontal-grid-lines {
+  -fx-stroke-width: 0.1pt;
+  -fx-stroke-dash-array: null;
+}
+.chart-legend-item{
+  -fx-font-size: 8pt;
+}
+
 .tab:hover
 {
   -fx-background-color: #474747;
