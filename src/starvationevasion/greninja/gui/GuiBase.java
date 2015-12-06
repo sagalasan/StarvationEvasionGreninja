@@ -86,7 +86,7 @@ public class GuiBase extends Application implements ControlListener
   {
     startAIThreads();
 
-    control.startSinglePlayerGame("neo", "thel");
+    control.startSinglePlayerGame("user7", "password");
   }
 
   /**
@@ -142,7 +142,14 @@ public class GuiBase extends Application implements ControlListener
 
   public void swapToServerConnectionPane()
   {
+    swapToServerConnectionPane(false);
+  }
+
+  public void swapToServerConnectionPane(boolean singlePlayerMode)
+  {
     System.out.println("Swapping to ServerConnectionPane");
+    if(singlePlayerMode) serverConnectionPane = new ServerConnectionPane(this, true);
+    else serverConnectionPane = new ServerConnectionPane(this);
     baseScene.setRoot(serverConnectionPane);
   }
 

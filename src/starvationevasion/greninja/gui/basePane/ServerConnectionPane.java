@@ -36,6 +36,8 @@ public class ServerConnectionPane extends StackPane
   private Button cancelButton;
   private Node enterKeyNode;
 
+  private String titleText = "Please enter Server hostname and port.";
+  private Label title = new Label(titleText);
   private TextField nameField;
   private TextField portField;
 
@@ -64,9 +66,17 @@ public class ServerConnectionPane extends StackPane
 
   private Stage currentStage;
 
+  private boolean singlePlayerMode;
+
   public ServerConnectionPane(GuiBase guiBase)
   {
+    this(guiBase, false);
+  }
+
+  public ServerConnectionPane(GuiBase guiBase, boolean singlePlayerMode)
+  {
     this.guiBase = guiBase;
+    this.singlePlayerMode = singlePlayerMode;
     currentStage = Stage.DISCONNECTED;
     initGui();
   }
@@ -106,7 +116,7 @@ public class ServerConnectionPane extends StackPane
     serverBox.setHgap(4);
     serverBox.setVgap(4);
     serverBox.setPadding(new Insets(25, 25, 25, 25));
-    serverBox.add(new Label("Please enter Server hostname and port."), 0, 0, 2, 1);
+    serverBox.add(title, 0, 0, 2, 1);
     serverBox.add(new Label("Hostname: "), 0, 1);
     serverBox.add(nameField, 1, 1);
     serverBox.add(new Label("Port: "), 0, 2);
@@ -122,6 +132,18 @@ public class ServerConnectionPane extends StackPane
 
     this.setOnKeyPressed(this::keyPressed);
     this.setOnKeyReleased(this::keyReleased);
+    if(singlePlayerMode) singlePlayerMode();
+  }
+
+  private void singlePlayerMode()
+  {
+    title.setText("(Single Player - Wait)");
+    nameField.setText("localhost");
+    nameField.setDisable(true);
+    portField.setDisable(true);
+    serverBox.getChildren().remove(connectButton);
+    serverBox.getChildren().remove(cancelButton);
+    this.setO
   }
 
   private void buttonPressed(ActionEvent event)

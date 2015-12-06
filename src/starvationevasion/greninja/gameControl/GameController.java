@@ -232,7 +232,8 @@ public class GameController
     player = new HumanPlayer();
     player.setPlayerName("Player");
     //login
-    serverLine.startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
+    //serverLine.startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
+    guiView.swapToServerConnectionPane(true);
   }
 
   /**
