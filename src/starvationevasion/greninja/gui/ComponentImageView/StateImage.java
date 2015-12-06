@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
+import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.greninja.gui.componentPane.ClickableMap;
 
 /**
@@ -23,12 +24,14 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   private String styleForDispInfo;
   private ImageView[] draftStatusCards;
   private boolean clickable = true;
+  private ClickableMap map;
 
   public StateImage(final Image image, final Image titleImage,
                     final EnumRegion regionName, final ClickableMap map, boolean worldMap)
   {
     super(image);
     this.regionName = regionName;
+    this.map = map;
     displayInfo = new Text("cards discarded: ");
     draftStatusCards = new ImageView[2];
 
@@ -213,7 +216,11 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     return regionName;
   }
 
-
+  public void selectManually()
+  {
+    chosen = true;
+    showStateName();
+  }
 
 }
 

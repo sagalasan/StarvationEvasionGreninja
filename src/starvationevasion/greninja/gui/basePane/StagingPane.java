@@ -132,5 +132,6 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
   {
     System.out.println("Locking staging pane");
     map.greyOut(region, true);
+    //regionClicked(region);
   }
 }

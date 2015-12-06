@@ -46,6 +46,8 @@ public class GameController
   //GameStateTracker
   private CardDeck tempDeck; //For testing mode
 
+  private boolean singlePlayerMode;
+
   /**
    * Constructor for ai game.  Sets up an AI view and ai player.
    */
@@ -118,6 +120,7 @@ public class GameController
     Platform.runLater(() ->
     {
       //guiView = (GuiBase) view;
+      if(singlePlayerMode) guiView.swapToLoginPane(salt, true);
       guiView.swapToLoginPane(salt);
     });
   }
@@ -169,6 +172,7 @@ public class GameController
           {
             view.swapToStagingPane();
             ((GuiBase) view).lockStagingPane(playerRegion);
+            System.out.println(playerRegion);
           });
         }
         sendMessageOut(new RegionChoice(playerRegion));
@@ -225,6 +229,7 @@ public class GameController
    */
   public void startSinglePlayerGame(String name, String pass)
   {
+    singlePlayerMode = true;
     System.out.println("Start single player game.");
     guiView = (GuiBase)view; //set reference to view as a gui.
     //for remaining slots, start AiGame (on new thread?).
@@ -241,6 +246,7 @@ public class GameController
    */
   public void multiPlayerSelected()
   {
+    singlePlayerMode = false;
     guiView = (GuiBase)view;
     player = new HumanPlayer();
     serverLine = new ServerConnection(this);

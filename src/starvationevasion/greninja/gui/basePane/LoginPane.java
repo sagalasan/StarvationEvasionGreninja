@@ -29,14 +29,23 @@ public class LoginPane extends StackPane
   private Button okButton;
   private Button cancelButton;
 
+  private Label title = new Label("Please enter your name and password.");
   private TextField userNameField;
   private PasswordField passwordField;
-  private String salt;
+  private String salt = "llllllll";
   private Label responseMessage;
+
+  private boolean singlePlayerMode;
 
   public LoginPane(GuiBase guiBase)
   {
+    this(guiBase, false);
+  }
+
+  public LoginPane(GuiBase guiBase, boolean singlePlayerMode)
+  {
     this.guiBase = guiBase;
+    this.singlePlayerMode = singlePlayerMode;
     initGui();
   }
 
@@ -60,7 +69,7 @@ public class LoginPane extends StackPane
     loginBox.setHgap(4);
     loginBox.setVgap(4);
     loginBox.setPadding(new Insets(25, 25, 25, 25));
-    loginBox.add(new Label("Please enter your name and password."), 0, 0, 2, 1);
+    loginBox.add(title, 0, 0, 2, 1);
     loginBox.add(new Label("Name: "), 0, 1);
     loginBox.add(userNameField, 1, 1);
     loginBox.add(new Label("Password: "), 0, 2);
@@ -71,7 +80,25 @@ public class LoginPane extends StackPane
     this.getChildren().add(rect);
     this.getChildren().add(loginBox);
 
-    this.setOnKeyReleased(this::keyReleased);
+    if(singlePlayerMode) singlePlayerMode();
+    else  this.setOnKeyReleased(this::keyReleased);
+  }
+
+  private void singlePlayerMode()
+  {
+    title.setText("Logging in please wait");
+    userNameField.setText("user7");
+    passwordField.setText("password");
+    okButton.setDisable(true);
+    cancelButton.setDisable(true);
+    userNameField.setDisable(true);
+    passwordField.setDisable(true);
+    sendLoginInfo();
+  }
+
+  private void sendLoginInfo()
+  {
+    guiBase.loginInfoSent(userNameField.getText(), passwordField.getText(), salt);
   }
 
   public void setSalt(String salt)
@@ -87,6 +114,7 @@ public class LoginPane extends StackPane
   public void loginFailed(LoginResponse response)
   {
     responseMessage.setText("Login failed, try again");
+    if(singlePlayerMode) sendLoginInfo();
   }
 
   private void buttonPressed(ActionEvent event)
@@ -97,7 +125,7 @@ public class LoginPane extends StackPane
     if(source == okButton)
     {
       System.out.println("OK pressed");
-      guiBase.loginInfoSent(userNameField.getText(), passwordField.getText(), salt);
+      sendLoginInfo();
     }
     else if(source == cancelButton)
     {

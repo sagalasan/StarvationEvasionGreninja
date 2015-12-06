@@ -1,5 +1,6 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gui.ComponentImageView.MapImages;
@@ -154,6 +155,8 @@ public class ClickableMap extends StackPane implements MapImages
         {
           state.setClickable(true);
           state.setOpacity(1);
+          chooseState(state);
+          state.selectManually();
         }
       }
     }
