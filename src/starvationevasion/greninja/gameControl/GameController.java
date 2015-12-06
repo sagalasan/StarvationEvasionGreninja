@@ -22,7 +22,8 @@ import java.util.List;
 /**
  * Main communication hub of client application.  This will be the go-between
  * class for the server message handlers, world state model, game state classes
- * and gui.
+ * and gui.  Incoming messages from the server are sent to MessageCenter
+ * which calls back to control to perform the appropriate action.
  */
 public class GameController
 {
@@ -43,11 +44,10 @@ public class GameController
   private boolean isTesting = false;
   //WorldModel
   //GameStateTracker
-  private CardDeck tempDeck; //TODO Remove when server handles this.
+  private CardDeck tempDeck; //For testing mode
 
   /**
-   * Constructor for ai game.
-   * TODO wait to see what server does for ais
+   * Constructor for ai game.  Sets up an AI view and ai player.
    */
   public GameController(String playerName)
   {
@@ -87,7 +87,7 @@ public class GameController
 
   /**
    * Is this controller for a human player?
-   * @return
+   * @return      true if is a human player
    */
   public boolean isHuman()
   {
@@ -186,7 +186,7 @@ public class GameController
   }
 
   /**
-   * Send a message to the message queue
+   * Send a message to the message  out queue.
    * @param message       Serializable object.
    */
   public void sendMessageOut(Serializable message)
@@ -200,7 +200,7 @@ public class GameController
   */
 
   /**
-   * Starts no AIs or servers
+   * Starts no AIs or servers.  For testing.
    */
   public void startTestingGame()
   {
@@ -220,7 +220,7 @@ public class GameController
 
   /**
    * Begin single player game.
-   * Instantiate local server.
+   * //Instantiate local server.
    */
   public void startSinglePlayerGame(String name, String pass)
   {
@@ -234,6 +234,9 @@ public class GameController
     serverLine.startConnection(ClientConstant.LOCAL_HOST, ClientConstant.TEST_PORT);
   }
 
+  /**
+   * Setup for multiplayer game.
+   */
   public void multiPlayerSelected()
   {
     guiView = (GuiBase)view;
@@ -243,6 +246,9 @@ public class GameController
     guiView.swapToServerConnectionPane();
   }
 
+  /**
+   * Called when player backs out of server connection pane.0
+   */
   public void serverConnectionPaneCancelled()
   {
     guiView = (GuiBase) view;
@@ -270,7 +276,6 @@ public class GameController
     worldState = state.worldData;
     State.updateAllData(worldState);
     updatePlayerHand(state.hand);
-    //TODO send hand to gui
   }
 
   /**
@@ -328,6 +333,11 @@ public class GameController
     beginGame();
   }
 
+  /**
+   * Tell server line to attempt to connect with the supplied IP Address and port.
+   * @param hostname        IP Address to connect to
+   * @param port            Port to connect to.
+   */
   public void attemptConnection(String hostname, int port)
   {
     serverLine.startConnection(hostname, port);
@@ -366,11 +376,12 @@ public class GameController
    * detailed vis.
    * @return        nothing yet
    */
+  /*
   public void getVisualization()
   {
     //return visualization to gui
 
-  }
+  }*/
 
   /**
    * Get the current worldState WorldData object.
@@ -382,7 +393,7 @@ public class GameController
   }
 
   /**
-   * When region is clicked on the interactive map, eturn region details for
+   * When region is clicked on the interactive map, return region details for
    * clicked region.
    * @param regionClicked       enum of region clicked.
    * @return                    RegionData object for specified region.
