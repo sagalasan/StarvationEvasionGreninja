@@ -46,19 +46,22 @@ public class VotingCards extends VBox
   public VotingCards(Image image, boolean isVotingCard, PolicyCard policyCard, GuiBase base)
   {
     //card will have a background dependent if voting card
-    setMaxWidth(100);
-    setMaxHeight(150);
+    //setMaxWidth(100);
+   // setMaxHeight(150);
+    setPrefHeight(100);
+    setPrefWidth(150);
     card = new CardImage(image, policyCard, base);
     setAlignment(Pos.CENTER);
     //setId("card-image");
+    //if (policyCard.isEligibleToVote(base.getGameController().getPlayer().getPlayerRegion()))
     if (isVotingCard)
     {
       //create background
       //each vote needs to be gotten from the controller
       votes = new Text(upArrow + yesVotes + "  " + sidewaysArrow + neutralVotes + "  " + downArrow + noVotes);
       votes.setFill(Color.WHITE);
-      getChildren().add(card);
-      card.getChildren().addAll(votes);
+      getChildren().addAll(card.getScrollCard(), votes);
+      //card.getChildren().addAll(votes);
       setStyle(GREY);
 
       //votes.setId("card-image");
@@ -103,7 +106,7 @@ public class VotingCards extends VBox
     }
     else
     {
-      getChildren().add(card);
+      getChildren().add(card.getScrollCard());
     }
 
       //setId("card-image");

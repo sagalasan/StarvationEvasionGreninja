@@ -1,12 +1,9 @@
 package starvationevasion.greninja.gui;
 
 import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.*;
@@ -24,8 +21,9 @@ import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
+import starvationevasion.vis.ClientTest.CustomLayout;
+import starvationevasion.vis.controller.EarthViewer;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +75,7 @@ public class GuiBase extends Application implements ControlListener
    */
   public void beginTestingGame()
   {
+    //startVisualizer();//this will also have to be on begin single player
     control.startTestingGame();
   }
 
@@ -86,6 +85,7 @@ public class GuiBase extends Application implements ControlListener
   public void beginSinglePlayer()
   {
     startAIThreads();
+
     control.startSinglePlayerGame("neo", "thel");
   }
 
@@ -475,4 +475,20 @@ public class GuiBase extends Application implements ControlListener
     testPolicyPane.updatePlayerHand();
 
   }
+
+  //private EarthViewer earthViewer;
+
+  //private void startVisualizer()
+  //{
+    //earthViewer = new EarthViewer(70, 250);
+
+
+    //Start rotate will put the earthViewer object in an automatic and continuous rotation (this is for the mini view)
+    //earthViewer.startRotate();
+ // }
+  //public EarthViewer getEarthViewer()
+  //{
+
+   // return earthViewer;
+  //}
 }

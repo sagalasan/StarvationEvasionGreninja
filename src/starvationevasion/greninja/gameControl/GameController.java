@@ -369,6 +369,7 @@ public class GameController
   public void getVisualization()
   {
     //return visualization to gui
+
   }
 
   /**

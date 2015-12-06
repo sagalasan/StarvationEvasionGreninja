@@ -164,8 +164,9 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     draftedCards.setAlignment(Pos.CENTER);
 
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
-    VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard, base);
+    //VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard, base);
 
+    //each of these will be gotten from each player region
     for (int i = 0; i < 7; i++)
     {
 
@@ -173,14 +174,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
           true, policyCard, base));
 
     }
-    //draftedCards.setMaxWidth(100);
-    //draftedCards.setMaxHeight(150);
-    //draftedCards.setId("voting-image");
-    //draftedCardsAndRegions.getChildren().addAll(map, draftedCards);
-
     center.setTop(map);
-    //VBox bothRowsOfCards = new VBox();
-    //bothRowsOfCards.setSpacing(5);
 
     center.setCenter(draftedCards);
     //mainPane.setCenter(draftedCardsAndRegions);

@@ -14,6 +14,7 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
 import starvationevasion.greninja.model.State;
+import starvationevasion.vis.ClientTest.CustomLayout;
 
 //display numbers besides state names
 public class TestPolicyPane extends GamePhasePane implements MapHolder
@@ -111,25 +112,29 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   private void buildLeft()
   {
-    BorderPane leftPane = new BorderPane();
+    VBox leftPane = new VBox();
     leftPane.setId("leftLayout");
     leftPane.setPrefWidth(300);
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
-    ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
-    visBox.getChildren().add(visImg);
+    //ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
+    CustomLayout earthViewLayout = new CustomLayout();
+    visBox.getChildren().add(earthViewLayout);
+
 
     draftedCardsBox = new VBox(5);
     draftedCardsBox.setAlignment(Pos.BOTTOM_CENTER);
     Label draftTitle = new Label("Drafted Policies");
 
     draftedCards = new DraftedPolicyCardPane(base);
+    //draftedCards.setScaleX(.8);
+    //draftedCards.setScaleY(.8);
     setPrefWidth(draftedCards.getMaxWidth());
     draftedCardsBox.getChildren().addAll(draftTitle, draftedCards);
 
-    leftPane.setTop(visBox);
-    leftPane.setBottom(draftedCardsBox);
+    leftPane.getChildren().addAll(visBox, draftedCardsBox);//.setTop(visBox);
+    //leftPane.setBottom(draftedCardsBox);
     mainPane.setLeft(leftPane);
   }
 

@@ -42,7 +42,6 @@ public class DraftedPolicyCardPane extends HBox
   }
   //todo work on overlay when icon clicked
   //todo get policy drafting pane working better
-  //todo make back of card
 
 
   public void updateCards()
