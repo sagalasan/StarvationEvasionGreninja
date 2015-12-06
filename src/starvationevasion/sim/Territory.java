@@ -8,8 +8,7 @@ import starvationevasion.sim.util.MapConverter;
 import starvationevasion.common.MapPoint;
 
 import java.awt.geom.Area;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Territory is the former Country class, and extends AbstractAgriculturalUnit.
@@ -138,33 +137,13 @@ public class Territory extends AbstractTerritory
    * The loader loads 2014 data.  This function scales the data for 1981 given the scale factor.
    * @param factor The scaling factor.
    */
-  public void scaleInitialStatistics(double factor)
+  public void scaleCropData(double factor)
   {
-    int index = 0; // The 0th index is the start year.
-
-    population[index] *= factor;
-    medianAge *= factor;
-    births *= factor;
-    mortality *= factor;
-    migration *= factor;
-    undernourished *= factor;
-
-    landTotal *= factor;
-
     for (int i = 0 ; i < EnumFood.values().length ; i += 1)
     {
-      cropYield[i] *= factor;
-      cropNeedPerCapita[i] *= factor;
+      cropIncome[i] *= factor;
       cropProduction[i] *= factor;
-      landCrop[i] *= factor;
     }
-
-    for (int i = 0 ; i < EnumFarmMethod.values().length ; i += 1)
-    {
-      cultivationMethod[i] *= factor;
-    }
-
-    humanDevelopmentIndex  = (float) (population[0] - undernourished) / population[0];
   }
 
   /**
@@ -261,11 +240,41 @@ public class Territory extends AbstractTerritory
     return regions;
   }
 
-
-
-
   public String toString()
   {
     return getClass().getSimpleName() + " " + name;
+  }
+
+  /**
+   * Parses the geographic data and generates a unified set of Territory objects from the
+   * list of cartagraphic regions.
+   * @return collection of countries created form the given regions.
+   */
+  public static Territory[] parseTerritories(List<GeographicArea> geography)
+  {
+    Collections.sort(geography, new Comparator<GeographicArea>() {
+      @Override
+      public int compare(GeographicArea a1, GeographicArea a2) {
+        return a1.getName().compareTo(a2.getName());
+      }
+    });
+
+    ArrayList<Territory> territoryList = new ArrayList<>(geography.size());
+    Territory territory = null;
+    for (GeographicArea region : geography)
+    {
+      if (territory != null && territory.getName().equals(region.getName()))
+      {
+        region.setTerritory(territory);
+        territory.addRegion(region);
+      }
+      else {
+        territory = new Territory(region.getName());
+        territory.addRegion(region);
+        territoryList.add(territory);
+      }
+    }
+
+    return territoryList.toArray(new Territory[territoryList.size()]);
   }
 }

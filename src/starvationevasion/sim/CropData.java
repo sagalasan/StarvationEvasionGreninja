@@ -2,6 +2,8 @@ package starvationevasion.sim;
 
 import starvationevasion.common.EnumFood;
 import starvationevasion.io.CSVReader;
+
+import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 public class CropData
@@ -10,32 +12,40 @@ public class CropData
 
 
   /**
-   * Price in Dollars per Metric Ton for the first year of the model.
+   * price in Dollars per Metric Ton for the first year of the model.
    */
   public double[] foodPriceStart = new double[EnumFood.SIZE];
 
   /**
-   * Price in Dollars per Metric Ton for the current year of the model.
+   * price in Dollars per Metric Ton for the current year of the model.
    */
   public double[] foodPrice = new double[EnumFood.SIZE];
 
 
   /**
-   * Land Yield in Metric Tons / Square Kilometer for USA in first year of model.
+   * land Yield in Metric Tons / Square Kilometer for USA in first year of model.
    */
   public double[] foodYieldStart = new double[EnumFood.SIZE];
 
 
   /**
-   * Land Yield in Metric Tons / Square Kilometer for USA in current year of model.
+   * land Yield in Metric Tons / Square Kilometer for USA in current year of model.
    */
   public double[] foodYield = new double[EnumFood.SIZE];
 
 
   public CropData()
   {
-    final String PATH = "data/sim/CropData.csv";
-    CSVReader fileReader = new CSVReader(PATH, 2);
+    final String PATH = "/sim/CropData.csv";
+    CSVReader fileReader;
+    try {
+      fileReader = new CSVReader(PATH, 2);
+    } catch (FileNotFoundException ex)
+    {
+      LOGGER.severe("**ERROR** Resource does not exist     " + PATH);
+      LOGGER.severe("**ERROR** Check your class path or IDE resource settings");
+      return;
+    }
 
     for (int i=0; i< EnumFood.SIZE; i++)
     {

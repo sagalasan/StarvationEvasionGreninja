@@ -52,8 +52,8 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * under permanent crops, and under permanent pastures. Arable land includes
    * land defined by the FAO as land under temporary crops (double-cropped
    * areas are counted once), temporary meadows for mowing or for pasture, land
-   * under market or kitchen gardens, and land temporarily fallow. Land abandoned
-   * as a result of shifting cultivation is excluded. Land under permanent crops
+   * under market or kitchen gardens, and land temporarily fallow. land abandoned
+   * as a result of shifting cultivation is excluded. land under permanent crops
    * is land cultivated with crops that occupy the land for long periods and need
    * not be replanted after each harvest, such as cocoa, coffee, and rubber.
    * This category includes land under flowering shrubs, fruit trees, nut trees,
@@ -75,7 +75,7 @@ public abstract class AbstractTerritory implements Comparable<Territory>
   protected double[] cropYield = new double[EnumFood.SIZE]; //metric tons per square kilometer
   protected double[] cropNeedPerCapita = new double[EnumFood.SIZE]; //metric tons per person per year.
 
-
+  protected double penaltyValue = -1;
 
   /**
    * Average conversion factor, this is set by the Simulator.
@@ -173,6 +173,15 @@ public abstract class AbstractTerritory implements Comparable<Territory>
     return humanDevelopmentIndex;
   }
 
+  final public double getPenaltyValue()
+  {
+    return penaltyValue;
+  }
+
+  final public void setPenaltyValue(double penaltyValue)
+  {
+    this.penaltyValue = penaltyValue;
+  }
 
   /**
    * Populate medianAge array with given age; assumes median age remains constant.
