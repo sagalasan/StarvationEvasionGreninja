@@ -28,7 +28,7 @@ public class EarthViewer
   public static final ResourceLoader RESOURCE_LOADER = new ResourceLoader();
   public static Earth earth;
   private final Scale SET_SIZE;
-  private Group userView;
+  //private Group userView;
   public EarthViewer(int smallEarthRadius, int largeEarthRadius)
   {
     earth = new Earth(smallEarthRadius, largeEarthRadius, RESOURCE_LOADER);
@@ -44,6 +44,7 @@ public class EarthViewer
 
   public Group updateMini()
   {
+    Group userView = new Group();
     userView = earth.getUniverse();
     userView.setScaleZ(0.3);
     userView.setScaleY(0.3);

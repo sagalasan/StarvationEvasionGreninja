@@ -35,7 +35,7 @@ public class VisualizerLayout extends StackPane
     earthView.setScaleX(1.0);
     earthView.setDisable(false);
     earthView.requestFocus();
-    earthView.getStylesheets().add(RESOURCE_LOADER.STYLE_SHEET);
+    //earthView.getStylesheets().add(RESOURCE_LOADER.STYLE_SHEET);
     this.setPrefSize(500,500);
     this.getChildren().add(earthView);
 

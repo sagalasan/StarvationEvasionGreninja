@@ -118,7 +118,6 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
-    //ImageView visImg = new ImageView(new Image("file:assets/greninjaAssets/VisSample.png"));
     WorldViewer earthViewLayout = new WorldViewer();
     visBox.getChildren().add(earthViewLayout);
 
@@ -128,13 +127,10 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     Label draftTitle = new Label("Drafted Policies");
 
     draftedCards = new DraftedPolicyCardPane(base);
-    //draftedCards.setScaleX(.8);
-    //draftedCards.setScaleY(.8);
     setPrefWidth(draftedCards.getMaxWidth());
     draftedCardsBox.getChildren().addAll(draftTitle, draftedCards);
 
     leftPane.getChildren().addAll(visBox, draftedCardsBox);//.setTop(visBox);
-    //leftPane.setBottom(draftedCardsBox);
     mainPane.setLeft(leftPane);
   }
 
