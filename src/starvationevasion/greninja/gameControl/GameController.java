@@ -335,7 +335,7 @@ public class GameController
         playerRegion = region;
       }
     }
-    beginGame();
+    Platform.runLater(() -> beginGame());
   }
 
   public void startBeginGameCountdown(ReadyToBegin message)
