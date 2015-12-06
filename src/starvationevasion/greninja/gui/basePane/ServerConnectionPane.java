@@ -130,9 +130,13 @@ public class ServerConnectionPane extends StackPane
     // Sets the default port to whatever is in the server api
     portField.setText(Integer.toString(ServerConstants.DEFAULT_PORT));
 
-    this.setOnKeyPressed(this::keyPressed);
-    this.setOnKeyReleased(this::keyReleased);
+
     if(singlePlayerMode) singlePlayerMode();
+    else
+    {
+      this.setOnKeyPressed(this::keyPressed);
+      this.setOnKeyReleased(this::keyReleased);
+    }
   }
 
   private void singlePlayerMode()
@@ -143,7 +147,18 @@ public class ServerConnectionPane extends StackPane
     portField.setDisable(true);
     serverBox.getChildren().remove(connectButton);
     serverBox.getChildren().remove(cancelButton);
-    this.setO
+
+    String hostNameString = nameField.getText();
+    String portString = portField.getText();
+    int portInt = getPortInt(portString);
+
+    hostName = hostNameString;
+    port = portInt;
+    responseMessageLabel.setText(ATTEMPT_CONNECT_MSG);
+    responseMessageLabel.setTextFill(Color.WHITE);
+    connectToServerTimer = new Timer();
+    connectToServerTimer.schedule(new ScheduledTimer(this, 1000, 10), 0, REFRESH_INTERVAL);
+    currentStage = Stage.CONNECTING;
   }
 
   private void buttonPressed(ActionEvent event)
@@ -173,7 +188,7 @@ public class ServerConnectionPane extends StackPane
         responseMessageLabel.setText(ATTEMPT_CONNECT_MSG);
         responseMessageLabel.setTextFill(Color.WHITE);
         connectToServerTimer = new Timer();
-        connectToServerTimer.schedule(new ScheduledTimer(this), 0, REFRESH_INTERVAL);
+        connectToServerTimer.schedule(new ScheduledTimer(this, CONNECTION_INTERVAL, MAX_ATTEMPT_CONNECT), 0, REFRESH_INTERVAL);
         currentStage = Stage.CONNECTING;
       }
     }
@@ -256,11 +271,11 @@ public class ServerConnectionPane extends StackPane
     private long attemptStart;
     private int currentAttempt;
 
-    public ScheduledTimer(ServerConnectionPane reference)
+    public ScheduledTimer(ServerConnectionPane reference, long attemptInterval, int maxAttempts)
     {
       this.reference = reference;
-      maxAttempts = ServerConnectionPane.MAX_ATTEMPT_CONNECT;
-      attemptInterval = ServerConnectionPane.CONNECTION_INTERVAL;
+      this.maxAttempts = maxAttempts;
+      this.attemptInterval = attemptInterval;
       currentAttempt = 0;
     }
 
