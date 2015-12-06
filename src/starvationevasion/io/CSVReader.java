@@ -68,13 +68,17 @@ public class CSVReader
   /**
    * Opens the given file from the root data path. Sets class state variables.<br>
    * Then reads and trashes headerLines.<br>
+   * @param resource Path to resource.
+   * @param headerLines Numer of lines to skip.
    */
-  public CSVReader(String path, int headerLines)
+  public CSVReader(String resource, int headerLines) throws FileNotFoundException
   {
-    this.path = path;
+    InputStream inputStream = getClass().getResourceAsStream(resource);
+    if (inputStream == null) throw new FileNotFoundException(resource);
+    this.path = resource;
     try
     {
-      reader = new BufferedReader(new FileReader(path));
+      reader = new BufferedReader(new InputStreamReader(inputStream));
       for (int i=0; i<headerLines; i++)
       { reader.readLine(); //trash line i
       }
@@ -111,7 +115,7 @@ public class CSVReader
     String[] fields = str.split(",");
     if (fields.length > fieldCount)
     {
-      LOGGER.severe("****ERROR reading "+path + ": Expected " + fieldCount +
+      LOGGER.severe("****ERROR reading " + path + ": Expected " + fieldCount +
         " fields but read "+ fields.length);
       return null;
     }

@@ -2,6 +2,7 @@ package starvationevasion.sim;
 
 import starvationevasion.common.*;
 import starvationevasion.io.WorldLoader;
+import starvationevasion.io.CropCSVLoader;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -53,7 +54,7 @@ import java.util.logging.Logger;
  * grain to very low income populations reduces the supply of that grain while not
  * affecting the world demand. This is because anyone who's income is below being able
  * to afford a product, in economic terms, has no demand for that product.</li>
- * <li>Farm Product Demand and Price: Product foodPrice on the world market and demand are
+ * <li>Farm Product Demand and price: Product foodPrice on the world market and demand are
  * highly interdependent and therefore calculated together.
  * <li>Food Distribution: In the global market, food distribution is effected by many
  * economic, political, and transportation factors. The Food Trade Penalty Function
@@ -81,20 +82,24 @@ public class Model
 
   private final int startYear;
   private int year;
+
+  private World world;
   private Region[] regionList = new Region[EnumRegion.SIZE];
 
 
   private SeaLevel seaLevel;
   private CropData cropData;
-
+  private CropCSVLoader cropLoader = null;
 
 
 
   public Model(int startYear)
   {
+
     this.startYear = startYear;
     year = startYear;
     seaLevel = new SeaLevel();
+    //System.out.println("MODEL INIT");
   }
 
 
@@ -111,10 +116,17 @@ public class Model
       regionList[i] = new Region(EnumRegion.values()[i]);
     }
 
-    cropData = new CropData();
 
-
+    try{cropLoader = new CropCSVLoader();} catch (Throwable t){ System.out.println("CROP_LOADER "+t);}
+    //ArrayList<CropZoneData> categoryData = cropLoader.getCategoryData();
+/*
+    for (CropZoneData czd : categoryData)
+    {
+      System.out.println(czd.toString());
+    }
+*/
     WorldLoader loader = new WorldLoader(regionList);
+    world = loader.getWorld();
 
     float[] avgConversionFactors = new float[EnumFood.SIZE];
 
@@ -138,7 +150,9 @@ public class Model
 
     applyPolicies();
     updateLandUse();
+
     updatePopulation();
+
     updateClimate();
     generateSpecialEvents();
     updateFarmProductYield();
@@ -155,11 +169,14 @@ public class Model
 
   protected void appendWorldData(WorldData threeYearData)
   {
+    ArrayList<CropZoneData> categoryData = cropLoader.getCategoryData();
+
     threeYearData.year = year;
     threeYearData.seaLevel = seaLevel.getSeaLevel(year);
     for (int i=0; i< EnumFood.SIZE; i++)
     {
-      threeYearData.foodPrice[i] = (int)cropData.foodPrice[i];
+      CropZoneData currentZone   = categoryData.get(i);
+      threeYearData.foodPrice[i] = currentZone.pricePerMetricTon;
     }
 
 
@@ -191,13 +208,46 @@ public class Model
     }
   }
 
-
   private void applyPolicies(){}
   private void updateLandUse(){}
-  private void updatePopulation(){}
-  private void updateClimate(){}
+
+  /**
+   * Updates the population of each region.
+   */
+  private void updatePopulation()
+  {
+    // TODO: Year to year population changes are now a fixed value, provided in the .csv
+    // file.  We need a way to take the net change in population, and back that number
+    // out to birth rate, mortality rate, and undernourishment.
+    //
+    // Note : The total population for the region is updated in region.aggregateTerritoryFields().
+    //
+    for (int i=0; i<EnumRegion.SIZE; i++)
+    {
+      for (Territory territory : regionList[i].getTerritories())
+      {
+        // territory.updatePopulation(year);
+      }
+    }
+  }
+
+  private void updateClimate()
+  {
+    world.getTileManager().setClimate(year);
+  }
+
   private void generateSpecialEvents(){}
-  private void updateFarmProductYield(){}
+
+  private void updateFarmProductYield()
+  {
+    for (int i = 0; i < EnumRegion.SIZE ; i++)
+    {
+      for (Territory territory : regionList[i].getTerritories()) {
+        // territory.updatePopulation(year);
+      }
+    }
+  }
+
   private void updateFarmProductNeed(){}
   private void updateFarmProductMarket(){}
   private void updateFoodDistribution(){}
@@ -205,23 +255,18 @@ public class Model
   private void updateHumanDevelopmentIndex(){}
 
 
-
-
-
   public static void printRegion(Region region, int year)
   {
     System.out.println("Region : " + region.getName());
     System.out.print("\tTerritories : ");
-    for (Territory territory : region.getAgriculturalUnits())
-    {
+    for (Territory territory : region.getTerritories()) {
       System.out.print("\t" + territory.getName());
     }
     System.out.println();
 
     printData(region, year, "");
 
-    for (Territory territory : region.getAgriculturalUnits())
-    {
+    for (Territory territory : region.getTerritories()) {
       if (debugLevel.intValue() <= Level.FINER.intValue()) printData(territory, year, "\t");
       if (debugLevel.intValue() <= Level.FINEST.intValue())
       {
