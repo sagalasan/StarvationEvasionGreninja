@@ -1,7 +1,6 @@
 package starvationevasion.greninja.gui;
 
 import javafx.application.Platform;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import starvationevasion.common.EnumPolicy;
@@ -17,13 +16,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import starvationevasion.greninja.gui.ComponentImageView.VotingCards;
 import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
-import starvationevasion.vis.ClientTest.CustomLayout;
-import starvationevasion.vis.controller.EarthViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +31,8 @@ import java.util.List;
  */
 public class GuiBase extends Application implements ControlListener
 {
-  private TestPolicyPane testPolicyPane;// = new TestPolicyPane(this);
-  private TestVotingPane testVotingPane;// = new TestVotingPane(this);
-
+  private PolicyPane policyPane;
+  private VotingPane votingPane;
 
   private EntryPane entryPane = new EntryPane(this);
   private ServerConnectionPane serverConnectionPane = new ServerConnectionPane(this);
@@ -59,17 +54,6 @@ public class GuiBase extends Application implements ControlListener
 
   private ServerThread serverThread;
 
-
-  /**
-  public void initializePanes()
-  {
-    //changed this
-    //testPolicyPane = new TestPolicyPane(this);
-    //testVotingPane = new TestVotingPane(this);
-
-    //stagingPane.initPane();
-  }
-**/
   /**
    * Testing mode: starts a game with no server or AIs.
    */
@@ -233,13 +217,13 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void swapToVotingPane()
   {
-    testVotingPane = new TestVotingPane(this);
+    votingPane = new VotingPane(this);
     System.out.println("Now in Voting.");
 
-    paneToRefresh = testVotingPane;
-    baseScene.setRoot(testVotingPane);
-    testVotingPane.resetTimer();
-    testVotingPane.startTimer();
+    paneToRefresh = votingPane;
+    baseScene.setRoot(votingPane);
+    votingPane.resetTimer();
+    votingPane.startTimer();
     //set current images to null, init images for other pane
   }
 
@@ -249,16 +233,16 @@ public class GuiBase extends Application implements ControlListener
   @Override
   public void swapToPolicyPane()
   {
-    testPolicyPane = new TestPolicyPane(this);
+    policyPane = new PolicyPane(this);
     System.out.println("Now in Policy Drafting.");
     initPlayerRegionInfo(playerRegionInfo, playerRegion);
-    paneToRefresh = testPolicyPane;
-    testPolicyPane.resetTimer();
-    testPolicyPane.startTimer();
+    paneToRefresh = policyPane;
+    policyPane.resetTimer();
+    policyPane.startTimer();
     // TODO: get rid of test pane later
 //    baseScene.setRoot(policyPane);
 
-    baseScene.setRoot(testPolicyPane);
+    baseScene.setRoot(policyPane);
   }
 
   @Override
@@ -306,8 +290,8 @@ public class GuiBase extends Application implements ControlListener
   public void displayProposeDialog(PolicyCard policyCard)
   {
     ProposalDialog proposalDialog = new ProposalDialog(this, policyCard);
-    testPolicyPane.addDarkenOverlay();
-    testPolicyPane.getChildren().add(proposalDialog);
+    policyPane.addDarkenOverlay();
+    policyPane.getChildren().add(proposalDialog);
     proposalDialog.toFront();
   }
 
@@ -317,8 +301,8 @@ public class GuiBase extends Application implements ControlListener
    */
   public void removeProposalDialog(ProposalDialog dialog)
   {
-    testPolicyPane.getChildren().remove(dialog);
-    testPolicyPane.removeDarkenOverlay();
+    policyPane.getChildren().remove(dialog);
+    policyPane.removeDarkenOverlay();
   }
 
   /**
@@ -369,11 +353,11 @@ public class GuiBase extends Application implements ControlListener
     {
       case DRAFTING:
         //update drafting phase timer.
-        timer = testPolicyPane.getTimerPane();
+        timer = policyPane.getTimerPane();
         break;
       case VOTING:
         //update voting phase timer.
-        timer = testVotingPane.getTimerPane();
+        timer = votingPane.getTimerPane();
         break;
       default:
         timer = null;
@@ -594,9 +578,9 @@ public class GuiBase extends Application implements ControlListener
   }
   public void updateDraftedCardsAndPlayerHand()
   {
-    //testPolicyPane will have to recreate hands
-    testPolicyPane.updateDraftedCards();
-    testPolicyPane.updatePlayerHand();
+    //policyPane will have to recreate hands
+    policyPane.updateDraftedCards();
+    policyPane.updatePlayerHand();
 
   }
 

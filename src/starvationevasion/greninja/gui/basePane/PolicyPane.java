@@ -5,8 +5,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import starvationevasion.common.EnumRegion;
@@ -14,10 +12,9 @@ import starvationevasion.greninja.gui.GuiBase;
 import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
 import starvationevasion.greninja.model.State;
-import starvationevasion.vis.ClientTest.CustomLayout;
 
 //display numbers besides state names
-public class TestPolicyPane extends GamePhasePane implements MapHolder
+public class PolicyPane extends GamePhasePane implements MapHolder
 {
   private GuiBase base;
   private PlayerHandGui playerHandGui;
@@ -37,7 +34,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   VBox titleBox;
   private VBox statsBox;
 
-  public TestPolicyPane(GuiBase base)
+  public PolicyPane(GuiBase base)
   {
     super(base);
     this.base = base;
@@ -247,9 +244,9 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   private class ButtonControl implements EventHandler<ActionEvent>
   {
-    private TestPolicyPane parentPane;
+    private PolicyPane parentPane;
 
-    public ButtonControl(TestPolicyPane parentPane)
+    public ButtonControl(PolicyPane parentPane)
     {
       this.parentPane = parentPane;
     }

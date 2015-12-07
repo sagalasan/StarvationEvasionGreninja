@@ -23,8 +23,6 @@ import starvationevasion.greninja.gui.MapHolder;
 import starvationevasion.greninja.gui.componentPane.*;
 import starvationevasion.greninja.model.State;
 
-import java.util.ArrayList;
-
 /**
  * Created by Jalen on 11/27/2015.
  */
@@ -32,7 +30,7 @@ import java.util.ArrayList;
 /**
  * makes a voting pane.
  */
-public class TestVotingPane extends GamePhasePane implements MapHolder
+public class VotingPane extends GamePhasePane implements MapHolder
 {
   private final static int NUMBER_OF_TOTAL_DRAFTED_CARDS = 14;
   private GuiBase base;
@@ -43,7 +41,7 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
   private VBox statsBox;
   //private String[] regionNames
   //each region needs a name
-  public TestVotingPane(GuiBase base)
+  public VotingPane(GuiBase base)
   {
     super(base);
     this.base = base;
@@ -262,9 +260,9 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
 
   private class ButtonControl implements EventHandler<ActionEvent>
   {
-    private TestVotingPane parentPane;
+    private VotingPane parentPane;
 
-    public ButtonControl(TestVotingPane parentPane)
+    public ButtonControl(VotingPane parentPane)
     {
       this.parentPane = parentPane;
     }
