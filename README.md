@@ -6,3 +6,5 @@ Single Player:  Currently using server's ai startup.  Program gets stuck in sim'
 
 Known issues:
 Visualization is currently commented out, is causing Out of Memory Errors.  Probably has multiple causes.  We recommend using smaller images, and pngs rather than jpgs.  DIFFUSE_MAP is 10kpx X 5kpx clocking in at 11.6MB.
+
+Server gets stuck on Simulator construction, does not continue past line 418.
