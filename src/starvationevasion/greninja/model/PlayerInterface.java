@@ -105,11 +105,18 @@ public interface PlayerInterface
   PolicyCard firstCard(List<PolicyCard> cardPile);
 
   /**
-   * The card in the drafted policies from all 7 regions that the player decided to vote for.
+   * The card in the voting phase that the player decided to vote for.
    * @param index
    * @return
    */
   PolicyCard vote(int index);
+
+  /**
+   * The card in the voting phase that the player decided to oppose.
+   * @param index
+   * @return
+   */
+  PolicyCard oppose(int index);
 
   /**
    * The player-selected card during the drafting phase.
