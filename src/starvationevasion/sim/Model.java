@@ -5,6 +5,7 @@ import starvationevasion.io.WorldLoader;
 import starvationevasion.io.CropCSVLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,14 +85,16 @@ public class Model
   private int year;
 
   private World world;
-  private Region[] regionList = new Region[EnumRegion.SIZE];
 
+  // The set of world regions includes all of the regions in the enum, plus an
+  // extra United States region aggregating all of the US states for book keeping
+  // purposes.
+  //
+  private Region[] regionList = new Region[EnumRegion.SIZE + 1];
 
   private SeaLevel seaLevel;
   private CropData cropData;
   private CropCSVLoader cropLoader = null;
-
-
 
   public Model(int startYear)
   {
@@ -102,6 +105,10 @@ public class Model
     //System.out.println("MODEL INIT");
   }
 
+  public Region getRegion(EnumRegion r)
+  {
+    return regionList[r.ordinal()];
+  }
 
   /**
    * This method is used to create USState objects along with
@@ -116,6 +123,9 @@ public class Model
       regionList[i] = new Region(EnumRegion.values()[i]);
     }
 
+    // Add the US book keeping region.
+    //
+    regionList[EnumRegion.SIZE] = Region.createBookKeepingRegion("UNITED_STATES");
 
     try{cropLoader = new CropCSVLoader();} catch (Throwable t){ System.out.println("CROP_LOADER "+t);}
     //ArrayList<CropZoneData> categoryData = cropLoader.getCategoryData();
@@ -128,13 +138,55 @@ public class Model
     WorldLoader loader = new WorldLoader(regionList);
     world = loader.getWorld();
 
+    // Now add the US states to the book keeping regions.
+    //
+    Region unitedStates = regionList[EnumRegion.SIZE];
+    for (EnumRegion r : EnumRegion.US_REGIONS)
+    { for (Territory t : regionList[r.ordinal()].getTerritories())
+      { unitedStates.addTerritory(t);
+      }
+    }
+
+    Territory[] territories = world.getTerritories();
+    int index = Arrays.binarySearch(territories, new Territory("US-Alaska"));
+    if (index >= 0) unitedStates.addTerritory(territories[index]);
+    else LOGGER.severe("Can not find Alaska?");
+
+    index = Arrays.binarySearch(territories, new Territory("US-Hawaii"));
+    if (index >= 0) unitedStates.addTerritory(territories[index]);
+    else LOGGER.severe("Can not find Hawaii?");
+
     float[] avgConversionFactors = new float[EnumFood.SIZE];
 
-    for (Region region : regionList)
-    { // The loader builds regions in the order that it finds them in the data file.  We need to
-      // put them in ordinal order.
+    // Traverse all of the regions, estimating the initial yield.
+    // Note that this includes the book-keeping regions.
+    //
+    for (Region region : regionList) region.estimateInitialYield();
 
-      region.aggregateTerritoryFields(Constant.FIRST_YEAR);
+    // Now iterate over the enumeration to optimize planting for each game
+    // region.
+    //
+    for (EnumRegion region : EnumRegion.values())
+    {
+      // TODO : The tile optimization function will only work if we have the
+      // CropClimateData structure correctly populated for each of the crops.
+      //
+      // calculate OTHER_CROPS temp & rain requirements for each country
+      for (Territory state : regionList[region.ordinal()].getTerritories())
+      {
+        // The loader loads 2014 data.  We need to adjust the data for 1981.  Joel's first estimate is
+        // to simply multiply all of the territorial data by 50%
+        //
+        // state.scaleInitialStatistics(.50);
+        CropOptimizer optimizer = new CropOptimizer(Constant.FIRST_YEAR, state);
+        optimizer.optimizeCrops();
+      }
+    }
+
+    // Finally, aggregate the totals for all regions (including book keeping).
+    //
+    for (Region region : regionList)
+    { region.aggregateTerritoryFields(Constant.FIRST_YEAR);
       if (debugLevel.intValue() < Level.INFO.intValue()) printRegion(region, Constant.FIRST_YEAR);
     }
   }
@@ -149,23 +201,31 @@ public class Model
     LOGGER.info("Advancing year to " + year);
 
     applyPolicies();
+
     updateLandUse();
 
     updatePopulation();
 
     updateClimate();
+
     generateSpecialEvents();
+
     updateFarmProductYield();
+
     updateFarmProductNeed();
+
     updateFarmProductMarket();
+
     updateFoodDistribution();
+
     updatePlayerRegionRevenue();
+
     updateHumanDevelopmentIndex();
+
     appendWorldData(threeYearData);
+
     return year;
   }
-
-
 
   protected void appendWorldData(WorldData threeYearData)
   {
@@ -195,7 +255,7 @@ public class Model
         region.foodProduced[food.ordinal()] += regionList[i].getCropProduction(food);
 
         //Simulator keeps income in $1000s but client is given income in millions of dollars.
-        int thousandsOfDollars = regionList[i].getCropIncome(food);
+        long thousandsOfDollars = regionList[i].getCropIncome(food);
 
         //If a very small amount, then make at least 1 million.
         if ((thousandsOfDollars > 1) && (thousandsOfDollars<500)) thousandsOfDollars+= 500;
@@ -208,17 +268,28 @@ public class Model
     }
   }
 
-  private void applyPolicies(){}
-  private void updateLandUse(){}
+  private void applyPolicies()
+  {
+    // TODO : Not implemented.
+  }
+
+  private void updateLandUse()
+  {
+    // TODO : Land use is based on policies.
+    // Notes :
+    // Start with how much each country is producing v/s how much land they are using.
+    // This gives us a yield factor.  If a country with a high yield applies irrigation
+    // won't benefit as much as countries with a low yield.  Make an 'S' curve (bezier)
+    // with a fit quadratic equation.
+    //
+  }
 
   /**
    * Updates the population of each region.
    */
   private void updatePopulation()
   {
-    // TODO: Year to year population changes are now a fixed value, provided in the .csv
-    // file.  We need a way to take the net change in population, and back that number
-    // out to birth rate, mortality rate, and undernourishment.
+    // Territory.updatePopulation updates internal state variables related to production.
     //
     // Note : The total population for the region is updated in region.aggregateTerritoryFields().
     //
@@ -226,33 +297,69 @@ public class Model
     {
       for (Territory territory : regionList[i].getTerritories())
       {
-        // territory.updatePopulation(year);
+        territory.updatePopulation(year);
       }
     }
   }
 
   private void updateClimate()
   {
+    // Done.
+    //
     world.getTileManager().setClimate(year);
   }
 
-  private void generateSpecialEvents(){}
+  private void generateSpecialEvents()
+  {
+    // TODO: 12/6/2015 Alfred is working on this.
+  }
 
   private void updateFarmProductYield()
   {
-    for (int i = 0; i < EnumRegion.SIZE ; i++)
+    // Iterate over all of the regions, including the book keeping regions.  Each
+    // region invokes a territory update and then computes an aggregate number
+    // for the region.  Territories that are in both game and book-keeping regions
+    // may compute their yield twice, but this has no side effects.
+    //
+    for (Region region : regionList)
     {
-      for (Territory territory : regionList[i].getTerritories()) {
-        // territory.updatePopulation(year);
-      }
+        region.updateYield();
     }
   }
 
-  private void updateFarmProductNeed(){}
-  private void updateFarmProductMarket(){}
-  private void updateFoodDistribution(){}
-  private void updatePlayerRegionRevenue(){}
-  private void updateHumanDevelopmentIndex(){}
+  private void updateFarmProductNeed()
+  {
+     for (int i = 0; i < EnumRegion.SIZE; i++)
+     {
+       regionList[i].updateCropNeed();
+     }
+  }
+
+  private void updateFarmProductMarket()
+  {
+    // TODO : Not implemented.
+  }
+
+  private void updateFoodDistribution()
+  {
+    // TODO: Not implemented.  Tie in the new trading optimizer, and subtract revenue.
+    // If a territory can't buy enough product then we need to
+    // update the undernourishment factor.
+    //
+  }
+
+  private void updatePlayerRegionRevenue()
+  {
+    // TODO : Not implemented.  The US will be trading food as a region.  The results
+    // of these trades need to be propegated to the US regions.
+    //
+  }
+
+  private void updateHumanDevelopmentIndex(){
+    // TODO: HDI is updated in the roll-up of the territories into regions, based on the
+    // undernourished factor.
+    //
+  }
 
 
   public static void printRegion(Region region, int year)

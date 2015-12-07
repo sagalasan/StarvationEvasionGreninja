@@ -42,8 +42,8 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * The Total income includes farm income from food consumed within the
    * territory as well as food exported. Food imported is not a farm expense.
    */
-  protected int[] cropIncome = new int[EnumFood.SIZE]; // in $1000s
-  protected int[] cropProduction = new int[EnumFood.SIZE]; //in metric tons.
+  protected long[] cropIncome = new long[EnumFood.SIZE]; // in $1000s
+  protected long[] cropProduction = new long[EnumFood.SIZE]; //in metric tons.
 
   protected int landTotal;  //in square kilometers
 
@@ -62,9 +62,9 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * cultivated crops.
    */
   protected int totalFarmLand;
-  protected int[] landCrop = new int[EnumFood.SIZE];  //in square kilometers
-  protected int[] cropImport = new int[EnumFood.SIZE];  //in metric tons.
-  protected int[] cropExport = new int[EnumFood.SIZE];  //in metric tons.
+  protected int[] landCrop = new int[EnumFood.SIZE];  // in square kilometers
+  protected long[] cropImport = new long[EnumFood.SIZE];  //in metric tons.
+  protected long[] cropExport = new long[EnumFood.SIZE];  //in metric tons.
 
   protected int[] cultivationMethod = new int[EnumFarmMethod.SIZE]; //percentage [0,100]
 
@@ -231,17 +231,16 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * @param crop    crop in question
    * @param metTons tons produced
    */
-  public void setCropProduction(EnumFood crop, int metTons)
+  public void setCropProduction(EnumFood crop, long metTons)
   {
     cropProduction[crop.ordinal()] = metTons;
-
   }
 
   /**
    * @param crop    crop in question
    * @param value Income in $1,000
    */
-  final public void setCropIncome(EnumFood crop, int value)
+  final public void setCropIncome(EnumFood crop, long value)
   {
     cropIncome[crop.ordinal()] = value;
   }
@@ -251,7 +250,7 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * @param metTons tons exported
    */
 
-  final public void setCropExport(EnumFood crop, int metTons)
+  final public void setCropExport(EnumFood crop, long metTons)
   {
     cropExport[crop.ordinal()] = metTons;
   }
@@ -260,7 +259,7 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * @param crop    crop in question
    * @param metTons tons imported
    */
-  final public void setCropImport(EnumFood crop, int metTons)
+  final public void setCropImport(EnumFood crop, long metTons)
   {
     cropImport[crop.ordinal()] = metTons;
   }
@@ -327,12 +326,11 @@ public abstract class AbstractTerritory implements Comparable<Territory>
     cropYield[crop.ordinal()] = tonPerSqKilom;
   }
 
-
   /**
    * @param crop crop in question
    * @return tons produced  at end of the current year of the simulation.
    */
-  final public int getCropProduction(EnumFood crop)
+  final public long getCropProduction(EnumFood crop)
   {
     return cropProduction[crop.ordinal()];
   }
@@ -341,7 +339,7 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * @param crop crop in question
    * @return tons produced at end of the current year of the simulation.
    */
-  final public int getCropIncome(EnumFood crop)
+  final public long getCropIncome(EnumFood crop)
   {
     return cropIncome[crop.ordinal()];
   }
@@ -350,7 +348,7 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * @param crop crop in question
    * @return tons exported
    */
-  final public int getCropExport(EnumFood crop)
+  final public long getCropExport(EnumFood crop)
   {
     return cropExport[crop.ordinal()];
   }
@@ -359,7 +357,7 @@ public abstract class AbstractTerritory implements Comparable<Territory>
    * @param crop crop in question
    * @return tons imported
    */
-  final public int getCropImport(EnumFood crop)
+  final public long getCropImport(EnumFood crop)
   {
     return cropImport[crop.ordinal()];
   }

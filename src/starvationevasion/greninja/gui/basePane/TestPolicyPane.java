@@ -118,8 +118,8 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
-    WorldViewer earthViewLayout = new WorldViewer();
-    visBox.getChildren().add(earthViewLayout);
+    //WorldViewer earthViewLayout = new WorldViewer();
+    //visBox.getChildren().add(earthViewLayout);
 
 
     draftedCardsBox = new VBox(5);
