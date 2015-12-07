@@ -6,5 +6,8 @@ package starvationevasion.greninja.gameControl;
  */
 public abstract class GamePhase
 {
+  /**
+   * End of phase clean up.
+   */
   public abstract void phaseOver();
 }
