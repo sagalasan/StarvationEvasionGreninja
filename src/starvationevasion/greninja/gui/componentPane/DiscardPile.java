@@ -20,7 +20,7 @@ import starvationevasion.greninja.gui.ComponentImageView.CardImage;
 import starvationevasion.greninja.gui.ComponentImageView.Deck;
 import starvationevasion.greninja.gui.GuiBase;
 
-public class WithdrawAndDiscardPile extends HBox
+public class DiscardPile extends HBox
 {
   /**
    *
@@ -28,7 +28,7 @@ public class WithdrawAndDiscardPile extends HBox
    * Makes two Piles(VBox panes) for the deck, and discard piles.
    * Makes a new stage for the discard pile when picked
    */
-  public WithdrawAndDiscardPile(GuiBase base)
+  public DiscardPile(GuiBase base)
   {
     setId("withdraw-and-discard-pile");
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -42,21 +42,20 @@ public class WithdrawAndDiscardPile extends HBox
 
     Image image = new Image("file:assets/CardImages/magikarp.png");
 
-    //makes the discard pile
-    VBox discardBox = new VBox(10);
-    discardBox.setAlignment(Pos.TOP_CENTER);
-    Label discardLabel = new Label("Discard");
-    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Clean_River_Incentive);
-    PolicyCard policyCard2 = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Fertilizer_Subsidy);
-
-
-    CardImage discardPile = new CardImage(image, policyCard, base );
-
     //this should be gotten from the game controller
     //just a placeholder
+    PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Clean_River_Incentive);
+    PolicyCard policyCard2 = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Fertilizer_Subsidy);
     CardImage[] pile = new CardImage[2];
     pile[0] = new CardImage(image, policyCard, base);
     pile[1] = new CardImage(image, policyCard2, base);
+
+    //makes the discard pile
+    VBox discardBox = new VBox(10);
+    discardBox.setAlignment(Pos.TOP_CENTER);
+    Label discardLabel = new Label("Discard: "+pile.length);
+
+    CardImage discardPile = new CardImage(image, policyCard, base );
 
     discardBox.getChildren().addAll(discardLabel, discardPile.getScrollCard());
 
@@ -76,7 +75,6 @@ public class WithdrawAndDiscardPile extends HBox
     newStage.setY(bounds.getMinY());
     newStage.setWidth(bounds.getWidth());
     newStage.setHeight(bounds.getHeight());
-
 
 
     discard.setOnMouseClicked(new EventHandler<MouseEvent>() {

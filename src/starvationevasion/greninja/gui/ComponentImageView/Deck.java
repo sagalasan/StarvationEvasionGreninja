@@ -14,6 +14,9 @@ public class Deck extends ImageView
   public Deck(Image image, List<PolicyCard> deckOfPolicyCards)
   {
     super(image);
+    /**
+     * this will be context based, dependent on whether or not a player can look at the cards in here or not
+     */
   }
 
 }
