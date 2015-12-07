@@ -224,6 +224,15 @@ public class GameController
   }
 
   /**
+   * Is the game in testing mode?
+   * @return        return true if in testing mode.
+   */
+  public boolean isTesting()
+  {
+    return isTesting;
+  }
+
+  /**
    * Begin single player game.
    * //Instantiate local server.
    */

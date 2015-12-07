@@ -536,6 +536,15 @@ public class GuiBase extends Application implements ControlListener
 
   }
 
+  /**
+   * Ask control if is in testing mode.
+   * @return        return true if in testing mode.
+   */
+  public boolean isTesting()
+  {
+    return control.isTesting();
+  }
+
   //private EarthViewer earthViewer;
 
   //private void startVisualizer()
