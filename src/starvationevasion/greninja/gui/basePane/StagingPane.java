@@ -45,14 +45,12 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
   private long timeLeft;
   //private CardController card;
 
-
   public StagingPane(GuiBase gui)
   {
     base = gui;
     availableRegions = null;
     regionSelectedLabel = new Label(selectedRegion);
 
-//    buildTop();
     BorderPane topPane = new BorderPane();
     topPane.setMinHeight(50);
     topPane.setId("topLayout");
@@ -91,33 +89,6 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
   }
 
   /**
-   * Setup Staging Pane.
-   */
-  /**
-  public void initPane()
-  {
-    basePane = new VBox();
-    getChildren().add(basePane);
-    basePane.getChildren().add(new Label("Staging Pane, select a region."));
-    //selectedRegion = "None.";
-    regionSelectedLabel = new Label(selectedRegion);
-
-    basePane.getChildren().add(regionSelectedLabel);
-    map = new ClickableMap("staging");
-    map.setContainingPane(this);
-
-
-    //EXAMPLE OF HOW TO GREY OUT, JUST SETS THE OPAQUENESS
-    //true to set grey
-    //false to set back to full colored
-    //map.greyOut(EnumRegion.CALIFORNIA, true);
-    //map.greyOut(EnumRegion.CALIFORNIA, false);
-
-    basePane.getChildren().add(map);
-  }
-   **/
-
-  /**
    * When interactive map is clicked, set region selected to that region.
    * @param region        region on interactive map that was clicked.
    */
@@ -145,10 +116,16 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     selectedRegion = "None.";
   }
 
+  /**
+   * Sets the available regions for the player to choose from.
+   * @param availableRegions  the regions that are available to the player.
+   * @param player            the player currently selecting regions.
+   */
   public void setAvailableRegions(AvailableRegions availableRegions, PlayerInterface player)
   {
     this.availableRegions = availableRegions;
   }
+
   /**
    * Implements GuiTimerSubscriber.  Update text on region label.
    */
@@ -161,6 +138,10 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     }
   }
 
+  /**
+   * Locks a region and prevents a player from selecting it if it has already been selected by another player.
+   * @param region
+   */
   public void lock(EnumRegion region)
   {
     System.out.println("Locking staging pane");
@@ -168,6 +149,10 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     //regionClicked(region);
   }
 
+  /**
+   * Starts the countdown before the server starts up a game.
+   * @param readyToBegin  message saying if all regions have been taken or if someone unselected a region.
+   */
   public void startCountdown(ReadyToBegin readyToBegin)
   {
     long serverStart = readyToBegin.gameStartServerTime;
@@ -197,6 +182,9 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     }, 0, 1000);
   }
 
+  /**
+   * Ends the timer and sends a message to the console telling the player that it is waiting for the simulator to load.
+   */
   public void beginGameMessageReceived()
   {
     if(!base.isTesting())
