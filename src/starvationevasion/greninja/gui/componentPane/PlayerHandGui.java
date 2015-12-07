@@ -41,8 +41,8 @@ public class PlayerHandGui extends HBox
     int i = 0;
     for (PolicyCard policy: playerHand )
     {
-      Image image = new Image("file:assets/CardImages/magikarp.png");
-      getChildren().add(new PlayerCard(image, policy, base, i++).getScrollCard());
+      //Image image = new Image("file:assets/CardImages/magikarp.png");
+      getChildren().add(new PlayerCard(policy, base, i++).getScrollCard());
     }
 
   }
@@ -54,14 +54,13 @@ public class PlayerHandGui extends HBox
     {
       if (playerHand.size()>i)
       {
-        Image image = new Image("file:assets/CardImages/magikarp.png");
         if (getChildren().size() > i)
         {
-          getChildren().set(i, new PlayerCard(image, playerHand.get(i), base, i).getScrollCard());
+          getChildren().set(i, new PlayerCard(playerHand.get(i), base, i).getScrollCard());
         }
         else
         {
-          getChildren().add(new PlayerCard(image, playerHand.get(i), base, i).getScrollCard());
+          getChildren().add(new PlayerCard(playerHand.get(i), base, i).getScrollCard());
         }
       }
       if (playerHand.size() <= i && playerHand.size() < getChildren().size())

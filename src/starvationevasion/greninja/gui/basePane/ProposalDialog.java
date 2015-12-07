@@ -60,8 +60,7 @@ public class ProposalDialog extends StackPane
     cancelButton.setAlignment(Pos.CENTER_RIGHT);
     cancelButton.setOnAction(this::buttonPressed);
 
-    Image image = new Image("file:assets/CardImages/magikarp.png");
-    cardImage = new CardImage(image, policyCard, guiBase);
+    cardImage = new CardImage(policyCard, guiBase);
 
     HBox checkParent = new HBox();
     checkParent.getChildren().add(checkBoxGroup);

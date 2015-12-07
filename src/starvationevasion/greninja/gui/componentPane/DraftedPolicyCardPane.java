@@ -39,14 +39,13 @@ public class DraftedPolicyCardPane extends HBox
     {
       if (draftedCards.size() > i)
       {
-        Image image = new Image("file:assets/CardImages/magikarp.png");
         if (getChildren().size() > i)
         {
-          getChildren().set(i, new DraftCard(image, draftedCards.get(i), base).getScrollCard());
+          getChildren().set(i, new DraftCard(draftedCards.get(i), base).getScrollCard());
         }
         else
         {
-          getChildren().add(new DraftCard(image, draftedCards.get(i), base).getScrollCard());
+          getChildren().add(new DraftCard(draftedCards.get(i), base).getScrollCard());
         }
       }
       if (draftedCards.size() <= i && draftedCards.size() < getChildren().size())
