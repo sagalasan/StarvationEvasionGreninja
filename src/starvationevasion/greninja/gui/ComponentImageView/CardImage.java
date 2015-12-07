@@ -108,7 +108,7 @@ public class CardImage extends VBox
         gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+60);
         getChildren().set(getChildren().indexOf(gameText), gameText);
         //scroll.setPrefHeight(200);
-        //scroll.setPrefWidth(290);
+        scroll.setPrefWidth(220);
       }
     });
 
@@ -124,7 +124,7 @@ public class CardImage extends VBox
         gameText.setWrappingWidth(card.getBoundsInParent().getWidth()+10);
         getChildren().set(getChildren().indexOf(gameText), gameText);
         //scroll.setPrefHeight(180);
-        //scroll.setPrefWidth(230);
+        scroll.setPrefWidth(150);
       }
     });
     scroll.setStyle("-fx-font-size:8");
