@@ -26,7 +26,7 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
   private BorderPane mainPane = new BorderPane();
 
   // TODO: make this not hard-coded later
-  private EnumRegion playerRegion = EnumRegion.HEARTLAND;
+  private EnumRegion playerRegion;
   private int year = 2015;
   private double HDI = 200.0;
   private double regionPopulation = 1;
