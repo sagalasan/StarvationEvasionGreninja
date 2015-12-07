@@ -5,18 +5,21 @@ package starvationevasion.greninja.clientCommon;
  */
 public enum EnumPhase
 {
+  // Drafting phase
   DRAFTING
-      {
-        public String toString()
+  {
+    public String toString()
         {
           return "Policy Drafting Phase";
         }
-      },
+  },
+
+  // Voting phase
   VOTING
-      {
-        public String toString()
+  {
+    public String toString()
         {
           return "Policy Voting Phase";
         }
-      }
+  }
 }

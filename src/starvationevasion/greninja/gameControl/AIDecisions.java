@@ -1,7 +1,6 @@
 package starvationevasion.greninja.gameControl;
 
 import starvationevasion.common.*;
-//import starvationevasion.greninja.gui.componentPane.RegionalStatistics;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.State;
 
@@ -24,7 +23,7 @@ public class AIDecisions
   private LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
   private Random rand = new Random();
 
-  private boolean DEBUG = true;
+  private boolean DEBUG = false;
 
   /**
    * Constructor to create an AIDecisions object.
@@ -254,7 +253,7 @@ public class AIDecisions
    * @param cards     the cards currently in the player's hand.
    * @param cardType  states if the AI is looking to draft a card that requires votes or not. "mandatory" means no votes
    *                  are required, "votes" means votes are required.
-   * @return
+   * @return          the index of the card in the player's hand to be drafted.
    */
   public int analyzeCards(List<PolicyCard> cards, String cardType)
   {
