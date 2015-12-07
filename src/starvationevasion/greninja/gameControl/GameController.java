@@ -316,7 +316,10 @@ public class GameController
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
-    startPolicyDraftingPhase();
+    if(isTesting)
+    {
+      startPolicyDraftingPhase();
+    }
   }
 
   /**
@@ -501,7 +504,10 @@ public class GameController
   public void endPolicyDraftingPhase()
   {
     //start voting phase.
-    startPolicyVotingPhase();
+    if(isTesting)
+    {
+      startPolicyVotingPhase();
+    }
     //draftingPhase = null;
   }
 
@@ -690,7 +696,10 @@ public class GameController
   public void endPolicyVotingPhase()
   {
     //fillHand();
-    startPolicyDraftingPhase();
+    if(isTesting)
+    {
+      startPolicyDraftingPhase();
+    }
     //votingPhase = null;
   }
 
