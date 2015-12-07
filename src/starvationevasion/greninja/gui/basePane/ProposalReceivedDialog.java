@@ -53,7 +53,7 @@ public class ProposalReceivedDialog extends StackPane
     senderName = getNameOfEnumRegion(sender);
 
     policyCard = PolicyCard.create(sender, policy);
-    cardImage = new CardImage(image, policyCard, guiBase);
+    cardImage = new CardImage(policyCard, guiBase);
 
     phase = PanePhase.INITIAL;
     initInitialPane();

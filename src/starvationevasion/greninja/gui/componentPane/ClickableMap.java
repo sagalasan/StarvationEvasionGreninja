@@ -19,8 +19,11 @@ public class ClickableMap extends StackPane implements MapImages
       southeast, pacificNorthWestAndMountainStates,
       heartLand, northernCrescent, northernPlains;
   private boolean worldMap = true;
-  //private StackPane USMap;
 
+  /**
+   * makes each state image, passing along the info of what
+   * it should look like normal, and with a title and highlighted.
+   */
   public void initImages()
   {
 
@@ -85,20 +88,21 @@ public class ClickableMap extends StackPane implements MapImages
 
   }
 
+  /**
+   *
+   * @param paneType should be voting for a long view image
+   *                 or policy for a regular looking us map
+   */
   public ClickableMap(String paneType)
   {
     if (paneType.toLowerCase() == "voting")
     {
       worldMap = false;
-      //USMap = new StackPane();
     }
     else
     {
-
       worldMap = true;
-
     }
-    //this.worldMap = worldMap;
     initImages();
     stateArray = new StateImage[NUMBER_OF_REGIONS];
     stateArray[0] = california;
@@ -116,13 +120,11 @@ public class ClickableMap extends StackPane implements MapImages
     {
       for (StateImage state: stateArray)
       {
-        //StackPane allInfo = new StackPane();
-
         state.updateDisplayInfo();
         getChildren().addAll(state.getDisplayInfo());
 
-        //the 2 will have to be a value gotten from the stateimage
-        for (int i = 0; i < 2; i++)
+
+        for (int i = 0; i < state.getNumberOfDraftStatusCards(); i++)
         {
           getChildren().add(state.getDraftStatus()[i]);
         }

@@ -29,7 +29,6 @@ public class ToolbarPane extends GridPane implements IconImages
     setHgap(2);
     setVgap(2);
 
-    // TODO: use all image icons
     //Image img = new Image("file:assets/farmProductIcons/FarmProduct_Fruit_64x64.png");
     String[] iconNames = new String[NUMBER_OF_IMAGES];
 
@@ -80,7 +79,7 @@ public class ToolbarPane extends GridPane implements IconImages
         productIcons[i][j] = iconButton;
 
         // TODO: add click handling here?
-
+        //todo each button when click needs to be context sensitive
         add(productIcons[i][j], j, i+2);
       }
     }

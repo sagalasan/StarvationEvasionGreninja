@@ -36,9 +36,9 @@ public class AIView implements ControlListener
   private boolean DEBUG = false;
 
   /**
-   *
-   * @param control
-   * @param player
+   * Instantiates an AIView for the player.
+   * @param control a reference to the GameController
+   * @param player  the AI player to see the AIView.
    */
   public AIView(GameController control, PlayerInterface player)
   {
@@ -49,29 +49,20 @@ public class AIView implements ControlListener
   }
 
   /**
-   * set the decision making object.
-   * @param decisions
+   * Set the decision-making object.
+   * @param decisions the AIDecisions object to be referenced.
    */
   public void setDecisionObject(AIDecisions decisions)
   {
     this.decisions = decisions;
   }
-  /**
-   * Get timerpane for ai returns null as of now.  Will be cleaned out.
-   * @param phase
-   * @return
-   */
+
   @Override
   public TimerPane getTimerPane(EnumPhase phase)
   {
     return null;
   }
 
-  /**
-   * Inform view of player region, not entirely necessary.
-   * @param state
-   * @param pRegion
-   */
   @Override
   public void initPlayerRegionInfo(State state, EnumRegion pRegion)
   {
@@ -79,10 +70,6 @@ public class AIView implements ControlListener
      this.pRegion = pRegion;
   }
 
-  /**
-   * Inform ai that staging phase has started.  Does not need to do anything,
-   * server will inform ai of region assignment.
-   */
   @Override
   public void swapToStagingPane()
   {
@@ -95,33 +82,13 @@ public class AIView implements ControlListener
     }
   }
 
-  /**
-   * Inform AI that it is policy drafting phase.  When control calls the AI's
-   * "GUI" it will prompt AIDecisions to do stuff.
-   */
   @Override
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");
-    /*
-    if(!hasDrafted)
-    {
-      if (player.getPlayerHand() != null)
-      {
-        int draftCardIndex = decisions.analyzeCards(player.getPlayerHand(), "mandatory");
-        player.draft(draftCardIndex);
-        int draftVoteCardIndex = decisions.analyzeCards(player.getPlayerHand(), "votes");
-        player.draft(draftVoteCardIndex);
-        hasDrafted = true;
-      }
-    }*/
     hasDrafted = false;
   }
 
-  /**
-   * Inform view that there has been a game state update.  If it is drafting phase
-   * and cards have not been drafted, do the drafting.
-   */
   @Override
   public void gameStateUpdate()
   {
@@ -138,10 +105,6 @@ public class AIView implements ControlListener
     }
   }
 
-  /**
-   * Inform AI that it is voting phase.  When control calls the AI's "GUI" it
-   * will prompt AIDecisions to do stuff.
-   */
   @Override
   public void swapToVotingPane()
   {
@@ -149,40 +112,38 @@ public class AIView implements ControlListener
 
     List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
     // TODO: Get cards from voting pane
+
+    // Cards to vote for
     int voteCardIndices[] = decisions.voteCard(voteCards);
     for (int i = 0; i < voteCardIndices.length; i++)
     {
       player.vote(voteCardIndices[i]);
     }
+
+    // Cards to oppose
+    for (int i = 0; i < voteCardIndices.length; i++)
+    {
+      if (i != voteCardIndices[i])
+      {
+        player.oppose(i);
+      }
+    }
   }
 
-  /**
-   * Update availableRegions message.
-   * @param availableRegions        AvailableRegions method.
-   */
   @Override
   public void updateAvailableRegions(AvailableRegions availableRegions, PlayerInterface playerInterface)
   {
     this.availableRegions = availableRegions;
   }
 
-
-  /**
-   * Send string chat message to control to pass on to server coms.
-   * @param message       String message.
-   * @param destination   destination regions
-   */
+  @Override
   public void sendChatMessage(String message, EnumRegion[] destination)
   {
     ClientChatMessage messageOut = new ClientChatMessage(message, destination);
     control.sendMessageOut(messageOut);
   }
 
-  /**
-   * Send card info chat message to control to pass on to server coms.
-   * @param card       card message.
-   * @param destination   destination regions
-   */
+  @Override
   public void sendChatMessage(EnumPolicy card, EnumRegion[] destination)
   {
     ClientChatMessage messageOut = new ClientChatMessage(card, destination);

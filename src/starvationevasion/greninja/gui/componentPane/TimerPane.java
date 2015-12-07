@@ -9,23 +9,24 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import starvationevasion.greninja.clientCommon.GuiStyles;
 
 /**
  * Pane that shows the time remaining in the current phase.  This is not
  * guaranteed to match actual phase time.  Only to be used as a visual
  * representation for the player.
+ * @author Justin Thomas
  */
 public class TimerPane extends StackPane
 {
-  private final Color timerGreen; //basic green color
-  private Color timerDefaultColor; //color that this timer will remain as
+  private final Color timerGreen; // Basic green color
+  private Color timerDefaultColor; // Color that this timer will remain as
   private Label timeLabel;
-  //time remaining is the current time string, phase length is the default time
-  //string
-  private String timeRemaining, phaseLength;
-  private Color timerColor; //current color
-  //keeps track of the time to be shown. [0] = minutes, [1] = seconds
+
+  private String timeRemaining; // Current time string
+  private String phaseLength; // Default time string
+  private Color timerColor; // Current color of timer text
+
+  // Keeps track of the time to be shown. timeArray[0] = minutes, timeArray[1] = seconds
   private Integer[] timeArray;
   //timeline controls the countdown.
   private Timeline timeline;
@@ -35,7 +36,7 @@ public class TimerPane extends StackPane
   private int phaseSeconds;
 
   /**
-   * Basic constructor that initializes default green color.
+   * Basic constructor that initializes the default green color for the timer text.
    */
   public TimerPane()
   {
@@ -61,7 +62,6 @@ public class TimerPane extends StackPane
     timerColor = timerDefaultColor;
     timeLabel.setTextFill(timerGreen);
     timeLabel.setFont(new Font(16));
-//    timeLabel.setStyle(GuiStyles.paddedGray());
     getChildren().add(timeLabel);
 
     //setup timeline for timer.  counts down once a second until timelimit hit.
@@ -84,11 +84,10 @@ public class TimerPane extends StackPane
                 }
               }
             }));
-    //timeline.playFromStart();
   }
 
   /**
-   * Start timer.
+   * Start the timer.
    */
   public void startTimer()
   {
@@ -100,7 +99,7 @@ public class TimerPane extends StackPane
   }
 
   /**
-   * Stop timer.
+   * Stop the timer.
    */
   public void stopTimer()
   {
@@ -111,7 +110,7 @@ public class TimerPane extends StackPane
   }
 
   /**
-   * Set timer back to default values.
+   * Set the timer back to its default values.
    */
   public void resetTimer()
   {
@@ -131,7 +130,7 @@ public class TimerPane extends StackPane
 
   /**
    * Set the timer color.
-   * @param minuteMark        whole minutes left in phase
+   * @param minuteMark whole minutes left in phase
    */
   private void setTimerColor(int minuteMark)
   {
@@ -151,7 +150,7 @@ public class TimerPane extends StackPane
 
   /**
    * Update remaining time string.
-   * @param timeRemaining       String representing remaining time.
+   * @param timeRemaining String representing remaining time.
    */
   private void updateTimeRemainingString(String timeRemaining)
   {
@@ -160,7 +159,7 @@ public class TimerPane extends StackPane
 
   /**
    * Convert timeRemaining into string.
-   * @return        string representation of time. "m:ss"
+   * @return String representation of time ("m:ss")
    */
   private String makeTimeString()
   {
@@ -182,7 +181,7 @@ public class TimerPane extends StackPane
 
   /**
    * Return array with current time remaining.
-   * @return        int array of size two representing minutes and seconds left.
+   * @return int array of size two representing minutes and seconds left.
    */
   private void updateRemainingTime()
   {

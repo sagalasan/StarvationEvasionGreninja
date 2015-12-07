@@ -193,6 +193,11 @@ public class HumanPlayer implements PlayerInterface
     return voteRequiredPolicies.get(index);
   }
 
+  @Override
+  public PolicyCard oppose(int index)
+  {
+    return voteRequiredPolicies.get(index);
+  }
 
   @Override
   public PolicyCard draft(int index)

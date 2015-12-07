@@ -3,7 +3,7 @@ package starvationevasion.greninja.gameControl;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 
 /**
- * class that controls the voting phase of the game.
+ * Class controls the voting phase of the game.
  */
 public class VotingPhase extends GamePhase
 {
@@ -19,7 +19,7 @@ public class VotingPhase extends GamePhase
   }
 
   /**
-   * End phase cleanup.
+   * End of phase cleanup.
    */
   public void phaseOver()
   {

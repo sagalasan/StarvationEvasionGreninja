@@ -34,13 +34,10 @@ public class VotingPane extends GamePhasePane implements MapHolder
 {
   private final static int NUMBER_OF_TOTAL_DRAFTED_CARDS = 14;
   private GuiBase base;
-  private PlayerHandGui playerHandGui;
   private BorderPane mainPane = new BorderPane();
   private CardImage[] stateCards;
 
   private VBox statsBox;
-  //private String[] regionNames
-  //each region needs a name
   public VotingPane(GuiBase base)
   {
     super(base);
@@ -48,8 +45,6 @@ public class VotingPane extends GamePhasePane implements MapHolder
     stateCards = new CardImage[NUMBER_OF_TOTAL_DRAFTED_CARDS];
     super.initTimerPane(2, 0);
     mainPane.setId("mainPaneVoting");
-    //playerHandGui = new PlayerHandGui(base);
-    //playerHandGui.setAlignment(Pos.CENTER);
     buildTop();
     buildLeft();
     buildRight();
@@ -58,27 +53,6 @@ public class VotingPane extends GamePhasePane implements MapHolder
     getChildren().add(mainPane);
 
   }
-
-  /**
-   * Instantiates and adds components to pane.
-   */
-  /**
-  public void initPane()
-  {
-    super.initTimerPane(2, 0);
-    mainPane.setId("mainPaneVoting");
-    //playerHandGui = new PlayerHandGui(base);
-    //playerHandGui.setAlignment(Pos.CENTER);
-    buildTop();
-    buildLeft();
-    buildRight();
-    buildBottom();
-    buildCenter();
-    getChildren().add(mainPane);
-
-  }
-  **/
-
 
   /*
    * Contains the phase title and the next phase button.
@@ -87,7 +61,6 @@ public class VotingPane extends GamePhasePane implements MapHolder
   {
     BorderPane topPane = new BorderPane();
     topPane.setId("topLayout");
-//    topPane.setPadding(new Insets(10, 15, 10, 15));
 
     // Draw divider
     Label divider = new Label();
@@ -151,30 +124,17 @@ public class VotingPane extends GamePhasePane implements MapHolder
   private BorderPane center;
   private void buildCenter()
   {
-    //true for policyPane, false for VotingPane
     center = new BorderPane();
     ClickableMap map = new ClickableMap("voting");
     map.setContainingPane(this);
-    //VBox draftedCardsAndRegions = new VBox();
     HBox draftedCards = new HBox();
-    //HBox otherDraftedCards = new HBox();
-    //otherDraftedCards.setSpacing(70);
-    //otherDraftedCards.setAlignment(Pos.CENTER);
     draftedCards.setSpacing(20);
     draftedCards.setAlignment(Pos.CENTER);
 
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Covert_Intelligence);
-    //VotingCards voteCard = new VotingCards(new Image("file:assets/CardImages/magikarp.png"), true, policyCard, base);
-
-    //each of these will be gotten from each player region
-    //each player will have two cards to draft.
-    //get cards from game controller
-    //display cards underneath their respective region
-    //also add buttons
-    //give voting status updates
-
-    //make vbox array, add cards with respective regions to those arrays
-
+    /**
+     * todo uncomment this and test once ai/server/players are instantiated and working
+     */
     /** uncomment to get cards from ai/player
     Image image = new Image("file:assets/CardImages/magikarp.png");
     ArrayList<PolicyCard> policyCards = base.getAllVotingCards();
@@ -212,8 +172,6 @@ public class VotingPane extends GamePhasePane implements MapHolder
         votingCards[6].getChildren().add(new VotingCards(image, true, policy,base ));
       }
     }
-   // }
-
     HBox allCards = new HBox();
     allCards.setSpacing(20);
     allCards.setAlignment(Pos.CENTER);
@@ -223,17 +181,16 @@ public class VotingPane extends GamePhasePane implements MapHolder
     }
      center.setCenter(allCards);
 **/
+    //place holder just to display some voting cards
     for (int i = 0; i < 7; i++)
     {
-      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"),
-          true, policyCard, base));
+      draftedCards.getChildren().add(new VotingCards(true, policyCard, base));
 
     }
 
     center.setTop(map);
 
     center.setCenter(draftedCards);
-    //mainPane.setCenter(draftedCardsAndRegions);
     mainPane.setCenter(center);
   }
 

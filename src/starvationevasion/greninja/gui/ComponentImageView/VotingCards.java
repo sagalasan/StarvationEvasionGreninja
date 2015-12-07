@@ -1,26 +1,17 @@
 package starvationevasion.greninja.gui.ComponentImageView;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
 
-import javax.smartcardio.Card;
-
-
 /**
- * Created by Jalen on 11/30/2015.
+ * The voting cards for the voting pane
  */
 public class VotingCards extends VBox
 {
@@ -30,6 +21,7 @@ public class VotingCards extends VBox
   private Text votes;
   private int currentStatus = 1;
   private CardImage card;
+
   //can find unicode symbols from https://en.wikipedia.org/wiki/List_of_Unicode_characters#Arrows
   private final String upArrow = "\u2191";
   private final String downArrow = "\u2193";
@@ -43,17 +35,13 @@ public class VotingCards extends VBox
   private final String RED_SHADOW = "-fx-effect: innershadow( gaussian ,  #dc143c , 2,1,0,0 );";
   private final String GREY_SHADOW = "-fx-effect: innershadow( gaussian , #778899, 2,1,0,0 );";
 
-  public VotingCards(Image image, boolean isVotingCard, PolicyCard policyCard, GuiBase base)
+  public VotingCards(boolean isVotingCard, PolicyCard policyCard, GuiBase base)
   {
     //card will have a background dependent if voting card
-    //setMaxWidth(100);
-   // setMaxHeight(150);
     setPrefHeight(100);
     setPrefWidth(150);
-    card = new CardImage(image, policyCard, base);
+    card = new CardImage(policyCard, base);
     setAlignment(Pos.CENTER);
-    //setId("card-image");
-    //if (policyCard.isEligibleToVote(base.getGameController().getPlayer().getPlayerRegion()))
     if (isVotingCard)
     {
       //create background
@@ -61,15 +49,11 @@ public class VotingCards extends VBox
       votes = new Text(upArrow + yesVotes + "  " + sidewaysArrow + neutralVotes + "  " + downArrow + noVotes);
       votes.setFill(Color.WHITE);
       getChildren().addAll(card.getScrollCard(), votes);
-      //card.getChildren().addAll(votes);
       setStyle(GREY);
 
-      //votes.setId("card-image");
-      //setId("card-image");
       card.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          //System.out.println(event.getButton());
 
           String eventPressed = event.getButton().toString();
           if (eventPressed.equals("PRIMARY"))
@@ -77,13 +61,7 @@ public class VotingCards extends VBox
             upVote();
             System.out.println("mouse 1 clicked");
           }
-        /**  else if (eventPressed.equals("SECONDARY"))
-          {
-            downVote();
-            System.out.println("mouse 2 clicked");
-          }
-         **/
-          //currentstatus gets updated as a player clicks upvoting or downvoting
+          //currentstatus gets updated as a player clicks upvoting
           if (currentStatus % 3 == 0)
           {
             setStyle(RED);
@@ -99,6 +77,8 @@ public class VotingCards extends VBox
             setStyle(GREEN);
             //card.setStyle(GREEN_SHADOW);
           }
+          //todo dependent on what wote status
+          //send update to the server at end of timeout for pane
 
         }
 
@@ -109,23 +89,15 @@ public class VotingCards extends VBox
       getChildren().add(card.getScrollCard());
     }
 
-      //setId("card-image");
-
   }
 
+  /**
+   * upVotes.  The status is dependent on the currentstatus modulo 3
+   *
+   */
   private void upVote()
   {
-   // if (currentStatus < 3)
-   // {
-      currentStatus++;
-   // }
+    currentStatus++;
   }
 
-  private void downVote()
-  {
-    if (currentStatus > 1)
-    {
-      currentStatus--;
-    }
-  }
 }

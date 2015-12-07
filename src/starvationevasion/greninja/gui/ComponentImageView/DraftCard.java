@@ -8,13 +8,14 @@ import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
 
 /**
- * Created by Jalen on 12/4/2015.
+ * The DraftCard is a card when it gets drafted
+ * This class just adds an undo button to the card drafted
  */
 public class DraftCard extends CardImage
 {
-  public DraftCard(Image image, PolicyCard policyCard, GuiBase base)
+  public DraftCard(PolicyCard policyCard, GuiBase base)
   {
-    super(image, policyCard, base);
+    super(policyCard, base);
     Button undo = new Button("Undo");
     getCard().getChildren().add(undo);
 

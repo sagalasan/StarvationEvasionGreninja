@@ -14,6 +14,14 @@ import starvationevasion.greninja.gui.componentPane.*;
 import starvationevasion.greninja.model.State;
 
 //display numbers besides state names
+
+/**
+ * PolicyPane is the GUI display for the Policy Drafting Phase. The bottom of the display contains the cards in the
+ * player's hand, the draw pile and the discard pile, and the farm product toolbar. The visualizer display is located
+ * in the left pane of the GUI, which shows the player a 3D visualization of the world currently.
+ * @author Jalen Johnson
+ * @author Erin Sosebee
+ */
 public class PolicyPane extends GamePhasePane implements MapHolder
 {
   private GuiBase base;
@@ -42,9 +50,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     mainPane.setId("mainPolicyPane");
     base.getGameController().setDraftedCards();
     toolbar = new ToolbarPane(base);
-
-    // Get the information to be displayed in the GUI
-    // getInfo();
 
     // Build each sector of the GUI
     buildTop();
@@ -79,14 +84,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     titleBox.setAlignment(Pos.TOP_CENTER);
     updateTopDisplay(EnumRegion.CALIFORNIA);
 
-//    VBox titleBox = new VBox(5);
-//    titleBox.setAlignment(Pos.TOP_CENTER);
-//    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
-//    HBox gameInfo = gameStateInfo();
-//    title.setId("title");
-//    titleBox.getChildren().addAll(title, gameInfo);
-
-    // TODO: remove this button?
     // Create and add next state button
     VBox buttonBox = new VBox();
     buttonBox.setAlignment(Pos.CENTER);
@@ -106,7 +103,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
   /*
    * Left pane holds the timer, action buttons, and drafted policies.
    */
-
   private void buildLeft()
   {
     VBox leftPane = new VBox();
@@ -115,6 +111,11 @@ public class PolicyPane extends GamePhasePane implements MapHolder
 
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
+    /**
+     * this shows the worldviewer, remember to uncomment when turning in
+     * WorldViewer earthViewLayout = new WorldViewer();
+     * visBox.getChildren().add(earthViewLayout);
+     */
     //WorldViewer earthViewLayout = new WorldViewer();
     //visBox.getChildren().add(earthViewLayout);
 
@@ -130,8 +131,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     leftPane.getChildren().addAll(visBox, draftedCardsBox);//.setTop(visBox);
     mainPane.setLeft(leftPane);
   }
-
-
 
   /*
    * Builds the right pane, which contains the graphs for each region.
@@ -175,7 +174,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
+    DiscardPile drawDiscardPile = new DiscardPile(base);
 
     drawDiscardPile.setSpacing(5);
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
@@ -323,42 +322,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
 
   private void updateTopDisplay(EnumRegion region)
   {
-//    // Draw divider
-//    Label divider = new Label();
-//    divider.setId("divider");
-//    divider.setMaxHeight(1);
-//    divider.setMinHeight(1);
-//    divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
-//
-//    // Set up timer display
-//    TimerDisplay timerDisplay = new TimerDisplay(base, getTimerPane());
-//    timerDisplay.setPadding(new Insets(10, 10, 10, 10));
-//
-//    // Create and add title and game state info
-//    VBox titleBox = new VBox(5);
-//    titleBox.setAlignment(Pos.TOP_CENTER);
-//    Label title = new Label("Policy Phase: Draft Policies (" + year + ")");
-//    HBox gameInfo = gameStateInfo();
-//    title.setId("title");
-//    titleBox.getChildren().addAll(title, gameInfo);
-//
-//    // TODO: remove this button?
-//    // Create and add next state button
-//    VBox buttonBox = new VBox();
-//    buttonBox.setAlignment(Pos.CENTER);
-//    buttonBox.setPadding(new Insets(10, 10, 10, 10));
-//    Button nextPhaseButton = new Button("Next Phase");
-//    nextPhaseButton.setOnAction(new ButtonControl(this));
-//    buttonBox.getChildren().add(nextPhaseButton);
-//
-//    topPane.setBottom(divider);
-//    topPane.setLeft(timerDisplay);
-//    topPane.setRight(buttonBox);
-//    topPane.setCenter(titleBox);
-//    //topPane.setPrefHeight(100);
-//    mainPane.setTop(topPane);
-
-
     State state = getSelectedRegion(region);
     regionPopulation = state.getPopulation();
     HDI = state.getHDI();
@@ -407,12 +370,20 @@ public class PolicyPane extends GamePhasePane implements MapHolder
 
     statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
   }
+
+  /**
+   * Updates the player's drafted cards.
+   */
   public void updateDraftedCards()
   {
     //int tempIndexOfDraftedCards = draftedCardsBox.getChildren().indexOf(draftedCards);
     draftedCards.updateCards();
     //draftedCardsBox.getChildren().set(tempIndexOfDraftedCards, draftedCards);
   }
+
+  /**
+   * Updates the player's hand.
+   */
   public void updatePlayerHand()
   {
     //int tempIndexOfPlayerHand = cardBox.getChildren().indexOf(playerHandGui);
