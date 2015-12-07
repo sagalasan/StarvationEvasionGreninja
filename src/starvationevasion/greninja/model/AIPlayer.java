@@ -1,5 +1,6 @@
 package starvationevasion.greninja.model;
 
+import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.sim.CardDeck;
@@ -17,20 +18,12 @@ public class AIPlayer implements PlayerInterface
   CardDeck playerDeck;
   List<PolicyCard> cards, discardPile, voteRequiredPolicies;
 
-  /**
-   * Set the string name of the player.
-   * @param name        String name of player.
-   */
   @Override
   public void setPlayerName(String name)
   {
     this.playerName = name;
   }
 
-  /**
-   * Get the string name of the player.
-   * @return        String name of player.
-   */
   @Override
   public String getPlayerName()
   {

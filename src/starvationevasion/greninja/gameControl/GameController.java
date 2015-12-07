@@ -346,6 +346,7 @@ public class GameController
       if(msg.finalRegionChoices.get(region).equals(player.getPlayerName()))
       {
         player.setPlayerRegion(region);
+        player.setPlayerDeck(tempDeck);
         playerRegion = region;
       }
     }
