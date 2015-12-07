@@ -66,7 +66,7 @@ public enum State
   }
 
   private void update(RegionData regionData)
-  { turnNumber++;
+  { //turnNumber++;
     if( !name().equals(regionData.region.name())) throw new RuntimeException("Update data of this region from another region.");
     setPopulation(regionData.population);
     population[turnNumber] = regionData.population;
