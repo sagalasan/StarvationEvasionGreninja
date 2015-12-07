@@ -86,18 +86,6 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");
-    /*
-    if(!hasDrafted)
-    {
-      if (player.getPlayerHand() != null)
-      {
-        int draftCardIndex = decisions.analyzeCards(player.getPlayerHand(), "mandatory");
-        player.draft(draftCardIndex);
-        int draftVoteCardIndex = decisions.analyzeCards(player.getPlayerHand(), "votes");
-        player.draft(draftVoteCardIndex);
-        hasDrafted = true;
-      }
-    }*/
     hasDrafted = false;
   }
 
