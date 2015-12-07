@@ -139,7 +139,7 @@ public class RegionalStatistics extends LineChart<Number, Number>
           dataPoint.setNode(new DataPoint((Double)dataPoint.getYValue()));
           series.getData().add(dataPoint);
         }
-
+        break;
       case "RevenueBalance":
         for(int i = firstPointTurn; i <= currentTurn; i++)
         {
