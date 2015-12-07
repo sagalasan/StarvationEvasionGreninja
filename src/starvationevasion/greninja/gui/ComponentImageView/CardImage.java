@@ -6,26 +6,21 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import starvationevasion.common.EnumPolicy;
-import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.GuiBase;
 
-import javax.smartcardio.Card;
 
 /**
- * Created by Jalen on 11/19/2015.
+ * The CardImage class is responsible for making the cards with text and a title
+ * dependent on a given policycard and image
  */
 public class CardImage extends VBox
 {
   private PolicyCard policyCard;
-
-
   private ImageView card;
   private GuiBase base;
   private Text gameText;
@@ -58,35 +53,24 @@ public class CardImage extends VBox
             "-fx-border-color: white; -fx-background-color: black;" +
             "-fx-border-width: 2;-fx-background-width: 4;");
 
-    //setId("card-image");
-
-
-    //todo place a draft card button and a setting to choose how much money/resources to use for it
-
-
-    setOnMouseEntered(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        //to set to front
-        //get the parent pane
-        //get the child at this index
-        //set that to front
-
-      }
-    });
-
 
     addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-
-        System.out.println("id for card is " + getId());
+        System.out.println("id for card is " + policyCard.getTitle());
         event.consume();
       }
     });
     setAlignment(Pos.CENTER);
     getChildren().addAll(title, card, gameText);
   }
+
+  /**
+   *
+   * @return makes the card into a scroll pane.  This is what the prefered look of
+   * the card in the player hand should be.  In some cases, it is preferred to see
+   * the card as a vbox which is why cardimage does not extends scrollpane instead
+   */
   public ScrollPane getScrollCard()
   {
     ScrollPane scroll = new ScrollPane(this);
@@ -133,6 +117,11 @@ public class CardImage extends VBox
 
     return scroll;
   }
+
+  /**
+   *
+   * @return returns the card
+   */
   public CardImage getCard()
   {
     return this;
