@@ -19,8 +19,6 @@ public class AIDecisions
 
   private EnumRegion playerRegion;
   private State california, heartland, northernPlains, southeast, northernCrescent, southernPlains, mountain;
-  private double regionPop, worldPop, localHDI, worldHDI;
-  private double localUndernourishedPop, globalUndernourishedPop;
 
   private double[] probabilities;
   private LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
