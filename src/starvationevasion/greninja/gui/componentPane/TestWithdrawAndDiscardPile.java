@@ -22,6 +22,11 @@ import starvationevasion.greninja.gui.GuiBase;
 
 public class TestWithdrawAndDiscardPile extends HBox
 {
+  /**
+   *
+   * @param base the gui base from which this class gets derived
+   * Makes two Piles,
+   */
   public TestWithdrawAndDiscardPile(GuiBase base)
   {
 
