@@ -25,7 +25,7 @@ public class EntryPane extends StackPane
   private boolean DEBUG = true;
 
   /**
-   *
+   * Creates the entry pane, allowing players to choose if they want to play single player or multiplayer.
    * @param gui
    */
   public EntryPane(GuiBase gui)
@@ -34,6 +34,15 @@ public class EntryPane extends StackPane
     setAlignment(this, Pos.CENTER);
     basePane = new VBox();
 
+    // Create game title and game instructions
+    VBox gameInfoBox = new VBox(10);
+    gameInfoBox.setAlignment((Pos.CENTER));
+    Label title = new Label("Starvation Evasion");
+    title.setId("gameTitle");
+    Label instructions = new Label("Please select what type of game you want to play.");
+    gameInfoBox.getChildren().addAll(title, instructions);
+
+    // Create buttons
     testing = new Button("Testing");
     solo = new Button("Single Player");
     multiplayer = new Button("Multiplayer");
@@ -49,39 +58,22 @@ public class EntryPane extends StackPane
     multiplayer.setOnAction(this::buttonPressed);
     quit.setOnAction(this::buttonPressed);
 
-//    HBox titlePane = new HBox();
-//    titlePane.setAlignment(Pos.TOP_CENTER);
-//    titlePane.getChildren().add(title);
-
-    VBox gameInfoBox = new VBox(10);
-    gameInfoBox.setAlignment((Pos.CENTER));
-    Label title = new Label("Starvation Evasion");
-    title.setId("gameTitle");
-    Label instructions = new Label("Please select what type of game you want to play.");
-    gameInfoBox.getChildren().addAll(title, instructions);
-
     VBox buttonBox = new VBox(5);
     buttonBox.setAlignment(Pos.CENTER);
     buttonBox.setMaxWidth(200);
     buttonBox.getChildren().addAll(testing, solo, multiplayer, quit);
 
+    // Add nodes to base pane
     basePane.setSpacing(10);
     basePane.setAlignment(Pos.CENTER);
     basePane.getChildren().addAll(gameInfoBox, buttonBox);
     getChildren().add(basePane);
-
-//    basePane.setSpacing(1.5);
-//    basePane.getChildren().add(new Label("Entry Pane, choose a game type."));
-//    basePane.getChildren().add(testing);
-//    basePane.getChildren().add(solo);
-//    basePane.getChildren().add(multiplayer);
-//    basePane.getChildren().add(quit);
-//    basePane.setAlignment(Pos.CENTER);
-//    gameSelectionPane.setTop(titlePane);
-//    gameSelectionPane.setCenter(buttonBox);
-//    getChildren().add(gameSelectionPane);
   }
 
+  /**
+   * Handles button presses.
+   * @param e the ActionEvent to handle.
+   */
   public void buttonPressed(ActionEvent e)
   {
     Button source = (Button)e.getSource();
