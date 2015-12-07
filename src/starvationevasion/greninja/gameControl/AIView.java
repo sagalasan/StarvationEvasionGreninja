@@ -124,10 +124,21 @@ public class AIView implements ControlListener
 
     List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
     // TODO: Get cards from voting pane
+
+    // Cards to vote for
     int voteCardIndices[] = decisions.voteCard(voteCards);
     for (int i = 0; i < voteCardIndices.length; i++)
     {
       player.vote(voteCardIndices[i]);
+    }
+
+    // Cards to oppose
+    for (int i = 0; i < voteCardIndices.length; i++)
+    {
+      if (i != voteCardIndices[i])
+      {
+        player.oppose(i);
+      }
     }
   }
 
