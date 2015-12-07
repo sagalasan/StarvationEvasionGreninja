@@ -73,7 +73,7 @@ public class AIDecisions
   /*
    * Initialize array of probabilities.
    */
-  private void initializeCardProbabilities()
+  private void initializeCardProbabilities(LinkedHashMap<Double, Integer> rankedCards)
   {
     probabilities = new double[rankedCards.size()];
     int i = 0;
@@ -151,7 +151,7 @@ public class AIDecisions
 
     // rankedCards is a LinkedHashMap<K, V> where K = probability, V = the index of the card in the player's hand
     // A higher "probability" means that a card is more likely to be selected
-    if (probabilities == null) initializeCardProbabilities();
+    if (probabilities == null) initializeCardProbabilities(rankedCards);
     List<Integer> rankedCardsIndices = new ArrayList<Integer>(rankedCards.values());
 
     int selectedIndex = 0; // Initialize to zero
@@ -257,6 +257,8 @@ public class AIDecisions
   {
     LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
     LinkedHashMap<Double, Integer> rankedVoteCards = new LinkedHashMap<Double, Integer>();
+
+    // If the player's hand is not full, draw 1 card
     if (cards.size() < 7)
     {
       // TODO: need 'draw from deck' functionality
@@ -273,7 +275,10 @@ public class AIDecisions
       }
       else rankedCards.put(cardRank, i);
     }
-    chosenIndex = chooseCard(rankedCards);
+
+    // Choose the appropriate card type to choose from
+    if (cardType.equals("mandatory")) chosenIndex = chooseCard(rankedCards);
+    else if (cardType.equals("votes")) chosenIndex = chooseCard(rankedVoteCards);
     return chosenIndex;
   }
 
