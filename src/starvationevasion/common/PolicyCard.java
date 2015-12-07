@@ -112,47 +112,36 @@ public abstract class PolicyCard  implements Serializable
     switch (type) {
       case Clean_River_Incentive:
         myCard = new CleanRiverIncentivePolicy();
-        myCard.type = EnumPolicy.Clean_River_Incentive;
         break;
       case Covert_Intelligence:
         myCard = new CovertIntelligencePolicy();
-        myCard.type = EnumPolicy.Covert_Intelligence;
         break;
       case Educate_the_Women_Campaign:
         myCard = new EducateTheWomenCampaignPolicy();
-        myCard.type = EnumPolicy.Educate_the_Women_Campaign;
         break;
       case Efficient_Irrigation_Incentive:
         myCard = new EfficientIrrigationIncentivePolicy();
-        myCard.type = EnumPolicy.Efficient_Irrigation_Incentive;
         break;
       case Ethanol_Tax_Credit_Change:
         myCard = new EthanolTaxCreditChangePolicy();
-        myCard.type = EnumPolicy.Ethanol_Tax_Credit_Change;
         break;
       case Fertilizer_Subsidy:
         myCard = new FertilizerSubsidyPolicy();
-        myCard.type = EnumPolicy.Fertilizer_Subsidy;
         break;
       case Foreign_Aid_for_Farm_Infrastructure:
         myCard = new ForeignAidForFarmInfrastructurePolicy();
-        myCard.type = EnumPolicy.Foreign_Aid_for_Farm_Infrastructure;
         break;
       case GMO_Seed_Insect_Resistance_Research:
         myCard = new GMOSeedInsectResistanceResearchPolicy();
-        myCard.type = EnumPolicy.GMO_Seed_Insect_Resistance_Research;
         break;
       case International_Food_Relief_Program:
         myCard = new InternationalFoodReliefProgramPolicy();
-        myCard.type = EnumPolicy.International_Food_Relief_Program;
         break;
       case Loan:
         myCard = new LoanPolicy();
-        myCard.type = EnumPolicy.Loan;
         break;
       case MyPlate_Promotion_Campaign:
         myCard = new MyPlatePromotionCampaignPolicy();
-        myCard.type = EnumPolicy.MyPlate_Promotion_Campaign;
         break;
     }
 
@@ -303,8 +292,7 @@ public abstract class PolicyCard  implements Serializable
    *               perhaps some smaller subset of regions.
    */
   public void setTargetRegion(EnumRegion region)
-  {
-    targetRegion = region;
+  { targetRegion = region;
   }
 
 

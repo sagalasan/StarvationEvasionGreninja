@@ -1,7 +1,6 @@
 package starvationevasion.vis.visuals;
 
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -31,13 +30,14 @@ public class Earth
 {
 
   private final  ResourceLoader RESOURCE_LOADER = EarthViewer.RESOURCE_LOADER;
-  private static final double ROTATE_SECS = 30;
+  private static double ROTATE_SECS = 30;
 
   private final double MINI_EARTH_RADIUS;
   private final double LARGE_EARTH_RADIUS;
 
   private RotateTransition largeRotate;
   private RotateTransition smallRotate;
+
 
 
   private Group earthGroup;
@@ -64,6 +64,8 @@ public class Earth
     earthWeather = buildClouds();
 
     startRotate();
+
+
   }
 
   /**
@@ -76,6 +78,8 @@ public class Earth
     PhongMaterial earthMaterial = new PhongMaterial();
     earthMaterial.setDiffuseMap(RESOURCE_LOADER.DIFF_MAP);
     earthMaterial.setBumpMap(RESOURCE_LOADER.NORM_MAP);
+//    earthMaterial.setSpecularMap((RESOURCE_LOADER.SPEC_MAP));
+
     earth.setMaterial(earthMaterial);
     return new Group(earth);
   }
@@ -101,7 +105,7 @@ public class Earth
   {
     Sphere cloud = new Sphere(LARGE_EARTH_RADIUS * 1.05);
     final PhongMaterial cloudMaterial = new PhongMaterial();
-    cloudMaterial.setDiffuseMap(RESOURCE_LOADER.REGION_OVERLAY);
+    cloudMaterial.setDiffuseMap(RESOURCE_LOADER.CLOUDS);
     cloud.setMaterial(cloudMaterial);
     return new Group(cloud);
   }
@@ -145,8 +149,9 @@ public class Earth
    */
   public void startRotate()
   {
-    rotateAroundYAxis(earthGroup).play();
-    rotateAroundYAxis(smallEarthGroup).play();
+    initRotaters();
+    rotateAroundYAxis(earthGroup, largeRotate).play();
+    rotateAroundYAxis(smallEarthGroup, smallRotate).play();
   }
 
   /**
@@ -154,9 +159,8 @@ public class Earth
    * @param node
    * @return
    */
-  private RotateTransition rotateAroundYAxis(Node node)
+  private RotateTransition rotateAroundYAxis(Node node, RotateTransition rotate)
   {
-    RotateTransition rotate = new RotateTransition(Duration.seconds(ROTATE_SECS), node);
     rotate.setAxis(Rotate.Y_AXIS);
     rotate.setFromAngle(360);
     rotate.setToAngle(0);
@@ -165,13 +169,32 @@ public class Earth
 
     return rotate;
   }
+
+  private void initRotaters()
+  {
+    largeRotate = new RotateTransition(Duration.seconds(ROTATE_SECS), earthGroup);
+    smallRotate = new RotateTransition(Duration.seconds(ROTATE_SECS), smallEarthGroup);
+    largeRotate.setCycleCount(1);
+    smallRotate.setCycleCount(RotateTransition.INDEFINITE);
+  }
+
   /**
    * Used for Big Earth mode to stop rotation when user clicks and drags
    */
   protected void pauseRotation()
   {
-    rotateAroundYAxis(earthGroup).pause();
+    largeRotate.pause();
   }
+
+  /**
+   * Used for Big Earth mode to restart rotation when user clicks and drags
+   */
+  protected void resumeRotation()
+  {
+    largeRotate.play();
+  }
+
+
 
   /**
    * Vis Team Testing Purposes
