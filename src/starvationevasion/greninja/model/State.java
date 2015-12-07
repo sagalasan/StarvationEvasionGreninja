@@ -24,7 +24,7 @@ public enum State
   public static final int FOOD_NUMBER = 12;
 
   private static final int TOTAL_TURN_NUMBER = 5;
-  private int turnNumber = 0;
+  private static int turnNumber = 0;
   private int currentYear = 2014;
   private int startTurn;//TODO: This will be the index of data in the starting year.
   //private EnumRegion region;
@@ -59,6 +59,7 @@ public enum State
   public static void updateAllData(WorldData worldData)
   {
     RegionData[] regionData = worldData.regionData;
+    turnNumber++;
     for(int i = 0; i < EnumRegion.SIZE; i++)
     {
       State.values()[i].update(regionData[i]);
@@ -67,8 +68,7 @@ public enum State
 
   private void update(RegionData regionData)
   {
-    //TODO was updating for every player, needs to go once per turn
-    //turnNumber++;
+
     if( !name().equals(regionData.region.name())) throw new RuntimeException("Update data of this region from another region.");
     setPopulation(regionData.population);
     population[turnNumber] = regionData.population;
@@ -79,11 +79,13 @@ public enum State
     {
       foodWeight[turnNumber][i] = regionData.foodProduced[i];
       foodArea[turnNumber][i] = regionData.farmArea[i];
+      foodIncome[turnNumber][i] = regionData.foodIncome[i];
       int foodExportTemp = regionData.foodExported[i];
       if(foodExportTemp > 0)
       {
         foodExport[turnNumber][i] = foodExportTemp;
         foodImport[turnNumber][i] = 0;
+
       }
       else
       {
