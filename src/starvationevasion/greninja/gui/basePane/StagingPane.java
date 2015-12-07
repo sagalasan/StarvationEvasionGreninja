@@ -168,7 +168,8 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
           if(timeLeft < 0)
           {
             timer.cancel();
-            countdownMessage.setText("Waiting for simulator to load...");
+            //countdownMessage.setText("Waiting for simulator to load...");
+            countdownMessage.setText("Timer ended, waiting for server...");
           }
         });
       }
