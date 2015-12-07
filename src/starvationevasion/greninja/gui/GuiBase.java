@@ -176,6 +176,11 @@ public class GuiBase extends Application implements ControlListener
     loginPane.loginFailed(response);
   }
 
+  public void beginGameMessageReceived()
+  {
+    stagingPane.beginGameMessageReceived();
+  }
+
   public void serverConnectionPaneCancelled()
   {
     control.serverConnectionPaneCancelled();

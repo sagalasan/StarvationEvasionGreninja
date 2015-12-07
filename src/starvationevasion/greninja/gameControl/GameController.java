@@ -317,6 +317,7 @@ public class GameController
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
+    if(isHuman) ((GuiBase) view).beginGameMessageReceived();
     if(isTesting)
     {
       startPolicyDraftingPhase();
