@@ -87,6 +87,7 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     //map.greyOut(EnumRegion.CALIFORNIA, false);
 
     // TODO: add regionSelectedLabel and countdownMessage?
+    countdownMessage = new Label();
   }
 
   /**

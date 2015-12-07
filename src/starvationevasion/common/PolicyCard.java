@@ -112,36 +112,47 @@ public abstract class PolicyCard  implements Serializable
     switch (type) {
       case Clean_River_Incentive:
         myCard = new CleanRiverIncentivePolicy();
+        type = EnumPolicy.Clean_River_Incentive;
         break;
       case Covert_Intelligence:
         myCard = new CovertIntelligencePolicy();
+        type = EnumPolicy.Covert_Intelligence;
         break;
       case Educate_the_Women_Campaign:
         myCard = new EducateTheWomenCampaignPolicy();
+        type = EnumPolicy.Educate_the_Women_Campaign;
         break;
       case Efficient_Irrigation_Incentive:
         myCard = new EfficientIrrigationIncentivePolicy();
+        type = EnumPolicy.Efficient_Irrigation_Incentive;
         break;
       case Ethanol_Tax_Credit_Change:
         myCard = new EthanolTaxCreditChangePolicy();
+        type = EnumPolicy.Ethanol_Tax_Credit_Change;
         break;
       case Fertilizer_Subsidy:
         myCard = new FertilizerSubsidyPolicy();
+        type = EnumPolicy.Fertilizer_Subsidy;
         break;
       case Foreign_Aid_for_Farm_Infrastructure:
         myCard = new ForeignAidForFarmInfrastructurePolicy();
+        type = EnumPolicy.Foreign_Aid_for_Farm_Infrastructure;
         break;
       case GMO_Seed_Insect_Resistance_Research:
         myCard = new GMOSeedInsectResistanceResearchPolicy();
+        type = EnumPolicy.GMO_Seed_Insect_Resistance_Research;
         break;
       case International_Food_Relief_Program:
         myCard = new InternationalFoodReliefProgramPolicy();
+        type = EnumPolicy.International_Food_Relief_Program;
         break;
       case Loan:
         myCard = new LoanPolicy();
+        type = EnumPolicy.Loan;
         break;
       case MyPlate_Promotion_Campaign:
         myCard = new MyPlatePromotionCampaignPolicy();
+        type = EnumPolicy.MyPlate_Promotion_Campaign;
         break;
     }
 
