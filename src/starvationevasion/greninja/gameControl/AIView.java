@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Handles AI coms with game controller.  This is parallel to GuiBase, it is kind
- * of a GUI for robots.
+ * Handles AI coms with game controller.  This is parallel to GuiBase, and it is kind of a "GUI" for robots.
  */
 public class AIView implements ControlListener
 {
@@ -27,7 +26,7 @@ public class AIView implements ControlListener
   private State currentState;
   EnumRegion pRegion;
 
-  private boolean DEBUG = true;
+  private boolean DEBUG = false;
 
   public AIView(GameController control, PlayerInterface player)
   {
