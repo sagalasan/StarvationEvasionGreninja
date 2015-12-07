@@ -116,7 +116,8 @@ public class PolicyPane extends GamePhasePane implements MapHolder
      * WorldViewer earthViewLayout = new WorldViewer();
      * visBox.getChildren().add(earthViewLayout);
      */
-
+    //WorldViewer earthViewLayout = new WorldViewer();
+    //visBox.getChildren().add(earthViewLayout);
 
 
     draftedCardsBox = new VBox(5);

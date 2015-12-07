@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by Jalen on 11/21/2015.
- * thursday 10
+ *
  */
 public class PlayerHandGui extends HBox
 {
@@ -23,6 +23,7 @@ public class PlayerHandGui extends HBox
   private PlayerCard[] playerCards;
   private GuiBase base;
   private List<PolicyCard> playerHand;
+
   public PlayerHandGui(GuiBase base)//prob will take an argument of the cards it receives
   {
     System.out.println("playerhand is being created");
@@ -31,22 +32,17 @@ public class PlayerHandGui extends HBox
     int MAX_CARDS_IN_PLAYER_HAND = 7;
     playerCards = new PlayerCard[MAX_CARDS_IN_PLAYER_HAND];
 
-    //HBox cardHand = new HBox();
-    int j = 0;
-
     setSpacing(25);
 
+    //this is just a place holder.  The game controller/ server should fill the hand at the first
     base.getGameController().fillHand();
-    //updatePlayerHand();
     //base.getPlayerHand();
-    //initiallizes and adds to player hand
     playerHand = base.getPlayerHand();
     int i = 0;
     for (PolicyCard policy: playerHand )
     {
       Image image = new Image("file:assets/CardImages/magikarp.png");
       getChildren().add(new PlayerCard(image, policy, base, i++).getScrollCard());
-
     }
 
   }
@@ -67,22 +63,14 @@ public class PlayerHandGui extends HBox
         {
           getChildren().add(new PlayerCard(image, playerHand.get(i), base, i).getScrollCard());
         }
-
       }
       if (playerHand.size() <= i && playerHand.size() < getChildren().size())
       {
         System.out.println("removing card from drafting pane");
         getChildren().remove(i);
 
-
       }
     }
-
-
   }
-
-
-
-
 
 }
