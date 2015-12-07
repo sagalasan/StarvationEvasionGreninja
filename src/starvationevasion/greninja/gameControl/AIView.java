@@ -103,16 +103,6 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");
-    hasDrafted = false;
-  }
-
-  /**
-   * Inform view that there has been a game state update.  If it is drafting phase
-   * and cards have not been drafted, do the drafting.
-   */
-  @Override
-  public void gameStateUpdate()
-  {
     if(!hasDrafted)
     {
       if (player.getPlayerHand() != null)
@@ -124,6 +114,28 @@ public class AIView implements ControlListener
         hasDrafted = true;
       }
     }
+    hasDrafted = false;
+  }
+
+  /**
+   * Inform view that there has been a game state update.  If it is drafting phase
+   * and cards have not been drafted, do the drafting.
+   */
+  @Override
+  public void gameStateUpdate()
+  {
+    /*
+    if(!hasDrafted)
+    {
+      if (player.getPlayerHand() != null)
+      {
+        int draftCardIndex = decisions.analyzeCards(player.getPlayerHand(), "mandatory");
+        player.draft(draftCardIndex);
+        int draftVoteCardIndex = decisions.analyzeCards(player.getPlayerHand(), "votes");
+        player.draft(draftVoteCardIndex);
+        hasDrafted = true;
+      }
+    }*/
   }
 
   /**
