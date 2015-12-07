@@ -37,7 +37,7 @@ public class CardImage extends VBox
     setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     setPrefWidth(100);
     setPrefHeight(200);
-
+    setSpacing(10);
     this.policyCard = policyCard;
     card = new ImageView(image);
 
@@ -67,8 +67,6 @@ public class CardImage extends VBox
     setOnMouseEntered(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        //card.toFront();
-        //scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         //to set to front
         //get the parent pane
         //get the child at this index

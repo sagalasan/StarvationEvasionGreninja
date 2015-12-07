@@ -303,7 +303,8 @@ public abstract class PolicyCard  implements Serializable
    *               perhaps some smaller subset of regions.
    */
   public void setTargetRegion(EnumRegion region)
-  { targetRegion = region;
+  {
+    targetRegion = region;
   }
 
 
