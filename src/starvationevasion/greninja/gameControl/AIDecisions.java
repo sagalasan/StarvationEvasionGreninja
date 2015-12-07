@@ -29,7 +29,7 @@ public class AIDecisions
   private boolean communication = false;
   private PolicyCard suggestedCard;
 
-  private boolean DEBUG = false;
+  private boolean DEBUG = true;
 
   // Default constructor is test constructor. To be removed possibly.
   public AIDecisions()
@@ -60,7 +60,7 @@ public class AIDecisions
 
   private void setCurrentInfo()
   {
-    playerRegion = player.getPlayerRegion();
+//    playerRegion = player.getPlayerRegion();
     california = State.CALIFORNIA;
     heartland = State.HEARTLAND;
     northernPlains = State.NORTHERN_PLAINS;
@@ -121,13 +121,14 @@ public class AIDecisions
 
   /**
    * Casts a vote during the voting phase.
-   * @param rankedCards   a hash map of cards that are ranked by probability of being chosen.
+   * @param cards the cards presented in the voting phase to be voted for.
    * @return the index for the card to be voted for.
    */
-  public int voteCard(LinkedHashMap<Integer, Integer> rankedCards)
+  public int voteCard(List<PolicyCard> cards)
   {
-    // TODO: Works similar to chooseCard but adds weight to suggestedCard?
-    return 0;
+    int chosenIndex = 0;
+
+    return chosenIndex;
   }
 
   /**
@@ -247,12 +248,15 @@ public class AIDecisions
 
   /**
    * Looks at each individual card and returns the index of the card that may have the most beneficial effect.
-   * @param cards   the cards currently in the player's hand
+   * @param cards     the cards currently in the player's hand.
+   * @param cardType  states if the AI is looking to draft a card that requires votes or not. "mandatory" means no votes
+   *                  are required, "votes" means votes are required.
    * @return
    */
-  public int analyzeCards(List<PolicyCard> cards)
+  public int analyzeCards(List<PolicyCard> cards, String cardType)
   {
-    LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>(); // <rank, index>  or <rank, card>?
+    LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
+    LinkedHashMap<Double, Integer> rankedVoteCards = new LinkedHashMap<Double, Integer>();
     if (cards.size() < 7)
     {
       // TODO: need 'draw from deck' functionality
@@ -263,7 +267,11 @@ public class AIDecisions
     {
       // Assign a "rank" to each card to determine how likely it will be selected by the AI
       double cardRank = cardEffects(cards.get(i));
-      rankedCards.put(cardRank, i);
+      if (cards.get(i).votesRequired() > 0)
+      {
+        rankedVoteCards.put(cardRank, i);
+      }
+      else rankedCards.put(cardRank, i);
     }
     chosenIndex = chooseCard(rankedCards);
     return chosenIndex;
