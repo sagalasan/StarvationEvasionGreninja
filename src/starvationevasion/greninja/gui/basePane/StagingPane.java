@@ -79,73 +79,14 @@ public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscri
     mainPane.setTop(topPane);
     mainPane.setCenter(map);
     getChildren().add(mainPane);
-//    BorderPane titlePane = new BorderPane();
-//    Label title = new Label("Staging Pane: Select a region.");
-//    title.setAlignment(Pos.CENTER);
-//    titlePane.setCenter
-//    mainPane.setTop(title);
-//
-//    getChildren().add(mainPane);
 
+    //EXAMPLE OF HOW TO GREY OUT, JUST SETS THE OPAQUENESS
+    //true to set grey
+    //false to set back to full colored
+    //map.greyOut(EnumRegion.CALIFORNIA, true);
+    //map.greyOut(EnumRegion.CALIFORNIA, false);
 
-//    base = gui;
-//    availableRegions = null;
-//    basePane = new VBox();
-//    getChildren().add(basePane);
-////    basePane.getChildren().add(new Label("Staging Pane, select a region."));
-//    //selectedRegion = "None.";
-//    regionSelectedLabel = new Label(selectedRegion);
-//
-////    basePane.getChildren().add(regionSelectedLabel);
-//
-//    VBox titleBox = new VBox();
-//    Label title = new Label("Staging Phase: Select your region.");
-//    title.setAlignment(Pos.TOP_CENTER);
-//    titleBox.getChildren().add(title);
-//
-//    VBox mapPane = new VBox();
-//    map = new ClickableMap("staging");
-//    map.setContainingPane(this);
-//    map.setAlignment(Pos.CENTER);
-//    countdownMessage = new Label("");
-//    mapPane.getChildren().addAll(map, countdownMessage);
-//
-//
-//
-//
-//    //EXAMPLE OF HOW TO GREY OUT, JUST SETS THE OPAQUENESS
-//    //true to set grey
-//    //false to set back to full colored
-//    //map.greyOut(EnumRegion.CALIFORNIA, true);
-//    //map.greyOut(EnumRegion.CALIFORNIA, false);
-//
-////    basePane.getChildren().add(map);
-////    basePane.getChildren().add(countdownMessage);
-//    basePane.getChildren().addAll(titleBox, mapPane);
-  }
-
-  private void buildTop()
-  {
-    BorderPane topPane = new BorderPane();
-    topPane.setMinHeight(50);
-    topPane.setId("topLayout");
-
-    // Draw divider
-    Label divider = new Label();
-    divider.setId("divider");
-    divider.setMaxHeight(1);
-    divider.setMinHeight(1);
-    divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
-
-    VBox titleBox = new VBox();
-    titleBox.setAlignment(Pos.CENTER);
-    Label title = new Label("Staging Phase: Choose your region.");
-    title.setAlignment(Pos.CENTER);
-    titleBox.getChildren().add(title);
-
-    topPane.setCenter(titleBox);
-    topPane.setBottom(divider);
-    mainPane.setTop(topPane);
+    // TODO: add regionSelectedLabel and countdownMessage?
   }
 
   /**
