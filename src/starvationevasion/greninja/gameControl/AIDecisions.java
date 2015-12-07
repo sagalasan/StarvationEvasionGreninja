@@ -124,11 +124,30 @@ public class AIDecisions
    * @param cards the cards presented in the voting phase to be voted for.
    * @return the index for the card to be voted for.
    */
-  public int voteCard(List<PolicyCard> cards)
+  public int[] voteCard(List<PolicyCard> cards)
   {
-    int chosenIndex = 0;
+    // Key = card, Value = index in pane
+    LinkedHashMap<PolicyCard, Integer> eligibleCards = new LinkedHashMap<>();
 
-    return chosenIndex;
+    for (int i = 0; i < cards.size(); i++)
+    {
+      if (cards.get(i).getTargetRegion().equals(playerRegion) || cards.get(i).getTargetRegion().equals(null))
+      {
+        eligibleCards.put(cards.get(i), i);
+      }
+    }
+
+    int[] chosenIndices = new int[eligibleCards.size()];
+    List<Integer> cardIndices = new ArrayList<Integer>(eligibleCards.values());
+    for (int i = 0; i < eligibleCards.size(); i++)
+    {
+      boolean selectCard = rand.nextBoolean();
+      if (selectCard)
+      {
+        chosenIndices[i] = cardIndices.get(i);
+      }
+    }
+    return chosenIndices;
   }
 
   /**
@@ -139,6 +158,7 @@ public class AIDecisions
    */
   public int chooseCard(LinkedHashMap<Double, Integer> rankedCards)
   {
+    // Testing statements
     if (DEBUG) System.out.println("AIDecisions: chooseCard()");
     if (DEBUG) for (double probability : rankedCards.keySet())
     {

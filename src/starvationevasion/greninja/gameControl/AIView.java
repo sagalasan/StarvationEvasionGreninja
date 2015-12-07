@@ -104,11 +104,6 @@ public class AIView implements ControlListener
   {
     if(!hasDrafted)
     {
-//      for (int i = 0; i < 2; i++)
-//      {
-//        int draftCardIndex = decisions.analyzeCards(player.getPlayerHand(), "mandatory");
-//        player.draft(draftCardIndex);
-//      }
       if (player.getPlayerHand() != null)
       {
         int draftCardIndex = decisions.analyzeCards(player.getPlayerHand(), "mandatory");
@@ -131,8 +126,11 @@ public class AIView implements ControlListener
     int voteCardIdx = 0;
     List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
     // TODO: Get cards from voting pane
-
-    player.vote(voteCardIdx);
+    int voteCardIndices[] = decisions.voteCard(voteCards);
+    for (int i = 0; i < voteCardIndices.length; i++)
+    {
+      player.vote(voteCardIndices[i]);
+    }
   }
 
   /**
