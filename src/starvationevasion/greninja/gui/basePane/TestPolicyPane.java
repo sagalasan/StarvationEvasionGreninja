@@ -374,45 +374,19 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
 
   private void createRightPane(EnumRegion region)
   {
-//    State state = null;
-//    switch(region)
-//    {
-//      case CALIFORNIA:
-//        state = State.CALIFORNIA;
-//        break;
-//      case HEARTLAND:
-//        state = State.HEARTLAND;
-//        break;
-//      case NORTHERN_PLAINS:
-//        state = State.NORTHERN_PLAINS;
-//        break;
-//      case SOUTHEAST:
-//        state = State.SOUTHEAST;
-//        break;
-//      case NORTHERN_CRESCENT:
-//        state = State.NORTHERN_CRESCENT;
-//        break;
-//      case SOUTHERN_PLAINS:
-//        state = State.SOUTHERN_PLAINS;
-//        break;
-//      case MOUNTAIN:
-//        state = State.SOUTHEAST;
-//    }
-//
-//    if(state == null) throw new NullPointerException("Variable state should not be null!!");
-
-    State state = getSelectedRegion(region);
-
+    State state =  getSelectedRegion(region);
     //creates a tabpane and tabs that display the graphs
     TabPane stats = new TabPane();
-    Tab farmProduct = new Tab("Production Charts");
+    Tab farmProduct = new Tab("Production");
     Tab population = new Tab("Population");
     Tab HDI = new Tab("HDI");
+    Tab revenueBalance = new Tab("Balance");
+
     farmProduct.setClosable(false);
     population.setClosable(false);
     HDI.setClosable(false);
-
-   // Label regionStatsLabel = new Label(state.toString() + " Statistics");
+    revenueBalance.setClosable(false);
+    // Label regionStatsLabel = new Label(state.toString() + " Statistics");
 
     VBox pop = new VBox();
     pop.getChildren().addAll(new RegionalStatistics(state, "Population"));
@@ -423,14 +397,18 @@ public class TestPolicyPane extends GamePhasePane implements MapHolder
     VBox farmPro = new VBox();
     farmPro.getChildren().addAll(new FarmProductChartPane(state));
 
+    VBox revenueBalanceBox = new VBox();
+    revenueBalanceBox.getChildren().add(new RegionalStatistics(state, "RevenueBalance"));
+
     farmProduct.setContent(farmPro);
     population.setContent(pop);
     HDI.setContent(hdiVbox);
+    revenueBalance.setContent(revenueBalanceBox);
 
-    stats.getTabs().addAll(population, farmProduct,HDI);
+
+    stats.getTabs().addAll(population, farmProduct,HDI, revenueBalance);
 
     statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
-
   }
   public void updateDraftedCards()
   {

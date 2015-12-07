@@ -176,6 +176,11 @@ public class GuiBase extends Application implements ControlListener
     loginPane.loginFailed(response);
   }
 
+  public void beginGameMessageReceived()
+  {
+    stagingPane.beginGameMessageReceived();
+  }
+
   public void serverConnectionPaneCancelled()
   {
     control.serverConnectionPaneCancelled();
@@ -529,6 +534,15 @@ public class GuiBase extends Application implements ControlListener
     testPolicyPane.updateDraftedCards();
     testPolicyPane.updatePlayerHand();
 
+  }
+
+  /**
+   * Ask control if is in testing mode.
+   * @return        return true if in testing mode.
+   */
+  public boolean isTesting()
+  {
+    return control.isTesting();
   }
 
   //private EarthViewer earthViewer;

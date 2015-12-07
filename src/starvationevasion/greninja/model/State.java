@@ -24,7 +24,7 @@ public enum State
   public static final int FOOD_NUMBER = 12;
 
   private static final int TOTAL_TURN_NUMBER = 5;
-  private int turnNumber = 0;
+  private static int turnNumber = 0;
   private int currentYear = 2014;
   private int startTurn;//TODO: This will be the index of data in the starting year.
   //private EnumRegion region;
@@ -59,6 +59,7 @@ public enum State
   public static void updateAllData(WorldData worldData)
   {
     RegionData[] regionData = worldData.regionData;
+    turnNumber++;
     for(int i = 0; i < EnumRegion.SIZE; i++)
     {
       State.values()[i].update(regionData[i]);
@@ -67,8 +68,7 @@ public enum State
 
   private void update(RegionData regionData)
   {
-    //TODO was updating for every player, needs to go once per turn
-    //turnNumber++;
+
     if( !name().equals(regionData.region.name())) throw new RuntimeException("Update data of this region from another region.");
     setPopulation(regionData.population);
     population[turnNumber] = regionData.population;
@@ -79,11 +79,13 @@ public enum State
     {
       foodWeight[turnNumber][i] = regionData.foodProduced[i];
       foodArea[turnNumber][i] = regionData.farmArea[i];
+      foodIncome[turnNumber][i] = regionData.foodIncome[i];
       int foodExportTemp = regionData.foodExported[i];
       if(foodExportTemp > 0)
       {
         foodExport[turnNumber][i] = foodExportTemp;
         foodImport[turnNumber][i] = 0;
+
       }
       else
       {
@@ -99,7 +101,8 @@ public enum State
     for(int i = 0; i < 5; i++)
     {
       population[i] = 10 + i * random.nextGaussian();
-      HDI[i] = 0.8 + random.nextGaussian() * i / 10;
+      HDI[i] = 0.8 + random.nextGaussian() * (i + 1) / 10;
+      revenueBalance[i] = (int) (80 + random.nextGaussian() * (i + 1) *5);
       for( EnumFood food :EnumFood.values())
       {
         setFoodIncome(food,0.8 + random.nextGaussian() * i / 10, i );
@@ -113,13 +116,22 @@ public enum State
    * HDI of California, we just need to call State.CALIFORNIA.getHDI().
    *
    * However, the data are not complete now. The getters we could use are
-   * limited to getHDI, getPopulation, getRevenueBalance, getUndernourishedPopulation
+     * limited to getHDI, getPopulation, getRevenueBalance, getUndernourishedPopulation
    * getFoodWeight, getFoodExport, getFoodImport.
    *
    * When the data class of the server holds more data, we will be able to update and
    * get access to more data.
    *
    * ****************************************************/
+  public double getRevenueBalance()
+  {
+    return revenueBalance[turnNumber];
+  }
+
+  public double getRevenueBalance(int turnNumber)
+  {
+    return revenueBalance[turnNumber];
+  }
   public double getHDI(int turnNumber)
   {
     return HDI[turnNumber];
