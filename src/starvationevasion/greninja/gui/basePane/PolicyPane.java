@@ -175,7 +175,7 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     divider.setMinHeight(1);
     divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
 
-    TestWithdrawAndDiscardPile drawDiscardPile = new TestWithdrawAndDiscardPile(base);
+    WithdrawAndDiscardPile drawDiscardPile = new WithdrawAndDiscardPile(base);
 
     drawDiscardPile.setSpacing(5);
     drawDiscardPile.setPadding(new Insets(10, 10, 10, 10));
