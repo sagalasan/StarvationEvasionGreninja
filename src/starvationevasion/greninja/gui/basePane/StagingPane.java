@@ -27,7 +27,7 @@ import java.util.TimerTask;
 /**
  * Select region, wait for other players to join.
  * TODO Just testing right now, finalize.
- * @author Justin Thomas(jthomas105@unm.edu)
+ * @author Justin Thomas
  */
 public class StagingPane extends StackPane implements MapHolder, GuiTimerSubscriber
 {
