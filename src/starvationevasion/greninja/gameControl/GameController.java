@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Main communication hub of client application.  This will be the go-between
  * class for the server message handlers, world state model, game state classes
- * and gui.  Incoming messages from the server are sent to MessageCenter
+ * and gui. Incoming messages from the server are sent to MessageCenter
  * which calls back to control to perform the appropriate action.
  */
 public class GameController
@@ -47,6 +47,8 @@ public class GameController
   private CardDeck tempDeck; //For testing mode
 
   private boolean singlePlayerMode;
+
+  private boolean DEBUG = false;
 
   /**
    * Constructor for ai game.  Sets up an AI view and ai player.
@@ -224,8 +226,8 @@ public class GameController
   }
 
   /**
-   * Is the game in testing mode?
-   * @return        return true if in testing mode.
+   * Sees if the game is in testing mode.
+   * @return return true if in testing mode.
    */
   public boolean isTesting()
   {
@@ -233,8 +235,9 @@ public class GameController
   }
 
   /**
-   * Begin single player game.
-   * //Instantiate local server.
+   * Begins a single player game and instantiates a local server.
+   * @param name  the player's login name.
+   * @param pass  the player's password.
    */
   public void startSinglePlayerGame(String name, String pass)
   {
@@ -251,7 +254,7 @@ public class GameController
   }
 
   /**
-   * Setup for multiplayer game.
+   * Setup for a multiplayer game.
    */
   public void multiPlayerSelected()
   {
@@ -274,7 +277,7 @@ public class GameController
 
   /**
    * Perform region select actions.  Sets player region and informs server.
-   * @param region        region player chose.
+   * @param region region player chose.
    */
   public void regionSelected(EnumRegion region)
   {
@@ -285,8 +288,8 @@ public class GameController
   }
 
   /**
-   * If message recieved is a game state message, message center calls this.
-   * @param state
+   * If message received is a game state message, message center calls this.
+   * @param state the current state of the game.
    */
   public void updateWorldStateInfo(GameState state)
   {
@@ -353,6 +356,10 @@ public class GameController
     Platform.runLater(() -> beginGame());
   }
 
+  /**
+   * Starts the countdown for until the game begins.
+   * @param message the message to be shown in the countdown.
+   */
   public void startBeginGameCountdown(ReadyToBegin message)
   {
     if(isHuman) guiView.startBeginGameCountdown(message);
@@ -586,6 +593,13 @@ public class GameController
  // {
   //  player.removeCard(index);
  // }
+
+  /**
+   * Sets the card from the player's hand to be drafted.
+   * @param cardToDraft the card to be drafted.
+   * @param index       the index of the card in the player's hand.
+   * @return true if drafting is successful, else false.
+   */
   public boolean setDraftCard(PolicyCard cardToDraft, int index)
   {
     if (draftedCards.size()<2)
@@ -598,6 +612,11 @@ public class GameController
     return false;
   }
 
+  /**
+   * Player can undo one or both cards that they drafted and return them back to their hand.
+   * @param cardToUndo  the card to put back in the player's hand.
+   * @return true if successful else false.
+   */
   public boolean undoDraftCard(PolicyCard cardToUndo)
   {
     if (draftedCards.size()==0) return false;
@@ -614,11 +633,18 @@ public class GameController
     return false;
   }
 
+  /**
+   * Get the player's drafted cards.
+   * @return an ArrayList of the cards drafted
+   */
   public ArrayList<PolicyCard> getDraftedCards()
   {
     return draftedCards;
-
   }
+
+  /**
+   *
+   */
   public void setDraftedCards()
   {
     draftedCards = new ArrayList<>();
@@ -741,6 +767,10 @@ public class GameController
   ===========voting phase end===================================================
    */
 
+  /**
+   * Prints the type of login response the player received.
+   * @param print the login response message.
+   */
   public void print(String print)
   {
     System.out.println(player.getPlayerName() + ": " + print);
