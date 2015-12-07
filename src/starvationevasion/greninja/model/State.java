@@ -66,7 +66,9 @@ public enum State
   }
 
   private void update(RegionData regionData)
-  { //turnNumber++;
+  {
+    //TODO was updating for every player, needs to go once per turn
+    //turnNumber++;
     if( !name().equals(regionData.region.name())) throw new RuntimeException("Update data of this region from another region.");
     setPopulation(regionData.population);
     population[turnNumber] = regionData.population;
