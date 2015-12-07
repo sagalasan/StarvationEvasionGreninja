@@ -494,8 +494,11 @@ public class GameController
     //  fillHand();
       guiView.setPlayerHand((ArrayList<PolicyCard>)player.getPlayerHand());
     }
-    view.swapToPolicyPane();
-    draftingPhase = new DraftingPhase(this, player);
+    Platform.runLater(() ->
+    {
+      view.swapToPolicyPane();
+      draftingPhase = new DraftingPhase(this, player);
+    });
   }
 
   /**
