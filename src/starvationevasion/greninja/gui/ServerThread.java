@@ -27,6 +27,7 @@ public class ServerThread extends Thread
     commands.add("java");
     commands.add("starvationevasion/server/Server");
     commands.add(loginPath);
+    commands.add("java ava starvationevasion.greninja.gui.componentPane.GuiBase ai");
     //commands.add("data/config/");
     ProcessBuilder processBuilder = new ProcessBuilder(commands);
     //processBuilder.directory(new File("/home/sagalasan/Documents/ideaProjects/StarvationEvasionGreninja/out/production/StarvationEvasionGreninja"));

@@ -470,6 +470,7 @@ public class GuiBase extends Application implements ControlListener
   {
     if(args.length != 0 && args[0].equals("ai"))
     {
+      System.out.println(args[0]);
       System.out.println("Javafx intercepted.");
     }
     else
