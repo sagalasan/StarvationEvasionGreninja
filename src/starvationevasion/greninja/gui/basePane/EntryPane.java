@@ -19,24 +19,30 @@ public class EntryPane extends StackPane
   private Button quit;
   private Button serverSelected;
   private GuiBase base;
-  private BorderPane gameSelectionPane;
   private VBox basePane;
 
   private boolean helloMessageReceived = false;
   private boolean DEBUG = true;
 
-
+  /**
+   *
+   * @param gui
+   */
   public EntryPane(GuiBase gui)
   {
     base = gui;
     setAlignment(this, Pos.CENTER);
-    gameSelectionPane = new BorderPane();
     basePane = new VBox();
 
     testing = new Button("Testing");
     solo = new Button("Single Player");
     multiplayer = new Button("Multiplayer");
     quit = new Button("Quit");
+
+    testing.setMaxWidth(Double.MAX_VALUE);
+    solo.setMaxWidth(Double.MAX_VALUE);
+    multiplayer.setMaxWidth(Double.MAX_VALUE);
+    quit.setMaxWidth(Double.MAX_VALUE);
 
     testing.setOnAction(this::buttonPressed);
     solo.setOnAction(this::buttonPressed);
@@ -56,11 +62,13 @@ public class EntryPane extends StackPane
 
     VBox buttonBox = new VBox(5);
     buttonBox.setAlignment(Pos.CENTER);
+    buttonBox.setMaxWidth(200);
     buttonBox.getChildren().addAll(testing, solo, multiplayer, quit);
 
     basePane.setSpacing(10);
     basePane.setAlignment(Pos.CENTER);
     basePane.getChildren().addAll(gameInfoBox, buttonBox);
+    getChildren().add(basePane);
 
 //    basePane.setSpacing(1.5);
 //    basePane.getChildren().add(new Label("Entry Pane, choose a game type."));
@@ -72,7 +80,6 @@ public class EntryPane extends StackPane
 //    gameSelectionPane.setTop(titlePane);
 //    gameSelectionPane.setCenter(buttonBox);
 //    getChildren().add(gameSelectionPane);
-    getChildren().add(basePane);
   }
 
   public void buttonPressed(ActionEvent e)

@@ -35,7 +35,6 @@ import java.util.List;
  */
 public class GuiBase extends Application implements ControlListener
 {
-  // ERIN'S ADDED VARIABLES (to be deleted later)
   private TestPolicyPane testPolicyPane;// = new TestPolicyPane(this);
   private TestVotingPane testVotingPane;// = new TestVotingPane(this);
 
@@ -72,7 +71,7 @@ public class GuiBase extends Application implements ControlListener
   }
 **/
   /**
-   * Starts a game with no server or ais
+   * Testing mode: starts a game with no server or AIs.
    */
   public void beginTestingGame()
   {
@@ -100,34 +99,47 @@ public class GuiBase extends Application implements ControlListener
     control.startMultiPlayerGame("ServerName");
   }*/
 
+  /**
+   * Starts a multiplayer game.
+   */
   public void multiPlayerSelected()
   {
     control.multiPlayerSelected();
   }
 
   /**
-   * Exit game function
+   * Used for exiting the game.
    */
   public void exitGame()
   {
     System.out.println("Disconnect from server and Quit.");
+
   }
 
   /**
    * Tells control that player has entered login info.
+   * @param name      the username that the player will use.
+   * @param password  the password that the player will use.
+   * @param salt      random data used to add extra security to password.
    */
   public void loginInfoSent(String name, String password, String salt)
   {
     control.sendLoginInfo(name, password, salt);//
   }
 
+  /**
+   * Attempts to connect to a server.
+   * @param hostname  the hostname of the server.
+   * @param port      the port number to communicate with.
+   */
   public void attemptToConnectServer(String hostname, int port)
   {
     control.attemptConnection(hostname, port);
   }
 
   /**
-   * Region selected method, takes a region arg.
+   * Informs the controller of which regions has been selected.
+   * @param region  the selected region.
    */
   public void regionSelected(EnumRegion region)
   {
@@ -135,17 +147,27 @@ public class GuiBase extends Application implements ControlListener
     control.regionSelected(region);
   }
 
+  /**
+   * Sets the main scene to the entry pane again.
+   */
   public void swapToEntryPane()
   {
     System.out.println("Swapping to EntryPane");
     baseScene.setRoot(entryPane);
   }
 
+  /**
+   *
+   */
   public void swapToServerConnectionPane()
   {
     swapToServerConnectionPane(false);
   }
 
+  /**
+   * Attempts to connect to a single player server.
+   * @param singlePlayerMode
+   */
   public void swapToServerConnectionPane(boolean singlePlayerMode)
   {
     System.out.println("Swapping to ServerConnectionPane");
@@ -154,6 +176,10 @@ public class GuiBase extends Application implements ControlListener
     baseScene.setRoot(serverConnectionPane);
   }
 
+  /**
+   * Brings the player to a login screen in a multiplayer game so that they may enter their credentials.
+   * @param salt  extra random data to add extra security to the player's password.
+   */
   public void swapToLoginPane(String salt)
   {
     System.out.println("Swapping to LoginPane");
@@ -162,6 +188,11 @@ public class GuiBase extends Application implements ControlListener
     loginPane.setSalt(salt);
   }
 
+  /**
+   * Brings the player to a login screen in a single player game so that they may enter their credentials.
+   * @param salt    extra random data to add extra security to the player's password.
+   * @param single  boolean value that tells the controller to connect to a single player server if true.
+   */
   public void swapToLoginPane(String salt, boolean single)
   {
     System.out.println("Swapping to LoginPane");
@@ -171,16 +202,26 @@ public class GuiBase extends Application implements ControlListener
     loginPane.setSalt(salt);
   }
 
+  /**
+   * Sends the login pane a message that a player's login credentials failed.
+   * @param response
+   */
   public void sendLoginFailed(LoginResponse response)
   {
     loginPane.loginFailed(response);
   }
 
+  /**
+   *
+   */
   public void beginGameMessageReceived()
   {
     stagingPane.beginGameMessageReceived();
   }
 
+  /**
+   *
+   */
   public void serverConnectionPaneCancelled()
   {
     control.serverConnectionPaneCancelled();
@@ -240,16 +281,28 @@ public class GuiBase extends Application implements ControlListener
 
   }
 
+  /**
+   *
+   * @param message
+   */
   public void startBeginGameCountdown(ReadyToBegin message)
   {
     stagingPane.startCountdown(message);
   }
 
+  /**
+   *
+   * @param region
+   */
   public void lockStagingPane(EnumRegion region)
   {
     stagingPane.lock(region);
   }
 
+  /**
+   *
+   * @param policyCard
+   */
   public void displayProposeDialog(PolicyCard policyCard)
   {
     ProposalDialog proposalDialog = new ProposalDialog(this, policyCard);
@@ -258,17 +311,27 @@ public class GuiBase extends Application implements ControlListener
     proposalDialog.toFront();
   }
 
+  /**
+   *
+   * @param dialog
+   */
   public void removeProposalDialog(ProposalDialog dialog)
   {
     testPolicyPane.getChildren().remove(dialog);
     testPolicyPane.removeDarkenOverlay();
   }
 
+  /**
+   *
+   */
   public void endPolicyDraftingPhase()
   {
     control.endPolicyDraftingPhase();
   }
 
+  /**
+   *
+   */
   public void endPolicyVotingPhase()
   {
     control.endPolicyVotingPhase();
@@ -292,6 +355,7 @@ public class GuiBase extends Application implements ControlListener
   {
     stagingPane.setAvailableRegions(availableRegions, player);
   }
+
   /**
    * Get timer pane of phase
    * @param phase       phase pane to get timer from.
