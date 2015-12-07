@@ -20,6 +20,7 @@ import starvationevasion.greninja.gui.basePane.*;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
+import starvationevasion.server.Server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -476,8 +477,17 @@ public class GuiBase extends Application implements ControlListener
    */
   public void startAIThreads()
   {
-    serverThread = new ServerThread("config/easy_password_file.tsv");
-    serverThread.start();
+    /* TODO something along this line?  See Server main method comments (Line 59)
+    String[] aiCommand = new String[4];
+    aiCommand[0] = "java";
+    aiCommand[1] = "starvationevasion/server/Server";
+    aiCommand[2] = "config/easy_password_file.tsv";
+    aiCommand[3] = "java ava starvationevasion.greninja.gui.componentPane.GuiBase ai";
+    new Server("config/easy_password_file.tsv", aiCommand);
+    */
+    //serverThread = new ServerThread("config/easy_password_file.tsv");
+    //serverThread.start();
+
     aiThreads = new ArrayList<>();
     aiThreads.add(new AIThread("user1", "password"));
     aiThreads.add(new AIThread("user2", "password"));

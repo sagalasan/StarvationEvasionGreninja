@@ -35,12 +35,12 @@ public class VotingCards extends VBox
   private final String RED_SHADOW = "-fx-effect: innershadow( gaussian ,  #dc143c , 2,1,0,0 );";
   private final String GREY_SHADOW = "-fx-effect: innershadow( gaussian , #778899, 2,1,0,0 );";
 
-  public VotingCards(Image image, boolean isVotingCard, PolicyCard policyCard, GuiBase base)
+  public VotingCards(boolean isVotingCard, PolicyCard policyCard, GuiBase base)
   {
     //card will have a background dependent if voting card
     setPrefHeight(100);
     setPrefWidth(150);
-    card = new CardImage(image, policyCard, base);
+    card = new CardImage(policyCard, base);
     setAlignment(Pos.CENTER);
     if (isVotingCard)
     {

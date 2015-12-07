@@ -13,9 +13,9 @@ import starvationevasion.greninja.gui.GuiBase;
  */
 public class DraftCard extends CardImage
 {
-  public DraftCard(Image image, PolicyCard policyCard, GuiBase base)
+  public DraftCard(PolicyCard policyCard, GuiBase base)
   {
-    super(image, policyCard, base);
+    super(policyCard, base);
     Button undo = new Button("Undo");
     getCard().getChildren().add(undo);
 

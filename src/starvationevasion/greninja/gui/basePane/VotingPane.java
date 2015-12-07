@@ -184,8 +184,7 @@ public class VotingPane extends GamePhasePane implements MapHolder
     //place holder just to display some voting cards
     for (int i = 0; i < 7; i++)
     {
-      draftedCards.getChildren().add(new VotingCards(new Image("file:assets/CardImages/magikarp.png"),
-          true, policyCard, base));
+      draftedCards.getChildren().add(new VotingCards(true, policyCard, base));
 
     }
 

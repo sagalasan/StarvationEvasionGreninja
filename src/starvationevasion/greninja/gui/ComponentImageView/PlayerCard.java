@@ -24,9 +24,9 @@ public class PlayerCard extends CardImage
   private GuiBase base;
   private Button proposeButton;
 
-  public PlayerCard(Image image, PolicyCard policyCard, GuiBase base, int cardIndex)
+  public PlayerCard(PolicyCard policyCard, GuiBase base, int cardIndex)
   {
-    super(image, policyCard, base);
+    super(policyCard, base);
     this.base = base;
 
     Button draftButton = new Button("Draft");

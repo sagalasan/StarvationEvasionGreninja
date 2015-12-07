@@ -39,23 +39,20 @@ public class DiscardPile extends HBox
       }
     });
 
-
-    Image image = new Image("file:assets/CardImages/magikarp.png");
-
     //this should be gotten from the game controller
     //just a placeholder
     PolicyCard policyCard = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Clean_River_Incentive);
     PolicyCard policyCard2 = PolicyCard.create(EnumRegion.CALIFORNIA, EnumPolicy.Fertilizer_Subsidy);
     CardImage[] pile = new CardImage[2];
-    pile[0] = new CardImage(image, policyCard, base);
-    pile[1] = new CardImage(image, policyCard2, base);
+    pile[0] = new CardImage(policyCard, base);
+    pile[1] = new CardImage(policyCard2, base);
 
     //makes the discard pile
     VBox discardBox = new VBox(10);
     discardBox.setAlignment(Pos.TOP_CENTER);
     Label discardLabel = new Label("Discard: "+pile.length);
 
-    CardImage discardPile = new CardImage(image, policyCard, base );
+    CardImage discardPile = new CardImage(policyCard, base );
 
     discardBox.getChildren().addAll(discardLabel, discardPile.getScrollCard());
 
