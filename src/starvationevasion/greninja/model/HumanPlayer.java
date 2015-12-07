@@ -2,17 +2,20 @@ package starvationevasion.greninja.model;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.sim.CardDeck;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that represents a generic player (human player and AI player).
+ * Class that represents a human player.
+ * @author Erin Sosebee
  */
 public class HumanPlayer implements PlayerInterface
 {
   EnumRegion region;
   List<PolicyCard> cards , discardPile, voteRequiredPolicies;
+  CardDeck playerDeck;
   private String playerName;
 
   int votingPolicyCount = 0;
@@ -46,10 +49,6 @@ public class HumanPlayer implements PlayerInterface
     this.playerName = name;
   }
 
-  /**
-   * Get the string name of the player.
-   * @return        String name of player.
-   */
   @Override
   public String getPlayerName()
   {
@@ -60,6 +59,18 @@ public class HumanPlayer implements PlayerInterface
   public EnumRegion getPlayerRegion()
   {
     return region;
+  }
+
+  @Override
+  public void setPlayerDeck(CardDeck deck)
+  {
+    this.playerDeck = deck;
+  }
+
+  @Override
+  public CardDeck getPlayerDeck()
+  {
+    return playerDeck;
   }
 
   @Override

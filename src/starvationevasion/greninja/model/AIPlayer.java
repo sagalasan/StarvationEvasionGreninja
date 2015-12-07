@@ -2,16 +2,19 @@ package starvationevasion.greninja.model;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.sim.CardDeck;
 
 import java.util.List;
 
 /**
- *
+ * Class that represents an AI player.
+ * @author Erin Sosebee
  */
 public class AIPlayer implements PlayerInterface
 {
   private String playerName;
   EnumRegion region;
+  CardDeck playerDeck;
   List<PolicyCard> cards, discardPile, voteRequiredPolicies;
 
   /**
@@ -44,6 +47,18 @@ public class AIPlayer implements PlayerInterface
   public EnumRegion getPlayerRegion()
   {
     return region;
+  }
+
+  @Override
+  public void setPlayerDeck(CardDeck deck)
+  {
+    this.playerDeck = deck;
+  }
+
+  @Override
+  public CardDeck getPlayerDeck()
+  {
+    return playerDeck;
   }
 
   @Override

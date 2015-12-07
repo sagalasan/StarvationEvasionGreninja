@@ -2,35 +2,52 @@ package starvationevasion.greninja.model;
 
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
+import starvationevasion.sim.CardDeck;
 
 import java.util.List;
 
 /**
- * Used to describe a player (either human or AI).
+ * Interface used to describe a generic player (either human or AI).
+ * @author Erin Sosebee
  */
 public interface PlayerInterface
 {
 
   /**
    * Set the player's name from login
-   * @param name
+   * @param name the name to be used for the player.
    */
   void setPlayerName(String name);
 
+  /**
+   * Gets the player's login name.
+   * @return the player's name.
+   */
   String getPlayerName();
 
   /**
    * Set the player's region.
-   * @param region
+   * @param region the region to be set as the player's region.
    */
   void setPlayerRegion(EnumRegion region);
 
   /**
    * Get the region that the player was assigned.
-   * @return
+   * @return the player's region.
    */
   EnumRegion getPlayerRegion();
 
+  /**
+   * Sets the player's deck of cards to draw from.
+   * @param deck the cards to be used as the player's deck.
+   */
+  void setPlayerDeck(CardDeck deck);
+
+  /**
+   * Gets the player's current deck of cards.
+   * @return the player's deck of cards.
+   */
+  CardDeck getPlayerDeck();
 
   /**
    * Set the current player's hand

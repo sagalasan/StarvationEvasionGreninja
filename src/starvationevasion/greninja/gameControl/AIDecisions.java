@@ -24,25 +24,7 @@ public class AIDecisions
   private LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
   private Random rand = new Random();
 
-  private boolean communication = false;
-  private PolicyCard suggestedCard;
-
   private boolean DEBUG = true;
-
-  // Default constructor is test constructor. To be removed possibly.
-  public AIDecisions()
-  {
-    setCurrentInfo();
-
-    // Higher rank = higher chance of selection
-    rankedCards.put(10.0, 3);
-    rankedCards.put(20.0, 1);
-    rankedCards.put(30.0, 2);
-    rankedCards.put(40.0, 5);
-    rankedCards.put(50.0, 4);
-    chooseCard(rankedCards);
-  }
-
 
   /**
    * Constructor to create an AIDecisions object.
@@ -56,6 +38,9 @@ public class AIDecisions
     setCurrentInfo();
   }
 
+  /*
+   * Sets the current states
+   */
   private void setCurrentInfo()
   {
     playerRegion = player.getPlayerRegion();
@@ -298,10 +283,5 @@ public class AIDecisions
     if (cardType.equals("mandatory")) chosenIndex = chooseCard(rankedCards);
     else if (cardType.equals("votes")) chosenIndex = chooseCard(rankedVoteCards);
     return chosenIndex;
-  }
-
-  public static void main(String[] args)
-  {
-    new AIDecisions();
   }
 }

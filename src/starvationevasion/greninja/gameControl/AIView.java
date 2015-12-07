@@ -10,6 +10,7 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.AIPlayer;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
+import starvationevasion.sim.CardDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,11 @@ public class AIView implements ControlListener
   private GameController control;
   private AvailableRegions availableRegions;
   private AIDecisions decisions;
-  private PlayerInterface player;
   private State currentState;
+
+  private PlayerInterface player;
   EnumRegion pRegion;
+  private CardDeck playerDeck;
   private boolean hasDrafted;
 
   private boolean DEBUG = false;
@@ -41,6 +44,7 @@ public class AIView implements ControlListener
   {
     this.control = control;
     this.player = player;
+//    this.playerDeck = player.getPlayerDeck();
     hasDrafted = false;
   }
 
