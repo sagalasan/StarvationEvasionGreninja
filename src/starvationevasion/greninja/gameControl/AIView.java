@@ -15,7 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Handles AI coms with game controller.  This is parallel to GuiBase, and it is kind of a "GUI" for robots.
+ * The AIView class handles AI communications with the game controller. This is parallel to GuiBase, and it is a
+ * "GUI" for the robot AI players.
+ * @author Justin Thomas
+ * @author Erin Sosebee
  */
 public class AIView implements ControlListener
 {
@@ -29,6 +32,11 @@ public class AIView implements ControlListener
 
   private boolean DEBUG = false;
 
+  /**
+   *
+   * @param control
+   * @param player
+   */
   public AIView(GameController control, PlayerInterface player)
   {
     this.control = control;
@@ -65,7 +73,6 @@ public class AIView implements ControlListener
   {
     this.currentState = state;
      this.pRegion = pRegion;
-    //Do Stuff
   }
 
   /**
@@ -123,7 +130,7 @@ public class AIView implements ControlListener
   public void swapToVotingPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm voting on policies!");
-    int voteCardIdx = 0;
+
     List<PolicyCard> voteCards = new ArrayList<PolicyCard>();
     // TODO: Get cards from voting pane
     int voteCardIndices[] = decisions.voteCard(voteCards);

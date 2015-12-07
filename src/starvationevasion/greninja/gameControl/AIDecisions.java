@@ -17,10 +17,8 @@ public class AIDecisions
   private AIPlayer player;
   private int turnNumber;
 
-  private EnumRegion playerRegion; // TODO: Should this be a State or an EnumRegion
+  private EnumRegion playerRegion;
   private State california, heartland, northernPlains, southeast, northernCrescent, southernPlains, mountain;
-  private double regionPop, worldPop, localHDI, worldHDI;
-  private double localUndernourishedPop, globalUndernourishedPop;
 
   private double[] probabilities;
   private LinkedHashMap<Double, Integer> rankedCards = new LinkedHashMap<Double, Integer>();
@@ -60,7 +58,7 @@ public class AIDecisions
 
   private void setCurrentInfo()
   {
-//    playerRegion = player.getPlayerRegion();
+    playerRegion = player.getPlayerRegion();
     california = State.CALIFORNIA;
     heartland = State.HEARTLAND;
     northernPlains = State.NORTHERN_PLAINS;
