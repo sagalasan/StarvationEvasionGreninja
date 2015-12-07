@@ -336,14 +336,15 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     if(state == null) throw new NullPointerException("Variable state should not be null!!");
     //creates a tabpane and tabs that display the graphs
     TabPane stats = new TabPane();
-    Tab farmProduct = new Tab("Production Charts");
+    Tab farmProduct = new Tab("Production");
     Tab population = new Tab("Population");
     Tab HDI = new Tab("HDI");
+    Tab revenueBalance = new Tab("Balance");
 
     farmProduct.setClosable(false);
     population.setClosable(false);
     HDI.setClosable(false);
-
+    revenueBalance.setClosable(false);
     // Label regionStatsLabel = new Label(state.toString() + " Statistics");
 
     VBox pop = new VBox();
@@ -355,16 +356,17 @@ public class TestVotingPane extends GamePhasePane implements MapHolder
     VBox farmPro = new VBox();
     farmPro.getChildren().addAll(new FarmProductChartPane(state));
 
+    VBox revenueBalanceBox = new VBox();
+    revenueBalanceBox.getChildren().add(new RegionalStatistics(state, "RevenueBalance"));
+
     farmProduct.setContent(farmPro);
     population.setContent(pop);
     HDI.setContent(hdiVbox);
+    revenueBalance.setContent(revenueBalanceBox);
 
-    stats.getTabs().addAll(population, farmProduct,HDI);
+
+    stats.getTabs().addAll(population, farmProduct,HDI, revenueBalance);
 
     statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
-//    statsBox.getChildren().add(new Label(state.toString() + " Statistics"));
-//    statsBox.getChildren().add(new RegionalStatistics(state, "Population"));
-//    statsBox.getChildren().add(new RegionalStatistics(state, "HDI"));
-//    statsBox.getChildren().add(new FarmProductChartPane(state));
   }
 }

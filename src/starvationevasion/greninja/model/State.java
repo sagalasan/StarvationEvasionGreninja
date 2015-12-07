@@ -97,7 +97,8 @@ public enum State
     for(int i = 0; i < 5; i++)
     {
       population[i] = 10 + i * random.nextGaussian();
-      HDI[i] = 0.8 + random.nextGaussian() * i / 10;
+      HDI[i] = 0.8 + random.nextGaussian() * (i + 1) / 10;
+      revenueBalance[i] = (int) (80 + random.nextGaussian() * (i + 1) *5);
       for( EnumFood food :EnumFood.values())
       {
         setFoodIncome(food,0.8 + random.nextGaussian() * i / 10, i );
@@ -111,13 +112,22 @@ public enum State
    * HDI of California, we just need to call State.CALIFORNIA.getHDI().
    *
    * However, the data are not complete now. The getters we could use are
-   * limited to getHDI, getPopulation, getRevenueBalance, getUndernourishedPopulation
+     * limited to getHDI, getPopulation, getRevenueBalance, getUndernourishedPopulation
    * getFoodWeight, getFoodExport, getFoodImport.
    *
    * When the data class of the server holds more data, we will be able to update and
    * get access to more data.
    *
    * ****************************************************/
+  public double getRevenueBalance()
+  {
+    return revenueBalance[turnNumber];
+  }
+
+  public double getRevenueBalance(int turnNumber)
+  {
+    return revenueBalance[turnNumber];
+  }
   public double getHDI(int turnNumber)
   {
     return HDI[turnNumber];
