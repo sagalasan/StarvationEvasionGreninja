@@ -284,6 +284,7 @@ public class GameController
     worldState = state.worldData;
     State.updateAllData(worldState);
     updatePlayerHand(state.hand);
+    view.gameStateUpdate();
   }
 
   /**
