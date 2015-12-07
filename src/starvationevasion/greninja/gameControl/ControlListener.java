@@ -21,4 +21,5 @@ public interface ControlListener
   public void swapToVotingPane();
   public void sendChatMessage(String message, EnumRegion[] destination);
   public void sendChatMessage(EnumPolicy card, EnumRegion[] destination);
+  public void gameStateUpdate();
 }

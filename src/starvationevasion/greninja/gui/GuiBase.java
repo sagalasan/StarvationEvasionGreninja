@@ -215,6 +215,12 @@ public class GuiBase extends Application implements ControlListener
     baseScene.setRoot(testPolicyPane);
   }
 
+  @Override
+  public void gameStateUpdate()
+  {
+    //Update some stuff to display?  Stuff that needs to be picked up on the thread?
+  }
+
   /**
    * Switch to staging pane.  Player chooses region and can see other players
    * choosing regions.

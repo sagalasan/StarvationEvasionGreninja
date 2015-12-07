@@ -26,6 +26,7 @@ public class AIView implements ControlListener
   private PlayerInterface player;
   private State currentState;
   EnumRegion pRegion;
+  private boolean hasDrafted;
 
   private boolean DEBUG = true;
 
@@ -33,6 +34,7 @@ public class AIView implements ControlListener
   {
     this.control = control;
     this.player = player;
+    hasDrafted = false;
   }
 
   /**
@@ -91,6 +93,7 @@ public class AIView implements ControlListener
   public void swapToPolicyPane()
   {
     if (DEBUG) System.out.println("I'm a robot and I'm drafting policies!");//
+    /*
     if(player.getPlayerHand() != null)
     {
       for (int i = 0; i < 2; i++)
@@ -98,6 +101,25 @@ public class AIView implements ControlListener
         int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
         player.draft(draftCardIndex);
       }
+    }*/
+    hasDrafted = false;
+  }
+
+  /**
+   * Inform view that there has been a game state update.  If it is drafting phase
+   * and cards have not been drafted, do the drafting.
+   */
+  @Override
+  public void gameStateUpdate()
+  {
+    if(!hasDrafted)
+    {
+      for (int i = 0; i < 2; i++)
+      {
+        int draftCardIndex = decisions.analyzeCards(player.getPlayerHand());
+        player.draft(draftCardIndex);
+      }
+      hasDrafted = true;
     }
   }
 
