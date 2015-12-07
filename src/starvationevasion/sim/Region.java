@@ -4,6 +4,7 @@ import starvationevasion.common.Constant;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.MapPoint;
+import starvationevasion.common.Util;
 import sun.plugin.dom.exception.InvalidStateException;
 
 import java.awt.geom.Area;
@@ -28,6 +29,8 @@ public class Region extends AbstractTerritory
 
   private int revenue;
 
+  public int ethanolProducerTaxCredit = 0;
+
   // all data in metric tons
   private long[] initialProduction1981 = new long[EnumFood.SIZE];
   private long[] initialImports1981 = new long[EnumFood.SIZE];
@@ -47,6 +50,7 @@ public class Region extends AbstractTerritory
     this.region = region;
     if (region.isUS())
     { revenue = PLAYER_START_REVENUE;
+      ethanolProducerTaxCredit = Util.rand.nextInt(15) + Util.rand.nextInt(15);
     }
   }
 
@@ -483,7 +487,7 @@ public class Region extends AbstractTerritory
   {
     for (Territory t : getTerritories())
     {
-      double territoryFarmLand = (t.totalFarmLand / 100) * t.getLandTotal();
+      double territoryFarmLand = (t.farmLand1981 / 100.0) * t.landTotal;
       double helperSum = cropLandAreaHelper(t, cropData);
       double landCropRatio = territoryFarmLand / helperSum;
 

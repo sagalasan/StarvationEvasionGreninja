@@ -21,16 +21,19 @@ import javax.smartcardio.Card;
 public class DiscardDisplay extends HBox
 {
 
-  //going to get all discarded cards
-  //cycle through
-  //private discarded cards
-  //private ImageView[] discardedCards;
+
   private int currentIndex = 0;
   private CardImage card;
+
+  /**
+   *
+   * @param discardedCards the cards in the discard pile
+   *
+   */
   public DiscardDisplay(final CardImage[] discardedCards)
   {
 
-    card = discardedCards[0];
+    card = discardedCards[discardedCards.length-1];
     setSpacing(30);
 
     card.setScaleY(1.5);
@@ -61,7 +64,7 @@ public class DiscardDisplay extends HBox
           card = discardedCards[currentIndex%discardedCards.length];
           card.setScaleY(1.5);
           card.setScaleX(1.5);
-          getChildren().set(1, card);
+          getChildren().set(1, card); //1 is the index of the card in the children
         }
 
         //System.out.println("left arrow clicked");

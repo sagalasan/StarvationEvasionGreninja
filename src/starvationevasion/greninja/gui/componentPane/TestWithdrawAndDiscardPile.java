@@ -17,6 +17,7 @@ import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.greninja.gui.ComponentImageView.CardImage;
+import starvationevasion.greninja.gui.ComponentImageView.Deck;
 import starvationevasion.greninja.gui.GuiBase;
 
 public class TestWithdrawAndDiscardPile extends HBox
@@ -111,19 +112,22 @@ public class TestWithdrawAndDiscardPile extends HBox
     discard.setRoot(dis);
     newStage.setScene(discard);
 
+
+    Image image1 = new Image("file:assets/CardImages/magikarp1.png");
     //This part makes the deck
     VBox deckBox = new VBox(10);
     deckBox.setAlignment(Pos.TOP_CENTER);
     Label deckLabel = new Label("Deck");
-    CardImage deck = new CardImage(image, policyCard, base);
-    deckBox.getChildren().addAll(deckLabel, deck.getScrollCard());
+    Deck deck = new Deck(image1, null); //instead of null, it will have the deck of cards
+    //CardImage deck = new CardImage(image1, policyCard, base);
+    deckBox.getChildren().addAll(deckLabel, deck);
 
 //    getChildren().addAll(discardPile, deck);
-    deckBox.setScaleY(.7);
-    deckBox.setScaleX(.7);
+    //deckBox.setScaleY(.7);
+    //deckBox.setScaleX(.7);
 
-    discardBox.setScaleX(.7);
-    discardBox.setScaleY(.7);
+    discardBox.setScaleX(.9);
+    discardBox.setScaleY(.9);
     getChildren().addAll(discardBox, deckBox);
   }
 }
