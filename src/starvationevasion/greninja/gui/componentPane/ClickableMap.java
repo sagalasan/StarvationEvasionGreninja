@@ -122,7 +122,7 @@ public class ClickableMap extends StackPane implements MapImages
         getChildren().addAll(state.getDisplayInfo());
 
         //the 2 will have to be a value gotten from the stateimage
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < state.getNumberOfDraftStatusCards(); i++)
         {
           getChildren().add(state.getDraftStatus()[i]);
         }

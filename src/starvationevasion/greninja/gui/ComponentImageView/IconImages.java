@@ -3,7 +3,8 @@ package starvationevasion.greninja.gui.ComponentImageView;
 import javafx.scene.image.Image;
 
 /**
- * Created by Jalen on 11/29/2015.
+ * Interface that holds all the product icon images
+ *
  */
 public interface IconImages
 {
