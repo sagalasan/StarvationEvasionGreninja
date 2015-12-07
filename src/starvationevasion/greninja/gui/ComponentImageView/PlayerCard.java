@@ -15,11 +15,12 @@ import starvationevasion.greninja.gui.GuiBase;
 import javax.smartcardio.Card;
 
 /**
- * Created by Jalen on 12/3/2015.
+ * These are the cards seen in the player hand.
+ * Each one has a draft button and also displays the sliders for when
+ * the user needs to specify a unit to draft.
  */
 public class PlayerCard extends CardImage
 {
-  //private CardImage card;
   private GuiBase base;
   private Button proposeButton;
 
@@ -27,8 +28,6 @@ public class PlayerCard extends CardImage
   {
     super(image, policyCard, base);
     this.base = base;
-    //this.card = card;
-    //get card and add a button to say draft at the bottom
 
     Button draftButton = new Button("Draft");
 
@@ -36,7 +35,6 @@ public class PlayerCard extends CardImage
     proposeButton.setAlignment(Pos.BOTTOM_LEFT);
     proposeButton.setScaleX(.5);
     proposeButton.setScaleY(.5);
-    //VBox cardInfo = new VBox();
     proposeButton.setOnMouseClicked(this::proposeButtonClicked);
 
     /**
@@ -44,13 +42,10 @@ public class PlayerCard extends CardImage
      */
     for (PolicyCard.EnumVariable val : PolicyCard.EnumVariable.values())
     {
-      //System.out.println(val);
       for (PolicyCard.EnumVariableUnit unit : PolicyCard.EnumVariableUnit.values())
       {
-
         if(policyCard.getRequiredVariables(val) != null && policyCard.getRequiredVariables(val).equals(unit))
         {
-          //make a slider 1- 100
           Slider slider = new Slider(0, 100, 10);
           slider.setShowTickMarks(true);
           slider.setShowTickLabels(true);
@@ -66,7 +61,6 @@ public class PlayerCard extends CardImage
             Text percentLabel = new Text("Percent");
             percentLabel.setFill(Color.WHITE);
             getChildren().add(percentLabel);
-
           }
           else if (unit.equals(PolicyCard.EnumVariableUnit.UNIT))
           {
@@ -75,10 +69,8 @@ public class PlayerCard extends CardImage
             getChildren().add(unitLabel);
           }
           getChildren().addAll(slider);
-
         }
       }
-
     }
     draftButton.resize(20, 20);
     draftButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -89,10 +81,6 @@ public class PlayerCard extends CardImage
        {
          base.updateDraftedCardsAndPlayerHand();
        }
-
-        //add a drafted card to controller
-        //make it a drafted card, remove button
-
       }
     });
     getChildren().addAll(draftButton, proposeButton);

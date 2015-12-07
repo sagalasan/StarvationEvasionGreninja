@@ -7,11 +7,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.common.messages.ClientChatMessage;
 import starvationevasion.greninja.gui.componentPane.ClickableMap;
 
 /**
- * Created by Jalen on 11/23/2015.
+ * Makes each state image on a ClickableMap
+ *
  */
 public class StateImage extends ImageView implements EffectsConstantsForDisplayInfo {
 
@@ -23,15 +23,14 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   private Text displayInfo;
   private String styleForDispInfo;
   private ImageView[] draftStatusCards;
+  private int numberOfDraftStatusCards = 0;
   private boolean clickable = true;
-  private ClickableMap map;
 
   public StateImage(final Image image, final Image titleImage,
                     final EnumRegion regionName, final ClickableMap map, boolean worldMap)
   {
     super(image);
     this.regionName = regionName;
-    this.map = map;
     displayInfo = new Text("cards discarded: ");
     draftStatusCards = new ImageView[2];
 
@@ -71,7 +70,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
         }
         System.out.println("this is the region of " + regionName);
 
-       // displayInfo.toFront();
+
         event.consume();
       }
     });
@@ -79,11 +78,7 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
       @Override
       public void handle(MouseEvent mouseEvent) {
         showStateName();
-
         displayInfo.setStyle(styleForDispInfo);
-
-
-        //displayInfo.toFront();
 
       }
     });
@@ -94,7 +89,6 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
         {
           deselect();
           displayInfo.setStyle(null);
-          //displayInfo.toFront();
           mouseEvent.consume();
         }
 
@@ -107,9 +101,9 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     clickable = b;
   }
 
+
   public ImageView[] getDraftStatus()
   {
-    //updateDisplayInfo();
     return draftStatusCards;
   }
 
@@ -119,12 +113,20 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
   }
 
 
-  private void setupDisplayInfo(String region, double dispInfoTranslateX, double dispInforTranslateY, int numberOfDraftCards)
+  /**
+   *
+   * @param region the region for which to setup display info
+   * @param dispInfoTranslateX the X location the text for display info will be
+   * @param dispInforTranslateY the Y location the text for display info will be
+   * @param numberOfDraftCards the draft status cards for the particular region
+   */
+  private void setupDisplayInfo(String region, double dispInfoTranslateX, double dispInforTranslateY, int numberOfDraftCards, int cardsDiscarded)
   {
     styleForDispInfo = region;
+    displayInfo = new Text("Cards Discarded: "+cardsDiscarded);
     displayInfo.setTranslateX(dispInfoTranslateX);
     displayInfo.setTranslateY(dispInforTranslateY);
-    //draftStatusCards = null;
+    this.numberOfDraftStatusCards = numberOfDraftCards;
     draftStatusCards = new ImageView[numberOfDraftCards];
     for (int i = 0; i< numberOfDraftCards; i++)
     {
@@ -141,42 +143,59 @@ public class StateImage extends ImageView implements EffectsConstantsForDisplayI
     }
   }
 
+  /**
+   *
+   * @return gets the number of draftstatus cards made
+   *          for the display info
+   */
+  public int getNumberOfDraftStatusCards()
+  {
+    return numberOfDraftStatusCards;
+  }
+  public void setNumberOfDraftStatusCards(int number)
+  {
+    numberOfDraftStatusCards = number;
+  }
 
+  /**
+   * checks which region this state image is for and creates a
+   * displayinfo image displaying cards discarded and the
+   * corresponding draft status card number
+   */
   public void updateDisplayInfo()
   {
     //int draftedCards = 2; //this will be how many drafted cards currently placed
     displayInfo = new Text("cards discarded: ");
     displayInfo.setFill(Color.WHITE);
 
-
     //displayInfo.setStyle();
     if (regionName.equals(EnumRegion.CALIFORNIA))
     {
-      setupDisplayInfo(CALIFORNIA,-getFitWidth()/1.7,0, 2 );
+      setupDisplayInfo(CALIFORNIA,-getFitWidth()/1.7,0, 0, 1);
     }
     else if (regionName.equals(EnumRegion.HEARTLAND))
     {
-      setupDisplayInfo(HEARTLAND, getFitWidth()/4, -getFitHeight()/2, 2 );
+      setupDisplayInfo(HEARTLAND, getFitWidth()/4, -getFitHeight()/2, 2, 2 );
     }
     else if (regionName.equals(EnumRegion.NORTHERN_CRESCENT))
     {
-      setupDisplayInfo(CRESCENT, getFitWidth()/1.6, -getFitHeight()/3, 2);
+      setupDisplayInfo(CRESCENT, getFitWidth()/1.6, -getFitHeight()/3, 2, 3);
     }
     else if (regionName.equals(EnumRegion.SOUTHEAST))
     {
-      setupDisplayInfo(SOUTHEAST, getFitWidth()/2.2, getFitHeight()/6, 2);
+      setupDisplayInfo(SOUTHEAST, getFitWidth()/2.2, getFitHeight()/6, 1, 0);
     }
     else if (regionName.equals(EnumRegion.SOUTHERN_PLAINS))
     {
-      setupDisplayInfo(DELTAS, getFitWidth()/6, getFitHeight()/3.4, 2 );
+      setupDisplayInfo(DELTAS, getFitWidth()/6, getFitHeight()/3.4, 2 , 1);
     }
     else if (regionName.equals(EnumRegion.NORTHERN_PLAINS))
     {
-      setupDisplayInfo(PLAINS, -getFitWidth()/1.7, -getFitHeight()/2.3, 2);
+      setupDisplayInfo(PLAINS, -getFitWidth()/1.7, -getFitHeight()/2.3, 2, 0);
     }
     else if (regionName.equals(EnumRegion.MOUNTAIN))
     {
-      setupDisplayInfo(MOUNTAIN, -getFitWidth()/2.6, getFitHeight()/3.7, 2);
+      setupDisplayInfo(MOUNTAIN, -getFitWidth()/2.6, getFitHeight()/3.7, 1, 3);
     }
 
   }
