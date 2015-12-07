@@ -1,6 +1,5 @@
 package starvationevasion.greninja.gameControl;
 
-//import spring2015code.model.geography.Region;
 import starvationevasion.common.*;
 //import starvationevasion.greninja.gui.componentPane.RegionalStatistics;
 import starvationevasion.greninja.model.AIPlayer;
@@ -10,7 +9,8 @@ import java.util.*;
 
 
 /**
- *
+ * The AIDecision class delegates how an AI player will choose which cards to draft or vote for.
+ * @author Erin Sosebee
  */
 public class AIDecisions
 {
@@ -31,8 +31,6 @@ public class AIDecisions
 
   private boolean DEBUG = false;
 
-  private boolean serverCreated = false;
-
   // Default constructor is test constructor. To be removed possibly.
   public AIDecisions()
   {
@@ -47,28 +45,16 @@ public class AIDecisions
     chooseCard(rankedCards);
   }
 
-  // Should take "State state" as an argument too?
-  // State localState, State globalState
-  public AIDecisions(AIPlayer player, int turnNumber)
-  {
-//    this.player = player;
-//    this.turnNumber = turnNumber;
-    // TODO: hardcoded for testing
-    this.player = player;
-    this.turnNumber = 2;
-    setCurrentInfo();
-  }
 
   /**
-   * Constructor for the AI player to use if another player is communicating with them.
-   * @param player        the AI player to control.
-   * @param turnNumber    the current turn.
-   * @param suggestedCard the card to consider voting for.
+   * Constructor to create an AIDecisions object.
+   * @param player      the AI player to draft/vote for cards.
+   * @param turnNumber  the current turn in the game.
    */
-  public AIDecisions(AIPlayer player, int turnNumber, PolicyCard suggestedCard)
+  public AIDecisions(AIPlayer player, int turnNumber)
   {
-    this.communication = true;
-    this.suggestedCard = suggestedCard;
+    this.player = player;
+    this.turnNumber = turnNumber;
     setCurrentInfo();
   }
 
@@ -89,7 +75,6 @@ public class AIDecisions
    */
   private void initializeCardProbabilities()
   {
-    if (DEBUG) System.out.println("AIDecisions: initializeCardProbabilities()");
     probabilities = new double[rankedCards.size()];
     int i = 0;
     double s = 0;
@@ -183,7 +168,7 @@ public class AIDecisions
         return rankedCardsIndices.get(selectedIndex);
       }
     }
-    return -1;
+    return 0; // Return the first card if all else fails
   }
 
   /*
@@ -201,6 +186,7 @@ public class AIDecisions
         // X% tax break for farmers who reduce fertilizer outflow by Y%
         x = card.getX();
         y = card.getY();
+        cardRank = rand.nextDouble(); // Just assigning cards random ranks now
         break;
       case Covert_Intelligence:
         // Ignoring covert intelligence now
@@ -209,42 +195,51 @@ public class AIDecisions
       case Educate_the_Women_Campaign:
         // US sends out 7X million dollars to foreign country to educate women
         x = (card.getX() * 7) * 1000000;
+        cardRank = rand.nextDouble();
         break;
       case Efficient_Irrigation_Incentive:
         // X% of money spent by farmers in player's region for improved irrigation efficiency
         // is tax deductible
         x = card.getX();
+        cardRank = rand.nextDouble();
         break;
       case Ethanol_Tax_Credit_Change:
         // Currently, ethanol producer located in player's region is entitled to Y% tax credit
         // to cost of ethanol production. This policy changes it to X%.
         x = card.getX();
         y = card.getY();
+        cardRank = rand.nextDouble();
         break;
       case Fertilizer_Subsidy:
         // Offers subsidy of X% rebate to farmers in player region purchasing commercial fertilizer
         x = card.getX();
+        cardRank = rand.nextDouble();
         break;
       case Foreign_Aid_for_Farm_Infrastructure:
         // US sends 7X million dollars in foreign aid for capital development/farming infrastructure of target world region
         x = (card.getX() * 7) * 1000000;
+        cardRank = rand.nextDouble();
         break;
       case GMO_Seed_Insect_Resistance_Research:
         // Each participating region spends X million dollars to fund GMO seed research
         x = card.getX() * 1000000;
+        cardRank = rand.nextDouble();
         break;
       case International_Food_Relief_Program:
         // Each participating region spends X million dolars to purchase their own regions commodity food
         // for relief of world hunger
         x = card.getX() * 1000000;
+        cardRank = rand.nextDouble();
         break;
       case Loan:
         // Target player region lends you X million dollars at 10% interest.
         x = card.getX() * 1000000;
+        cardRank = rand.nextDouble();
         break;
       case MyPlate_Promotion_Campaign:
         // Player spends X million dollars on advertising campaign within region promoting public awareness of USDA's nutrition guide
         x = card.getX() * 1000000;
+        cardRank = rand.nextDouble();
         break;
     }
     return cardRank;
@@ -261,33 +256,21 @@ public class AIDecisions
     if (cards.size() < 7)
     {
       // TODO: need 'draw from deck' functionality
-//      player.drawCard
     }
+
     int chosenIndex = 0; // Zero by default
     for (int i = 0; i < cards.size(); i++)
     {
-      // TODO: assign each card a "rank" or some value that denotes how beneficial it is
-      // Take an average for all the effects and use that average as the key?
+      // Assign a "rank" to each card to determine how likely it will be selected by the AI
       double cardRank = cardEffects(cards.get(i));
       rankedCards.put(cardRank, i);
     }
-
     chosenIndex = chooseCard(rankedCards);
-    // should i do this in AIView instead?
-    if (chosenIndex < 0)
-    {
-//      player.discardCard()
-      // cardt to discard is card with lowest rank
-      // draw card
-      // run choosecard
-    }
     return chosenIndex;
   }
 
-  // TODO: Remove this main later (for testing only)
   public static void main(String[] args)
   {
     new AIDecisions();
   }
-
 }
