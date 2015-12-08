@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import starvationevasion.common.EnumFood;
 import starvationevasion.io.CropCSVLoader;
@@ -22,6 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -35,14 +37,14 @@ public class ToolbarButtonPane extends BorderPane
     ImageView image = new ImageView(bigImage);
     HBox top = new HBox();
 
-
     VBox titleInfo = new VBox();
-
+    //the title of the category
     Label title = new Label(type.toString());
     title.setTextFill(Color.WHITE);
     title.setAlignment(Pos.CENTER);
     title.setStyle( "-fx-font-size:26;"+"-fx-border-color: white;");
 
+    //the text of what types of fruits in this category
     Text text = new Text(type.toLongString());
     text.setFill(Color.WHITE);
     text.setStyle("-fx-font-size:16;");
@@ -55,6 +57,9 @@ public class ToolbarButtonPane extends BorderPane
 
 
     try{
+      /**
+       * makes an xml reader that looks for the correct category and then gets the question
+       */
       File file = new File("data/trivia.xml");
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
           .newInstance();
@@ -63,38 +68,28 @@ public class ToolbarButtonPane extends BorderPane
       Document document = documentBuilder.parse(file);
 
 
-
-
       Random rand = new Random();
-      //6 questions
-      //only get the category
-      /**
-      for (int i = 0; i < 6; i ++)
-      {
+      //loop through each question, see if correct category, then use said question
+      NodeList nodes = document.getElementsByTagName("category");
+      ArrayList<String> goodQuestionsAndAnswers = new ArrayList<>();
 
-      }
-       **/
-    //loop through each question, see if correct category, then use said question
-      int numberOfQuestions = document.getDocumentElement().getElementsByTagName("question").getLength();
-
-      for (int i = 0; i < numberOfQuestions; i++)
+      //finds good questions that apply to the category
+      for (int j = 0; j < nodes.getLength(); j++)
       {
-        /**for(Element element: document.getElementsByTagName("question").item(1).getChildNodes().item(5))
+        System.out.println(nodes.item(j).getTextContent());
+        if (nodes.item(j).getTextContent().equals(type.toString()) || nodes.item(j).getTextContent().equals("All"))
         {
-
-        }**/
+          //store in list of good questions
+          goodQuestionsAndAnswers.add(nodes.item(j).getParentNode().getTextContent());
+        }
       }
 
-      //System.out.println("document tag name length is " +document.getElementsByTagName("question").item(1).getChildNodes().item(2).getTextContent());//.getNodeName());
-      String question = document.getElementsByTagName("question").item(rand.nextInt(numberOfQuestions)).getTextContent();//.getTextContent();
-      //document.getElementsByTagName("category");
-      //System.out.println(question);
-
+      //makes the question display
       VBox questionBlock = new VBox();
       Label trivia = new Label("Trivia Question!");
       trivia.setTextFill(Color.WHITE);
       title.setStyle( "-fx-font-size:26;");
-      Text quest = new Text(question);
+      Text quest = new Text(goodQuestionsAndAnswers.get(rand.nextInt(goodQuestionsAndAnswers.size())));
       quest.setFill(Color.WHITE);
 
       questionBlock.getChildren().addAll(trivia, quest);
@@ -114,9 +109,6 @@ public class ToolbarButtonPane extends BorderPane
       System.err.println(ioe.getMessage());
     }
 
-
-
-    //getChildren().add(image);
   }
 
 }
