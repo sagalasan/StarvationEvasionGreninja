@@ -112,12 +112,11 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     VBox visBox = new VBox(5);
     visBox.setAlignment(Pos.TOP_CENTER);
     /**
-     * this shows the worldviewer, remember to uncomment when turning in
+     * unfortunately, cannot implement this because it takes too much memory!
+     * It looks cool tho.
      * WorldViewer earthViewLayout = new WorldViewer();
      * visBox.getChildren().add(earthViewLayout);
      */
-    //WorldViewer earthViewLayout = new WorldViewer();
-    //visBox.getChildren().add(earthViewLayout);
 
 
     draftedCardsBox = new VBox(5);

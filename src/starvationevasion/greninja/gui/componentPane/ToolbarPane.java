@@ -26,12 +26,17 @@ public class ToolbarPane extends GridPane implements IconImages
 {
   private Button[][] productIcons = new Button[3][4];
   private GuiBase base;
-  private Tooltip tooltip = new Tooltip("icons");
 
   private Image[] iconImages = new Image[NUMBER_OF_IMAGES];
   private Image[] bigIconImages = new Image[NUMBER_OF_IMAGES];
   private EnumFood[] iconTypes = new EnumFood[NUMBER_OF_IMAGES];
   //todo toolbar needs to be context sensitive
+
+  /**
+   *
+   * @param base creates the toolbar of icons in the bottom of the screen
+   * On click each button displays an overlay with a random question
+   */
   public ToolbarPane(GuiBase base)
   {
     this.base = base;
@@ -39,7 +44,6 @@ public class ToolbarPane extends GridPane implements IconImages
     setHgap(2);
     setVgap(2);
 
-    //Image img = new Image("file:assets/farmProductIcons/FarmProduct_Fruit_64x64.png");
     String[] iconNames = new String[NUMBER_OF_IMAGES];
 
     iconNames[0] = "Citrus";
@@ -116,8 +120,6 @@ public class ToolbarPane extends GridPane implements IconImages
 
         productIcons[i][j] = iconButton;
 
-        // TODO: add click handling here?
-        //todo each button when click needs to be context sensitive
         add(productIcons[i][j], j, i+2);
 
         //creates the overlay
@@ -131,7 +133,6 @@ public class ToolbarPane extends GridPane implements IconImages
         //gets the bounds to make stage maximum screen size
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-
         toolStage.setX(bounds.getMinX());
         toolStage.setY(bounds.getMinY());
         toolStage.setWidth(bounds.getWidth());
@@ -144,11 +145,14 @@ public class ToolbarPane extends GridPane implements IconImages
           @Override
           public void handle(MouseEvent event) {
             toolStage.hide();
+            toolButtonPane.setRandomQuestion();
+            //choose a random question here for the overlay
           }
         });
         iconButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
+            //choose random question
             toolStage.show();
             toolStage.toFront();
           }

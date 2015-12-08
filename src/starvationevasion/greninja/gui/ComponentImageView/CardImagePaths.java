@@ -18,5 +18,4 @@ public interface CardImagePaths
   Image INTERNATIONAL_FOOD = new Image("file:assets/CardImages/internationalFoodRelief.png");
   Image LOAN = new Image("file:assets/CardImages/loan.png");
   Image MY_PLATE_PROMO = new Image("file:assets/CardImages/myPlatePromotion.png");
-
 }

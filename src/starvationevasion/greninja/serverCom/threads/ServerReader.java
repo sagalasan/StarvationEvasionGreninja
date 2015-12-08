@@ -13,6 +13,11 @@ public class ServerReader extends Thread
   private ServerConnection serverConnection;
   private ObjectInputStream objectInputStream;
 
+  /**
+   * Constructor for thread reads incoming serialized objects
+   * @param serverConnection Reference to ServerConnection class
+   * @param objectInputStream The input stream that reads objects
+   */
   public ServerReader(ServerConnection serverConnection, ObjectInputStream objectInputStream)
   {
     this.serverConnection = serverConnection;

@@ -10,14 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import starvationevasion.common.EnumFood;
-import starvationevasion.io.CropCSVLoader;
-
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,10 +22,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Jalen on 12/7/2015.
+ * This is the overlay for when a toolbar icon is clicked on
  */
 public class ToolbarButtonPane extends BorderPane
 {
+  /**
+   *
+   * @param type the type of overlay to create
+   * @param bigImage the image of the bigger icon
+   */
   public ToolbarButtonPane(EnumFood type, Image bigImage)
   {
     setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-background-radius: 0;");
@@ -54,8 +54,6 @@ public class ToolbarButtonPane extends BorderPane
     top.getChildren().addAll(image, titleInfo);
     setTop(top);
 
-
-
     try{
       /**
        * makes an xml reader that looks for the correct category and then gets the question
@@ -68,32 +66,23 @@ public class ToolbarButtonPane extends BorderPane
       Document document = documentBuilder.parse(file);
 
 
-      Random rand = new Random();
+
       //loop through each question, see if correct category, then use said question
       NodeList nodes = document.getElementsByTagName("category");
-      ArrayList<String> goodQuestionsAndAnswers = new ArrayList<>();
+      goodQuestionsAndAnswers = new ArrayList<>();
 
       //finds good questions that apply to the category
       for (int j = 0; j < nodes.getLength(); j++)
       {
-        System.out.println(nodes.item(j).getTextContent());
         if (nodes.item(j).getTextContent().equals(type.toString()) || nodes.item(j).getTextContent().equals("All"))
         {
           //store in list of good questions
           goodQuestionsAndAnswers.add(nodes.item(j).getParentNode().getTextContent());
         }
       }
-
+      setRandomQuestion();
       //makes the question display
-      VBox questionBlock = new VBox();
-      Label trivia = new Label("Trivia Question!");
-      trivia.setTextFill(Color.WHITE);
-      title.setStyle( "-fx-font-size:26;");
-      Text quest = new Text(goodQuestionsAndAnswers.get(rand.nextInt(goodQuestionsAndAnswers.size())));
-      quest.setFill(Color.WHITE);
 
-      questionBlock.getChildren().addAll(trivia, quest);
-      setCenter(questionBlock);
 
     }
     catch (ParserConfigurationException pce)
@@ -109,6 +98,20 @@ public class ToolbarButtonPane extends BorderPane
       System.err.println(ioe.getMessage());
     }
 
+  }
+  private  ArrayList<String> goodQuestionsAndAnswers;
+  public void setRandomQuestion()
+  {
+    VBox questionBlock = new VBox();
+    Label trivia = new Label("Trivia Question!");
+    trivia.setTextFill(Color.WHITE);
+    trivia.setStyle("-fx-font-size:26;");
+    Random rand = new Random();
+    Text quest = new Text(goodQuestionsAndAnswers.get(rand.nextInt(goodQuestionsAndAnswers.size())));
+    quest.setFill(Color.WHITE);
+
+    questionBlock.getChildren().addAll(trivia, quest);
+    setCenter(questionBlock);
   }
 
 }
