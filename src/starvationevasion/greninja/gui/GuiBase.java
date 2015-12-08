@@ -540,7 +540,7 @@ public class GuiBase extends Application implements ControlListener
     }
     else
     {
-      System.out.println("Why are we her if was started?????");
+      //System.out.println("Why are we her if was started?????");
       launch(args);
     }
   }
@@ -606,19 +606,4 @@ public class GuiBase extends Application implements ControlListener
     return control.isTesting();
   }
 
-  //private EarthViewer earthViewer;
-
-  //private void startVisualizer()
-  //{
-    //earthViewer = new EarthViewer(70, 250);
-
-
-    //Start rotate will put the earthViewer object in an automatic and continuous rotation (this is for the mini view)
-    //earthViewer.startRotate();
- // }
-  //public EarthViewer getEarthViewer()
-  //{
-
-   // return earthViewer;
-  //}
 }

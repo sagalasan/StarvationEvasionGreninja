@@ -74,7 +74,6 @@ public class ToolbarButtonPane extends BorderPane
       //finds good questions that apply to the category
       for (int j = 0; j < nodes.getLength(); j++)
       {
-        System.out.println(nodes.item(j).getTextContent());
         if (nodes.item(j).getTextContent().equals(type.toString()) || nodes.item(j).getTextContent().equals("All"))
         {
           //store in list of good questions
