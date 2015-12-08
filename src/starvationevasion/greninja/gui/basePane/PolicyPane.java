@@ -18,7 +18,8 @@ import starvationevasion.greninja.model.State;
 /**
  * PolicyPane is the GUI display for the Policy Drafting Phase. The bottom of the display contains the cards in the
  * player's hand, the draw pile and the discard pile, and the farm product toolbar. The visualizer display is located
- * in the left pane of the GUI, which shows the player a 3D visualization of the world currently.
+ * in the left pane of the GUI, which shows the player a 3D visualization of the world currently. The right pane contains
+ * charts showing statistics of each selected region.
  * @author Jalen Johnson
  * @author Erin Sosebee
  */
@@ -96,7 +97,6 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     topPane.setLeft(timerDisplay);
     topPane.setRight(buttonBox);
     topPane.setCenter(titleBox);
-    //topPane.setPrefHeight(100);
     mainPane.setTop(topPane);
   }
 
@@ -369,6 +369,10 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     stats.getTabs().addAll(population, farmProduct,HDI, revenueBalance);
 
     statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
+
+
+
+
   }
 
   /**

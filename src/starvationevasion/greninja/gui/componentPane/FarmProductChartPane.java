@@ -1,8 +1,10 @@
 package starvationevasion.greninja.gui.componentPane;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.model.State;
@@ -12,96 +14,109 @@ import starvationevasion.greninja.model.State;
  */
 public class FarmProductChartPane extends VBox
 {
-  RegionalStatistics regionalStatistics;
+  private RegionalStatistics regionalStatistics;
+  private ProductCheckBox[] boxes = new ProductCheckBox[12];
+  private boolean isDollars = true;
+
+  /**
+   *
+   * @param region The State class of this region.
+   */
   public FarmProductChartPane(State region)
   {
-    ProductCheckBox box1 = new ProductCheckBox("CITRUS");
-
-    ProductCheckBox box2 = new ProductCheckBox("FRUIT");
-    ProductCheckBox box3 = new ProductCheckBox("NUT");
-    ProductCheckBox box4 = new ProductCheckBox("GRAIN");
-    ProductCheckBox box5 = new ProductCheckBox("OIL");
-    ProductCheckBox box6 = new ProductCheckBox("VEGGIES");
-    ProductCheckBox box7 = new ProductCheckBox("SPECIAL");
-    ProductCheckBox box8 = new ProductCheckBox("FEED");
-    ProductCheckBox box9 = new ProductCheckBox("FISH");
-    ProductCheckBox box10 = new ProductCheckBox("MEAT");
-    ProductCheckBox box11 = new ProductCheckBox("POULTRY");
-    ProductCheckBox box12 = new ProductCheckBox("DIARY");
+    for (int i = 0; i < 12; i++)
+    {
+      boxes[i] = new ProductCheckBox(EnumFood.values()[i]);
+    }
     GridPane checkBoxPane = new GridPane();
     checkBoxPane.setVgap(3);
     checkBoxPane.setHgap(2);
-    checkBoxPane.add(box1, 1, 1);
-    checkBoxPane.add(box2, 2, 1);
-    checkBoxPane.add(box3, 3, 1);
-    checkBoxPane.add(box4, 1, 2);
-    checkBoxPane.add(box5, 2, 2);
-    checkBoxPane.add(box6, 3, 2);
-    checkBoxPane.add(box7, 1, 3);
-    checkBoxPane.add(box8, 2, 3);
-    checkBoxPane.add(box9, 3, 3);
-    checkBoxPane.add(box10, 1, 4);
-    checkBoxPane.add(box11, 2, 4);
-    checkBoxPane.add(box12, 3, 4);
+    checkBoxPane.add(boxes[0], 1, 1);
+    checkBoxPane.add(boxes[1], 2, 1);
+    checkBoxPane.add(boxes[2], 1, 2);
+    checkBoxPane.add(boxes[3], 2, 2);
+    checkBoxPane.add(boxes[4], 1, 3);
+    checkBoxPane.add(boxes[5], 2, 3);
+    checkBoxPane.add(boxes[6], 1, 4);
+    checkBoxPane.add(boxes[7], 2, 4);
+    checkBoxPane.add(boxes[8], 1, 5);
+    checkBoxPane.add(boxes[9], 2, 5);
+    checkBoxPane.add(boxes[10], 1, 6);
+    checkBoxPane.add(boxes[11], 2, 6);
     getChildren().add(checkBoxPane);
     checkBoxPane.setAlignment(Pos.CENTER);
+
     regionalStatistics = new RegionalStatistics(region);
     getChildren().add(regionalStatistics);
-    box1.selectedProperty().setValue(true);
+
+    boxes[0].selectedProperty().setValue(true);
+
+    HBox choseMode = new HBox();
+    Button dollars = new Button("Dollars");
+    Button tons = new Button("Tons");
+    dollars.setId("dollars");
+    tons.setId("tons");
+    dollars.setStyle("-fx-background-color: #0066FF");
+    tons.setStyle("-fx-background-color: #33333");
+    choseMode.getChildren().addAll(dollars, tons);
+    dollars.setOnMouseClicked(event -> {
+      if(!isDollars)
+      {
+        dollars.setStyle("-fx-background-color: #0066FF");
+        tons.setStyle("-fx-background-color: #33333");
+        isDollars = true;
+        regionalStatistics.yAxisLabelChange(true);
+        for(int i = 0; i < 12; i++)
+        {
+          if(boxes[i].selectedProperty().getValue()) regionalStatistics.removeDataFromChart(EnumFood.values()[i]);
+        }
+        regionalStatistics.setMode(false);
+        for(int i = 0; i < 12; i++)
+        {
+          if(boxes[i].selectedProperty().getValue()) regionalStatistics.addDataToChart(EnumFood.values()[i]);
+        }
+      }
+    });
+    tons.setOnMouseClicked(event -> {
+      if(isDollars)
+      {
+        isDollars = false;
+        regionalStatistics.yAxisLabelChange(false);
+        dollars.setStyle("-fx-background-color: #33333");
+        tons.setStyle("-fx-background-color: #0066FF");
+        for(int i = 0; i < 12; i++)
+
+        {
+          if(boxes[i].selectedProperty().getValue()) regionalStatistics.removeDataFromChart(EnumFood.values()[i]);
+        }
+        regionalStatistics.setMode(true);
+        for(int i = 0; i < 12; i++)
+        {
+          if(boxes[i].selectedProperty().getValue()) regionalStatistics.addDataToChart(EnumFood.values()[i]);
+        }
+      }
+    });
+    getChildren().add(choseMode);
+    choseMode.setAlignment(Pos.CENTER);
   }
 
   private class ProductCheckBox extends CheckBox
   {
 
-    ProductCheckBox(String name)
+    ProductCheckBox(EnumFood name)
     {
-      super(name);
-
-      EnumFood foodName = getEnumValue(name);
+      super(name.toString());
       selectedProperty().addListener((observable, oldValue, newValue) -> {
           if (!oldValue && newValue)
           {
-            regionalStatistics.addDataToChart(foodName);
+            regionalStatistics.addDataToChart(name);
           }
           else if(oldValue &&!newValue)
           {
-            regionalStatistics.removeDataFromChart(foodName);
+            regionalStatistics.removeDataFromChart(name);
           }
       });
     }
-
-    private EnumFood getEnumValue(String name)
-    {
-      switch (name)
-      {
-        case "FRUIT":
-          return EnumFood.FRUIT;
-        case "CITRUS":
-          return EnumFood.CITRUS;
-        case "NUT":
-          return EnumFood.NUT;
-        case "GRAIN":
-          return EnumFood.GRAIN;
-        case "OIL":
-          return EnumFood.OIL;
-        case "VEGGIES":
-          return EnumFood.VEGGIES;
-        case "SPECIAL":
-          return EnumFood.SPECIAL;
-        case "FEED":
-          return EnumFood.FEED;
-        case "FISH":
-          return EnumFood.FISH;
-        case "MEAT":
-          return EnumFood.MEAT;
-        case "POULTRY":
-          return EnumFood.POULTRY;
-        case "DIARY":
-          return EnumFood.DAIRY;
-      }
-      throw new RuntimeException("Wrong food name!");
-    }
-
 
   }
 }

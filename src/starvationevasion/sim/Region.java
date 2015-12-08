@@ -465,7 +465,6 @@ public class Region extends AbstractTerritory
     for (CropZoneData zoneData : cropData)
     {
       double cropConsumptionPerCapita = getInitialConsumption(zoneData.food, Constant.FIRST_YEAR) / getPopulation(Constant.FIRST_YEAR);
-
       for (Territory t : getTerritories())
       {
         double territoryCropConsumption = cropConsumptionPerCapita * t.getPopulation(Constant.FIRST_YEAR);
