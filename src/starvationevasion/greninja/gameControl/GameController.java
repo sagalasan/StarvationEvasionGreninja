@@ -619,7 +619,7 @@ public class GameController
       draftedCards.add(cardToDraft);
       player.removeCard(index);
       //removeCardFromPlayerHand(index);
-      draftPolicy(cardToDraft); //TODO put somewhere more appropriate.
+      //draftPolicy(cardToDraft); //TODO put somewhere more appropriate. can reuncomment this later
       return true;
     }
     return false;
