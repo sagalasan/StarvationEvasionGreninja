@@ -57,7 +57,6 @@ public class DiscardPile extends HBox
     discardBox.getChildren().addAll(discardLabel, discardPile.getScrollCard());
 
     DiscardDisplay dis = new DiscardDisplay(pile);
-
     Scene discard = new Scene(dis, 250, 250);
     discard.setFill(Color.TRANSPARENT);
     discard.setRoot(dis);
@@ -89,7 +88,6 @@ public class DiscardPile extends HBox
     discardPile.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        System.out.println("discardPileClicked");
         newStage.show();
         newStage.toFront();
       }
