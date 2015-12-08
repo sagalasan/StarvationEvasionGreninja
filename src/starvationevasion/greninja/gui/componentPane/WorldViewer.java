@@ -22,17 +22,6 @@ import starvationevasion.vis.visuals.VisualizerLayout;
  */
 public class WorldViewer extends VBox{
 
-  //private GridPane topBar = new GridPane();
-  //private GridPane leftBarGrid = new GridPane();
-  //private GridPane rightBarGrid = new GridPane();
-  //private GridPane centerGrid = new GridPane();
-
-
-
-  //public  Label title = new Label("Year, World/Region \nPopulation and HDI");
-  //private Label toggleEarthMode = new Label("Press tab to toggle between Earth sizes");
-
-
   private EarthViewer earthViewer;
   private Stage earthStage = new Stage();
 
