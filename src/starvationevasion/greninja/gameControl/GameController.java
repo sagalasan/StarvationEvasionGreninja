@@ -539,21 +539,23 @@ public class GameController
   /**
    * Draft a policy.  Called from gui.  Drafting phase attempts to get card
    * and this method adds it to the appropriate policy pending list.
-   * @param cardIndex       index of card to draft.
+   * @param cardDrafted       card to draft.
    */
   //perhaps just take by the index in the player hand
-  public void draftPolicy(int cardIndex)
+  public void draftPolicy(PolicyCard cardDrafted)
   {
-    PolicyCard cardDrafted = draftingPhase.draftPolicy(cardIndex);
+    //PolicyCard cardDrafted = draftingPhase.draftPolicy(cardIndex);
     if(cardDrafted != null)
     {
       //if card needs voting goes into cardsForVote, else goes to cardsToPlay
       if(cardDrafted.votesRequired() == 0)
       {
         //inform server that card was played;
+        sendMessageOut(new DraftCard(cardDrafted));
       }
       else
       {
+        sendMessageOut(new DraftCard(cardDrafted));
         //inform server that card was played;
         //cardsForVote.add(new PolicyCard(playerRegion, cardDrafted));
       }
@@ -613,6 +615,7 @@ public class GameController
       draftedCards.add(cardToDraft);
       player.removeCard(index);
       //removeCardFromPlayerHand(index);
+      draftPolicy(cardToDraft); //TODO put somewhere more appropriate.
       return true;
     }
     return false;
