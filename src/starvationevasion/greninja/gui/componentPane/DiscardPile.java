@@ -95,13 +95,11 @@ public class DiscardPile extends HBox
     discard.setRoot(dis);
     newStage.setScene(discard);
 
-
-    Image backCard = new Image("file:assets/CardImages/backCard.png");
     //This part makes the deck
     VBox deckBox = new VBox(10);
     deckBox.setAlignment(Pos.TOP_CENTER);
     Label deckLabel = new Label("Deck");
-    Deck deck = new Deck(backCard, null); //instead of null, it will have the deck of cards
+    Deck deck = new Deck(null); //instead of null, it will have the deck of cards
     deckBox.getChildren().addAll(deckLabel, deck);
 
     discardBox.setScaleX(.9);

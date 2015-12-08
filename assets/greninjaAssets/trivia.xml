@@ -1,0 +1,87 @@
+<foodtrivia>
+	<question>Often when people talk about taste, they are actually 
+		referring to a combined sensation of taste, smell, touch.
+		If a person's nose is pinched so that he or she cannot smell, 
+		and the food is mashed,
+		which three foods will most people say have the same taste?
+
+		<answer> Apples, Onions, and Potatoes </answer>
+		<wrong> Lemon, Figs, and Ginger </wrong>
+		<wrong> Pineapple, Mango, and Cocoa </wrong>
+		<wrong> Lime, Peas, and Grapefruit </wrong>
+		<wrong> Plum, Pear, and Brussels Sprouts </wrong>
+		<category>Citrus Fruits</category>
+		<category>Non-Citrus Fruits</category>
+		<category>Vegetables</category>
+	</question>
+
+	<question>In most common brands of corn flakes, what percent, 
+		by weight, is the corn?
+
+		<answer>8%</answer>
+		<wrong>0%</wrong>
+		<wrong>50%</wrong>
+		<wrong>75%</wrong>
+		<wrong>100%</wrong>
+		<category>Grains</category>
+	</question>
+
+
+	<question>Which is true about celery?
+
+		<answer>Celery requires more calories to eat and digest
+		  than it contains.</answer>
+		<wrong>Celery is actually a fruit.</wrong>
+		<wrong>Celery contains more sugar than strawberries</wrong>
+		<wrong>Celery was originally purple in color, changing in 
+		  the 17th Ventury to green with newer varieties.</wrong>
+        	<wrong>Celery is a complete protein as it contains an
+		  adequate proportion of all nine of the essential amino acids
+	          necessary for the dietary needs of humans.</wrong>
+		<category>Vegetables</category>
+	</question>
+
+
+
+	<question>There are a number of vegan foods that are complete proteins.
+		  (foods that contain an
+		  adequate proportion of all nine of the essential amino acids
+		  necessary for the dietary needs of humans). Which of the 
+		  following is NOT a complete protein:
+	        <answer>Rice</answer>
+		<wrong>Quinoa</wrong>
+		<wrong>Chickpeas</wrong>
+		<wrong>Turnip Greens</wrong>
+		<wrong>Cashews</wrong>
+		<category>Grains</category>
+		<category>Vegetables</category>
+	</question>
+
+
+
+
+
+
+	<question>Approximately what percent of the world food supply comes 
+		from crops that rely on rain to grow? 
+	     <answer>60%</answer>
+	     <wrong>90%</wrong>
+	     <wrong>40%</wrong>
+	     <wrong>20%</wrong>
+	     <wrong>10%</wrong>
+	     <category>All</category>
+     </question>
+
+
+     <question>On farms averaged across the world, approximately what percent 
+	     of water used in irrigation of crops is lost to evaporation?
+	     <answer>50%</answer>
+	     <wrong>90%</wrong>
+	     <wrong>75%</wrong>
+	     <wrong>25%</wrong>
+	     <wrong>10%</wrong>
+	     <category>All</category>
+    </question>
+	
+
+</foodtrivia>

@@ -38,8 +38,8 @@ public class DiscardDisplay extends HBox
     card.setScaleX(1.5);
 
     setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 0;");
-    ImageView rightArrow = new ImageView(new Image("file:assets/greninjaAssets/arrow.png"));
-    ImageView leftArrow = new ImageView(new Image("file:assets/greninjaAssets/arrow.png"));
+    ImageView rightArrow = new ImageView(new Image("greninjaAssets/arrow.png"));
+    ImageView leftArrow = new ImageView(new Image("greninjaAssets/arrow.png"));
     leftArrow.setRotate(180);
 
 

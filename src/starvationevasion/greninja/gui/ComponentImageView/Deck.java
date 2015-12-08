@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by Jalen on 12/7/2015.
  */
-public class Deck extends ImageView
+public class Deck extends ImageView implements EffectsConstantsForDisplayInfo
 {
-  public Deck(Image image, List<PolicyCard> deckOfPolicyCards)
+  public Deck(List<PolicyCard> deckOfPolicyCards)
   {
-    super(image);
+    super(BACK_OF_CARD);
     /**
      * this will be context based, dependent on whether or not a player can look at the cards in here or not
      */

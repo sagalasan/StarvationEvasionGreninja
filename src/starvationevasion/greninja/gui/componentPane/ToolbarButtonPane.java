@@ -53,12 +53,12 @@ public class ToolbarButtonPane extends BorderPane
 
     top.getChildren().addAll(image, titleInfo);
     setTop(top);
-
+    File file = new File("greninjaAssets/trivia.xml");
     try{
       /**
        * makes an xml reader that looks for the correct category and then gets the question
        */
-      File file = new File("data/trivia.xml");
+      //File file = new File("data/trivia.xml");
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
           .newInstance();
 
