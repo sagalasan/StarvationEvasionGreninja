@@ -1,11 +1,20 @@
 package starvationevasion.greninja.gui.componentPane;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.gui.ComponentImageView.IconImages;
 import starvationevasion.greninja.gui.GuiBase;
 
@@ -20,7 +29,8 @@ public class ToolbarPane extends GridPane implements IconImages
   private Tooltip tooltip = new Tooltip("icons");
 
   private Image[] iconImages = new Image[NUMBER_OF_IMAGES];
-
+  private Image[] bigIconImages = new Image[NUMBER_OF_IMAGES];
+  private EnumFood[] iconTypes = new EnumFood[NUMBER_OF_IMAGES];
   //todo toolbar needs to be context sensitive
   public ToolbarPane(GuiBase base)
   {
@@ -45,6 +55,20 @@ public class ToolbarPane extends GridPane implements IconImages
     iconNames[10] = "Special";
     iconNames[11] = "Veggies";
 
+    iconTypes[0] = EnumFood.CITRUS;
+    iconTypes[1] = EnumFood.DAIRY;
+    iconTypes[2] = EnumFood.FEED;
+    iconTypes[3] = EnumFood.FISH;
+    iconTypes[4] = EnumFood.FRUIT;
+    iconTypes[5] = EnumFood.GRAIN;
+    iconTypes[6] = EnumFood.MEAT;
+    iconTypes[7] = EnumFood.NUT;
+    iconTypes[8] = EnumFood.OIL;
+    iconTypes[9] = EnumFood.POULTRY;
+    iconTypes[10] = EnumFood.SPECIAL;
+    iconTypes[11] = EnumFood.VEGGIES;
+
+
     iconImages[0] = CITRUS_64;
     iconImages[1] = DAIRY_64;
     iconImages[2] = FEED_64;
@@ -57,6 +81,20 @@ public class ToolbarPane extends GridPane implements IconImages
     iconImages[9] = POULTRY_64;
     iconImages[10] = SPECIAL_64;
     iconImages[11] = VEGGIES_64;
+
+    bigIconImages[0] = CITRUS_256;
+    bigIconImages[1] = DAIRY_256;
+    bigIconImages[2] = FEED_256;
+    bigIconImages[3] = FISH_256;
+    bigIconImages[4] = Fruit_256;
+    bigIconImages[5] = GRAIN_256;
+    bigIconImages[6] = MEAT_256;
+    bigIconImages[7] = NUT_256;
+    bigIconImages[8] = OIL_256;
+    bigIconImages[9] = POULTRY_256;
+    bigIconImages[10] = SPECIAL_256;
+    bigIconImages[11] = VEGGIES_256;
+
 
 
     for (int i = 0; i < 3; i++)
@@ -81,8 +119,47 @@ public class ToolbarPane extends GridPane implements IconImages
         // TODO: add click handling here?
         //todo each button when click needs to be context sensitive
         add(productIcons[i][j], j, i+2);
+
+        //creates the overlay
+        ToolbarButtonPane toolButtonPane = new ToolbarButtonPane(iconTypes[i*4+j], bigIconImages[i*4+j]);
+        Scene overlay = new Scene(toolButtonPane, 250, 250);
+        overlay.setFill(Color.TRANSPARENT);
+        overlay.setRoot(toolButtonPane);
+        Stage toolStage = new Stage();
+        toolStage.initStyle(StageStyle.TRANSPARENT);
+
+        //gets the bounds to make stage maximum screen size
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        toolStage.setX(bounds.getMinX());
+        toolStage.setY(bounds.getMinY());
+        toolStage.setWidth(bounds.getWidth());
+        toolStage.setHeight(bounds.getHeight());
+
+        toolStage.setScene(overlay);
+        //when button clicked, make overlay, display
+
+        overlay.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            toolStage.hide();
+          }
+        });
+        iconButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            toolStage.show();
+            toolStage.toFront();
+          }
+        });
       }
     }
+
+
+
+
+
 
     //getChildren().add(tooltip);
   }

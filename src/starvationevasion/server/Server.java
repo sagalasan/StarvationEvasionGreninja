@@ -369,7 +369,7 @@ public class Server
     }
     final AvailableRegions availableRegions = getAvailableRegions();
     broadcast(availableRegions);
-    if (getCurrentState() == ServerState.LOGIN && availableRegions.availableRegions.size() == 0)
+    if (getCurrentState() == ServerState.LOGIN && availableRegions.takenRegions.size() == passwordFile.credentialMap.size())
     {
       beginToStartGame();
     }
@@ -429,29 +429,30 @@ public class Server
   private void enterDraftingPhase()
   {
     enactedPolicyCards.clear();
-    setServerState(ServerState.DRAFTING);
     final PhaseStart message = PhaseStart.constructPhaseStart(ServerState.DRAFTING, ServerConstants.DRAFTING_PHASE_TIME);
     phaseEndTime = message.phaseEndTime;
-    broadcast(message);
     for (EnumRegion region : EnumRegion.US_REGIONS)
     {
       regionTurnData.put(region, new RegionTurnData());
     }
     phaseChangeFuture = scheduledExecutorService.schedule(this::enterVotingPhase, ServerConstants.DRAFTING_PHASE_TIME, TimeUnit.MILLISECONDS);
+    broadcast(message);
+    setServerState(ServerState.DRAFTING);
   }
 
   private void enterVotingPhase()
   {
-    setServerState(ServerState.VOTING);
     final PhaseStart message = PhaseStart.constructPhaseStart(ServerState.VOTING, ServerConstants.VOTING_PHASE_TIME);
     phaseEndTime = message.phaseEndTime;
-    broadcast(message);
     phaseChangeFuture = scheduledExecutorService.schedule(this::enterDrawingPhase, ServerConstants.VOTING_PHASE_TIME, TimeUnit.MILLISECONDS);
     regionsWhoVotedOnCards.clear();
     regionVoteRequiredCards.putAll(draftedPolicyCards.stream()
         .filter(c -> c.votesRequired() > 0)
         .collect(Collectors.toMap(PolicyCard::getOwner, Function.identity())));
     regionVoteRequiredCards.values().forEach(c -> regionsWhoVotedOnCards.put(c, new ArrayList<>()));
+    broadcast(message);
+    setServerState(ServerState.VOTING);
+    broadcastVoteStatus();
   }
 
   private void enterDrawingPhase()
