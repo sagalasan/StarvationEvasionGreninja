@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import starvationevasion.common.EnumFood;
 import starvationevasion.io.CropCSVLoader;
 
@@ -16,17 +17,29 @@ import starvationevasion.io.CropCSVLoader;
  */
 public class ToolbarButtonPane extends BorderPane
 {
-  public ToolbarButtonPane(String type, Image bigImage)
+  public ToolbarButtonPane(EnumFood type, Image bigImage)
   {
     setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 0;");
     ImageView image = new ImageView(bigImage);
     HBox top = new HBox();
-    Label title = new Label(type);
+
+
+    VBox titleInfo = new VBox();
+
+    Label title = new Label(type.toString());
     title.setTextFill(Color.WHITE);
     title.setAlignment(Pos.CENTER);
     title.setStyle( "-fx-font-size:26;"+"-fx-border-color: white;");
-    top.getChildren().addAll(image, title);
+
+    Text text = new Text(type.toLongString());
+    text.setFill(Color.WHITE);
+    text.setStyle("-fx-font-size:16;");
+
+    titleInfo.getChildren().addAll(title, text);
+
+    top.getChildren().addAll(image, titleInfo);
     setTop(top);
+
 
     //getChildren().add(image);
   }

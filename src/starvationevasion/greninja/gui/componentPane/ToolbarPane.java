@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import starvationevasion.common.EnumFood;
 import starvationevasion.greninja.gui.ComponentImageView.IconImages;
 import starvationevasion.greninja.gui.GuiBase;
 
@@ -29,7 +30,7 @@ public class ToolbarPane extends GridPane implements IconImages
 
   private Image[] iconImages = new Image[NUMBER_OF_IMAGES];
   private Image[] bigIconImages = new Image[NUMBER_OF_IMAGES];
-
+  private EnumFood[] iconTypes = new EnumFood[NUMBER_OF_IMAGES];
   //todo toolbar needs to be context sensitive
   public ToolbarPane(GuiBase base)
   {
@@ -53,6 +54,20 @@ public class ToolbarPane extends GridPane implements IconImages
     iconNames[9] = "Poultry";
     iconNames[10] = "Special";
     iconNames[11] = "Veggies";
+
+    iconTypes[0] = EnumFood.CITRUS;
+    iconTypes[1] = EnumFood.DAIRY;
+    iconTypes[2] = EnumFood.FEED;
+    iconTypes[3] = EnumFood.FISH;
+    iconTypes[4] = EnumFood.FRUIT;
+    iconTypes[5] = EnumFood.GRAIN;
+    iconTypes[6] = EnumFood.MEAT;
+    iconTypes[7] = EnumFood.NUT;
+    iconTypes[8] = EnumFood.OIL;
+    iconTypes[9] = EnumFood.POULTRY;
+    iconTypes[10] = EnumFood.SPECIAL;
+    iconTypes[11] = EnumFood.VEGGIES;
+
 
     iconImages[0] = CITRUS_64;
     iconImages[1] = DAIRY_64;
@@ -106,7 +121,7 @@ public class ToolbarPane extends GridPane implements IconImages
         add(productIcons[i][j], j, i+2);
 
         //creates the overlay
-        ToolbarButtonPane toolButtonPane = new ToolbarButtonPane(iconNames[i*4+j], bigIconImages[i*4+j]);
+        ToolbarButtonPane toolButtonPane = new ToolbarButtonPane(iconTypes[i*4+j], bigIconImages[i*4+j]);
         Scene overlay = new Scene(toolButtonPane, 250, 250);
         overlay.setFill(Color.TRANSPARENT);
         overlay.setRoot(toolButtonPane);
