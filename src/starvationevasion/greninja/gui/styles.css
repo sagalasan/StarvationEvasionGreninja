@@ -50,7 +50,7 @@
   -fx-font-size: 14pt;
 }
 .axis-label{
-  -fx-font-size: 10pt;
+  -fx-font-size: 12pt;
 }
 .chart-content{
   -fx-min-height: 1000;
@@ -87,6 +87,7 @@
   -fx-background-color: #474747;
 
 }
+
 #arrow-button:hover
 {
   -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 3,1,0,0 );
@@ -96,6 +97,7 @@
 {
   -fx-background-color: #5b5b5b;
 }
+
 
 #iconButton
 {

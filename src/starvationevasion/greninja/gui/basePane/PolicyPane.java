@@ -369,6 +369,10 @@ public class PolicyPane extends GamePhasePane implements MapHolder
     stats.getTabs().addAll(population, farmProduct,HDI, revenueBalance);
 
     statsBox.getChildren().addAll(new Label(state.toString() + " Statistics"), stats);
+
+
+
+
   }
 
   /**

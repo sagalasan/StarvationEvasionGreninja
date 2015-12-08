@@ -1,8 +1,5 @@
 package starvationevasion.greninja.model;
 
-
-//import spring2015code.model.geography.Region;
-//import spring2015code.model.geography.World;
 import starvationevasion.common.EnumFood;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.common.RegionData;
@@ -66,35 +63,10 @@ public enum State
     }
   }
 
-  private void update(RegionData regionData)
-  {
 
-    if( !name().equals(regionData.region.name())) throw new RuntimeException("Update data of this region from another region.");
-    setPopulation(regionData.population);
-    population[turnNumber] = regionData.population;
-    HDI[turnNumber] = regionData.humanDevelopmentIndex;
-    revenueBalance[turnNumber] = regionData.revenueBalance;
-    undernourishedPopulation[turnNumber] = regionData.undernourished;
-    for(int i = 0; i < FOOD_NUMBER; i++)
-    {
-      foodWeight[turnNumber][i] = regionData.foodProduced[i];
-      foodArea[turnNumber][i] = regionData.farmArea[i];
-      foodIncome[turnNumber][i] = regionData.foodIncome[i];
-      int foodExportTemp = regionData.foodExported[i];
-      if(foodExportTemp > 0)
-      {
-        foodExport[turnNumber][i] = foodExportTemp;
-        foodImport[turnNumber][i] = 0;
-
-      }
-      else
-      {
-        foodExport[turnNumber][i] = 0;
-        foodImport[turnNumber][i] = -foodExportTemp;
-      }
-    }
-  }
-
+  /**
+   * Used to initialize random data for test purpose.
+   */
   public void initializeDataForTest()
   {
     Random random = new Random();
@@ -105,7 +77,8 @@ public enum State
       revenueBalance[i] = (int) (80 + random.nextGaussian() * (i + 1) *5);
       for( EnumFood food :EnumFood.values())
       {
-        setFoodIncome(food,0.8 + random.nextGaussian() * i / 10, i );
+        setFoodIncome(food,0.8 + random.nextGaussian() * (i + 1) / 10, i );
+        setFoodWeight(food, 2 + random.nextGaussian() * (i + 1) / 10, i);
       }
     }
 
@@ -407,6 +380,35 @@ public enum State
   public void setFoodExport(EnumFood foodType, double exportValue, int turnNumber)
   {
     foodExport[turnNumber][foodType.ordinal()] = exportValue;
+  }
+
+  private void update(RegionData regionData)
+  {
+
+    if( !name().equals(regionData.region.name())) throw new RuntimeException("Update data of this region from another region.");
+    setPopulation(regionData.population);
+    population[turnNumber] = regionData.population;
+    HDI[turnNumber] = regionData.humanDevelopmentIndex;
+    revenueBalance[turnNumber] = regionData.revenueBalance;
+    undernourishedPopulation[turnNumber] = regionData.undernourished;
+    for(int i = 0; i < FOOD_NUMBER; i++)
+    {
+      foodWeight[turnNumber][i] = regionData.foodProduced[i];
+      foodArea[turnNumber][i] = regionData.farmArea[i];
+      foodIncome[turnNumber][i] = regionData.foodIncome[i];
+      int foodExportTemp = regionData.foodExported[i];
+      if(foodExportTemp > 0)
+      {
+        foodExport[turnNumber][i] = foodExportTemp;
+        foodImport[turnNumber][i] = 0;
+
+      }
+      else
+      {
+        foodExport[turnNumber][i] = 0;
+        foodImport[turnNumber][i] = -foodExportTemp;
+      }
+    }
   }
 
 }
