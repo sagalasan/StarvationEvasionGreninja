@@ -57,6 +57,11 @@ public class ServerWriter extends Thread
   private synchronized void sendNextMessage() throws IOException
   {
     Object object = messageQueue.removeFirst();
+    if(object == null)
+    {
+      System.out.println("Message is null");
+      return;
+    }
     if(ServerConnection.checkIfValidClass(object))
     {
       objectOutputStream.writeObject(object);
