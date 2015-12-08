@@ -2,10 +2,7 @@ package starvationevasion.greninja.gameControl;
 
 import javafx.application.Platform;
 import starvationevasion.common.EnumRegion;
-import starvationevasion.common.messages.Hello;
-import starvationevasion.common.messages.Login;
-import starvationevasion.common.messages.LoginResponse;
-import starvationevasion.common.messages.RegionChoice;
+import starvationevasion.common.messages.*;
 import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.gui.GuiBase;
 
@@ -110,6 +107,24 @@ public class AIThread extends GameController implements Runnable
         break;
       default:
         break;
+    }
+  }
+
+  /**
+   * When message is received from server, send to gui
+   * @param messageReceived
+   */
+  @Override
+  public void receiveChatMessage(ServerChatMessage messageReceived)
+  {
+    //send message to gui.
+    if(messageReceived.message == null)
+    {
+      //send card message to gui.
+    }
+    else
+    {
+      //send string message to gui.
     }
   }
 

@@ -27,7 +27,8 @@ public class ServerThread extends Thread
     commands.add("java");
     commands.add("starvationevasion/server/Server");
     commands.add(loginPath);
-    commands.add("java ava starvationevasion.greninja.gui.componentPane.GuiBase ai");
+    commands.add("java");
+    commands.add("starvationevasion.greninja.gui.componentPane.GuiBase ai");
     //commands.add("data/config/");
     ProcessBuilder processBuilder = new ProcessBuilder(commands);
     //processBuilder.directory(new File("/home/sagalasan/Documents/ideaProjects/StarvationEvasionGreninja/out/production/StarvationEvasionGreninja"));
@@ -37,9 +38,9 @@ public class ServerThread extends Thread
     {
       System.out.println(result.get(i));
     }
-
-    processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-    processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
+    processBuilder.inheritIO();
+    //processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+    //processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
     try
     {
       start = processBuilder.start();

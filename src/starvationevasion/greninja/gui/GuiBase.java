@@ -533,6 +533,9 @@ public class GuiBase extends Application implements ControlListener
     {
       System.out.println(args[0]);
       System.out.println("Javafx intercepted.");
+      System.out.println("Trying to start an ai from server :)");
+      System.out.println(args[1]);
+      System.out.println(args[2]);
     }
     else
     {
