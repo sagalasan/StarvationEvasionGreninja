@@ -294,7 +294,10 @@ public class GameController
   public void updateWorldStateInfo(GameState state)
   {
     worldState = state.worldData;
-    State.updateAllData(worldState);
+    if(isHuman)//Workaround to keep turn counter from updating
+    {
+      State.updateAllData(worldState);
+    }
     updatePlayerHand(state.hand);
     view.gameStateUpdate();
   }
@@ -555,7 +558,10 @@ public class GameController
         //cardsForVote.add(new PolicyCard(playerRegion, cardDrafted));
       }
       //TODO Temporary, remove
-      tempDeck.discard(cardDrafted.getCardType());
+      if(isTesting)
+      {
+        tempDeck.discard(cardDrafted.getCardType());
+      }
     }
     else
     {
