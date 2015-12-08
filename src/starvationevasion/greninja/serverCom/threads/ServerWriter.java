@@ -17,6 +17,11 @@ public class ServerWriter extends Thread
 
   private LinkedList<Object> messageQueue;
 
+  /**
+   * Constructor that user serverConnection and objectOutputStream
+   * @param serverConnection reference to the ServerConnection class
+   * @param objectOutputStream The objectOuputStream used to communicate with server
+   */
   public ServerWriter(ServerConnection serverConnection, ObjectOutputStream objectOutputStream)
   {
     this.serverConnection = serverConnection;
@@ -24,6 +29,10 @@ public class ServerWriter extends Thread
     messageQueue = new LinkedList<>();
   }
 
+  /**
+   * Adds message to queue so it can be sent out
+   * @param o
+   */
   public synchronized void addMessageToQueue(Object o)
   {
     if(o == null)
@@ -34,6 +43,9 @@ public class ServerWriter extends Thread
     notify();
   }
 
+  /**
+   * Overrides run() so it will send messages
+   */
   @Override
   public void run()
   {
