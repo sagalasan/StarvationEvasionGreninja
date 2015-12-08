@@ -332,7 +332,11 @@ public class GameController
     view.initPlayerRegionInfo(playerRegionInfo, playerRegion);
     tempDeck = new CardDeck(playerRegion);
     //start policy drafting phase.
-    if(isHuman) ((GuiBase) view).beginGameMessageReceived();
+    if(isHuman) Platform.runLater(() ->
+    {
+      ((GuiBase) view).beginGameMessageReceived();
+    });
+
     if(isTesting)
     {
       startPolicyDraftingPhase();
@@ -356,7 +360,7 @@ public class GameController
         playerRegion = region;
       }
     }
-    Platform.runLater(() -> beginGame());
+    if(isHuman) Platform.runLater(() -> beginGame());
   }
 
   /**

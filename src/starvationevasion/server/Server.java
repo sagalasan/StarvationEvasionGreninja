@@ -43,6 +43,7 @@ public class Server
   public Server(String loginFilePath, String[] AICommand)
   {
     this.AICommand = AICommand;
+    for(String i : AICommand) System.out.println(i);
     try
     {
       passwordFile = PasswordFile.loadFromFile(loginFilePath);

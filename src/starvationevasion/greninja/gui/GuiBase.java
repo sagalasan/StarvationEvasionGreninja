@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import starvationevasion.common.EnumPolicy;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.*;
+import starvationevasion.greninja.clientCommon.ClientConstant;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.common.EnumRegion;
 import starvationevasion.greninja.gameControl.AIThread;
@@ -21,6 +22,7 @@ import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.PlayerInterface;
 import starvationevasion.greninja.model.State;
 import starvationevasion.server.Server;
+import starvationevasion.server.ServerConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -535,10 +537,10 @@ public class GuiBase extends Application implements ControlListener
       System.out.println("Javafx intercepted.");
       System.out.println("Trying to start an ai from server :)");
       System.out.println(args[1]);
-      System.out.println(args[2]);
     }
     else
     {
+      System.out.println("Why are we her if was started?????");
       launch(args);
     }
   }
