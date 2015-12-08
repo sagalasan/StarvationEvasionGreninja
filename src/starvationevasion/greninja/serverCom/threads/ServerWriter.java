@@ -74,7 +74,7 @@ public class ServerWriter extends Thread
       System.out.println("Message is null");
       return;
     }
-    if(ServerConnection.checkIfValidClass(object))
+    if(true)//ServerConnection.checkIfValidClass(object))
     {
       objectOutputStream.writeObject(object);
     }
