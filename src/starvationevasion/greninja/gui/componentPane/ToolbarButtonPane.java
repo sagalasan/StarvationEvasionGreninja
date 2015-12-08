@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -53,17 +54,18 @@ public class ToolbarButtonPane extends BorderPane
 
     top.getChildren().addAll(image, titleInfo);
     setTop(top);
-    File file = new File("greninjaAssets/trivia.xml");
+    //File file = new File("greninjaAssets/trivia.xml");
     try{
       /**
        * makes an xml reader that looks for the correct category and then gets the question
        */
+      InputStream is = getClass().getResourceAsStream("/trivia.xml");
       //File file = new File("data/trivia.xml");
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
           .newInstance();
 
       DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-      Document document = documentBuilder.parse(file);
+      Document document = documentBuilder.parse(is);
 
 
 
