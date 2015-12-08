@@ -144,11 +144,14 @@ public class ToolbarPane extends GridPane implements IconImages
           @Override
           public void handle(MouseEvent event) {
             toolStage.hide();
+            toolButtonPane.setRandomQuestion();
+            //choose a random question here for the overlay
           }
         });
         iconButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
+            //choose random question
             toolStage.show();
             toolStage.toFront();
           }
