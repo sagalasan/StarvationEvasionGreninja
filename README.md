@@ -9,6 +9,8 @@ Visualization is currently commented out, is causing Out of Memory Errors.  Prob
 
 Server gets stuck on Simulator construction, does not continue past line 418.
 
+starvationevasion.greninja.gui.GuiBase is the main class.  Does not need to run with any arguments.
+
 ## Contributors
 
 * Christiaan Martinez - cmdm@unm.edu
