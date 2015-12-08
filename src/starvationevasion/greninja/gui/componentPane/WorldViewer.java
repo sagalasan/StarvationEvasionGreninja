@@ -32,6 +32,7 @@ public class WorldViewer extends VBox{
   //public  Label title = new Label("Year, World/Region \nPopulation and HDI");
   //private Label toggleEarthMode = new Label("Press tab to toggle between Earth sizes");
 
+
   private EarthViewer earthViewer;
   private Stage earthStage = new Stage();
 
@@ -91,17 +92,16 @@ public class WorldViewer extends VBox{
 
   }
 
+  /**
+   * updates the mini globe and adds back to display
+   */
   private void updateTheMiniGlobe()
   {
 
     earthViewer = new EarthViewer(30, 140);
     getChildren().add(earthViewer.updateMini());
-     //System.out.println(getChildren().size());//getChildren().size();//.add(earthViewer.updateMini());
+
   }
-
-
-//The rest of these functions are layout things and not important
-
 
 
 }
