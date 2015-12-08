@@ -5,6 +5,7 @@ import starvationevasion.common.EnumRegion;
 import starvationevasion.common.PolicyCard;
 import starvationevasion.common.messages.AvailableRegions;
 import starvationevasion.common.messages.ClientChatMessage;
+import starvationevasion.common.messages.DraftCard;
 import starvationevasion.greninja.clientCommon.EnumPhase;
 import starvationevasion.greninja.gui.componentPane.TimerPane;
 import starvationevasion.greninja.model.AIPlayer;
@@ -97,9 +98,11 @@ public class AIView implements ControlListener
       if (player.getPlayerHand() != null)
       {
         int draftCardIndex = decisions.analyzeCards(player.getPlayerHand(), "mandatory");
-        player.draft(draftCardIndex);
+        //player.draft(draftCardIndex);
+        control.draftPolicy(player.draft(draftCardIndex));
         int draftVoteCardIndex = decisions.analyzeCards(player.getPlayerHand(), "votes");
-        player.draft(draftVoteCardIndex);
+        control.draftPolicy(player.draft(draftVoteCardIndex));
+        //control.sendMessageOut(new DraftCard(player.draft(draftVoteCardIndex)));
         hasDrafted = true;
       }
     }

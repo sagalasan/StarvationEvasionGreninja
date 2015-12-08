@@ -157,10 +157,19 @@ public class AIDecisions
     List<Integer> rankedCardsIndices = new ArrayList<Integer>(rankedCards.values());
 
     int selectedIndex = 0; // Initialize to zero
+    int cardMax = 0;
+    if(rankedCardsIndices.size() < probabilities.length)
+    {
+      cardMax = rankedCardsIndices.size();
+    }
+    else
+    {
+      cardMax = probabilities.length;
+    }
 
     // Select card based on probability
     double q = rand.nextDouble(); // Uniformly distributed random number
-    for (int i = 0; i < probabilities.length; i++)
+    for (int i = 0; i < cardMax; i++)
     {
       if (DEBUG) System.out.println("q - probabilities[" + i + "] = " + (q - probabilities[i]));
       if ((q -= probabilities[i]) < 0)

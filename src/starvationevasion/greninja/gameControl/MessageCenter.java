@@ -64,7 +64,6 @@ public class MessageCenter
     }
     else if(message instanceof PhaseStart)
     {
-      System.out.println("PhaseStartMessage");
       handlePhaseStartMessage((PhaseStart) message);
     }
     else if(message instanceof ReadyToBegin)
@@ -97,6 +96,7 @@ public class MessageCenter
    */
   public void handlePhaseStartMessage(PhaseStart msg)
   {
+    System.out.println("PhaseStartMessage" + msg.currentGameState);
     switch(msg.currentGameState)
     {
       case LOGIN:
