@@ -53,6 +53,8 @@ public class ServerConnection
 
   /**
    * Attempts to start connection to the server
+   * @param hostName The hostname that will be connected to.
+   * @param port The port that will be connected to.
    * @return true if connection is established; false if connection failed
    */
   public boolean startConnection(String hostName, int port)
