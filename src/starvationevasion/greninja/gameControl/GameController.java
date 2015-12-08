@@ -34,7 +34,7 @@ public class GameController
   private DraftingPhase draftingPhase;
   private VotingPhase votingPhase;
   private PlayerInterface player;
-  private ArrayList<PolicyCard> cardsForVote;
+  private PolicyCard[] cardsForVote;
   private ArrayList<PolicyCard> draftedCards;
 
   private ServerConnection serverLine;
@@ -75,7 +75,7 @@ public class GameController
     isHuman = true;
     this.view = view;
     guiView = (GuiBase) view;
-    cardsForVote = new ArrayList<>();
+    //cardsForVote = new ArrayList<>();
     messageCenter = new MessageCenter(this);
     draftedCards = new ArrayList<>();
   }
@@ -760,14 +760,16 @@ public class GameController
   public void updateVoteStatusInfo(VoteStatus msg)
   {
     //Send vote status to gui.
+    cardsForVote = msg.currentCards;
   }
 
-  private void getCardsForVote()
+  private PolicyCard[] getCardsForVote()
   {
     //get the cards up for vote from the server.
     //for each card for vote
       //add to cardsForVote
     //inform gui of cards by region.
+    return cardsForVote;
   }
 
 
