@@ -8,6 +8,7 @@ import starvationevasion.greninja.model.PlayerInterface;
 
 /**
  * Controls the policy drafting phase.
+ * Unused, game shaped up alot different than I thought.
  */
 public class DraftingPhase extends GamePhase
 {

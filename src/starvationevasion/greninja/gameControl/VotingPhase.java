@@ -4,6 +4,7 @@ import starvationevasion.greninja.clientCommon.ClientConstant;
 
 /**
  * Class controls the voting phase of the game.
+ * Unused, game shaped up alot different than i thought.
  */
 public class VotingPhase extends GamePhase
 {
